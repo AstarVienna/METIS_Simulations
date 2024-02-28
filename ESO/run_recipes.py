@@ -42,7 +42,7 @@ def run():
 
 def _load_recipes() -> dict:
     with Path("recipes.yaml").open(encoding="utf-8") as file:
-        return yaml.full_load(file)
+        return yaml.safe_load(file)
 
 
 if __name__ == "__main__":
