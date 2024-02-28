@@ -1,0 +1,141 @@
+DARK_LM_RAW:
+  mode: "img_lm"
+  source: 
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 10
+    ndit: 1
+    filter_name: "closed"
+    catg: "CALIB"
+    tech: "IMAGE,LM"
+    type: "DARK"
+    mjdobs: 2024-01-02 03:45:00
+
+DARK_N_RAW:
+  mode: "img_n"
+  source: 
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 10
+    ndit: 1
+    filter_name: "closed"
+    catg: "CALIB"
+    tech: "IMAGE,N"
+    type: "DARK"
+    mjdobs: 2024-01-02 03:45:00
+
+DETLIN_LM_RAW:
+  mode: "img_lm"
+  source: 
+    name: flat_field
+    kwargs:
+      temperature: 200
+      amplitude: 0
+      filter_curve: "V"
+      extend: 15
+  properties:
+    dit:
+      - 1.
+      - 17.5
+      - 34.
+      - 50.5
+      - 67.
+      - 83.5
+      - 100
+    ndit: 1
+    filter_name: "open"
+    catg: "CALIB"
+    tech: "IMAGE,LM"
+    type: "DETLIN"
+    mjdobs: 2024-01-02 03:45:00
+
+DETLIN_N_RAW:
+  mode: "img_n"
+  source: 
+    name: flat_field
+    kwargs:
+      temperature: 200
+      amplitude: 0
+      filter_curve: "V"
+      extend: 15
+  properties:
+    dit:
+      - 1.
+      - 17.5
+      - 34.
+      - 50.5
+      - 67.
+      - 83.5
+      - 100
+    ndit: 1
+    filter_name: "open"
+    catg: "CALIB"
+    tech: "IMAGE,N"
+    type: "DETLIN"
+    mjdobs: 2024-01-02 03:45:00
+
+LM_FLAT_LAMP_RAW:
+  mode: "img_lm"
+  source: 
+    name: flat_field
+    kwargs:
+      temperature: 200
+      amplitude: 0
+      filter_curve: "V"
+      extend: 15
+  properties:
+    dit: 10
+    ndit: 1
+    filter_name: "open"
+    catg: "CALIB"
+    tech: "IMAGE,LM"
+    type: "FLAT,LAMP"
+    mjdobs: 2024-01-02 03:45:00
+
+N_FLAT_LAMP_RAW:
+  mode: "img_n"
+  source: 
+    name: flat_field
+    kwargs:
+      temperature: 200
+      amplitude: 0
+      filter_curve: "V"
+      extend: 15
+  properties:
+    dit: 10
+    ndit: 1
+    filter_name: "open"
+    catg: "CALIB"
+    tech: "IMAGE,N"
+    type: "FLAT,LAMP"
+    mjdobs: 2024-01-02 03:45:00
+
+LM_FLAT_TWILIGHT_RAW:
+  mode: "img_lm"
+  source: 
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 10
+    ndit: 1
+    filter_name: "open"
+    catg: "CALIB"
+    tech: "IMAGE,LM"
+    type: "FLAT,TWILIGHT"
+    mjdobs: 2024-01-02 03:45:00
+
+N_FLAT_TWILIGHT_RAW:
+  mode: "img_n"
+  source: 
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 10
+    ndit: 1
+    filter_name: "open"
+    catg: "CALIB"
+    tech: "IMAGE,N"
+    type: "FLAT,TWILIGHT"
+    mjdobs: 2024-01-02 03:45:00

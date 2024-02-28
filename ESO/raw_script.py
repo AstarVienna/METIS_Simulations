@@ -8,6 +8,7 @@ import argparse
 import datetime
 from pathlib import Path
 from itertools import product, cycle, chain
+from collections.abc import Mapping
 
 import numpy as np
 from more_itertools import value_chain
@@ -28,8 +29,8 @@ MODESDICT = {
 }
 
 SOURCEDICT = {
-    "empty": (sim_tp.empty_sky, {}),
-    "flat": (
+    "empty_sky": (sim_tp.empty_sky, {}),
+    "flat_field": (
         sim_tp.calibration.flat_field,
         {
             "temperature": 200,
@@ -55,20 +56,21 @@ def simulate(fname, kwargs, source=None):
     logger.debug("kwargs dict:\n%s",
                  "\n".join(f"  {k}: {v}" for k, v in kwargs.items()))
     if fname is not None:
-        logger.debug("output filename: %s",
-                     fname.relative_to(Path.cwd().parent))
+        logger.debug("output filename: %s", fname)
     else:
         logger.warning("Output filename not set, result will not be saved.")
 
-    src_name = source or SOURCEMODEDICT[kwargs["!OBS.type"]]
+    if isinstance(source, Mapping):
+        src_name = source["name"]
+    else:
+        src_name = source or SOURCEMODEDICT[kwargs["!OBS.type"]]
     src_fct, src_kwargs = SOURCEDICT[src_name]
+    if isinstance(source, Mapping):
+        src_kwargs |= source["kwargs"]
+
     src = src_fct(**src_kwargs)
     logger.info("Source function: %s", src_fct.__name__)
-
-    defaults = {
-        # Use a specific date for reproducibility.
-        "!OBS.mjdobs": datetime.datetime(2024, 1, 2, 3, 45, 0),
-    }
+    logger.debug("Source kwargs: %s", src_kwargs)
 
     # HACK: closed filter is not yet implemented
     if kwargs["!OBS.filter_name"] == "closed":
@@ -83,7 +85,7 @@ def simulate(fname, kwargs, source=None):
     cmd = sim.UserCommands(
         use_instrument="METIS",
         set_modes=[mode],
-        properties=defaults | kwargs
+        properties=kwargs
     )
 
     metis = sim.OpticalTrain(cmd)
