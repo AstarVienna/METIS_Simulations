@@ -46,7 +46,8 @@ def run():
             sdate = sdate.replace(":", "_")
             expfname = "-".join(f"{k}{v}" if not isinstance(v, str)
                                 else v.replace(",", ".")
-                                for k, v in combodict.items())
+                                for k, v in combodict.items()
+                                if k not in {"mjdobs"})
             fname = '-'.join([name, expfname]) if expfname else name
             fname = f"METIS.{sdate}.{fname}"
             fname = out_dir / f"{fname}.fits"
