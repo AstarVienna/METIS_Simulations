@@ -10,7 +10,12 @@ DARK_LM_RAW:
     catg: "CALIB"
     tech: "IMAGE,LM"
     type: "DARK"
-    mjdobs: 2024-01-02 03:45:00
+    mjdobs:
+      - 2024-01-02 03:45:10
+      - 2024-01-02 03:45:20
+      - 2024-01-02 03:45:30
+      - 2024-01-02 03:45:40
+      - 2024-01-02 03:45:50
 
 DARK_N_RAW:
   mode: "img_n"
@@ -24,11 +29,16 @@ DARK_N_RAW:
     catg: "CALIB"
     tech: "IMAGE,N"
     type: "DARK"
-    mjdobs: 2024-01-02 03:45:00
+    mjdobs:
+      - 2024-01-02 03:46:10
+      - 2024-01-02 03:46:20
+      - 2024-01-02 03:46:30
+      - 2024-01-02 03:46:40
+      - 2024-01-02 03:46:50
 
 DETLIN_LM_RAW:
   mode: "img_lm"
-  source: 
+  source:
     name: flat_field
     kwargs:
       temperature: 200
@@ -53,7 +63,7 @@ DETLIN_LM_RAW:
 
 DETLIN_N_RAW:
   mode: "img_n"
-  source: 
+  source:
     name: flat_field
     kwargs:
       temperature: 200
@@ -78,7 +88,7 @@ DETLIN_N_RAW:
 
 LM_FLAT_LAMP_RAW:
   mode: "img_lm"
-  source: 
+  source:
     name: flat_field
     kwargs:
       temperature: 200
@@ -96,7 +106,7 @@ LM_FLAT_LAMP_RAW:
 
 N_FLAT_LAMP_RAW:
   mode: "img_n"
-  source: 
+  source:
     name: flat_field
     kwargs:
       temperature: 200
@@ -114,7 +124,7 @@ N_FLAT_LAMP_RAW:
 
 LM_FLAT_TWILIGHT_RAW:
   mode: "img_lm"
-  source: 
+  source:
     name: empty_sky
     kwargs: {}
   properties:
@@ -128,7 +138,7 @@ LM_FLAT_TWILIGHT_RAW:
 
 N_FLAT_TWILIGHT_RAW:
   mode: "img_n"
-  source: 
+  source:
     name: empty_sky
     kwargs: {}
   properties:
