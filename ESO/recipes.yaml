@@ -38,7 +38,7 @@ DARK_N_RAW:
 
 DETLIN_LM_RAW:
   mode: "img_lm"
-  source: 
+  source:
     name: flat_field
     kwargs:
       temperature: 200
@@ -63,7 +63,7 @@ DETLIN_LM_RAW:
 
 DETLIN_N_RAW:
   mode: "img_n"
-  source: 
+  source:
     name: flat_field
     kwargs:
       temperature: 200
@@ -88,7 +88,7 @@ DETLIN_N_RAW:
 
 LM_FLAT_LAMP_RAW:
   mode: "img_lm"
-  source: 
+  source:
     name: flat_field
     kwargs:
       temperature: 200
@@ -106,7 +106,7 @@ LM_FLAT_LAMP_RAW:
 
 N_FLAT_LAMP_RAW:
   mode: "img_n"
-  source: 
+  source:
     name: flat_field
     kwargs:
       temperature: 200
@@ -124,7 +124,7 @@ N_FLAT_LAMP_RAW:
 
 LM_FLAT_TWILIGHT_RAW:
   mode: "img_lm"
-  source: 
+  source:
     name: empty_sky
     kwargs: {}
   properties:
@@ -138,7 +138,7 @@ LM_FLAT_TWILIGHT_RAW:
 
 N_FLAT_TWILIGHT_RAW:
   mode: "img_n"
-  source: 
+  source:
     name: empty_sky
     kwargs: {}
   properties:
