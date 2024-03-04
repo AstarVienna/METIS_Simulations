@@ -28,11 +28,25 @@ def run():
         combos = product(*[recipe["properties"][key] for key in expanded])
 
         for combo in combos:
+            # Create a filename that resembles that of the real data.
+            # The filenames from the ICS software will probably look like
+            #     METIS.2024-02-29T01:23:45.678.fits
+            # However, this has two drawmacks:
+            # - There are colons that cannot be used in Windows filenames.
+            # - They don't contain any information about the type of file.
+            # Therefor the colons are replaced and extra information is added.
+            # The resulting filenames look like
+            #     METIS.2024-01-02T03_45_00.DETLIN_LM_RAW-dit1.0.fits
+
+            sdate = recipe["properties"]["mjdobs"].isoformat()
+            # Replace colon so the date can be in Windows filenames.
+            sdate = sdate.replace(":", "_")
             combodict = dict(zip(expanded, combo))
             expfname = "-".join(f"{k}{v}" if not isinstance(v, str)
                                 else v.replace(",", ".")
                                 for k, v in combodict.items())
             fname = '-'.join([name, expfname]) if expfname else name
+            fname = f"METIS.{sdate}.{fname}"
             fname = out_dir / f"{fname}.fits"
 
             kwargs = NestedMapping({"OBS": recipe["properties"] | combodict})
