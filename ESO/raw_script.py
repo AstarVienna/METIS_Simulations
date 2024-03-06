@@ -289,6 +289,8 @@ def main():
         ],
         help="!OBS.type keyword",
     )
+    if len(sys.argv) == 1:
+        parser.print_help()
 
     argdict = vars(parser.parse_args())
     _logger_setup(argdict.pop("verbose"))
