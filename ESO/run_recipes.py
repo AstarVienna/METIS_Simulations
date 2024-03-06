@@ -31,7 +31,7 @@ def run():
         for combo in combos:
             combodict = dict(zip(expanded, combo))
             props = recipe["properties"] | combodict
-
+            
             # Create a filename that resembles that of the real data.
             # The filenames from the ICS software will probably look like
             #     METIS.2024-02-29T01:23:45.678.fits
@@ -45,13 +45,13 @@ def run():
             # Replace colon so the date can be in Windows filenames.
             sdate = sdate.replace(":", "_")
             expfname = "-".join(f"{k}{v}" if not isinstance(v, str)
-                                else v.replace(",", ".")
-                                for k, v in combodict.items()
-                                if k not in {"mjdobs"})
+                            else v.replace(",", ".")
+                            for k, v in combodict.items()
+                            if k not in {"mjdobs"})
             fname = '-'.join([name, expfname]) if expfname else name
             fname = f"METIS.{sdate}.{fname}"
             fname = out_dir / f"{fname}.fits"
-
+            print("fname=",fname)
             kwargs = NestedMapping({"OBS": props})
 
             simulate(fname, kwargs, source=recipe["source"])
