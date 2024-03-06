@@ -16,6 +16,7 @@ from more_itertools import value_chain
 from astar_utils.loggers import get_logger, ColoredFormatter
 import scopesim as sim
 import scopesim_templates as sim_tp
+import astropy.units as u
 
 
 logger = get_logger(__file__)
@@ -38,7 +39,14 @@ SOURCEDICT = {
             "filter_curve": "V",
             "extend": 15,
         }
-    )
+    ),
+    "simple_star": (
+        sim_tp.stellar.star,
+        {
+            "filter_name":"V",
+            "amplitude": [12]*u.mag,
+        }
+        )
 }
 SOURCEMODEDICT = {
     "DARK": "empty",
