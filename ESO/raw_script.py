@@ -18,44 +18,12 @@ import scopesim as sim
 import scopesim_templates as sim_tp
 import astropy.units as u
 
+from simulationDefinitions import *
 
 logger = get_logger(__file__)
 
 # lookup table for scopesim modes based on !OBS.type, which seems to be a
 # direct relation (if it's not, change ... something)
-MODESDICT = {
-    "IMAGE,LM": "img_lm",
-    "IMAGE,N": "img_n",
-    "IFU": "ifu",
-}
-
-SOURCEDICT = {
-    "empty_sky": (sim_tp.empty_sky, {}),
-    "flat_field": (
-        sim_tp.calibration.flat_field,
-        {
-            "temperature": 200,
-            "amplitude": 0,
-            "filter_curve": "V",
-            "extend": 15,
-        }
-    ),
-    "simple_star": (
-        sim_tp.stellar.star,
-        {
-            "filter_name":"V",
-            "amplitude": [12]*u.mag,
-        }
-        )
-}
-SOURCEMODEDICT = {
-    "DARK": "empty",
-    "DETLIN": "flat",
-    "RSRF": "flat",
-}
-
-DEFAULT_IRDB_LOCATION = "../IRDB/"
-sim.download_packages(["Armazones", "ELT", "METIS"])
 
 def simulate(fname, kwargs, source=None):
     """Run main function for this script."""
