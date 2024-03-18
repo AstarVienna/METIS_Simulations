@@ -6,16 +6,17 @@ from pathlib import Path
 from itertools import product
 
 import yaml
+import argparse
 
 from astar_utils import NestedMapping
 
 from raw_script import simulate
 
 
-def run():
+def run(inputYAML,outputDir):
     """Run simulations using recipes.yaml."""
-    rcps = _load_recipes()
-    out_dir = Path("./output/")
+    rcps = _load_recipes(inputYAML)
+    out_dir = Path(outputDir)
     out_dir.mkdir(parents=True, exist_ok=True)
 
     expandables = [
@@ -57,10 +58,29 @@ def run():
             simulate(fname, kwargs, source=recipe["source"])
 
 
-def _load_recipes() -> dict:
+def _load_recipes(inputFile) -> dict:
     with Path("recipes.yaml").open(encoding="utf-8") as file:
         return yaml.safe_load(file)
 
 
 if __name__ == "__main__":
-    run()
+
+
+    parser.add_argument('--inputYAML', type=str,
+                    help='input YAML File')
+    parser.add_argument('--outputDir', type=str, 
+                    help='output directory')
+
+    args = parser.parse_args()
+    
+    if(args.inputYAML):
+        inputYAML = args.inputYAML
+    else:
+        inputYAML = "recipes.yaml"
+    if(args.outputDir):
+        outputDir = args.outputDir
+    else:
+        outputDir = "./output/"
+    run(inputYAML,outputDir)
+
+    
