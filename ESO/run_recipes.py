@@ -65,7 +65,7 @@ def _load_recipes(inputFile) -> dict:
 
 if __name__ == "__main__":
 
-
+    parser = argparse.ArgumentParser()
     parser.add_argument('--inputYAML', type=str,
                     help='input YAML File')
     parser.add_argument('--outputDir', type=str, 
