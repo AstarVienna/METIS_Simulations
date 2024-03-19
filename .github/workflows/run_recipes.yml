@@ -28,6 +28,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install git+https://github.com/AstarVienna/ScopeSim_Data.git
-          pip install scopesim astar-utils numpy more-itertools astropy PyYAML scopesim_templates
+          pip install git+https://github.com/AstarVienna/ScopeSim.git
+          pip install astar-utils numpy more-itertools astropy PyYAML scopesim_templates
       - name: Run recipes
         run: python ESO/run_recipes.py
