@@ -58,7 +58,7 @@ def run():
 
 
 def _load_recipes() -> dict:
-    with Path("recipes.yaml").open(encoding="utf-8") as file:
+    with (Path(__file__).parent / "recipes.yaml").open(encoding="utf-8") as file:
         return yaml.safe_load(file)
 
 
