@@ -14,6 +14,7 @@ from raw_script import simulate
 
 def run():
     """Run simulations using recipes.yaml."""
+    print("DEBUG")
     rcps = _load_recipes()
     out_dir = Path("./output/")
     out_dir.mkdir(parents=True, exist_ok=True)
