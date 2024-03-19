@@ -32,3 +32,8 @@ jobs:
           pip install astar-utils numpy more-itertools astropy PyYAML scopesim_templates
       - name: Run recipes
         run: python ESO/run_recipes.py
+      - name: Store output files
+        uses: actions/upload-artifact@v3
+        with:
+          name: output
+          path: output/
