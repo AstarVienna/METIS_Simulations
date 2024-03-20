@@ -14,6 +14,7 @@ from raw_script import simulate
 
 def run():
     """Run simulations using recipes.yaml."""
+    print("DEBUG")
     rcps = _load_recipes()
     out_dir = Path("./output/")
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -58,7 +59,7 @@ def run():
 
 
 def _load_recipes() -> dict:
-    with Path("recipes.yaml").open(encoding="utf-8") as file:
+    with (Path(__file__).parent / "recipes.yaml").open(encoding="utf-8") as file:
         return yaml.safe_load(file)
 
 
