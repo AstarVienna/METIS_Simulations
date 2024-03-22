@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """."""
 
@@ -62,13 +62,15 @@ def run(inputYAML,outputDir):
             simulate(fname, kwargs, source=recipe["source"])
 
 
-def _load_recipes(inputFile) -> dict:
-    with Path("recipes.yaml").open(encoding="utf-8") as file:
+def _load_recipes(inputYAML) -> dict:
+    with Path(inputYAML).open(encoding="utf-8") as file:
         return yaml.safe_load(file)
 
 
 if __name__ == "__main__":
 
+    
+    parser = argparse.ArgumentParser()
 
     parser.add_argument('--inputYAML', type=str,
                     help='input YAML File')
@@ -76,7 +78,7 @@ if __name__ == "__main__":
                     help='output directory')
 
     args = parser.parse_args()
-    
+    print(args)
     if(args.inputYAML):
         inputYAML = args.inputYAML
     else:
@@ -85,6 +87,8 @@ if __name__ == "__main__":
         outputDir = args.outputDir
     else:
         outputDir = "./output/"
+
+    print(inputYAML,outputDir)
     run(inputYAML,outputDir)
 
     
