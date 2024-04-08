@@ -17,7 +17,6 @@ def run(inputYAML,outputDir):
     """Run simulations using recipes.yaml."""
 
     print("DEBUG")
-    rcps = _load_recipes()
 
     rcps = _load_recipes(inputYAML)
     out_dir = Path(outputDir)

@@ -24,22 +24,51 @@ SOURCEDICT = {
         sim_tp.stellar.star,
         {
             "filter_name":"V",
-            "amplitude": [5]*u.mag,
+            "amplitude": [8 ]*u.mag,
         }
     ),
+    "simple_stars":(
+        sim_tp.stellar.stars,
+        {
+            "filter_name":"J",
+            "amplitudes":[12],
+            "x":[0],
+            "y":[0],
+            "spec_types":["m3v"],
+            "library":"pickles",
+            }
+        ),
+
     "simple_gal": (
-        sim_tp.extragalactic.galaxy,
+        sim_tp.extragalactic.elliptical,
         {
             "sed":"brown/NGC4473",
-            "z":0.1, 
-            "amplitude":-100, 
-            "filter_curve":"g", 
-            "pixel_scale":0.05, 
-            "r_eff":2.5, 
+            "z":0, 
+            "amplitude":5, 
+            "filter_name":"Ks", 
+            "pixel_scale":0.1, 
+            "half_light_radius":30,
             "n":4, 
             "ellip":0.5, 
-            "theta":45, 
-            "extend":3,
+            "ellipticity":0.5,
+            "angle":30,
+        }
+
+        ),
+    
+    "simple_gal1": (
+        sim_tp.extragalactic.elliptical,
+        {
+            "sed":"brown/NGC4473",
+            "z":0, 
+            "amplitude":0, 
+            "filter_name":"Ks", 
+            "pixel_scale":0.1, 
+            "half_light_radius":30,
+            "n":4, 
+            "ellip":0.5, 
+            "ellipticity":0.5,
+            "angle":30,
         }
 
         )
@@ -64,4 +93,3 @@ SOURCEMODEDICT = {
 }
 
 DEFAULT_IRDB_LOCATION = "../IRDB/"
-

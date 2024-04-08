@@ -31,10 +31,25 @@ DARK_N_RAW:
     type: "DARK"
     mjdobs:
       - 2024-01-02 03:46:10
-      - 2024-01-02 03:45:20
-      - 2024-01-02 03:45:30
-      - 2024-01-02 03:45:40
-      - 2024-01-02 03:45:50
+      - 2024-01-02 03:46:20
+      - 2024-01-02 03:46:30
+      - 2024-01-02 03:46:40
+      - 2024-01-02 03:46:50
+
+DARK_IFU_RAW:
+  mode: "lms"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 10
+    ndit: 1
+    filter_name: "closed"
+    catg: "CALIB"
+    tech: "LMS"
+    type: "DARK"
+    mjdobs:
+      - 2024-01-02 03:45:10
 
 DETLIN_LM_RAW:
   mode: "img_lm"
@@ -83,6 +98,31 @@ DETLIN_N_RAW:
     filter_name: "open"
     catg: "CALIB"
     tech: "IMAGE,N"
+    type: "DETLIN"
+    mjdobs: 2024-01-02 03:45:00
+
+DETLIN_IFU_RAW:
+  mode: "img_lm"
+  source:
+    name: flat_field
+    kwargs:
+      temperature: 200
+      amplitude: 0
+      filter_curve: "V"
+      extend: 15
+  properties:
+    dit:
+      - 1.
+      - 17.5
+      - 34.
+      - 50.5
+      - 67.
+      - 83.5
+      - 100
+    ndit: 1
+    filter_name: "open"
+    catg: "CALIB"
+    tech: "LMS"
     type: "DETLIN"
     mjdobs: 2024-01-02 03:45:00
 
@@ -150,26 +190,42 @@ N_FLAT_TWILIGHT_RAW:
     type: "FLAT,TWILIGHT"
     mjdobs: 2024-01-02 03:45:10
 
-SIMPLESTAR_LM_RAW:
-  mode: "img_lm"
-  source: 
-    name: simple_star
+IFU_FLAT_LAMP_RAW:
+  mode: "lms"
+  source:
+    name: flat_field
+    kwargs:
+      temperature: 200
+      amplitude: 0
+      filter_curve: "V"
+      extend: 15
+  properties:
+    dit: 10
+    ndit: 1
+    filter_name: "open"
+    catg: "CALIB"
+    tech: "LMS"
+    type: "FLAT,LAMP"
+    mjdobs: 2024-01-02 03:45:10
+
+IFU_FLAT_TWILIGHT_RAW:
+  mode: "lms"
+  source:
+    name: empty_sky
     kwargs: {}
   properties:
-    dit: 0.25
-    ndit: 10
-    filter_name: "Lp"
-    catg: "SCIENCE"
-    tech: "IMAGE,LM"
-    type: "OBJECT"
-    mjdobs:
-      - 2024-01-02 03:45:10
-
+    dit: 10
+    ndit: 1
+    filter_name: "open"
+    catg: "CALIB"
+    tech: "LMS"
+    type: "FLAT,TWILIGHT"
+    mjdobs: 2024-01-02 03:45:10
 
 STAR_N1_RAW:
   mode: "img_n"
   source: 
-    name: simple_star
+    name: simple_star12
     kwargs: {}
   properties:
     dit: 0.25
@@ -181,7 +237,7 @@ STAR_N1_RAW:
     mjdobs:
       - 2024-01-02 03:45:10
 
-SKY_N1_RAW:
+STARSKY_N1_RAW:
   mode: "img_n"
   source: 
     name: empty_sky
@@ -199,7 +255,7 @@ SKY_N1_RAW:
 STAR_LP_RAW:
   mode: "img_lm"
   source: 
-    name: simple_star
+    name: simple_star12
     kwargs: {}
   properties:
     dit: 0.25
@@ -211,7 +267,7 @@ STAR_LP_RAW:
     mjdobs:
       - 2024-01-02 03:45:10
 
-SKY_LP_RAW:
+STARSKY_LP_RAW:
   mode: "img_lm"
   source: 
     name: empty_sky
@@ -229,7 +285,7 @@ SKY_LP_RAW:
 STAR_MP_RAW:
   mode: "img_lm"
   source: 
-    name: simple_star
+    name: simple_star12
     kwargs: {}
   properties:
     dit: 0.25
@@ -241,7 +297,7 @@ STAR_MP_RAW:
     mjdobs:
       - 2024-01-02 03:45:10
 
-SKY_MP_RAW:
+STARSKY_MP_RAW:
   mode: "img_lm"
   source: 
     name: empty_sky
@@ -256,41 +312,10 @@ SKY_MP_RAW:
     mjdobs:
       - 2024-01-02 03:45:10
 
-STAR_LSS_L_RAW:
-  mode: "lss_l"
-  source: 
-    name: simple_star
-    kwargs: {}
-  properties:
-    dit: 0.25
-    ndit: 1
-    filter_name: "L_spec"
-    catg: "SCIENCE"
-    tech: "LSS,LM"
-    type: "OBJECT"
-    mjdobs:
-      - 2024-01-02 03:45:10
-
-SKY_LSS_L_RAW:
-  mode: "lss_l"
-  source: 
-    name: empty_sky
-    kwargs: {}
-  properties:
-    dit: 0.25
-    ndit: 1
-    filter_name: "L_spec"
-    catg: "SCIENCE"
-    tech: "LSS,LM"
-    type: "SKY"
-    mjdobs:
-      - 2024-01-02 03:45:10
-
-
 STAR_LSS_M_RAW:
   mode: "lss_m"
   source: 
-    name: simple_star
+    name: simple_star12
     kwargs: {}
   properties:
     dit: 0.25
@@ -302,7 +327,7 @@ STAR_LSS_M_RAW:
     mjdobs:
       - 2024-01-02 03:45:10
 
-SKY_LSS_M_RAW:
+STARSKY_LSS_M_RAW:
   mode: "lss_m"
   source: 
     name: empty_sky
@@ -316,12 +341,11 @@ SKY_LSS_M_RAW:
     type: "SKY"
     mjdobs:
       - 2024-01-02 03:45:10
-
 
 STAR_LSS_N_RAW:
   mode: "lss_n"
   source: 
-    name: simple_star
+    name: simple_star12
     kwargs: {}
   properties:
     dit: 0.25
@@ -333,7 +357,7 @@ STAR_LSS_N_RAW:
     mjdobs:
       - 2024-01-02 03:45:10
 
-SKY_LSS_N_RAW:
+STARSKY_LSS_N_RAW:
   mode: "lss_n"
   source: 
     name: empty_sky
@@ -347,3 +371,38 @@ SKY_LSS_N_RAW:
     type: "SKY"
     mjdobs:
       - 2024-01-02 03:45:10
+
+
+STAR_IFU_RAW:
+  mode: "lms"
+  source:
+    name: simple_star8
+    kwargs: {}
+  properties:
+    dit: 100
+    ndit: 3
+    filter_name: "Lp"
+    wavelen: "3.555"
+    catg: "SCIENCE"
+    tech: "LMS"
+    type: "OBJECT"
+    mjdobs:
+      - 2024-01-02 03:45:10
+
+
+STARSKY_IFU_RAW:
+  mode: "lms"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 100
+    ndit: 3
+    filter_name: "Lp"
+    wavelen: "3.555"
+    catg: "SCIENCE"
+    tech: "LMS"
+    type: "OBJECT"
+    mjdobs:
+      - 2024-01-02 03:45:10
+
