@@ -7,6 +7,7 @@ from itertools import product
 
 import yaml
 import argparse
+from pathlib import Path
 
 from astar_utils import NestedMapping
 
@@ -81,7 +82,7 @@ if __name__ == "__main__":
     if(args.inputYAML):
         inputYAML = args.inputYAML
     else:
-        inputYAML = "recipes.yaml"
+        inputYAML = Path(__file__).parent / "recipes.yaml"
     if(args.outputDir):
         outputDir = args.outputDir
     else:
