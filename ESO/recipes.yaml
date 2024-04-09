@@ -1,3 +1,6 @@
+
+##################### DARKS - LM, N, IFU ######################
+
 DARK_LM_RAW:
   mode: "img_lm"
   source: 
@@ -50,6 +53,8 @@ DARK_IFU_RAW:
     type: "DARK"
     mjdobs:
       - 2024-01-02 03:45:10
+
+#DETLIN - LM, N, IFU
 
 DETLIN_LM_RAW:
   mode: "img_lm"
@@ -125,6 +130,8 @@ DETLIN_IFU_RAW:
     tech: "LMS"
     type: "DETLIN"
     mjdobs: 2024-01-02 03:45:00
+
+##################### FLATS - LM, N, IFU ######################3
 
 LM_FLAT_LAMP_RAW:
   mode: "img_lm"
@@ -222,6 +229,14 @@ IFU_FLAT_TWILIGHT_RAW:
     type: "FLAT,TWILIGHT"
     mjdobs: 2024-01-02 03:45:10
 
+
+
+##################### SINGLE SOURCE AT CENTRE ######################3
+
+#### EACH SCIENCE IMAGE PAIRED WITH SKY ######
+
+######### IMAGING ###############
+
 STAR_N1_RAW:
   mode: "img_n"
   source: 
@@ -312,6 +327,40 @@ STARSKY_MP_RAW:
     mjdobs:
       - 2024-01-02 03:45:10
 
+
+######### SPECTRA ###############
+
+
+STAR_LSS_N_RAW:
+  mode: "lss_n"
+  source: 
+    name: simple_star8
+    kwargs: {}
+  properties:
+    dit: 0.05
+    ndit: 1
+    filter_name: "N_spec"
+    catg: "SCIENCE"
+    tech: "LSS,N"
+    type: "OBJECT"
+    mjdobs:
+      - 2024-01-02 03:45:10
+
+STARSKY_LSS_N_RAW:
+  mode: "lss_n"
+  source: 
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.05
+    ndit: 1
+    filter_name: "N_spec"
+    catg: "SCIENCE"
+    tech: "LSS,N"
+    type: "SKY"
+    mjdobs:
+      - 2024-01-02 03:45:10
+
 STAR_LSS_M_RAW:
   mode: "lss_m"
   source: 
@@ -342,35 +391,7 @@ STARSKY_LSS_M_RAW:
     mjdobs:
       - 2024-01-02 03:45:10
 
-STAR_LSS_N_RAW:
-  mode: "lss_n"
-  source: 
-    name: simple_star12
-    kwargs: {}
-  properties:
-    dit: 0.25
-    ndit: 1
-    filter_name: "N_spec"
-    catg: "SCIENCE"
-    tech: "LSS,N"
-    type: "OBJECT"
-    mjdobs:
-      - 2024-01-02 03:45:10
-
-STARSKY_LSS_N_RAW:
-  mode: "lss_n"
-  source: 
-    name: empty_sky
-    kwargs: {}
-  properties:
-    dit: 0.25
-    ndit: 1
-    filter_name: "N_spec"
-    catg: "SCIENCE"
-    tech: "LSS,N"
-    type: "SKY"
-    mjdobs:
-      - 2024-01-02 03:45:10
+########## IFU ###############
 
 
 STAR_IFU_RAW:
@@ -406,3 +427,69 @@ STARSKY_IFU_RAW:
     mjdobs:
       - 2024-01-02 03:45:10
 
+
+
+##################### STAR FIELD ######################3
+
+###POSITIONS / MAGNITUDES WERE RADOMLY RANDOM, BUT FIXED FOR THE SET OF SIMULATIONS#####
+
+SKYSTARFIELD_LP_RAW:
+  mode: "img_lm"
+  source: 
+    name: "empty_sky"
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 4
+    filter_name: "Lp"
+    catg: "SCIENCE"
+    tech: "IMAGE,LM"
+    type: "SKY"
+    mjdobs:
+      - 2024-01-02 03:45:10
+
+STARFIELD_LP_RAW:
+  mode: "img_lm"
+  source: 
+    name: star_field
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 4
+    filter_name: "Lp"
+    catg: "SCIENCE"
+    tech: "IMAGE,LM"
+    type: "OBJECT"
+    mjdobs:
+      - 2024-01-02 03:45:10
+
+##################### EXTENDED GALAXY ######################3
+
+
+GAL_LM:
+  mode: "img_lm"
+  source:
+    name: simple_gal
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "Lp"
+    catg: "SCIENCE"
+    tech: "IMAGE,LM"
+    type: "OBJECT"
+    mjdobs: 2024-01-02 03:45:10
+
+SKYGAL_LM:
+  mode: "img_lm"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "Lp"
+    catg: "SCIENCE"
+    tech: "IMAGE,LM"
+    type: "OBJECT"
+    mjdobs: 2024-01-02 03:45:10
