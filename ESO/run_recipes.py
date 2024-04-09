@@ -86,7 +86,7 @@ if __name__ == "__main__":
     if(args.outputDir):
         outputDir = args.outputDir
     else:
-        outputDir = "./output/"
+        outputDir = Path(__file__).parent / "output/"
 
     print(inputYAML,outputDir)
     run(inputYAML,outputDir)
