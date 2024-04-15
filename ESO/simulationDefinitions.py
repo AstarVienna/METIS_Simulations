@@ -4,6 +4,8 @@ import scopesim_templates as sim_tp
 import numpy as np
 
 
+sim.download_packages(["Armazones", "ELT", "METIS"])
+
 # use the same random star field each time
 
 starFieldX = np.array([-8.15592743,  7.01303926,  8.01500244,  1.87226377,  6.97505972,
