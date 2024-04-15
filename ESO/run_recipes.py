@@ -14,25 +14,14 @@ from astar_utils import NestedMapping
 from raw_script import simulate
 
 
-def run():
-#def run(inputYAML,outputDir):
+def run(inputYAML,outputDir):
     """Run simulations using recipes.yaml."""
 
-    print("DEBUG")
-    out_dir = Path("./output/")
+    rcps = _load_recipes(inputYAML)
 
-
-    #rcps = _load_recipes(inputYAML)
-    rcps = _load_recipes()
-    #out_dir = Path(outputDir)
-    out_dir = Path("./output/")
-    print(out_dir)
+    out_dir = Path(outputDir)
     
     out_dir.mkdir(parents=True, exist_ok=True)
-    if os.path.isdir(out_dir):
-        print("is directory")
-    else:
-        print("is not directory")
 
     expandables = [
         "dit",
@@ -73,37 +62,33 @@ def run():
             simulate(fname, kwargs, source=recipe["source"])
 
 
-#def _load_recipes(inputYAML) -> dict:
-def _load_recipes() -> dict:
-    with (Path(__file__).parent / "recipes.yaml").open(encoding="utf-8") as file:
-        return yaml.safe_load(file)
+def _load_recipes(inputYAML) -> dict:
     
-    #with Path(inputYAML).open(encoding="utf-8") as file:
-    #    return yaml.safe_load(file)
+    with Path(inputYAML).open(encoding="utf-8") as file:
+        return yaml.safe_load(file)
 
 
 if __name__ == "__main__":
 
-    run()
-    #parser = argparse.ArgumentParser()
-    #
-    #parser.add_argument('--inputYAML', type=str,
-    #                help='input YAML File')
-    #parser.add_argument('--outputDir', type=str, 
-    #                help='output directory')
-    #
-    #args = parser.parse_args()
-    #print(args)
-    #if(args.inputYAML):
-    #    inputYAML = args.inputYAML
-    #else:
-    #    inputYAML = Path(__file__).parent / "recipes.yaml"
-    #if(args.outputDir):
-    #    outputDir = args.outputDir
-    #else:
-    #    outputDir = Path(__file__).parent / "output/"
-    #
-    #print(inputYAML,outputDir)
-    #run(inputYAML,outputDir)
+    parser = argparse.ArgumentParser()
+    
+    parser.add_argument('--inputYAML', type=str,
+                    help='input YAML File')
+    parser.add_argument('--outputDir', type=str, 
+                    help='output directory')
+    
+    args = parser.parse_args()
+    print(args)
+    if(args.inputYAML):
+        inputYAML = args.inputYAML
+    else:
+        inputYAML = Path(__file__).parent / "recipes.yaml"
+    if(args.outputDir):
+        outputDir = args.outputDir
+    else:
+        outputDir = Path(__file__).parent / "output/"
+    
+    print(inputYAML,outputDir)
+    run(inputYAML,outputDir)
 
     
