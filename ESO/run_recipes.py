@@ -8,7 +8,7 @@ from itertools import product
 import yaml
 import argparse
 from pathlib import Path
-
+import os
 from astar_utils import NestedMapping
 
 from raw_script import simulate
@@ -21,7 +21,13 @@ def run(inputYAML,outputDir):
 
     rcps = _load_recipes(inputYAML)
     out_dir = Path(outputDir)
+    print(out_dir)
+    
     out_dir.mkdir(parents=True, exist_ok=True)
+    if os.path.isdir(out_dir):
+        print("is directory")
+    else:
+        print("is not directory")
 
     expandables = [
         "dit",
