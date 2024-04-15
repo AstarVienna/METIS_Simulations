@@ -18,9 +18,13 @@ def run(inputYAML,outputDir):
     """Run simulations using recipes.yaml."""
 
     print("DEBUG")
+    out_dir = Path("./output/")
 
-    rcps = _load_recipes(inputYAML)
+
+    #rcps = _load_recipes(inputYAML)
+    rcps = _load_recipes()
     out_dir = Path(outputDir)
+    
     print(out_dir)
     
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -69,32 +73,35 @@ def run(inputYAML,outputDir):
 
 
 def _load_recipes(inputYAML) -> dict:
-    with Path(inputYAML).open(encoding="utf-8") as file:
+    with (Path(__file__).parent / "recipes.yaml").open(encoding="utf-8") as file:
         return yaml.safe_load(file)
+    
+    #with Path(inputYAML).open(encoding="utf-8") as file:
+    #    return yaml.safe_load(file)
 
 
 if __name__ == "__main__":
 
-    
-    parser = argparse.ArgumentParser()
-
-    parser.add_argument('--inputYAML', type=str,
-                    help='input YAML File')
-    parser.add_argument('--outputDir', type=str, 
-                    help='output directory')
-
-    args = parser.parse_args()
-    print(args)
-    if(args.inputYAML):
-        inputYAML = args.inputYAML
-    else:
-        inputYAML = Path(__file__).parent / "recipes.yaml"
-    if(args.outputDir):
-        outputDir = args.outputDir
-    else:
-        outputDir = Path(__file__).parent / "output/"
-
-    print(inputYAML,outputDir)
-    run(inputYAML,outputDir)
+    run()
+    #parser = argparse.ArgumentParser()
+    #
+    #parser.add_argument('--inputYAML', type=str,
+    #                help='input YAML File')
+    #parser.add_argument('--outputDir', type=str, 
+    #                help='output directory')
+    #
+    #args = parser.parse_args()
+    #print(args)
+    #if(args.inputYAML):
+    #    inputYAML = args.inputYAML
+    #else:
+    #    inputYAML = Path(__file__).parent / "recipes.yaml"
+    #if(args.outputDir):
+    #    outputDir = args.outputDir
+    #else:
+    #    outputDir = Path(__file__).parent / "output/"
+    #
+    #print(inputYAML,outputDir)
+    #run(inputYAML,outputDir)
 
     
