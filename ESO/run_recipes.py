@@ -14,7 +14,8 @@ from astar_utils import NestedMapping
 from raw_script import simulate
 
 
-def run(inputYAML,outputDir):
+def run():
+#def run(inputYAML,outputDir):
     """Run simulations using recipes.yaml."""
 
     print("DEBUG")
