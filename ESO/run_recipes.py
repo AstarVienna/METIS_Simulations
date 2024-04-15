@@ -18,7 +18,7 @@ def run():
     rcps = _load_recipes()
     out_dir = Path("./output/")
     out_dir.mkdir(parents=True, exist_ok=True)
-
+    print(out_dir)
     expandables = [
         "dit",
         "mjdobs",
