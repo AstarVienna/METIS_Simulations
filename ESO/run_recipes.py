@@ -73,7 +73,8 @@ def run():
             simulate(fname, kwargs, source=recipe["source"])
 
 
-def _load_recipes(inputYAML) -> dict:
+#def _load_recipes(inputYAML) -> dict:
+def _load_recipes() -> dict:
     with (Path(__file__).parent / "recipes.yaml").open(encoding="utf-8") as file:
         return yaml.safe_load(file)
     
