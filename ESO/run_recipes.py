@@ -24,8 +24,8 @@ def run():
 
     #rcps = _load_recipes(inputYAML)
     rcps = _load_recipes()
-    out_dir = Path(outputDir)
-    
+    #out_dir = Path(outputDir)
+    out_dir = Path("./output/")
     print(out_dir)
     
     out_dir.mkdir(parents=True, exist_ok=True)
