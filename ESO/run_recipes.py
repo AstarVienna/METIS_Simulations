@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """."""
 
@@ -6,17 +6,21 @@ from pathlib import Path
 from itertools import product
 
 import yaml
-
+import argparse
+from pathlib import Path
+import os
 from astar_utils import NestedMapping
 
 from raw_script import simulate
 
 
-def run():
+def run(inputYAML,outputDir):
     """Run simulations using recipes.yaml."""
-    print("DEBUG")
-    rcps = _load_recipes()
-    out_dir = Path("./output/")
+
+    rcps = _load_recipes(inputYAML)
+
+    out_dir = Path(outputDir)
+    
     out_dir.mkdir(parents=True, exist_ok=True)
 
     expandables = [
@@ -58,10 +62,33 @@ def run():
             simulate(fname, kwargs, source=recipe["source"])
 
 
-def _load_recipes() -> dict:
-    with (Path(__file__).parent / "recipes.yaml").open(encoding="utf-8") as file:
+def _load_recipes(inputYAML) -> dict:
+    
+    with Path(inputYAML).open(encoding="utf-8") as file:
         return yaml.safe_load(file)
 
 
 if __name__ == "__main__":
-    run()
+
+    parser = argparse.ArgumentParser()
+    
+    parser.add_argument('--inputYAML', type=str,
+                    help='input YAML File')
+    parser.add_argument('--outputDir', type=str, 
+                    help='output directory')
+    
+    args = parser.parse_args()
+    print(args)
+    if(args.inputYAML):
+        inputYAML = args.inputYAML
+    else:
+        inputYAML = Path(__file__).parent / "recipes.yaml"
+    if(args.outputDir):
+        outputDir = args.outputDir
+    else:
+        outputDir = Path(__file__).parent / "output/"
+    
+    print(inputYAML,outputDir)
+    run(inputYAML,outputDir)
+
+    
