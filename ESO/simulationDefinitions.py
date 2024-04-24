@@ -4,7 +4,7 @@ import scopesim_templates as sim_tp
 import numpy as np
 
 
-#sim.download_packages(["Armazones", "ELT", "METIS"])
+sim.download_packages(["Armazones", "ELT", "METIS"])
 
 # use the same random star field each time
 
