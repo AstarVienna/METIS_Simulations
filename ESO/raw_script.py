@@ -25,7 +25,13 @@ logger = get_logger(__file__)
 # lookup table for scopesim modes based on !OBS.type, which seems to be a
 # direct relation (if it's not, change ... something)
 
-def simulate(fname, kwargs, source=None):
+# spoiler alert: LSS,LM maps to both lss_l and lss_m, which causes problems
+# the code will run with an open filter, but defaults to lss_m; using a filter
+# throws an error due to no wavelength coverate
+# Current Solution: use the mode field in the YAML file directly.
+# may want to error trap for invalid combinations in the future
+
+def simulate(fname, mode, kwargs, source=None):
     """Run main function for this script."""
     logger.info("*****************************************")
     logger.info("Observation type: %s", kwargs["!OBS.type"])
@@ -55,7 +61,7 @@ def simulate(fname, kwargs, source=None):
     else:
         shutter = False
 
-    mode = MODESDICT[kwargs["!OBS.tech"]]
+    #mode = MODESDICT[kwargs["!OBS.tech"]]
     logger.info("ScopeSim mode: %s", mode)
     # return None
     cmd = sim.UserCommands(
@@ -179,6 +185,14 @@ def main():
     )
 
     parser.add_argument(
+        "-m", "--mode",
+        nargs="*",
+        type=Path,
+        help=(
+            "mode for instrument"),
+    )
+
+    parser.add_argument(
         "--source",
         choices=[
             "empty",
@@ -267,6 +281,7 @@ def main():
     expanders = argdict.pop("expand") or []
     fnames = argdict.pop("outpath")
     source = argdict.pop("source")
+    mode = argdict.pop("mode")
 
     expdict = {arg: argdict.pop(arg) for arg in expanders}
     noexpcy = [cycle(arg) for arg in argdict.values()]
@@ -296,10 +311,12 @@ def main():
             "!OBS.catg": kwargs["catg"],
             "!OBS.tech": kwargs["tech"],
             "!OBS.type": kwargs["type"],
+            
+            
 
         }
 
-        simulate(fname, props, source=source)
+        simulate(fname, mode, props, source=source)
 
 
 if __name__ == "__main__":

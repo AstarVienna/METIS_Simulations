@@ -4,9 +4,13 @@ import scopesim_templates as sim_tp
 import numpy as np
 
 
-sim.download_packages(["Armazones", "ELT", "METIS"])
+#sim.download_packages(["Armazones", "ELT", "METIS"])
 
 # use the same random star field each time
+
+imgLM = sim.OpticalTrain(sim.UserCommands(use_instrument="metis", set_modes=["img_lm"]))
+imgN = sim.OpticalTrain(sim.UserCommands(use_instrument="metis", set_modes=["img_n"]))
+
 
 starFieldX = np.array([-8.15592743,  7.01303926,  8.01500244,  1.87226377,  6.97505972,
        -7.33994824,  0.04191974,  5.35931242,  8.40940718, -0.49102622,
@@ -25,6 +29,8 @@ starFieldM = np.array([13.9583468 , 12.43411042, 13.74490878, 13.41775357, 13.44
        12.90387615, 13.93481948, 13.94240869, 13.82090701, 12.89690625])*u.mag
 
 starFieldT = ["A0V","A0V","A0V","A0V","A0V","A0V","A0V","A0V","A0V","A0V","A0V","A0V","A0V","A0V","A0V","A0V","A0V","A0V","A0V","A0V"]
+
+
 
 SOURCEDICT = {
     "empty_sky": (sim_tp.empty_sky, {}),
@@ -102,6 +108,32 @@ SOURCEDICT = {
             "ellip":0.5, 
             "ellipticity":0.5,
             "angle":30,
+        },
+        ),
+    "pinhole_mask": (
+        sim_tp.metis.pinhole_mask,
+        {
+            
+        }
+
+        ),
+    "laser_spectrum_lm": (
+        sim_tp.metis.laser_spectrum_lm,
+        {
+            
+            "specdict":imgLM.cmds['!SIM.spectral'],
+            #"n_tunable":1,
+            #"centers":np.array([3.39,4.78,5.263]),
+            #"fluxes":np.array([0.01,0.1,1]),
+        }
+
+        ),
+    
+    "laser_spectrum_n": (
+        sim_tp.metis.laser_spectrum_n,
+        {
+            
+            "specdict":imgN.cmds['!SIM.spectral'],
         }
 
         ),
@@ -128,8 +160,8 @@ SOURCEDICT = {
 MODESDICT = {
     "IMAGE,LM": "img_lm",
     "IMAGE,N": "img_n",
-    "LSS,LM": "lss_l",
-    "LSS,LM": "lss_m",
+    "LSS,M": "lss_m",
+    "LSS,L": "lss_l",
     "LSS,N": "lss_n",
     "IFU": "ifu",
     "LMS": "lms",
