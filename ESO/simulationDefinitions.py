@@ -108,14 +108,6 @@ SOURCEDICT = {
             "angle":30,
         },
         ),
-    "pinhole_mask": (
-        sim_tp.metis.pinhole_mask,
-        {
-            
-        }
-
-        ),
-
     
     "simple_gal1": (
         sim_tp.extragalactic.elliptical,
