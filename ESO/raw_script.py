@@ -31,7 +31,7 @@ logger = get_logger(__file__)
 # Current Solution: use the mode field in the YAML file directly.
 # may want to error trap for invalid combinations in the future
 
-def simulate(fname, mode, kwargs, source=None):
+def simulate(fname, mode, kwargs, source=None, small=False):
     """Run main function for this script."""
     logger.info("*****************************************")
     logger.info("Observation type: %s", kwargs["!OBS.type"])
@@ -71,6 +71,16 @@ def simulate(fname, mode, kwargs, source=None):
     )
 
     metis = sim.OpticalTrain(cmd)
+
+    if small:
+        # Hack to make the detectors smaller, so we can run the simulations
+        # quickly in the continuous integration. For example, we want
+        # ScopeSim_Data to download all the required external data, but we
+        # don't care about the output.
+        for key in ['detector_array', 'detector_array_list']:
+            if key in metis.effects['name']:
+                metis[key].table['x_size'] = 32
+                metis[key].table['y_size'] = 32
 
     if "common_fits_keywords" not in metis.effects["name"]:
         logger.error(
