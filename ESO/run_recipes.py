@@ -14,7 +14,7 @@ from astar_utils import NestedMapping
 from raw_script import simulate
 
 
-def run(inputYAML,outputDir):
+def run(inputYAML, outputDir, small=False):
     """Run simulations using recipes.yaml."""
 
     rcps = _load_recipes(inputYAML)
@@ -32,10 +32,11 @@ def run(inputYAML,outputDir):
         expanded = [key for key in expandables
                     if isinstance(recipe["properties"][key], list)]
         combos = product(*[recipe["properties"][key] for key in expanded])
-
+        mode = recipe["mode"]
         for combo in combos:
             combodict = dict(zip(expanded, combo))
             props = recipe["properties"] | combodict
+
             
             # Create a filename that resembles that of the real data.
             # The filenames from the ICS software will probably look like
@@ -59,7 +60,7 @@ def run(inputYAML,outputDir):
             print("fname=",fname)
             kwargs = NestedMapping({"OBS": props})
 
-            simulate(fname, kwargs, source=recipe["source"])
+            simulate(fname, mode, kwargs, source=recipe["source"], small=small)
 
 
 def _load_recipes(inputYAML) -> dict:
@@ -76,7 +77,9 @@ if __name__ == "__main__":
                     help='input YAML File')
     parser.add_argument('--outputDir', type=str, 
                     help='output directory')
-    
+    parser.add_argument('--small', type=bool,
+                    default=False, help='use detectors of 32x32 pixels; for running in the continuous integration')
+
     args = parser.parse_args()
     print(args)
     if(args.inputYAML):
@@ -87,8 +90,8 @@ if __name__ == "__main__":
         outputDir = args.outputDir
     else:
         outputDir = Path(__file__).parent / "output/"
-    
-    print(inputYAML,outputDir)
-    run(inputYAML,outputDir)
+    small = args.small
+    print(inputYAML, outputDir, small)
+    run(inputYAML, outputDir, small)
 
     
