@@ -8,6 +8,8 @@ sim.download_packages(["Armazones", "ELT", "METIS"])
 
 # use the same random star field each time
 
+
+
 starFieldX = np.array([-8.15592743,  7.01303926,  8.01500244,  1.87226377,  6.97505972,
        -7.33994824,  0.04191974,  5.35931242,  8.40940718, -0.49102622,
         4.58550425,  6.10882803, -1.99466201, -9.72891962, -3.65611485,
@@ -25,6 +27,8 @@ starFieldM = np.array([13.9583468 , 12.43411042, 13.74490878, 13.41775357, 13.44
        12.90387615, 13.93481948, 13.94240869, 13.82090701, 12.89690625])*u.mag
 
 starFieldT = ["A0V","A0V","A0V","A0V","A0V","A0V","A0V","A0V","A0V","A0V","A0V","A0V","A0V","A0V","A0V","A0V","A0V","A0V","A0V","A0V"]
+
+
 
 SOURCEDICT = {
     "empty_sky": (sim_tp.empty_sky, {}),
@@ -102,8 +106,7 @@ SOURCEDICT = {
             "ellip":0.5, 
             "ellipticity":0.5,
             "angle":30,
-        }
-
+        },
         ),
     
     "simple_gal1": (
@@ -128,8 +131,8 @@ SOURCEDICT = {
 MODESDICT = {
     "IMAGE,LM": "img_lm",
     "IMAGE,N": "img_n",
-    "LSS,LM": "lss_l",
     "LSS,LM": "lss_m",
+    "LSS,LM": "lss_l",
     "LSS,N": "lss_n",
     "IFU": "ifu",
     "LMS": "lms",

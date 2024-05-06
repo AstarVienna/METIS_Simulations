@@ -32,10 +32,11 @@ def run(inputYAML,outputDir):
         expanded = [key for key in expandables
                     if isinstance(recipe["properties"][key], list)]
         combos = product(*[recipe["properties"][key] for key in expanded])
-
+        mode = recipe["mode"]
         for combo in combos:
             combodict = dict(zip(expanded, combo))
             props = recipe["properties"] | combodict
+
             
             # Create a filename that resembles that of the real data.
             # The filenames from the ICS software will probably look like
@@ -59,7 +60,7 @@ def run(inputYAML,outputDir):
             print("fname=",fname)
             kwargs = NestedMapping({"OBS": props})
 
-            simulate(fname, kwargs, source=recipe["source"])
+            simulate(fname, mode, kwargs, source=recipe["source"])
 
 
 def _load_recipes(inputYAML) -> dict:
