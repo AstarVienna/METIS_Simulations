@@ -61,6 +61,11 @@ def simulate(fname, mode, kwargs, source=None, small=False):
     else:
         shutter = False
 
+    # Fix the random number generator for now. This should ensure our data
+    # is reproducible, so we can create the exact same dataset again at a
+    # later date.
+    kwargs["!SIM.random.seed"] = 9001
+
     #mode = MODESDICT[kwargs["!OBS.tech"]]
     logger.info("ScopeSim mode: %s", mode)
     # return None
