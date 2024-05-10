@@ -1,14 +1,18 @@
+
 import astropy.units as u
 import scopesim as sim
 import scopesim_templates as sim_tp
 import numpy as np
 
 
+imgLM = sim.OpticalTrain(sim.UserCommands(use_instrument="metis", set_modes=["img_lm"]))
+specDictLM = imgLM.cmds['!SIM.spectral']
+imgN = sim.OpticalTrain(sim.UserCommands(use_instrument="metis", set_modes=["img_n"]))
+specDictN = imgN.cmds['!SIM.spectral']
+
 #sim.download_packages(["Armazones", "ELT", "METIS"])
 
 # use the same random star field each time
-
-
 
 starFieldX = np.array([-8.15592743,  7.01303926,  8.01500244,  1.87226377,  6.97505972,
        -7.33994824,  0.04191974,  5.35931242,  8.40940718, -0.49102622,
@@ -81,6 +85,13 @@ SOURCEDICT = {
             "amplitude": [8 ]*u.mag,
         }
     ),
+    "simple_star10": (
+        sim_tp.stellar.star,
+        {
+            "filter_name":"V",
+            "amplitude": [10 ]*u.mag,
+        }
+    ),
     "simple_stars":(
         sim_tp.stellar.stars,
         {
@@ -123,12 +134,30 @@ SOURCEDICT = {
             "ellipticity":0.5,
             "angle":30,
         }
-
-        )
+        ),
+    "pinhole_mask": (
+        sim_tp.metis.pinhole_mask,
+        {
+        }
+        ),
+    "laser_spectrum_lm": (
+        sim_tp.metis.laser.laser_spectrum_lm,
+        {
+            "specdict":specDictLM,
+        }
+        ),
+    "laser_spectrum_n": (
+        sim_tp.metis.laser.laser_spectrum_n,
+        {
+            "specdict":specDictN,
+        }
+        ),
+    
 
 }
 
 MODESDICT = {
+    "RAVC,LM": "img_lm_ravc",
     "IMAGE,LM": "img_lm",
     "IMAGE,N": "img_n",
     "LSS,LM": "lss_m",

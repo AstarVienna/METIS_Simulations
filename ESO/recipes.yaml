@@ -1,17 +1,3 @@
-STAR_LP_RAW:
-  mode: "img_lm"
-  source: 
-    name: simple_star12
-    kwargs: {}
-  properties:
-    dit: 0.25
-    ndit: 1
-    filter_name: "Lp"
-    catg: "SCIENCE"
-    tech: "IMAGE,LM"
-    type: "OBJECT"
-    mjdobs:
-      - 2024-01-02 03:45:10
 
 ##################### DARKS - LM, N, IFU ######################
 
@@ -21,7 +7,11 @@ DARK_LM_RAW:
     name: empty_sky
     kwargs: {}
   properties:
-    dit: 10
+    dit:
+      - 0.004
+      - 0.25
+      - 0.05
+      - 10
     ndit: 1
     filter_name: "closed"
     catg: "CALIB"
@@ -30,9 +20,6 @@ DARK_LM_RAW:
     mjdobs:
       - 2024-01-02 03:45:10
       - 2024-01-02 03:45:20
-      - 2024-01-02 03:45:30
-      - 2024-01-02 03:45:40
-      - 2024-01-02 03:45:50
 
 DARK_N_RAW:
   mode: "img_n"
@@ -40,7 +27,11 @@ DARK_N_RAW:
     name: empty_sky
     kwargs: {}
   properties:
-    dit: 10
+    dit: 
+      - 0.004
+      - 0.25
+      - 0.05
+      - 10
     ndit: 1
     filter_name: "closed"
     catg: "CALIB"
@@ -49,9 +40,6 @@ DARK_N_RAW:
     mjdobs:
       - 2024-01-02 03:46:10
       - 2024-01-02 03:46:20
-      - 2024-01-02 03:46:30
-      - 2024-01-02 03:46:40
-      - 2024-01-02 03:46:50
 
 DARK_IFU_RAW:
   mode: "lms"
@@ -59,7 +47,10 @@ DARK_IFU_RAW:
     name: empty_sky
     kwargs: {}
   properties:
-    dit: 10
+    dit: 
+      - 0.004
+      - 100
+      - 10
     ndit: 1
     filter_name: "closed"
     catg: "CALIB"
@@ -67,8 +58,78 @@ DARK_IFU_RAW:
     type: "DARK"
     mjdobs:
       - 2024-01-02 03:45:10
+      - 2024-01-02 03:45:20
 
-#DETLIN - LM, N, IFU
+LM_WCU_OFF_RAW:
+  mode: "img_lm"
+  source: 
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 
+      - 1.
+      - 17.5
+      - 34.
+      - 50.5
+      - 67.
+      - 83.5
+      - 100
+    ndit: 1
+    filter_name: "closed"
+    catg: "CALIB"
+    tech: "IMAGE,LM"
+    type: "DARK,WCUOFF"
+    mjdobs:
+      - 2024-01-02 03:45:10
+      - 2024-01-02 03:45:20
+
+N_WCU_OFF_RAW:
+  mode: "img_n"
+  source: 
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 
+      - 1.
+      - 17.5
+      - 34.
+      - 50.5
+      - 67.
+      - 83.5
+      - 100
+    ndit: 1
+    filter_name: "closed"
+    catg: "CALIB"
+    tech: "IMAGE,N"
+    type: "DARK,WCUOFF"
+    mjdobs:
+      - 2024-01-02 03:46:10
+      - 2024-01-02 03:46:20
+
+IFU_WCU_OFF_RAW:
+  mode: "lms"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 
+      - 1.
+      - 17.5
+      - 34.
+      - 50.5
+      - 67.
+      - 83.5
+      - 100
+    ndit: 1
+    filter_name: "closed"
+    catg: "CALIB"
+    tech: "LMS"
+    type: "DARK,WCUOFF"
+    mjdobs:
+      - 2024-01-02 03:45:10
+      - 2024-01-02 03:45:20
+
+##################### DETLIN - LM, N, IFU #####################
 
 DETLIN_LM_RAW:
   mode: "img_lm"
@@ -164,6 +225,23 @@ LM_FLAT_LAMP_RAW:
     tech: "IMAGE,LM"
     type: "FLAT,LAMP"
     mjdobs: 2024-01-02 03:45:10
+    mjdobs: 2024-01-02 03:55:20
+
+
+LM_FLAT_TWILIGHT_RAW:
+  mode: "img_lm"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 10
+    ndit: 1
+    filter_name: "open"
+    catg: "CALIB"
+    tech: "IMAGE,LM"
+    type: "FLAT,TWILIGHT"
+    mjdobs: 2024-01-02 03:45:10
+    mjdobs: 2024-01-02 03:55:10
 
 N_FLAT_LAMP_RAW:
   mode: "img_n"
@@ -182,20 +260,7 @@ N_FLAT_LAMP_RAW:
     tech: "IMAGE,N"
     type: "FLAT,LAMP"
     mjdobs: 2024-01-02 03:45:10
-
-LM_FLAT_TWILIGHT_RAW:
-  mode: "img_lm"
-  source:
-    name: empty_sky
-    kwargs: {}
-  properties:
-    dit: 10
-    ndit: 1
-    filter_name: "open"
-    catg: "CALIB"
-    tech: "IMAGE,LM"
-    type: "FLAT,TWILIGHT"
-    mjdobs: 2024-01-02 03:45:10
+    mjdobs: 2024-01-02 03:55:20
 
 N_FLAT_TWILIGHT_RAW:
   mode: "img_n"
@@ -210,6 +275,7 @@ N_FLAT_TWILIGHT_RAW:
     tech: "IMAGE,N"
     type: "FLAT,TWILIGHT"
     mjdobs: 2024-01-02 03:45:10
+    mjdobs: 2024-01-02 03:55:20
 
 IFU_FLAT_LAMP_RAW:
   mode: "lms"
@@ -228,6 +294,7 @@ IFU_FLAT_LAMP_RAW:
     tech: "LMS"
     type: "FLAT,LAMP"
     mjdobs: 2024-01-02 03:45:10
+    mjdobs: 2024-01-02 03:55:20
 
 IFU_FLAT_TWILIGHT_RAW:
   mode: "lms"
@@ -242,46 +309,1080 @@ IFU_FLAT_TWILIGHT_RAW:
     tech: "LMS"
     type: "FLAT,TWILIGHT"
     mjdobs: 2024-01-02 03:45:10
+    mjdobs: 2024-01-02 03:55:20
+
+
+LM_FLAT_LAMP_RAW:
+  mode: "img_lm"
+  source:
+    name: flat_field
+    kwargs:
+      temperature: 200
+      amplitude: 0
+      filter_curve: "V"
+      extend: 15
+  properties:
+    dit: 10
+    ndit: 1
+    filter_name: "Lp"
+    catg: "CALIB"
+    tech: "IMAGE,LM"
+    type: "FLAT,LAMP"
+    mjdobs: 2024-01-02 04:45:10
+    mjdobs: 2024-01-02 04:55:20
+
+
+LM_FLAT_TWILIGHT_RAW:
+  mode: "img_lm"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 10
+    ndit: 1
+    filter_name: "Lp"
+    catg: "CALIB"
+    tech: "IMAGE,LM"
+    type: "FLAT,TWILIGHT"
+    mjdobs: 2024-01-02 04:45:10
+    mjdobs: 2024-01-02 04:55:10
+
+
+LM_FLAT_LAMP_RAW:
+  mode: "img_lm"
+  source:
+    name: flat_field
+    kwargs:
+      temperature: 200
+      amplitude: 0
+      filter_curve: "V"
+      extend: 15
+  properties:
+    dit: 10
+    ndit: 1
+    filter_name: "Mp"
+    catg: "CALIB"
+    tech: "IMAGE,LM"
+    type: "FLAT,LAMP"
+    mjdobs: 2024-01-02 05:45:10
+    mjdobs: 2024-01-02 05:55:20
+
+
+LM_FLAT_TWILIGHT_RAW:
+  mode: "img_lm"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 10
+    ndit: 1
+    filter_name: "Mp"
+    catg: "CALIB"
+    tech: "IMAGE,LM"
+    type: "FLAT,TWILIGHT"
+    mjdobs: 2024-01-02 05:45:10
+    mjdobs: 2024-01-02 05:55:10
+
+N_FLAT_LAMP_RAW:
+  mode: "img_n"
+  source:
+    name: flat_field
+    kwargs:
+      temperature: 200
+      amplitude: 0
+      filter_curve: "V"
+      extend: 15
+  properties:
+    dit: 10
+    ndit: 1
+    filter_name: "N1"
+    catg: "CALIB"
+    tech: "IMAGE,N"
+    type: "FLAT,LAMP"
+    mjdobs: 2024-01-02 04:45:10
+    mjdobs: 2024-01-02 04:55:20
+
+N_FLAT_TWILIGHT_RAW:
+  mode: "img_n"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 10
+    ndit: 1
+    filter_name: "N1"
+    catg: "CALIB"
+    tech: "IMAGE,N"
+    type: "FLAT,TWILIGHT"
+    mjdobs: 2024-01-02 04:45:10
+    mjdobs: 2024-01-02 04:55:20
+
+IFU_FLAT_LAMP_RAW:
+  mode: "lms"
+  source:
+    name: flat_field
+    kwargs:
+      temperature: 200
+      amplitude: 0
+      filter_curve: "V"
+      extend: 15
+  properties:
+    dit: 10
+    ndit: 1
+    filter_name: "Lp"
+    catg: "CALIB"
+    tech: "LMS"
+    type: "FLAT,LAMP"
+    mjdobs: 2024-01-02 04:45:10
+    mjdobs: 2024-01-02 04:55:20
+
+IFU_FLAT_TWILIGHT_RAW:
+  mode: "lms"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 10
+    ndit: 1
+    filter_name: "Lp"
+    catg: "CALIB"
+    tech: "LMS"
+    type: "FLAT,TWILIGHT"
+    mjdobs: 2024-01-02 04:45:10
+    mjdobs: 2024-01-02 04:55:20
+
+##################### RSRF ######################3
+
+
+LM_LSS_RSRF_RAW:
+  mode: "img_lm"
+  source:
+    name: flat_field
+    kwargs:
+      temperature: 5000
+      amplitude: 0
+      filter_curve: "V"
+      extend: 15
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "L_spec"
+    catg: "CALIB"
+    tech: "IMAGE,LM"
+    type: "FLAT,LAMP"
+    mjdobs: 2024-01-02 03:45:10
+    mjdobs: 2024-01-02 03:45:20
+
+
+LM_LSS_RSRF_RAW:
+  mode: "img_lm"
+  source:
+    name: flat_field
+    kwargs:
+      temperature: 5500
+      amplitude: 0
+      filter_curve: "V"
+      extend: 15
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "L_spec"
+    catg: "CALIB"
+    tech: "IMAGE,LM"
+    type: "FLAT,LAMP"
+    mjdobs: 2024-01-02 03:55:10
+    mjdobs: 2024-01-02 03:55:20
+
+
+N_LSS_RSRF_RAW:
+  mode: "img_n"
+  source:
+    name: flat_field
+    kwargs:
+      temperature: 5000
+      amplitude: 0
+      filter_curve: "V"
+      extend: 15
+  properties:
+    dit: 0.01
+    ndit: 1
+    filter_name: "N_spec"
+    catg: "CALIB"
+    tech: "IMAGE,N"
+    type: "FLAT,LAMP"
+    mjdobs: 2024-01-02 03:45:10
+    mjdobs: 2024-01-02 03:45:20
+
+
+N_LSS_RSRF_RAW:
+  mode: "img_n"
+  source:
+    name: flat_field
+    kwargs:
+      temperature: 5500
+      amplitude: 0
+      filter_curve: "V"
+      extend: 15
+  properties:
+    dit: 0.01
+    ndit: 1
+    filter_name: "N_spec"
+    catg: "CALIB"
+    tech: "IMAGE,N"
+    type: "FLAT,LAMP"
+    mjdobs: 2024-01-02 03:55:10
+    mjdobs: 2024-01-02 03:55:20
+
+
+IFU_FLAT_LAMP_RAW:
+  mode: "lms"
+  source:
+    name: flat_field
+    kwargs:
+      temperature: 5500
+      amplitude: 0
+      filter_curve: "V"
+      extend: 15
+  properties:
+    dit: 15
+    ndit: 1
+    filter_name: "open"
+    catg: "CALIB"
+    tech: "LMS"
+    type: "FLAT,LAMP"
+    mjdobs: 2024-01-02 03:45:10
+    mjdobs: 2024-01-02 03:45:20
+
+
+IFU_FLAT_LAMP_RAW:
+  mode: "lms"
+  source:
+    name: flat_field
+    kwargs:
+      temperature: 5000
+      amplitude: 0
+      filter_curve: "V"
+      extend: 15
+  properties:
+    dit: 15
+    ndit: 1
+    filter_name: "open"
+    catg: "CALIB"
+    tech: "LMS"
+    type: "FLAT,LAMP"
+    mjdobs: 2024-01-02 03:55:10
+    mjdobs: 2024-01-02 03:55:20
+
+
+### WITH PINHOLE ###
+
+LM_LSS_RSRF_PINH_RAW:
+  mode: "img_lm"
+  source:
+    name: pinhole_mask
+    kwargs:
+      temperature: 5000
+      amplitude: 0
+      filter_curve: "V"
+      extend: 15
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "L_spec"
+    ndfilter_name: "ND_OD3"
+    catg: "CALIB"
+    tech: "IMAGE,LM"
+    type: "FLAT,LAMP"
+    mjdobs: 2024-01-02 03:45:10
+    mjdobs: 2024-01-02 03:45:20
+
+
+LM_LSS_RSRF_PINH_RAW:
+  mode: "img_lm"
+  source:
+    name: pinhole_mask
+    kwargs:
+      temperature: 5500
+      amplitude: 0
+      filter_curve: "V"
+      extend: 15
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "L_spec"
+    ndfilter_name: "ND_OD3"
+    catg: "CALIB"
+    tech: "IMAGE,LM"
+    type: "FLAT,LAMP"
+    mjdobs: 2024-01-02 03:55:10
+    mjdobs: 2024-01-02 03:55:20
+
+
+N_LSS_RSRF_PINH_RAW:
+  mode: "img_n"
+  source:
+    name: pinhole_mask
+    kwargs:
+      temperature: 5000
+      amplitude: 0
+      filter_curve: "V"
+      extend: 15
+  properties:
+    dit: 0.01
+    ndit: 1
+    filter_name: "N_spec"
+    ndfilter_name: "ND_OD4"
+    catg: "CALIB"
+    tech: "IMAGE,N"
+    type: "FLAT,LAMP"
+    mjdobs: 2024-01-02 03:45:10
+    mjdobs: 2024-01-02 03:45:20
+
+
+N_LSS_RSRF_PINH_RAW:
+  mode: "img_n"
+  source:
+    name: pinhole_mask
+    kwargs:
+      temperature: 5500
+      amplitude: 0
+      filter_curve: "V"
+      extend: 15
+  properties:
+    dit: 0.01
+    ndit: 1
+    filter_name: "N_spec"
+    ndfilter_name: "ND_OD4"
+    catg: "CALIB"
+    tech: "IMAGE,N"
+    type: "FLAT,LAMP"
+    mjdobs: 2024-01-02 03:55:10
+    mjdobs: 2024-01-02 03:55:20
+
+
+IFU_RSRF_PINH_RAW:
+  mode: "lms"
+  source:
+    name: pinhole_mask
+    kwargs:
+      temperature: 5500
+      amplitude: 0
+      filter_curve: "V"
+      extend: 15
+  properties:
+    dit: 15
+    ndit: 1
+    filter_name: "open"
+    ndfilter_name: "ND_OD3"
+    catg: "CALIB"
+    tech: "LMS"
+    type: "FLAT,LAMP"
+    mjdobs: 2024-01-02 03:45:10
+    mjdobs: 2024-01-02 03:45:20
+
+
+IFU_RSRF_PINH_RAW:
+  mode: "lms"
+  source:
+    name: pinhole_mask
+    kwargs:
+      temperature: 5000
+      amplitude: 0
+      filter_curve: "V"
+      extend: 15
+  properties:
+    dit: 15
+    ndit: 1
+    filter_name: "open"
+    ndfilter_name: "ND_OD3"
+    catg: "CALIB"
+    tech: "LMS"
+    type: "FLAT,LAMP"
+    mjdobs: 2024-01-02 03:55:10
+    mjdobs: 2024-01-02 03:55:20
+
+
+##################### DISTORTION (PINHOLE MASK) L, N, IFU ######################3
+
+LM_DISTORTION_RAW:
+  mode: "img_lm"
+  source:
+    name: pinhole_mask
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "Lp"
+    nd_filter_name: "ND_OD3"
+    catg: "CALIB"
+    tech: "IMAGE,LM"
+    type: "DISTORTION"
+    mjdobs: 2024-01-02 03:45:10
+
+N_DISTORTION_RAW:
+  mode: "img_n"
+  source:
+    name: pinhole_mask
+    kwargs:
+      dx: 5
+      dy: 5
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "open"
+    nd_filter_name: "ND_OD4"
+    catg: "CALIB"
+    tech: "IMAGE,LM"
+    type: "DISTORTION"
+    mjdobs: 2024-01-02 03:45:10
+
+
+IFU_DISTORTION_RAW:
+  mode: "lms"
+  source:
+    name: pinhole_mask
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "Lp"
+    nd_filter_name: "ND_OD3"
+    catg: "CALIB"
+    tech: "LMS"
+    type: "DISTORTION"
+    mjdobs: 2024-01-02 03:45:10
+
+
+##################### LASER SPECTRUM CALIBRATIONS ######################
+
+
+LM_LSS_WAVE_RAW:
+  mode: "lss_l"
+  source:
+    name: "laser_spectrum_lm"
+    kwargs: {}
+  properties:
+    dit: 0.004
+    ndit: 1
+    filter_name: "open"
+    nd_filter_name: "ND_OD4"
+    catg: "CALIB"
+    tech: "LSS,LM"
+    type: "WAVE"
+    mjdobs:
+      - 2024-01-02 03:45:10
+
+N_LSS_WAVE_RAW:
+  mode: "lss_n"
+  source: 
+    name: "laser_spectrum_n"
+    kwargs: {}
+  properties:
+    dit: 0.0004
+    ndit: 1
+    filter_name: "open"
+    nd_filter_name: "ND_OD4"
+    catg: "CALIB"
+    tech: "LSS,N"
+    type: "WAVE"
+    mjdobs:
+      - 2024-01-02 03:45:10
+
+IFU_LSS_WAVE_RAW:
+  mode: "lms"
+  source: 
+    name: "laser_spectrum_lm"
+    kwargs: {}
+  properties:
+    dit: 0.0004
+    ndit: 1
+    filter_name: "open"
+    nd_filter_name: "ND_OD4"
+    catg: "CALIB"
+    tech: "LSS,N"
+    type: "WAVE"
+    mjdobs:
+      - 2024-01-02 03:45:10
+
+
+##################### RSRF ########################
 
 
 
-##################### SINGLE SOURCE AT CENTRE ######################3
+LM_LSS_RSRF_RAW:
+  mode: "lss_l"
+  source: 
+    name: flat_field
+    kwargs:
+      temperature: 5500
+      amplitude: 0
+      filter_curve: "V"
+      extend: 15
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "open"
+    catg: "CALIB"
+    tech: "LSS,LM"
+    type: "FLAT,LAMP"
+    mjdobs: 2024-01-02 03:45:10
+    mjdobs: 2024-01-02 03:55:10
 
-#### EACH SCIENCE IMAGE PAIRED WITH SKY ######
+
+LM_LSS_RSRF_RAW:
+  mode: "lss_l"
+  source: 
+    name: flat_field
+    kwargs:
+      temperature: 5000
+      amplitude: 0
+      filter_curve: "V"
+      extend: 15
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "open"
+    catg: "CALIB"
+    tech: "LSS,LM"
+    type: "FLAT,LAMP"
+    mjdobs: 2024-01-02 04:45:10
+    mjdobs: 2024-01-02 04:55:10
+
+
+
+N_LSS_RSRF_RAW:
+  mode: "lss_n"
+  source: 
+    name: flat_field
+    kwargs:
+      temperature: 4500
+      amplitude: 0
+      filter_curve: "V"
+      extend: 15
+  properties:
+    dit: 0.01
+    ndit: 1
+    filter_name: "open"
+    catg: "CALIB"
+    tech: "LSS,N"
+    type: "FLAT,LAMP"
+    mjdobs: 2024-01-02 03:45:10
+    mjdobs: 2024-01-02 03:55:10
+
+N_LSS_RSRF_RAW:
+  mode: "lss_n"
+  source: 
+    name: flat_field
+    kwargs:
+      temperature: 5500
+      amplitude: 0
+      filter_curve: "V"
+      extend: 15
+  properties:
+    dit: 0.01
+    ndit: 1
+    filter_name: "open"
+    catg: "CALIB"
+    tech: "LSS,N"
+    type: "FLAT,LAMP"
+    mjdobs: 2024-01-02 04:45:10
+    mjdobs: 2024-01-02 04:55:10
+
+
+IFU_RSRF_RAW:
+  mode: "lms"
+  source:
+    name: flat_field
+    kwargs:
+      temperature: 5500
+      amplitude: 0
+      filter_curve: "V"
+      extend: 15
+  properties:
+    dit: 15
+    ndit: 1
+    filter_name: "open"
+    catg: "CALIB"
+    tech: "LMS"
+    type: "FLAT,LAMP"
+    mjdobs: 2024-01-02 03:45:10
+    mjdobs: 2024-01-02 03:55:10
+
+IFU_RSRF_RAW:
+  mode: "lms"
+  source:
+    name: flat_field
+    kwargs:
+      temperature: 5000
+      amplitude: 0
+      filter_curve: "V"
+      extend: 15
+  properties:
+    dit: 15
+    ndit: 1
+    filter_name: "open"
+    catg: "CALIB"
+    tech: "LMS"
+    type: "FLAT,LAMP"
+    mjdobs: 2024-01-02 04:45:10
+    mjdobs: 2024-01-02 04:55:10
+
+
+LM_LSS_RSRF_PINH_RAW:
+  mode: "lss_l"
+  source: 
+    name: pinhole_mask
+    kwargs:
+      temperature: 5500
+      dx: 5
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "open"
+    catg: "CALIB"
+    tech: "LSS,LM"
+    type: "FLAT,LAMP"
+    mjdobs: 2024-01-02 03:45:10
+    mjdobs: 2024-01-02 03:55:10
+
+
+LM_LSS_RSRF_PINH_RAW:
+  mode: "lss_l"
+  source: 
+    name: pinhole_mask
+    kwargs:
+      temperature: 5000
+      dx: 5
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "open"
+    catg: "CALIB"
+    tech: "LSS,LM"
+    type: "FLAT,LAMP"
+    mjdobs: 2024-01-02 04:45:10
+    mjdobs: 2024-01-02 04:55:10
+
+
+N_LSS_RSRF_PINH_RAW:
+  mode: "lss_n"
+  source: 
+    name: pinhole_mask
+    kwargs:
+      temperature: 5500
+      dx: 5
+  properties:
+    dit: 0.005
+    ndit: 1
+    filter_name: "open"
+    catg: "CALIB"
+    tech: "LSS,N"
+    type: "FLAT,LAMP"
+    mjdobs: 2024-01-02 03:45:10
+    mjdobs: 2024-01-02 03:55:10
+
+
+
+N_LSS_RSRF_PINH_RAW:
+  mode: "lss_n"
+  source: 
+    name: pinhole_mask
+    kwargs:
+      temperature: 4500
+      dx: 5
+  properties:
+    dit: 0.005
+    ndit: 1
+    filter_name: "open"
+    catg: "CALIB"
+    tech: "LSS,N"
+    type: "FLAT,LAMP"
+    mjdobs: 2024-01-02 04:45:10
+    mjdobs: 2024-01-02 04:55:10
+
+
+##################### SLIT LOSSES (11 positions perpendicular to the slit) ########################
+
+LM_LSS_SLITLOSSES_RAW:
+  mode: "lss_l"
+  source: 
+    name: simple_star10
+    kwargs:
+      x: 0
+      y: -0.025   
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "open"
+    catg: "CALIB"
+    tech: "LSS,LM"
+    type: "FLAT,LAMP"
+    mjdobs: 2024-01-02 03:45:10
+
+
+LM_LSS_SLITLOSSES_RAW:
+  mode: "lss_l"
+  source: 
+    name: simple_star10
+    kwargs:
+      x: 0
+      y: -0.02
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "open"
+    catg: "CALIB"
+    tech: "LSS,LM"
+    type: "FLAT,LAMP"
+    mjdobs: 2024-01-02 04:45:10
+
+
+LM_LSS_SLITLOSSES_RAW:
+  mode: "lss_l"
+  source: 
+    name: simple_star10
+    kwargs:
+      x: 0
+      y: 0.015
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "open"
+    catg: "CALIB"
+    tech: "LSS,LM"
+    type: "FLAT,LAMP"
+    mjdobs: 2024-01-02 05:45:10
+
+
+LM_LSS_SLITLOSSES_RAW:
+  mode: "lss_l"
+  source: 
+    name: simple_star10
+    kwargs:
+      x: 0
+      y: -0.01
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "open"
+    catg: "CALIB"
+    tech: "LSS,LM"
+    type: "FLAT,LAMP"
+    mjdobs: 2024-01-02 06:45:10
+
+LM_LSS_SLITLOSSES_RAW:
+  mode: "lss_l"
+  source: 
+    name: simple_star10
+    kwargs:
+      x: 0
+      y: -0.005
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "open"
+    catg: "CALIB"
+    tech: "LSS,LM"
+    type: "FLAT,LAMP"
+    mjdobs: 2024-01-02 07:45:10
+
+
+LM_LSS_SLITLOSSES_P00_RAW:
+  mode: "lss_l"
+  source: 
+    name: simple_star10
+    kwargs:
+      x: 0
+      y: 0
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "open"
+    catg: "CALIB"
+    tech: "LSS,LM"
+    type: "FLAT,LAMP"
+    mjdobs: 2024-01-02 08:45:10
+
+
+LM_LSS_SLITLOSSES_P01_RAW:
+  mode: "lss_l"
+  source: 
+    name: simple_star10
+    kwargs:
+      x: 0
+      y: 0.075
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "open"
+    catg: "CALIB"
+    tech: "LSS,LM"
+    type: "FLAT,LAMP"
+    mjdobs: 2024-01-02 09:45:10
+
+
+LM_LSS_SLITLOSSES_P02_RAW:
+  mode: "lss_l"
+  source: 
+    name: simple_star10
+    kwargs:
+      x: 0
+      y: 0.01
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "open"
+    catg: "CALIB"
+    tech: "LSS,LM"
+    type: "FLAT,LAMP"
+    mjdobs: 2024-01-02 10:45:10
+
+
+LM_LSS_SLITLOSSES_P03_RAW:
+  mode: "lss_l"
+  source: 
+    name: simple_star10
+    kwargs:
+      x: 0
+      y: 0.015
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "open"
+    catg: "CALIB"
+    tech: "LSS,LM"
+    type: "FLAT,LAMP"
+    mjdobs: 2024-01-02 11:45:10
+
+
+LM_LSS_SLITLOSSES_P04_RAW:
+  mode: "lss_l"
+  source: 
+    name: simple_star10
+    kwargs:
+      x: 0
+      y: 0.02
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "open"
+    catg: "CALIB"
+    tech: "LSS,LM"
+    type: "FLAT,LAMP"
+    mjdobs: 2024-01-02 12:45:10
+
+
+LM_LSS_SLITLOSSES_P05_RAW:
+  mode: "lss_l"
+  source: 
+    name: simple_star10
+    kwargs:
+      x: 0
+      y: 0.025
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "open"
+    catg: "CALIB"
+    tech: "LSS,LM"
+    type: "FLAT,LAMP"
+    mjdobs: 2024-01-02 13:45:10
+
+
+
+N_LSS_SLITLOSSES_RAW:
+  mode: "lss_n"
+  source: 
+    name: simple_star10
+    kwargs:
+      x: 0
+      y: -0.025   
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "open"
+    catg: "CALIB"
+    tech: "LSS,N"
+    type: "FLAT,LAMP"
+    mjdobs: 2024-01-02 03:45:10
+
+
+N_LSS_SLITLOSSES_RAW:
+  mode: "lss_n"
+  source: 
+    name: simple_star10
+    kwargs:
+      x: 0
+      y: -0.02
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "open"
+    catg: "CALIB"
+    tech: "LSS,N"
+    type: "FLAT,LAMP"
+    mjdobs: 2024-01-02 04:45:10
+
+
+N_LSS_SLITLOSSES_RAW:
+  mode: "lss_n"
+  source: 
+    name: simple_star10
+    kwargs:
+      x: 0
+      y: 0.015
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "open"
+    catg: "CALIB"
+    tech: "LSS,N"
+    type: "FLAT,LAMP"
+    mjdobs: 2024-01-02 06:45:10
+
+
+N_LSS_SLITLOSSES_RAW:
+  mode: "lss_n"
+  source: 
+    name: simple_star10
+    kwargs:
+      x: 0
+      y: -0.01
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "open"
+    catg: "CALIB"
+    tech: "LSS,N"
+    type: "FLAT,LAMP"
+    mjdobs: 2024-01-02 06:45:10
+
+N_LSS_SLITLOSSES_RAW:
+  mode: "lss_n"
+  source: 
+    name: simple_star10
+    kwargs:
+      x: 0
+      y: -0.005
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "open"
+    catg: "CALIB"
+    tech: "LSS,N"
+    type: "FLAT,LAMP"
+    mjdobs: 2024-01-02 07:45:10
+
+
+N_LSS_SLITLOSSES_RAW:
+  mode: "lss_n"
+  source: 
+    name: simple_star10
+    kwargs:
+      x: 0
+      y: 0
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "open"
+    catg: "CALIB"
+    tech: "LSS,N"
+    type: "FLAT,LAMP"
+    mjdobs: 2024-01-02 08:45:10
+
+
+N_LSS_SLITLOSSES_RAW:
+  mode: "lss_n"
+  source: 
+    name: simple_star10
+    kwargs:
+      x: 0
+      y: 0.075
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "open"
+    catg: "CALIB"
+    tech: "LSS,N"
+    type: "FLAT,LAMP"
+    mjdobs: 2024-01-02 09:45:10
+
+
+N_LSS_SLITLOSSES_RAW:
+  mode: "lss_n"
+  source: 
+    name: simple_star10
+    kwargs:
+      x: 0
+      y: 0.01
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "open"
+    catg: "CALIB"
+    tech: "LSS,N"
+    type: "FLAT,LAMP"
+    mjdobs: 2024-01-02 10:45:10
+
+
+N_LSS_SLITLOSSES_RAW:
+  mode: "lss_n"
+  source: 
+    name: simple_star10
+    kwargs:
+      x: 0
+      y: 0.015
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "open"
+    catg: "CALIB"
+    tech: "LSS,N"
+    type: "FLAT,LAMP"
+    mjdobs: 2024-01-02 11:45:10
+
+
+N_LSS_SLITLOSSES_RAW:
+  mode: "lss_n"
+  source: 
+    name: simple_star10
+    kwargs:
+      x: 0
+      y: 0.02
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "open"
+    catg: "CALIB"
+    tech: "LSS,N"
+    type: "FLAT,LAMP"
+    mjdobs: 2024-01-02 12:45:10
+
+
+N_LSS_SLITLOSSES_RAW:
+  mode: "lss_n"
+  source: 
+    name: simple_star10
+    kwargs:
+      x: 0
+      y: 0.025
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "open"
+    catg: "CALIB"
+    tech: "LSS,N"
+    type: "FLAT,LAMP"
+    mjdobs: 2024-01-02 13:45:10
+
+
+##################### "STANDARDS" (SINGLE SOURCE AT CENTER) ######################
+
+#### EACH IMAGE PAIRED WITH SKY ######
 
 ######### IMAGING ###############
 
-STAR_N1_RAW:
-  mode: "img_n"
-  source: 
-    name: simple_star12
-    kwargs: {}
-  properties:
-    dit: 0.25
-    ndit: 1
-    filter_name: "N1"
-    catg: "SCIENCE"
-    tech: "IMAGE,N"
-    type: "OBJECT"
-    mjdobs:
-      - 2024-01-02 03:45:10
-
-STARSKY_N1_RAW:
-  mode: "img_n"
-  source: 
-    name: empty_sky
-    kwargs: {}
-  properties:
-    dit: 0.25
-    ndit: 1
-    filter_name: "N1"
-    catg: "SCIENCE"
-    tech: "IMAGE,N"
-    type: "OBJECT"
-    mjdobs:
-      - 2024-01-02 03:45:10
-
-STAR_LP_RAW:
+LM_IMAGE_STD_RAW:
   mode: "img_lm"
   source: 
     name: simple_star12
@@ -290,13 +1391,14 @@ STAR_LP_RAW:
     dit: 0.25
     ndit: 1
     filter_name: "Lp"
-    catg: "SCIENCE"
+    catg: "CALIB"
     tech: "IMAGE,LM"
-    type: "OBJECT"
+    type: "STD"
     mjdobs:
       - 2024-01-02 03:45:10
+      - 2024-01-02 03:55:10
 
-STARSKY_LP_RAW:
+LM_IMAGE_STD_RAW:
   mode: "img_lm"
   source: 
     name: empty_sky
@@ -305,13 +1407,46 @@ STARSKY_LP_RAW:
     dit: 0.25
     ndit: 1
     filter_name: "Lp"
-    catg: "SCIENCE"
+    catg: "CALIB"
     tech: "IMAGE,LM"
     type: "SKY"
     mjdobs:
-      - 2024-01-02 03:45:10
+      - 2024-01-02 13:45:10
+      - 2024-01-02 13:55:10
 
-STAR_MP_RAW:
+N_IMAGE_STD_RAW:
+  mode: "img_n"
+  source: 
+    name: simple_star12
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "N1"
+    catg: "CALIB"
+    tech: "IMAGE,N"
+    type: "STD"
+    mjdobs:
+      - 2024-01-02 03:45:10
+      - 2024-01-02 03:55:10
+
+N_IMAGE_STD_RAW:
+  mode: "img_n"
+  source: 
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "N1"
+    catg: "CALIB"
+    tech: "IMAGE,N"
+    type: "SKY"
+    mjdobs:
+      - 2024-01-02 13:45:10
+      - 2024-01-02 13:55:10
+
+LM_IMAGE_STD_RAW:
   mode: "img_lm"
   source: 
     name: simple_star12
@@ -320,13 +1455,14 @@ STAR_MP_RAW:
     dit: 0.25
     ndit: 1
     filter_name: "Mp"
-    catg: "SCIENCE"
+    catg: "CALIB"
     tech: "IMAGE,LM"
-    type: "OBJECT"
+    type: "STD"
     mjdobs:
-      - 2024-01-02 03:45:10
+      - 2024-01-02 04:45:10
+      - 2024-01-02 04:55:10
 
-STARSKY_MP_RAW:
+LM_IMAGE_STD_RAW:
   mode: "img_lm"
   source: 
     name: empty_sky
@@ -335,17 +1471,51 @@ STARSKY_MP_RAW:
     dit: 0.25
     ndit: 1
     filter_name: "Mp"
-    catg: "SCIENCE"
+    catg: "CALIB"
     tech: "IMAGE,LM"
     type: "SKY"
     mjdobs:
-      - 2024-01-02 03:45:10
+      - 2024-01-02 14:45:10
+      - 2024-01-02 14:55:10
 
 
 ######### SPECTRA ###############
 
+LM_LSS_STD_RAW:
+  mode: "lss_l"
+  source: 
+    name: simple_star8
+    kwargs: {}
+  properties:
+    dit: 0.05
+    ndit: 1
+    filter_name: "L_spec"
+    catg: "CALIB"
+    tech: "LSS,LM"
+    type: "STD"
+    mjdobs:
+      - 2024-01-02 03:45:10
+      - 2024-01-02 03:55:10
 
-STAR_LSS_N_RAW:
+
+LM_LSS_STD_RAW:
+  mode: "lss_l"
+  source: 
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.05
+    ndit: 1
+    filter_name: "L_spec"
+    catg: "CALIB"
+    tech: "LSS,LM"
+    type: "SKY"
+    mjdobs:
+      - 2024-01-02 13:45:10
+      - 2024-01-02 13:55:10
+
+
+N_LSS_STD_RAW:
   mode: "lss_n"
   source: 
     name: simple_star8
@@ -354,13 +1524,14 @@ STAR_LSS_N_RAW:
     dit: 0.05
     ndit: 1
     filter_name: "N_spec"
-    catg: "SCIENCE"
+    catg: "CALIB"
     tech: "LSS,N"
-    type: "OBJECT"
+    type: "STD"
     mjdobs:
       - 2024-01-02 03:45:10
+      - 2024-01-02 03:55:10
 
-STARSKY_LSS_N_RAW:
+N_LSS_STD_RAW:
   mode: "lss_n"
   source: 
     name: empty_sky
@@ -369,13 +1540,14 @@ STARSKY_LSS_N_RAW:
     dit: 0.05
     ndit: 1
     filter_name: "N_spec"
-    catg: "SCIENCE"
+    catg: "CALIB"
     tech: "LSS,N"
     type: "SKY"
     mjdobs:
-      - 2024-01-02 03:45:10
+      - 2024-01-02 13:45:10
+      - 2024-01-02 13:55:10
 
-STAR_LSS_M_RAW:
+LM_LSS_STD_RAW:
   mode: "lss_m"
   source: 
     name: simple_star12
@@ -384,13 +1556,14 @@ STAR_LSS_M_RAW:
     dit: 0.25
     ndit: 1
     filter_name: "M_spec"
-    catg: "SCIENCE"
+    catg: "CALIB"
     tech: "LSS,LM"
-    type: "OBJECT"
+    type: "STD"
     mjdobs:
-      - 2024-01-02 03:45:10
+      - 2024-01-02 04:45:10
+      - 2024-01-02 04:55:10
 
-STARSKY_LSS_M_RAW:
+LM_LSS_STD_RAW:
   mode: "lss_m"
   source: 
     name: empty_sky
@@ -399,16 +1572,17 @@ STARSKY_LSS_M_RAW:
     dit: 0.25
     ndit: 1
     filter_name: "M_spec"
-    catg: "SCIENCE"
+    catg: "CALIB"
     tech: "LSS,LM"
     type: "SKY"
     mjdobs:
-      - 2024-01-02 03:45:10
+      - 2024-01-02 14:45:10
+      - 2024-01-02 14:55:10
 
 ########## IFU ###############
 
 
-STAR_IFU_RAW:
+IFU_STD_RAW:
   mode: "lms"
   source:
     name: simple_star8
@@ -418,14 +1592,15 @@ STAR_IFU_RAW:
     ndit: 3
     filter_name: "Lp"
     wavelen: "3.555"
-    catg: "SCIENCE"
+    catg: "CALIB"
     tech: "LMS"
-    type: "OBJECT"
+    type: "STD"
     mjdobs:
       - 2024-01-02 03:45:10
+      - 2024-01-02 03:55:10
 
 
-STARSKY_IFU_RAW:
+IFU_STD_RAW:
   mode: "lms"
   source:
     name: empty_sky
@@ -435,34 +1610,20 @@ STARSKY_IFU_RAW:
     ndit: 3
     filter_name: "Lp"
     wavelen: "3.555"
-    catg: "SCIENCE"
+    catg: "CALIB"
     tech: "LMS"
-    type: "OBJECT"
-    mjdobs:
-      - 2024-01-02 03:45:10
-
-
-
-##################### STAR FIELD ######################3
-
-###POSITIONS / MAGNITUDES WERE RADOMLY RANDOM, BUT FIXED FOR THE SET OF SIMULATIONS#####
-
-SKYSTARFIELD_LP_RAW:
-  mode: "img_lm"
-  source: 
-    name: "empty_sky"
-    kwargs: {}
-  properties:
-    dit: 0.25
-    ndit: 4
-    filter_name: "Lp"
-    catg: "SCIENCE"
-    tech: "IMAGE,LM"
     type: "SKY"
     mjdobs:
-      - 2024-01-02 03:45:10
+      - 2024-01-02 13:45:10
+      - 2024-01-02 13:55:10
 
-STARFIELD_LP_RAW:
+
+##################### STAR FIELD (SCIENCE SOURCE, LM/N) ######################3
+
+### POSITIONS / MAGNITUDES WERE INTIALLY SET RANDOMLY, BUT FIXED FOR THE SET OF SIMULATIONS #####
+
+
+LM_IMAGE_SCI_RAW:
   mode: "img_lm"
   source: 
     name: star_field
@@ -476,12 +1637,123 @@ STARFIELD_LP_RAW:
     type: "OBJECT"
     mjdobs:
       - 2024-01-02 03:45:10
+      - 2024-01-02 03:55:10
 
-##################### EXTENDED GALAXY ######################3
-
-
-GAL_LM:
+LM_IMAGE_SCI_RAW:
   mode: "img_lm"
+  source: 
+    name: "empty_sky"
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 4
+    filter_name: "Lp"
+    catg: "CALIB"
+    tech: "IMAGE,LM"
+    type: "SKY"
+    mjdobs:
+      - 2024-01-02 13:45:10
+      - 2024-01-02 13:55:10
+
+N_IMAGE_SCI_RAW:
+  mode: "img_lm"
+  source: 
+    name: star_field
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 4
+    filter_name: "Lp"
+    catg: "SCIENCE"
+    tech: "IMAGE,LM"
+    type: "OBJECT"
+    mjdobs:
+      - 2024-01-02 03:45:10
+      - 2024-01-02 03:55:10
+
+N_IMAGE_SCI_RAW:
+  mode: "img_lm"
+  source: 
+    name: "empty_sky"
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 4
+    filter_name: "Lp"
+    catg: "CALIB"
+    tech: "IMAGE,LM"
+    type: "SKY"
+    mjdobs:
+      - 2024-01-02 13:45:10
+      - 2024-01-02 13:55:10
+
+##################### EXTENDED GALAXY (SCIENCE SOURCE SPECTRA) ######################
+
+
+N_LSS_SCI_RAW:
+  mode: "lss_n"
+  source:
+    name: simple_gal
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "N_spec"
+    catg: "SCIENCE"
+    tech: "LSS,N"
+    type: "OBJECT"
+    mjdobs: 2024-01-02 03:45:10
+    mjdobs: 2024-01-02 03:55:10
+
+N_LSS_SCI_RAW:
+  mode: "lss_n"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "N_spec"
+    catg: "CALIB"
+    tech: "LSS,N"
+    type: "SKY"
+    mjdobs: 2024-01-02 13:45:10
+    mjdobs: 2024-01-02 13:55:10
+
+
+
+LM_LSS_SCI_RAW:
+  mode: "lss_lm"
+  source:
+    name: simple_gal
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "L_spec"
+    catg: "SCIENCE"
+    tech: "LSS,N"
+    type: "OBJECT"
+    mjdobs: 2024-01-02 03:45:10
+    mjdobs: 2024-01-02 03:55:10
+
+LM_LSS_SCI_RAW:
+  mode: "lss_n"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "N_spec"
+    catg: "CALIB"
+    tech: "LSS,N"
+    type: "SKY"
+    mjdobs: 2024-01-02 13:45:10
+    mjdobs: 2024-01-02 13:55:10
+
+IFU_SCI_RAW:
+  mode: "lms"
   source:
     name: simple_gal
     kwargs: {}
@@ -490,12 +1762,13 @@ GAL_LM:
     ndit: 1
     filter_name: "Lp"
     catg: "SCIENCE"
-    tech: "IMAGE,LM"
+    tech: "LMS"
     type: "OBJECT"
     mjdobs: 2024-01-02 03:45:10
+    mjdobs: 2024-01-02 03:55:10
 
-SKYGAL_LM:
-  mode: "img_lm"
+IFU_SCI_RAW:
+  mode: "lms"
   source:
     name: empty_sky
     kwargs: {}
@@ -503,7 +1776,166 @@ SKYGAL_LM:
     dit: 0.25
     ndit: 1
     filter_name: "Lp"
-    catg: "SCIENCE"
+    catg: "CALIB"
+    tech: "LMS"
+    type: "SKY"
+    mjdobs: 2024-01-02 13:45:10
+    mjdobs: 2024-01-02 13:55:10
+
+
+########################### TECHNICAL #####################
+
+
+LM_CHOPPERHOME_RAW:
+  mode: "img_lm"
+  source:
+    name: flat_field
+    kwargs:
+      temperature: 200
+      amplitude: 0
+      filter_curve: "V"
+      extend: 15
+  properties:
+    dit: 10
+    ndit: 1
+    filter_name: "open"
+    catg: "CALIB"
     tech: "IMAGE,LM"
-    type: "OBJECT"
+    type: "CHOPHOME"
     mjdobs: 2024-01-02 03:45:10
+
+LM_PUPIL_RAW:
+  mode: "img_lm"
+  source:
+    name: flat_field
+    kwargs:
+      temperature: 200
+      amplitude: 0
+      filter_curve: "V"
+      extend: 15
+  properties:
+    dit: 10
+    ndit: 1
+    filter_name: "open"
+    catg: "TECHNICAL"
+    tech: "PUP,M"
+    type: "PUPIL"
+    mjdobs: 2024-01-02 03:45:10
+
+N_PUPIL_RAW:
+  mode: "img_n"
+  source:
+    name: flat_field
+    kwargs:
+      temperature: 200
+      amplitude: 0
+      filter_curve: "V"
+      extend: 15
+  properties:
+    dit: 10
+    ndit: 1
+    filter_name: "open"
+    catg: "TECHNICAL"
+    tech: "PUP,N"
+    type: "PUPIL"
+    mjdobs: 2024-01-02 03:45:10
+
+IFU_OFF_AXIS_PSF_RAW:
+  mode: "lms"
+  source:
+    name: simple_star8
+    kwargs: {}
+  properties:
+    dit: 100
+    ndit: 3
+    filter_name: "Lp"
+    wavelen: "3.555"
+    catg: "CALIB"
+    tech: "LMS"
+    type: "PSF,OFFAXIS"
+    mjdobs:
+      - 2024-01-02 03:45:10
+
+LM_OFF_AXIS_PSF_RAW:
+  mode: "img_lm"
+  source: 
+    name: simple_star12
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "Lp"
+    catg: "CALIB"
+    tech: "IMAGE,LM"
+    type: "PSF,OFFAXIS"
+    mjdobs:
+      - 2024-01-02 03:45:10
+
+N_OFF_AXIS_PSF_RAW:
+  mode: "img_n"
+  source: 
+    name: simple_star12
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "N1"
+    catg: "CALIB"
+    tech: "IMAGE,N"
+    type: "PSF,OFFAXIS"
+    mjdobs:
+      - 2024-01-02 03:45:10
+
+##################### FOR CORONAGRAPH ################
+
+LM_IMAGE_SCI_RAW:
+  mode: "img_lm"
+  source: 
+    name: simple_star12
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "Lp"
+    catg: "CALIB"
+    tech: "RAVC,LM"
+    type: "STD"
+    mjdobs:
+      - 2024-01-02 03:45:10
+      - 2024-01-02 03:55:10
+
+
+LM_IMAGE_SCI_RAW:
+  mode: "img_lm"
+  source: 
+    name: simple_star12
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "Lp"
+    catg: "CALIB"
+    tech: "APP,LM"
+    type: "STD"
+    mjdobs:
+      - 2024-01-02 03:45:10
+      - 2024-01-02 03:55:10
+
+
+IFU_STD_RAW:
+  mode: "lms"
+  source:
+    name: simple_star8
+    kwargs: {}
+  properties:
+    dit: 100
+    ndit: 3
+    filter_name: "Lp"
+    wavelen: "3.555"
+    catg: "CALIB"
+    tech: "RAVC,IFU"
+    type: "SCIENCE"
+    mjdobs:
+      - 2024-01-02 03:45:10
+      - 2024-01-02 03:55:10
+
