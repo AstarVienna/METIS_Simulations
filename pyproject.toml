@@ -26,8 +26,8 @@ numpy = "^1.26.3"
 astropy = "^5.3.3"
 matplotlib = "^3.7.2"
 
-ScopeSim = "^0.8.0"
-ScopeSim_Templates = "^0.5.1"
+ScopeSim = "^0.8.1"
+ScopeSim_Templates = "^0.5.2"
 astar-utils = ">=0.2.2"
 
 [build-system]
