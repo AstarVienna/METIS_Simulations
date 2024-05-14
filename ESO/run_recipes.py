@@ -33,6 +33,7 @@ def run(inputYAML, outputDir, small=False):
                     if isinstance(recipe["properties"][key], list)]
         combos = product(*[recipe["properties"][key] for key in expanded])
         mode = recipe["mode"]
+        prefix = recipe["prefix"]
         for combo in combos:
             combodict = dict(zip(expanded, combo))
             props = recipe["properties"] | combodict
@@ -54,7 +55,7 @@ def run(inputYAML, outputDir, small=False):
                             else v.replace(",", ".")
                             for k, v in combodict.items()
                             if k not in {"mjdobs"})
-            fname = '-'.join([name, expfname]) if expfname else name
+            fname = '-'.join([prefix, expfname]) if expfname else prefix
             fname = f"METIS.{sdate}.{fname}"
             fname = out_dir / f"{fname}.fits"
             print("fname=",fname)
