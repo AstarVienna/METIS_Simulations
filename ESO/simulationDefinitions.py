@@ -5,12 +5,12 @@ import scopesim_templates as sim_tp
 import numpy as np
 
 
-imgLM = sim.OpticalTrain(sim.UserCommands(use_instrument="metis", set_modes=["img_lm"]))
+imgLM = sim.OpticalTrain(sim.UserCommands(use_instrument="METIS", set_modes=["img_lm"]))
 specDictLM = imgLM.cmds['!SIM.spectral']
-imgN = sim.OpticalTrain(sim.UserCommands(use_instrument="metis", set_modes=["img_n"]))
+imgN = sim.OpticalTrain(sim.UserCommands(use_instrument="METIS", set_modes=["img_n"]))
 specDictN = imgN.cmds['!SIM.spectral']
 
-#sim.download_packages(["Armazones", "ELT", "METIS"])
+sim.download_packages(["Armazones", "ELT", "METIS"])
 
 # use the same random star field each time
 
