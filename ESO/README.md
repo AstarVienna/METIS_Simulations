@@ -111,7 +111,8 @@ install the software and generate the files
 > pip install .
 > cd ../METIS_Simulations/ESO
 > ./run_recipes.py
-> ./updateHeaders.py 
+> ./updateHeaders.py
+> md5sum -c checksums.dat | grep -v OK
 ```
 
 The first time you run this, the necessary instrument packages for ScopeSim will be downloaded; comment out the 
@@ -124,7 +125,7 @@ line in simulationDefinitions.py for further work.
 
 run_recipes.py runs ScopeSim using the templates in recipes.yaml, and outputting to the directory output/
 
-updateHeaders.py adds headers not yet included in ScopeSim but needed by the EDPS skeleton. By default, it reads from output/ and *OVERWRITES* the original files.
+updateHeaders.py adds headers not yet included in ScopeSim but needed by the EDPS skeleton. By default, it reads from output/ and *OVERWRITES* the original files. The final step compares the checksums of the files as of release time. 
 
 The files can also be run as
 
