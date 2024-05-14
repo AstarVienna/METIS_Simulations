@@ -7,7 +7,6 @@ keywords not clurrently included in ScopeSim
 
 from astropy.io import fits
 import numpy as np
-import pandas as pd
 from importlib import reload
 import glob
 import argparse
@@ -45,14 +44,14 @@ def updateHeaders(inDir,outDir):
     fNames.sort()
 
     for fName in fNames:
-        print(fName)
         # open the file
         hdul = fits.open(fName)
 
         # get the tech and filter keywords
         tech = hdul[0].header['HIERARCH ESO DPR TECH']
         filt = hdul[0].header['HIERARCH ESO DRS FILTER']
-        
+        print(fName,tech)
+
         #spectra
         if(tech == "LSS,LM"):
             hdul[0].header['HIERARCH ESO INS MODE'] = "SPEC_LM"
@@ -76,36 +75,37 @@ def updateHeaders(inDir,outDir):
             hdul[0].header['HIERARCH ESO INS MODE'] = "IFU_nominal"
             hdul[0].header['HIERARCH ESO INS OPTI6 NAME'] = filt
             hdul[0].header['HIERARCH ESO DRS IFU'] = filt
-            hdul[0].header['HIERARCH ESO DPR TECH'] == "IFU"
+            hdul[0].header['HIERARCH ESO DPR TECH'] = "IFU"
             
         #HCI
         if(tech == "RAVC,LM"):
             hdul[0].header['HIERARCH ESO INS OPTI10 NAME'] = filt
             hdul[0].header['HIERARCH ESO INS MODE'] = "IMG_LM_RAVC"
             hdul[0].header['HIERARCH ESO DRS MASK'] = "VPM-L,RAP-LM,RLS-LMS"
-            hdul[0].header['HIERARCH ESO INST OPTI1 NAME'] = "RAP-LM"
-            hdul[0].header['HIERARCH ESO INST OPTI3 NAME'] = "VPM-L"
-            hdul[0].header['HIERARCH ESO INST OPTI5 NAME'] = "RLS-LMS"
-            hdul[0].header['HIERARCH ESO DPR TECH'] == "IMG_LM"
+            hdul[0].header['HIERARCH ESO INS OPTI1 NAME'] = "RAP-LM"
+            hdul[0].header['HIERARCH ESO INS OPTI3 NAME'] = "VPM-L"
+            hdul[0].header['HIERARCH ESO INS OPTI5 NAME'] = "RLS-LMS"
+            hdul[0].header['HIERARCH ESO DPR TECH'] = "IMG_LM"
         
         if(tech == "APP,LM"):
             hdul[0].header['HIERARCH ESO INS OPTI10 NAME'] = filt
             hdul[0].header['HIERARCH ESO INS MODE'] = "IMG_LM_APP"
-            hdul[0].header['HIERARCH ESO DPR TECH'] == "IMG_LM"
-            hdul[0].header['HIERARCH ESO INST OPTI1 NAME'] = "RAP-LM"
-            hdul[0].header['HIERARCH ESO INST OPTI3 NAME'] = "VPM-L"
-            hdul[0].header['HIERARCH ESO INST OPTI5 NAME'] = "APP-LMSS"
+            hdul[0].header['HIERARCH ESO DPR TECH'] = "IMG_LM"
+            hdul[0].header['HIERARCH ESO INS OPTI1 NAME'] = "RAP-LM"
+            hdul[0].header['HIERARCH ESO INS OPTI3 NAME'] = "VPM-L"
+            hdul[0].header['HIERARCH ESO INS OPTI5 NAME'] = "APP-LMS"
             hdul[0].header['HIERARCH ESO DRS MASK'] = "VPM-L,RAP-LM,APP-LMS"
         
         if(tech == "RAVC,IFU"):
             hdul[0].header['HIERARCH ESO INS OPTI6 NAME'] = filt
             hdul[0].header['HIERARCH ESO INS MODE'] = "IFU_nominal_RAVC"
             hdul[0].header['HIERARCH ESO DRS IFU'] = filt
-            hdul[0].header['HIERARCH ESO DPR TECH'] == "IFU"
-            hdul[0].header['HIERARCH ESO INST OPTI1 NAME'] = "RAP-LM"
-            hdul[0].header['HIERARCH ESO INST OPTI3 NAME'] = "VPM-L"
-            hdul[0].header['HIERARCH ESO INST OPTI5 NAME'] = "RLS-LMS"
-        
+            hdul[0].header['HIERARCH ESO DPR TECH'] = "IFU"
+            hdul[0].header['HIERARCH ESO INS OPTI1 NAME'] = "RAP-LM"
+            hdul[0].header['HIERARCH ESO INS OPTI3 NAME'] = "VPM-L"
+            hdul[0].header['HIERARCH ESO INS OPTI5 NAME'] = "RLS-LMS"
+            hdul[0].header['HIERARCH ESO DRS MASK'] = "VPM-L,RAP-LM,RLS-LMS"
+
         #OTHER
         if(hdul[0].header['HIERARCH ESO DPR TYPE'] == "WAVE"):   
             hdul[0].header['HIERARCH ESO SEQ WCU LASER1 NAME'] = "LASER1"
@@ -113,10 +113,10 @@ def updateHeaders(inDir,outDir):
         #OTHER
         if(tech == "PUP,M"):
             hdul[0].header['HIERARCH ESO INS MODE'] = "IMG_LM"
-            hdul[0].header['HIERARCH ESO INST OPTI15 NAME'] = "PUPIL1"
+            hdul[0].header['HIERARCH ESO INS OPTI15 NAME'] = "PUPIL1"
         if(tech == "PUP,N"):
             hdul[0].header['HIERARCH ESO INS MODE'] = "IMG_N"
-            hdul[0].header['HIERARCH ESO INST OPTI15 NAME'] = "PUPIL2"
+            hdul[0].header['HIERARCH ESO INS OPTI15 NAME'] = "PUPIL2"
 
         
         # get the filename from the path

@@ -64,6 +64,8 @@ def generateSummary(inDir,outFileName):
             line = f'{line}{hdul[0].header[elem]}'
         line=line+"\t"
         for elem in mask:
+            print(ins)
+
             line = f'{line}{hdul[0].header[elem]}'
         line=line+"\t"
         
