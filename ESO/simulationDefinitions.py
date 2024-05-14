@@ -4,7 +4,9 @@ import scopesim as sim
 import scopesim_templates as sim_tp
 import numpy as np
 
-sim.download_packages(["Armazones", "ELT", "METIS"])
+sim.download_packages("Armazones", release="2023-07-11")
+sim.download_packages("ELT", release="2024-02-29")
+sim.download_packages("METIS", release="2024-05-14")
 
 imgLM = sim.OpticalTrain(sim.UserCommands(use_instrument="METIS", set_modes=["img_lm"]))
 specDictLM = imgLM.cmds['!SIM.spectral']
