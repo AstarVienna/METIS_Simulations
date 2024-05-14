@@ -98,18 +98,12 @@ In a clean conda environment (python 3.9) the following sequence of commands wil
 install the software and generate the files
 
 ```
-> git clone git@github.com:AstarVienna/ScopeSim.git
-> git clone git@github.com:AstarVienna/irdb.git
-> git clone git@github.com:AstarVienna/ScopeSim_Templates.git
 > git clone git@github.com:AstarVienna/METIS_Simulations.git
 
-> cd irdb
-> pip install .
-> cd ../ScopeSim
-> pip install .
-> cd ../ScopeSim_Templates
-> pip install .
-> cd ../METIS_Simulations/ESO
+> cd METIS_Simulations/ESO
+> poetry install
+> poetry shell
+
 > ./run_recipes.py
 > ./updateHeaders.py
 > md5sum -c checksums.dat | grep -v OK
@@ -118,10 +112,10 @@ install the software and generate the files
 The first time you run this, the necessary instrument packages for ScopeSim will be downloaded; comment out the 
 
 ```
-sim.download_packages(["Armazones", "ELT", "METIS"])
+sim.download_packages(...)
 ```
 
-line in simulationDefinitions.py for further work.
+lines in simulationDefinitions.py for further work.
 
 run_recipes.py runs ScopeSim using the templates in recipes.yaml, and outputting to the directory output/
 
