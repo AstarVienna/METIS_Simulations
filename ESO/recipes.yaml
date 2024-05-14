@@ -308,7 +308,7 @@ N_FLAT_TWILIGHT_OPEN_RAW:
 #### WITH FILTER #####
 
 
-LM_FLAT_LAMP_LP_RAW:
+LM_FLAT_LAMP_RAW:
   prefix: LM_FLAT_LAMP_RAW
   mode: "img_lm"
   source:
@@ -330,7 +330,7 @@ LM_FLAT_LAMP_LP_RAW:
       - 2024-01-02 02:41:20
 
 
-LM_FLAT_TWILIGHT_LP_RAW:
+LM_FLAT_TWILIGHT_RAW:
   prefix: LM_FLAT_TWILIGHT_RAW
   mode: "img_lm"
   source:
@@ -389,7 +389,7 @@ N_FLAT_TWILIGHT_N1_RAW:
 
 
 IFU_FLAT_LAMP_RAW:
-  prefix: IFU_FLAT_LP_LAMP_RAW
+  prefix: IFU_FLAT_LAMP_RAW
   mode: "lms"
   source:
     name: flat_field
@@ -410,7 +410,7 @@ IFU_FLAT_LAMP_RAW:
       - 2024-01-02 02:47:20
 
 IFU_FLAT_TWILIGHT_RAW:
-  prefix: IFU_FLAT_LP_TWILIGHT_RAW
+  prefix: IFU_FLAT_TWILIGHT_RAW
   mode: "lms"
   source:
     name: empty_sky
