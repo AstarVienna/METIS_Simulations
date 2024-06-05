@@ -894,7 +894,7 @@ N_IMAGE_SCI_RAW1:
     ndit: 4
     filter_name: "Lp"
     catg: "SCIENCE"
-    tech: "IMAGE,LM"
+    tech: "IMAGE,N"
     type: "OBJECT"
     mjdobs:
       - 2024-01-02 05:37:10
@@ -911,7 +911,7 @@ N_IMAGE_SCI_RAW2:
     ndit: 4
     filter_name: "Lp"
     catg: "SCIENCE"
-    tech: "IMAGE,LM"
+    tech: "IMAGE,N"
     type: "SKY"
     mjdobs:
       - 2024-01-02 05:38:10
