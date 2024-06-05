@@ -36,6 +36,15 @@ for name, settings in recipes.items():
     if props['type'] != di.dpr_type:
         problems.append(f"{do_catg} has DPR.TYPE {props['type']} in yaml but {di.dpr_type} in DRLD")
 
+do_catg_used_in_yaml = {settings['prefix'] for settings in recipes.values()}
+do_catg_used_in_drld = {a for a in METIS_DataReductionLibraryDesign.dataitems if a.endswith("_RAW")}
+do_catg_only_in_yaml = do_catg_used_in_yaml - do_catg_used_in_drld
+do_catg_only_in_drld = do_catg_used_in_drld - do_catg_used_in_yaml
+if do_catg_only_in_yaml:
+    problems.append(f"DO.CATG values only used in yaml file but not in the DRLD: {do_catg_only_in_yaml}")
+if do_catg_only_in_drld:
+    problems.append(f"DO.CATG values only used in drld but not in the yaml file: {do_catg_only_in_drld}")
+
 for problem in problems:
     print(problem)
 
