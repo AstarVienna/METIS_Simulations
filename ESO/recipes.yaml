@@ -824,9 +824,12 @@ IFU_STD_RAW1:
       - 2024-01-02 04:47:10
       - 2024-01-02 04:47:20
 
-
-IFU_STD_RAW2:
-  prefix: IFU_STD_RAW
+# metis_ifu_reduce does not differentiate between
+# a SKY image for a standard observation and a
+# SKY image for a science observation. They are
+# both IFU_SKY_RAW. Maybe that should be changed?
+IFU_SKY_RAW2:
+  prefix: IFU_SKY_RAW
   mode: "lms"
   source:
     name: empty_sky
