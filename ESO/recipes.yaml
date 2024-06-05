@@ -58,7 +58,7 @@ DARK_IFU_RAW:
     ndit: 1
     filter_name: "closed"
     catg: "CALIB"
-    tech: "IFU"
+    tech: "LMS"
     type: "DARK"
     mjdobs:
       - 2024-01-02 00:47:10
@@ -130,7 +130,7 @@ IFU_WCU_OFF_RAW:
     ndit: 1
     filter_name: "closed"
     catg: "CALIB"
-    tech: "IFU"
+    tech: "LMS"
     type: "DARK,WCUOFF"
     mjdobs:
       - 2024-01-02 00:50:10
@@ -216,7 +216,7 @@ DETLIN_IFU_RAW:
     ndit: 1
     filter_name: "open"
     catg: "CALIB"
-    tech: "IFU"
+    tech: "LMS"
     type: "DETLIN"
     mjdobs:
       - 2024-01-02 01:47:00
@@ -500,7 +500,7 @@ IFU_RSRF_RAW1:
     ndit: 1
     filter_name: "open"
     catg: "CALIB"
-    tech: "IFU"
+    tech: "LMS"
     type: "RSRF"
     mjdobs:
       - 2024-01-02 03:39:10
@@ -521,7 +521,7 @@ IFU_RSRF_RAW2:
     ndit: 1
     filter_name: "open"
     catg: "CALIB"
-    tech: "IFU"
+    tech: "LMS"
     type: "RSRF"
     mjdobs:
       - 2024-01-02 03:40:10
@@ -629,7 +629,7 @@ N_LSS_RSRF_PINH_RAW2:
 #    filter_name: "open"
 #    ndfilter_name: "ND_OD3"
 #    catg: "CALIB"
-#    tech: "IFU"
+#    tech: "LMS"
 #    type: "FLAT,LAMP"
 #    mjdobs:
 #      - 2024-01-02 03:45:10
@@ -649,7 +649,7 @@ N_LSS_RSRF_PINH_RAW2:
 #    filter_name: "open"
 #    ndfilter_name: "ND_OD3"
 #    catg: "CALIB"
-#    tech: "IFU"
+#    tech: "LMS"
 #    type: "FLAT,LAMP"
 #    mjdobs:
 #      - 2024-01-02 03:46:10
@@ -818,7 +818,7 @@ IFU_STD_RAW1:
     filter_name: "Lp"
     wavelen: "3.555"
     catg: "CALIB"
-    tech: "IFU"
+    tech: "LMS"
     type: "STD"
     mjdobs:
       - 2024-01-02 04:47:10
@@ -840,7 +840,7 @@ IFU_SKY_RAW2:
     filter_name: "Lp"
     wavelen: "3.555"
     catg: "CALIB"
-    tech: "IFU"
+    tech: "LMS"
     type: "SKY"
     mjdobs:
       - 2024-01-02 04:48:10
@@ -1004,7 +1004,7 @@ IFU_SCI_RAW:
     ndit: 1
     filter_name: "Lp"
     catg: "SCIENCE"
-    tech: "IFU"
+    tech: "LMS"
     type: "OBJECT"
     mjdobs:
       - 2024-01-02 05:52:10
@@ -1021,7 +1021,7 @@ IFU_SKY_RAW:
     ndit: 1
     filter_name: "Lp"
     catg: "CALIB"
-    tech: "IFU"
+    tech: "LMS"
     type: "SKY"
     mjdobs:
       - 2024-01-02 05:53:10
@@ -1078,7 +1078,7 @@ IFU_OFF_AXIS_PSF_RAW:
     filter_name: "Lp"
     wavelen: "3.555"
     catg: "CALIB"
-    tech: "IFU"
+    tech: "LMS"
     type: "PSF,OFFAXIS"
     mjdobs:
       - 2024-01-02 06:38:10
@@ -1663,7 +1663,7 @@ IFU_WAVE_RAW:
     filter_name: "open"
     nd_filter_name: "ND_OD4"
     catg: "CALIB"
-    tech: "IFU"
+    tech: "LMS"
     type: "WAVE"
     mjdobs:
       - 2024-01-03 04:47:10
@@ -1785,7 +1785,7 @@ IFU_DISTORTION_RAW:
     filter_name: "Lp"
     nd_filter_name: "ND_OD3"
     catg: "CALIB"
-    tech: "IFU"
+    tech: "LMS"
     type: "DISTORTION"
     mjdobs:
       - 2024-01-03 05:50:10
