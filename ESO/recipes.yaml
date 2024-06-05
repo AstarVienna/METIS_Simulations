@@ -223,7 +223,10 @@ DETLIN_IFU_RAW:
       - 2024-01-02 01:47:10
 
 
-##################### FLATS - LM, N, IFU ######################3
+##################### FLATS - LM, N ######################
+
+# There are only flats for LM and N, but not for the IFU, because
+#  it is not possible to remove the mirrors from the optical path.
 
 #### OPEN FILTER #####
 
@@ -387,44 +390,6 @@ N_FLAT_TWILIGHT_N1_RAW:
       - 2024-01-02 02:46:10
       - 2024-01-02 02:46:20
 
-
-IFU_FLAT_LAMP_RAW:
-  prefix: IFU_FLAT_LAMP_RAW
-  mode: "lms"
-  source:
-    name: flat_field
-    kwargs:
-      temperature: 200
-      amplitude: 0
-      filter_curve: "V"
-      extend: 15
-  properties:
-    dit: 10
-    ndit: 1
-    filter_name: "Lp"
-    catg: "CALIB"
-    tech: "IFU"
-    type: "FLAT,LAMP"
-    mjdobs:
-      - 2024-01-02 02:47:10
-      - 2024-01-02 02:47:20
-
-IFU_FLAT_TWILIGHT_RAW:
-  prefix: IFU_FLAT_TWILIGHT_RAW
-  mode: "lms"
-  source:
-    name: empty_sky
-    kwargs: {}
-  properties:
-    dit: 10
-    ndit: 1
-    filter_name: "Lp"
-    catg: "CALIB"
-    tech: "IFU"
-    type: "FLAT,TWILIGHT"
-    mjdobs:
-     - 2024-01-02 02:48:10
-     - 2024-01-02 02:48:20
 
 
 ##################### RSRF ######################3
