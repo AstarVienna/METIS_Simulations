@@ -36,7 +36,7 @@ for name, settings in recipes.items():
     yaml_tech = props['tech']
     if yaml_tech in ["RAVC,LM", "APP,LM"]:
         yaml_tech = "IMAGE,LM"
-    if yaml_tech in ["RAVC,IFU"]:
+    if yaml_tech in ["RAVC,IFU", "LMS"]:
         yaml_tech = "IFU"
     if yaml_tech != di.dpr_tech:
         problems.append(f"{do_catg} has DPR.TECH {props['tech']} in yaml but {di.dpr_tech} in DRLD")
