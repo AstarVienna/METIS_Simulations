@@ -581,7 +581,7 @@ LM_LSS_RSRF_PINH_RAW1:
     filter_name: "open"
     catg: "CALIB"
     tech: "LSS,LM"
-    type: "FLAT,LAMP"
+    type: "FLAT,LAMP,PINH"
     mjdobs:
       - 2024-01-02 03:41:10
       - 2024-01-02 03:41:20
@@ -601,7 +601,7 @@ LM_LSS_RSRF_PINH_RAW2:
     filter_name: "open"
     catg: "CALIB"
     tech: "LSS,LM"
-    type: "FLAT,LAMP"
+    type: "FLAT,LAMP,PINH"
     mjdobs:
       - 2024-01-02 03:42:10
       - 2024-01-02 03:42:20
@@ -621,7 +621,7 @@ N_LSS_RSRF_PINH_RAW1:
     filter_name: "open"
     catg: "CALIB"
     tech: "LSS,N"
-    type: "FLAT,LAMP"
+    type: "FLAT,LAMP,PINH"
     mjdobs:
       - 2024-01-02 03:43:10
       - 2024-01-02 03:43:20
@@ -642,7 +642,7 @@ N_LSS_RSRF_PINH_RAW2:
     filter_name: "open"
     catg: "CALIB"
     tech: "LSS,N"
-    type: "FLAT,LAMP"
+    type: "FLAT,LAMP,PINH"
     mjdobs:
       - 2024-01-02 03:44:10
       - 2024-01-02 03:44:20
@@ -755,7 +755,7 @@ N_IMAGE_STD_RAW2:
     dit: 0.25
     ndit: 1
     filter_name: "N1"
-    catg: "SCIENCE"
+    catg: "CALIB"
     tech: "IMAGE,N"
     type: "SKY"
     mjdobs:
@@ -793,7 +793,7 @@ LM_LSS_STD_RAW2:
     dit: 0.05
     ndit: 1
     filter_name: "L_spec"
-    catg: "SCIENCE"
+    catg: "CALIB"
     tech: "LSS,LM"
     type: "SKY"
     mjdobs:
@@ -828,7 +828,7 @@ N_LSS_STD_RAW2:
     dit: 0.05
     ndit: 1
     filter_name: "N_spec"
-    catg: "SCIENCE"
+    catg: "CALIB"
     tech: "LSS,N"
     type: "SKY"
     mjdobs:
@@ -868,7 +868,7 @@ IFU_STD_RAW2:
     ndit: 3
     filter_name: "Lp"
     wavelen: "3.555"
-    catg: "SCIENCE"
+    catg: "CALIB"
     tech: "IFU"
     type: "SKY"
     mjdobs:
@@ -1197,7 +1197,7 @@ IFU_SCI_CORONAGRAPH_RAW1:
     filter_name: "Lp"
     wavelen: "3.555"
     catg: "SCIENCE"
-    tech: "RAVC,IFU"
+    tech: "IFU"
     type: "OBJECT"
     mjdobs:
       - 2024-01-02 06:43:10
@@ -1215,7 +1215,7 @@ IFU_SCI_CORONAGRAPH_RAW2:
     filter_name: "Lp"
     wavelen: "3.555"
     catg: "SCIENCE"
-    tech: "RAVC,IFU"
+    tech: "IFU"
     type: "SKY"
     mjdobs:
       - 2024-01-02 05:44:10
@@ -1692,7 +1692,7 @@ IFU_WAVE_RAW:
     filter_name: "open"
     nd_filter_name: "ND_OD4"
     catg: "CALIB"
-    tech: "LSS,N"
+    tech: "IFU"
     type: "WAVE"
     mjdobs:
       - 2024-01-03 04:47:10
@@ -1796,7 +1796,7 @@ N_DISTORTION_RAW:
     filter_name: "open"
     nd_filter_name: "ND_OD4"
     catg: "CALIB"
-    tech: "IMAGE,LM"
+    tech: "IMAGE,N"
     type: "DISTORTION"
     mjdobs:
       - 2024-01-03 05:49:10
