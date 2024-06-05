@@ -31,7 +31,14 @@ for name, settings in recipes.items():
     props = settings['properties']
     if props['catg'] != di.dpr_catg:
         problems.append(f"{do_catg} has DPR.CATG {props['catg']} in yaml but {di.dpr_catg} in DRLD")
-    if props['tech'] != di.dpr_tech:
+    # Workaround for special yaml_tech values that
+    # are fixed in updateHeaders.py
+    yaml_tech = props['tech']
+    if yaml_tech in ["RAVC,LM", "APP,LM"]:
+        yaml_tech = "IMAGE,LM"
+    if yaml_tech in ["RAVC,IFU"]:
+        yaml_tech = "IFU"
+    if yaml_tech != di.dpr_tech:
         problems.append(f"{do_catg} has DPR.TECH {props['tech']} in yaml but {di.dpr_tech} in DRLD")
     if props['type'] != di.dpr_type:
         problems.append(f"{do_catg} has DPR.TYPE {props['type']} in yaml but {di.dpr_type} in DRLD")
