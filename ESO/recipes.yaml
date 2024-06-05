@@ -1165,7 +1165,7 @@ IFU_SCI_CORONAGRAPH_RAW1:
     filter_name: "Lp"
     wavelen: "3.555"
     catg: "SCIENCE"
-    tech: "IFU"
+    tech: "RAVC,IFU"
     type: "OBJECT"
     mjdobs:
       - 2024-01-02 06:43:10
@@ -1183,7 +1183,7 @@ IFU_SCI_CORONAGRAPH_RAW2:
     filter_name: "Lp"
     wavelen: "3.555"
     catg: "CALIB"
-    tech: "IFU"
+    tech: "RAVC,IFU"
     type: "SKY"
     mjdobs:
       - 2024-01-02 05:44:10
