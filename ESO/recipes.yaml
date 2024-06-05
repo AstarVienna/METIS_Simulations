@@ -2,8 +2,8 @@
 
 ##################### DARKS - LM, N, IFU ######################
 
-DARK_LM_RAW:
-  prefix: DARK_LM_RAW
+DARK_2RG_RAW:
+  prefix: DARK_2RG_RAW
   mode: "img_lm"
   source: 
     name: empty_sky
@@ -23,8 +23,8 @@ DARK_LM_RAW:
       - 2024-01-02 00:45:10
       - 2024-01-02 00:45:20
 
-DARK_N_RAW:
-  prefix: DARK_N_RAW
+DARK_GEO_RAW:
+  prefix: DARK_GEO_RAW
   mode: "img_n"
   source: 
     name: empty_sky
@@ -138,8 +138,8 @@ IFU_WCU_OFF_RAW:
  
 ##################### DETLIN - LM, N, IFU #####################
 
-DETLIN_LM_RAW:
-  prefix: DETLIN_LM_RAW
+DETLIN_2RG_RAW:
+  prefix: DETLIN_2RG_RAW
   mode: "img_lm"
   source:
     name: flat_field
@@ -166,8 +166,8 @@ DETLIN_LM_RAW:
       - 2024-01-02 01:45:00
       - 2024-01-02 01:45:10
 
-DETLIN_N_RAW:
-  prefix: DETLIN_N_RAW
+DETLIN_GEO_RAW:
+  prefix: DETLIN_GEO_RAW
   mode: "img_n"
   source:
     name: flat_field
