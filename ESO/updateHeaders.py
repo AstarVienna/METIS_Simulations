@@ -85,12 +85,12 @@ def updateHeaders(inDir,outDir):
             hdul[0].header['HIERARCH ESO INS OPTI1 NAME'] = "RAP-LM"
             hdul[0].header['HIERARCH ESO INS OPTI3 NAME'] = "VPM-L"
             hdul[0].header['HIERARCH ESO INS OPTI5 NAME'] = "RLS-LMS"
-            hdul[0].header['HIERARCH ESO DPR TECH'] = "IMG_LM"
+            hdul[0].header['HIERARCH ESO DPR TECH'] = "IMAGE,LM"
         
         if(tech == "APP,LM"):
             hdul[0].header['HIERARCH ESO INS OPTI10 NAME'] = filt
             hdul[0].header['HIERARCH ESO INS MODE'] = "IMG_LM_APP"
-            hdul[0].header['HIERARCH ESO DPR TECH'] = "IMG_LM"
+            hdul[0].header['HIERARCH ESO DPR TECH'] = "IMAGE,LM"
             hdul[0].header['HIERARCH ESO INS OPTI1 NAME'] = "RAP-LM"
             hdul[0].header['HIERARCH ESO INS OPTI3 NAME'] = "VPM-L"
             hdul[0].header['HIERARCH ESO INS OPTI5 NAME'] = "APP-LMS"

@@ -2,8 +2,8 @@
 
 ##################### DARKS - LM, N, IFU ######################
 
-DARK_LM_RAW:
-  prefix: DARK_LM_RAW
+DARK_2RG_RAW:
+  prefix: DARK_2RG_RAW
   mode: "img_lm"
   source: 
     name: empty_sky
@@ -23,8 +23,8 @@ DARK_LM_RAW:
       - 2024-01-02 00:45:10
       - 2024-01-02 00:45:20
 
-DARK_N_RAW:
-  prefix: DARK_N_RAW
+DARK_GEO_RAW:
+  prefix: DARK_GEO_RAW
   mode: "img_n"
   source: 
     name: empty_sky
@@ -138,8 +138,8 @@ IFU_WCU_OFF_RAW:
  
 ##################### DETLIN - LM, N, IFU #####################
 
-DETLIN_LM_RAW:
-  prefix: DETLIN_LM_RAW
+DETLIN_2RG_RAW:
+  prefix: DETLIN_2RG_RAW
   mode: "img_lm"
   source:
     name: flat_field
@@ -166,8 +166,8 @@ DETLIN_LM_RAW:
       - 2024-01-02 01:45:00
       - 2024-01-02 01:45:10
 
-DETLIN_N_RAW:
-  prefix: DETLIN_N_RAW
+DETLIN_GEO_RAW:
+  prefix: DETLIN_GEO_RAW
   mode: "img_n"
   source:
     name: flat_field
@@ -223,7 +223,10 @@ DETLIN_IFU_RAW:
       - 2024-01-02 01:47:10
 
 
-##################### FLATS - LM, N, IFU ######################3
+##################### FLATS - LM, N ######################
+
+# There are only flats for LM and N, but not for the IFU, because
+#  it is not possible to remove the mirrors from the optical path.
 
 #### OPEN FILTER #####
 
@@ -388,44 +391,6 @@ N_FLAT_TWILIGHT_N1_RAW:
       - 2024-01-02 02:46:20
 
 
-IFU_FLAT_LAMP_RAW:
-  prefix: IFU_FLAT_LAMP_RAW
-  mode: "lms"
-  source:
-    name: flat_field
-    kwargs:
-      temperature: 200
-      amplitude: 0
-      filter_curve: "V"
-      extend: 15
-  properties:
-    dit: 10
-    ndit: 1
-    filter_name: "Lp"
-    catg: "CALIB"
-    tech: "LMS"
-    type: "FLAT,LAMP"
-    mjdobs:
-      - 2024-01-02 02:47:10
-      - 2024-01-02 02:47:20
-
-IFU_FLAT_TWILIGHT_RAW:
-  prefix: IFU_FLAT_TWILIGHT_RAW
-  mode: "lms"
-  source:
-    name: empty_sky
-    kwargs: {}
-  properties:
-    dit: 10
-    ndit: 1
-    filter_name: "Lp"
-    catg: "CALIB"
-    tech: "LMS"
-    type: "FLAT,TWILIGHT"
-    mjdobs:
-     - 2024-01-02 02:48:10
-     - 2024-01-02 02:48:20
-
 
 ##################### RSRF ######################3
 
@@ -447,7 +412,7 @@ LM_LSS_RSRF_RAW1:
     ndit: 1
     filter_name: "L_spec"
     catg: "CALIB"
-    tech: "IMAGE,LM"
+    tech: "LSS,LM"
     type: "FLAT,LAMP"
     mjdobs:
       - 2024-01-02 03:35:10
@@ -469,7 +434,7 @@ LM_LSS_RSRF_RAW2:
     ndit: 1
     filter_name: "L_spec"
     catg: "CALIB"
-    tech: "IMAGE,LM"
+    tech: "LSS,LM"
     type: "FLAT,LAMP"
     mjdobs:
       - 2024-01-02 03:36:10
@@ -491,7 +456,7 @@ N_LSS_RSRF_RAW1:
     ndit: 1
     filter_name: "N_spec"
     catg: "CALIB"
-    tech: "IMAGE,N"
+    tech: "LSS,N"
     type: "FLAT,LAMP"
     mjdobs:
       - 2024-01-02 03:37:10
@@ -513,7 +478,7 @@ N_LSS_RSRF_RAW2:
     ndit: 1
     filter_name: "N_spec"
     catg: "CALIB"
-    tech: "IMAGE,N"
+    tech: "LSS,N"
     type: "FLAT,LAMP"
     mjdobs:
       - 2024-01-02 03:38:10
@@ -536,7 +501,7 @@ IFU_RSRF_RAW1:
     filter_name: "open"
     catg: "CALIB"
     tech: "LMS"
-    type: "FLAT,LAMP"
+    type: "RSRF"
     mjdobs:
       - 2024-01-02 03:39:10
       - 2024-01-02 03:39:20
@@ -557,7 +522,7 @@ IFU_RSRF_RAW2:
     filter_name: "open"
     catg: "CALIB"
     tech: "LMS"
-    type: "FLAT,LAMP"
+    type: "RSRF"
     mjdobs:
       - 2024-01-02 03:40:10
       - 2024-01-02 03:40:20
@@ -581,7 +546,7 @@ LM_LSS_RSRF_PINH_RAW1:
     filter_name: "open"
     catg: "CALIB"
     tech: "LSS,LM"
-    type: "FLAT,LAMP"
+    type: "FLAT,LAMP,PINH"
     mjdobs:
       - 2024-01-02 03:41:10
       - 2024-01-02 03:41:20
@@ -601,7 +566,7 @@ LM_LSS_RSRF_PINH_RAW2:
     filter_name: "open"
     catg: "CALIB"
     tech: "LSS,LM"
-    type: "FLAT,LAMP"
+    type: "FLAT,LAMP,PINH"
     mjdobs:
       - 2024-01-02 03:42:10
       - 2024-01-02 03:42:20
@@ -621,7 +586,7 @@ N_LSS_RSRF_PINH_RAW1:
     filter_name: "open"
     catg: "CALIB"
     tech: "LSS,N"
-    type: "FLAT,LAMP"
+    type: "FLAT,LAMP,PINH"
     mjdobs:
       - 2024-01-02 03:43:10
       - 2024-01-02 03:43:20
@@ -642,50 +607,53 @@ N_LSS_RSRF_PINH_RAW2:
     filter_name: "open"
     catg: "CALIB"
     tech: "LSS,N"
-    type: "FLAT,LAMP"
+    type: "FLAT,LAMP,PINH"
     mjdobs:
       - 2024-01-02 03:44:10
       - 2024-01-02 03:44:20
 
+#
+# IFU_RSRF_PINH_RAW does not exist in the DRLD, should it?
+#
 
-IFU_RSRF_PINH_RAW1:
-  prefix: IFU_RSRF_PINH_RAW
-  mode: "lms"
-  source:
-    name: pinhole_mask
-    kwargs:
-      temperature: 5500
-  properties:
-    dit: 15
-    ndit: 1
-    filter_name: "open"
-    ndfilter_name: "ND_OD3"
-    catg: "CALIB"
-    tech: "LMS"
-    type: "FLAT,LAMP"
-    mjdobs:
-      - 2024-01-02 03:45:10
-      - 2024-01-02 03:45:20
-
-
-IFU_RSRF_PINH_RAW2:
-  prefix: IFU_RSRF_PINH_RAW
-  mode: "lms"
-  source:
-    name: pinhole_mask
-    kwargs:
-      temperature: 5000
-  properties:
-    dit: 15
-    ndit: 1
-    filter_name: "open"
-    ndfilter_name: "ND_OD3"
-    catg: "CALIB"
-    tech: "LMS"
-    type: "FLAT,LAMP"
-    mjdobs:
-      - 2024-01-02 03:46:10
-      - 2024-01-02 03:46:20
+#IFU_RSRF_PINH_RAW1:
+#  prefix: IFU_RSRF_PINH_RAW
+#  mode: "lms"
+#  source:
+#    name: pinhole_mask
+#    kwargs:
+#      temperature: 5500
+#  properties:
+#    dit: 15
+#    ndit: 1
+#    filter_name: "open"
+#    ndfilter_name: "ND_OD3"
+#    catg: "CALIB"
+#    tech: "LMS"
+#    type: "FLAT,LAMP"
+#    mjdobs:
+#      - 2024-01-02 03:45:10
+#      - 2024-01-02 03:45:20
+#
+#
+#IFU_RSRF_PINH_RAW2:
+#  prefix: IFU_RSRF_PINH_RAW
+#  mode: "lms"
+#  source:
+#    name: pinhole_mask
+#    kwargs:
+#      temperature: 5000
+#  properties:
+#    dit: 15
+#    ndit: 1
+#    filter_name: "open"
+#    ndfilter_name: "ND_OD3"
+#    catg: "CALIB"
+#    tech: "LMS"
+#    type: "FLAT,LAMP"
+#    mjdobs:
+#      - 2024-01-02 03:46:10
+#      - 2024-01-02 03:46:20
 
 
 ##################### "STANDARDS" (SINGLE SOURCE AT CENTER) ######################
@@ -721,7 +689,7 @@ LM_IMAGE_STD_RAW2:
     dit: 0.25
     ndit: 1
     filter_name: "Lp"
-    catg: "SCIENCE"
+    catg: "CALIB"
     tech: "IMAGE,LM"
     type: "SKY"
     mjdobs:
@@ -755,7 +723,7 @@ N_IMAGE_STD_RAW2:
     dit: 0.25
     ndit: 1
     filter_name: "N1"
-    catg: "SCIENCE"
+    catg: "CALIB"
     tech: "IMAGE,N"
     type: "SKY"
     mjdobs:
@@ -793,7 +761,7 @@ LM_LSS_STD_RAW2:
     dit: 0.05
     ndit: 1
     filter_name: "L_spec"
-    catg: "SCIENCE"
+    catg: "CALIB"
     tech: "LSS,LM"
     type: "SKY"
     mjdobs:
@@ -828,7 +796,7 @@ N_LSS_STD_RAW2:
     dit: 0.05
     ndit: 1
     filter_name: "N_spec"
-    catg: "SCIENCE"
+    catg: "CALIB"
     tech: "LSS,N"
     type: "SKY"
     mjdobs:
@@ -856,9 +824,12 @@ IFU_STD_RAW1:
       - 2024-01-02 04:47:10
       - 2024-01-02 04:47:20
 
-
-IFU_STD_RAW2:
-  prefix: IFU_STD_RAW
+# metis_ifu_reduce does not differentiate between
+# a SKY image for a standard observation and a
+# SKY image for a science observation. They are
+# both IFU_SKY_RAW. Maybe that should be changed?
+IFU_SKY_RAW2:
+  prefix: IFU_SKY_RAW
   mode: "lms"
   source:
     name: empty_sky
@@ -868,7 +839,7 @@ IFU_STD_RAW2:
     ndit: 3
     filter_name: "Lp"
     wavelen: "3.555"
-    catg: "SCIENCE"
+    catg: "CALIB"
     tech: "LMS"
     type: "SKY"
     mjdobs:
@@ -926,7 +897,7 @@ N_IMAGE_SCI_RAW1:
     ndit: 4
     filter_name: "Lp"
     catg: "SCIENCE"
-    tech: "IMAGE,LM"
+    tech: "IMAGE,N"
     type: "OBJECT"
     mjdobs:
       - 2024-01-02 05:37:10
@@ -943,7 +914,7 @@ N_IMAGE_SCI_RAW2:
     ndit: 4
     filter_name: "Lp"
     catg: "SCIENCE"
-    tech: "IMAGE,LM"
+    tech: "IMAGE,N"
     type: "SKY"
     mjdobs:
       - 2024-01-02 05:38:10
@@ -1022,7 +993,7 @@ LM_LSS_SCI_RAW2:
       - 2024-01-02 05:51:10
       - 2024-01-02 05:51:20
 
-IFU_SCI_RAW1:
+IFU_SCI_RAW:
   prefix: IFU_SCI_RAW
   mode: "lms"
   source:
@@ -1039,8 +1010,8 @@ IFU_SCI_RAW1:
       - 2024-01-02 05:52:10
       - 2024-01-02 05:52:20
 
-IFU_SCI_RAW2:
-  prefix: IFU_SCI_RAW
+IFU_SKY_RAW:
+  prefix: IFU_SKY_RAW
   mode: "lms"
   source:
     name: empty_sky
@@ -1049,7 +1020,7 @@ IFU_SCI_RAW2:
     dit: 0.25
     ndit: 1
     filter_name: "Lp"
-    catg: "SCIENCE"
+    catg: "CALIB"
     tech: "LMS"
     type: "SKY"
     mjdobs:
@@ -1204,7 +1175,7 @@ IFU_SCI_CORONAGRAPH_RAW1:
       - 2024-01-02 06:43:20
 
 IFU_SCI_CORONAGRAPH_RAW2:
-  prefix: IFU_SCI_RAW
+  prefix: IFU_SKY_RAW
   mode: "lms"
   source:
     name: empty_sky
@@ -1214,7 +1185,7 @@ IFU_SCI_CORONAGRAPH_RAW2:
     ndit: 3
     filter_name: "Lp"
     wavelen: "3.555"
-    catg: "SCIENCE"
+    catg: "CALIB"
     tech: "RAVC,IFU"
     type: "SKY"
     mjdobs:
@@ -1226,8 +1197,8 @@ IFU_SCI_CORONAGRAPH_RAW2:
 
 ##################### SLIT LOSSES (11 positions perpendicular to the slit) ########################
 
-LM_LSS_SLITLOSSES_RAW1:
-  prefix: LM_LSS_SLITLOSSES_RAW
+LM_SLITLOSSES_RAW1:
+  prefix: LM_SLITLOSSES_RAW
   mode: "lss_l"
   source: 
     name: simple_star10
@@ -1240,13 +1211,13 @@ LM_LSS_SLITLOSSES_RAW1:
     filter_name: "open"
     catg: "CALIB"
     tech: "LSS,LM"
-    type: "FLAT,LAMP"
+    type: "SLITLOSS"
     mjdobs:
       - 2024-01-03 03:30:10
 
 
-LM_LSS_SLITLOSSES_RAW2:
-  prefix: LM_LSS_SLITLOSSES_RAW
+LM_SLITLOSSES_RAW2:
+  prefix: LM_SLITLOSSES_RAW
   mode: "lss_l"
   source: 
     name: simple_star10
@@ -1259,13 +1230,13 @@ LM_LSS_SLITLOSSES_RAW2:
     filter_name: "open"
     catg: "CALIB"
     tech: "LSS,LM"
-    type: "FLAT,LAMP"
+    type: "SLITLOSS"
     mjdobs:
       - 2024-01-03 03:31:10
 
 
-LM_LSS_SLITLOSSES_RAW3:
-  prefix: LM_LSS_SLITLOSSES_RAW
+LM_SLITLOSSES_RAW3:
+  prefix: LM_SLITLOSSES_RAW
   mode: "lss_l"
   source: 
     name: simple_star10
@@ -1278,13 +1249,13 @@ LM_LSS_SLITLOSSES_RAW3:
     filter_name: "open"
     catg: "CALIB"
     tech: "LSS,LM"
-    type: "FLAT,LAMP"
+    type: "SLITLOSS"
     mjdobs:
       - 2024-01-03 03:32:10
 
 
-LM_LSS_SLITLOSSES_RAW4:
-  prefix: LM_LSS_SLITLOSSES_RAW
+LM_SLITLOSSES_RAW4:
+  prefix: LM_SLITLOSSES_RAW
   mode: "lss_l"
   source: 
     name: simple_star10
@@ -1297,12 +1268,12 @@ LM_LSS_SLITLOSSES_RAW4:
     filter_name: "open"
     catg: "CALIB"
     tech: "LSS,LM"
-    type: "FLAT,LAMP"
+    type: "SLITLOSS"
     mjdobs:
       - 2024-01-03 03:33:10
 
-LM_LSS_SLITLOSSES_RAW5:
-  prefix: LM_LSS_SLITLOSSES_RAW
+LM_SLITLOSSES_RAW5:
+  prefix: LM_SLITLOSSES_RAW
   mode: "lss_l"
   source: 
     name: simple_star10
@@ -1315,13 +1286,13 @@ LM_LSS_SLITLOSSES_RAW5:
     filter_name: "open"
     catg: "CALIB"
     tech: "LSS,LM"
-    type: "FLAT,LAMP"
+    type: "SLITLOSS"
     mjdobs:
       - 2024-01-03 03:34:10
 
 
-LM_LSS_SLITLOSSES_RAW6:
-  prefix: LM_LSS_SLITLOSSES_RAW
+LM_SLITLOSSES_RAW6:
+  prefix: LM_SLITLOSSES_RAW
   mode: "lss_l"
   source: 
     name: simple_star10
@@ -1334,13 +1305,13 @@ LM_LSS_SLITLOSSES_RAW6:
     filter_name: "open"
     catg: "CALIB"
     tech: "LSS,LM"
-    type: "FLAT,LAMP"
+    type: "SLITLOSS"
     mjdobs:
       - 2024-01-03 03:35:10
 
 
-LM_LSS_SLITLOSSES_RAW7:
-  prefix: LM_LSS_SLITLOSSES_RAW
+LM_SLITLOSSES_RAW7:
+  prefix: LM_SLITLOSSES_RAW
   mode: "lss_l"
   source: 
     name: simple_star10
@@ -1353,13 +1324,13 @@ LM_LSS_SLITLOSSES_RAW7:
     filter_name: "open"
     catg: "CALIB"
     tech: "LSS,LM"
-    type: "FLAT,LAMP"
+    type: "SLITLOSS"
     mjdobs:
       - 2024-01-03 03:36:10
 
 
-LM_LSS_SLITLOSSES_RAW8:
-  prefix: LM_LSS_SLITLOSSES_RAW
+LM_SLITLOSSES_RAW8:
+  prefix: LM_SLITLOSSES_RAW
   mode: "lss_l"
   source: 
     name: simple_star10
@@ -1372,13 +1343,13 @@ LM_LSS_SLITLOSSES_RAW8:
     filter_name: "open"
     catg: "CALIB"
     tech: "LSS,LM"
-    type: "FLAT,LAMP"
+    type: "SLITLOSS"
     mjdobs:
       - 2024-01-03 03:37:10
 
 
-LM_LSS_SLITLOSSES_RAW9:
-  prefix: LM_LSS_SLITLOSSES_RAW
+LM_SLITLOSSES_RAW9:
+  prefix: LM_SLITLOSSES_RAW
   mode: "lss_l"
   source: 
     name: simple_star10
@@ -1391,13 +1362,13 @@ LM_LSS_SLITLOSSES_RAW9:
     filter_name: "open"
     catg: "CALIB"
     tech: "LSS,LM"
-    type: "FLAT,LAMP"
+    type: "SLITLOSS"
     mjdobs:
       - 2024-01-03 03:38:10
 
 
-LM_LSS_SLITLOSSES_RAW10:
-  prefix: LM_LSS_SLITLOSSES_RAW
+LM_SLITLOSSES_RAW10:
+  prefix: LM_SLITLOSSES_RAW
   mode: "lss_l"
   source: 
     name: simple_star10
@@ -1410,13 +1381,13 @@ LM_LSS_SLITLOSSES_RAW10:
     filter_name: "open"
     catg: "CALIB"
     tech: "LSS,LM"
-    type: "FLAT,LAMP"
+    type: "SLITLOSS"
     mjdobs:
       - 2024-01-03 03:39:10
 
 
-LM_LSS_SLITLOSSES_RAW11:
-  prefix: LM_LSS_SLITLOSSES_RAW
+LM_SLITLOSSES_RAW11:
+  prefix: LM_SLITLOSSES_RAW
   mode: "lss_l"
   source: 
     name: simple_star10
@@ -1429,14 +1400,14 @@ LM_LSS_SLITLOSSES_RAW11:
     filter_name: "open"
     catg: "CALIB"
     tech: "LSS,LM"
-    type: "FLAT,LAMP"
+    type: "SLITLOSS"
     mjdobs:
       - 2024-01-03 03:40:10
 
 
 
 N_LSS_SLITLOSSES_RAW1:
-  prefix: LM_LSS_SLITLOSSES_RAW
+  prefix: N_SLITLOSSES_RAW
   mode: "lss_n"
   source: 
     name: simple_star10
@@ -1449,13 +1420,13 @@ N_LSS_SLITLOSSES_RAW1:
     filter_name: "open"
     catg: "CALIB"
     tech: "LSS,N"
-    type: "FLAT,LAMP"
+    type: "SLITLOSS"
     mjdobs:
       - 2024-01-03 03:41:10
 
 
 N_LSS_SLITLOSSES_RAW2:
-  prefix: LM_LSS_SLITLOSSES_RAW
+  prefix: N_SLITLOSSES_RAW
   mode: "lss_n"
   source: 
     name: simple_star10
@@ -1468,13 +1439,13 @@ N_LSS_SLITLOSSES_RAW2:
     filter_name: "open"
     catg: "CALIB"
     tech: "LSS,N"
-    type: "FLAT,LAMP"
+    type: "SLITLOSS"
     mjdobs:
       - 2024-01-03 03:42:10
 
 
 N_LSS_SLITLOSSES_RAW3:
-  prefix: LM_LSS_SLITLOSSES_RAW
+  prefix: N_SLITLOSSES_RAW
   mode: "lss_n"
   source: 
     name: simple_star10
@@ -1487,13 +1458,13 @@ N_LSS_SLITLOSSES_RAW3:
     filter_name: "open"
     catg: "CALIB"
     tech: "LSS,N"
-    type: "FLAT,LAMP"
+    type: "SLITLOSS"
     mjdobs:
       - 2024-01-03 03:43:10
 
 
 N_LSS_SLITLOSSES_RAW4:
-  prefix: LM_LSS_SLITLOSSES_RAW
+  prefix: N_SLITLOSSES_RAW
   mode: "lss_n"
   source: 
     name: simple_star10
@@ -1506,12 +1477,12 @@ N_LSS_SLITLOSSES_RAW4:
     filter_name: "open"
     catg: "CALIB"
     tech: "LSS,N"
-    type: "FLAT,LAMP"
+    type: "SLITLOSS"
     mjdobs:
       - 2024-01-03 03:44:10
 
 N_LSS_SLITLOSSES_RAW5:
-  prefix: LM_LSS_SLITLOSSES_RAW
+  prefix: N_SLITLOSSES_RAW
   mode: "lss_n"
   source: 
     name: simple_star10
@@ -1524,13 +1495,13 @@ N_LSS_SLITLOSSES_RAW5:
     filter_name: "open"
     catg: "CALIB"
     tech: "LSS,N"
-    type: "FLAT,LAMP"
+    type: "SLITLOSS"
     mjdobs:
       - 2024-01-03 03:45:10
 
 
 N_LSS_SLITLOSSES_RAW6:
-  prefix: LM_LSS_SLITLOSSES_RAW
+  prefix: N_SLITLOSSES_RAW
   mode: "lss_n"
   source: 
     name: simple_star10
@@ -1543,13 +1514,13 @@ N_LSS_SLITLOSSES_RAW6:
     filter_name: "open"
     catg: "CALIB"
     tech: "LSS,N"
-    type: "FLAT,LAMP"
+    type: "SLITLOSS"
     mjdobs:
       - 2024-01-03 03:46:10
 
 
 N_LSS_SLITLOSSES_RAW7:
-  prefix: LM_LSS_SLITLOSSES_RAW
+  prefix: N_SLITLOSSES_RAW
   mode: "lss_n"
   source: 
     name: simple_star10
@@ -1562,13 +1533,13 @@ N_LSS_SLITLOSSES_RAW7:
     filter_name: "open"
     catg: "CALIB"
     tech: "LSS,N"
-    type: "FLAT,LAMP"
+    type: "SLITLOSS"
     mjdobs:
       - 2024-01-03 03:47:10
 
 
 N_LSS_SLITLOSSES_RAW8:
-  prefix: LM_LSS_SLITLOSSES_RAW
+  prefix: N_SLITLOSSES_RAW
   mode: "lss_n"
   source: 
     name: simple_star10
@@ -1581,13 +1552,13 @@ N_LSS_SLITLOSSES_RAW8:
     filter_name: "open"
     catg: "CALIB"
     tech: "LSS,N"
-    type: "FLAT,LAMP"
+    type: "SLITLOSS"
     mjdobs:
       - 2024-01-03 03:48:10
 
 
 N_LSS_SLITLOSSES_RAW9:
-  prefix: LM_LSS_SLITLOSSES_RAW
+  prefix: N_SLITLOSSES_RAW
   mode: "lss_n"
   source: 
     name: simple_star10
@@ -1600,13 +1571,13 @@ N_LSS_SLITLOSSES_RAW9:
     filter_name: "open"
     catg: "CALIB"
     tech: "LSS,N"
-    type: "FLAT,LAMP"
+    type: "SLITLOSS"
     mjdobs:
       - 2024-01-03 03:49:10
 
 
 N_LSS_SLITLOSSES_RAW10:
-  prefix: LM_LSS_SLITLOSSES_RAW
+  prefix: N_SLITLOSSES_RAW
   mode: "lss_n"
   source: 
     name: simple_star10
@@ -1619,13 +1590,13 @@ N_LSS_SLITLOSSES_RAW10:
     filter_name: "open"
     catg: "CALIB"
     tech: "LSS,N"
-    type: "FLAT,LAMP"
+    type: "SLITLOSS"
     mjdobs:
       - 2024-01-03 03:50:10
 
 
 N_LSS_SLITLOSSES_RAW11:
-  prefix: LM_LSS_SLITLOSSES_RAW
+  prefix: N_SLITLOSSES_RAW
   mode: "lss_n"
   source: 
     name: simple_star10
@@ -1638,7 +1609,7 @@ N_LSS_SLITLOSSES_RAW11:
     filter_name: "open"
     catg: "CALIB"
     tech: "LSS,N"
-    type: "FLAT,LAMP"
+    type: "SLITLOSS"
     mjdobs:
       - 2024-01-03 03:51:10
 
@@ -1680,8 +1651,8 @@ N_LSS_WAVE_RAW:
     mjdobs:
       - 2024-01-03 04:46:10
 
-IFU_LSS_WAVE_RAW:
-  prefix: IFU_LSS_WAVE_RAW
+IFU_WAVE_RAW:
+  prefix: IFU_WAVE_RAW
   mode: "lms"
   source: 
     name: "laser_spectrum_lm"
@@ -1692,7 +1663,7 @@ IFU_LSS_WAVE_RAW:
     filter_name: "open"
     nd_filter_name: "ND_OD4"
     catg: "CALIB"
-    tech: "LSS,N"
+    tech: "LMS"
     type: "WAVE"
     mjdobs:
       - 2024-01-03 04:47:10
@@ -1796,7 +1767,7 @@ N_DISTORTION_RAW:
     filter_name: "open"
     nd_filter_name: "ND_OD4"
     catg: "CALIB"
-    tech: "IMAGE,LM"
+    tech: "IMAGE,N"
     type: "DISTORTION"
     mjdobs:
       - 2024-01-03 05:49:10
