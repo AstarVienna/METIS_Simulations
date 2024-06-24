@@ -11,7 +11,7 @@ from importlib import reload
 import glob
 import argparse
 import os
-
+import astropy.time
 
 
 def updateHeaders(inDir,outDir):
@@ -46,7 +46,8 @@ def updateHeaders(inDir,outDir):
     for fName in fNames:
         # open the file
         hdul = fits.open(fName)
-
+        mjdobs = hdul[0].header['MJD-OBS']
+        hdul[0].header['MJD-OBS'] = astropy.time.Time(mjdobs,format="isot").mjd
         # get the tech and filter keywords
         tech = hdul[0].header['HIERARCH ESO DPR TECH']
         filt = hdul[0].header['HIERARCH ESO DRS FILTER']
