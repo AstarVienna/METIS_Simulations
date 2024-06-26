@@ -51,14 +51,11 @@ def updateHeaders(inDir,outDir):
             mjdobs = hdul[0].header['MJD-OBS']
             hdul[0].header['MJD-OBS'] = astropy.time.Time(mjdobs,format="isot").mjd
         # get the tech and filter keywords
-        try:
-            tech = hdul[0].header['HIERARCH ESO DPR TECH']
-            filt = hdul[0].header['HIERARCH ESO DRS FILTER']
-            print(fName,tech)
-        except:
-            printf(f'Header keywords are not existed.')
-            exit(0)
-            #spectra
+       
+        tech = hdul[0].header['HIERARCH ESO DPR TECH']
+        filt = hdul[0].header['HIERARCH ESO DRS FILTER']
+        print(fName,tech)
+
         if(tech == "LSS,LM"):
             hdul[0].header['HIERARCH ESO INS MODE'] = "SPEC_LM"
             hdul[0].header['HIERARCH ESO INS OPTI9 NAME'] = filt
