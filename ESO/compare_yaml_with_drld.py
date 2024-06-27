@@ -43,6 +43,10 @@ for name, settings in recipes.items():
     if props['type'] != di.dpr_type:
         problems.append(f"{do_catg} has DPR.TYPE {props['type']} in yaml but {di.dpr_type} in DRLD")
 
+    tplname = props["tplname"].lower()
+    if tplname not in di.templates:
+        problems.append(f"{do_catg} has tplname {tplname} but only {di.templates} create it")
+
 do_catg_used_in_yaml = {settings['prefix'] for settings in recipes.values()}
 do_catg_used_in_drld = {a for a in METIS_DataReductionLibraryDesign.dataitems if a.endswith("_RAW")}
 do_catg_only_in_yaml = do_catg_used_in_yaml - do_catg_used_in_drld
