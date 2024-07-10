@@ -111,8 +111,8 @@ if __name__ == "__main__":
 
     if args.procatg:
         catglist = args.procatg.split(',')
-   # else:
-   #     catglist = None
+    else:
+        catglist = None
 
     print(inputYAML, outputDir, small, catglist)
     run(inputYAML, outputDir, small, catglist)
