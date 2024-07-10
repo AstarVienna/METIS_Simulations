@@ -4,23 +4,32 @@
 
 from pathlib import Path
 from itertools import product
+import argparse
 
 import yaml
-import argparse
-from pathlib import Path
-import os
+
 from astar_utils import NestedMapping
 
-from raw_script import simulate
-
-
-def run(inputYAML, outputDir, small=False):
+def run(inputYAML, outputDir, small=False, catglist=None):
     """Run simulations using recipes.yaml."""
 
-    rcps = _load_recipes(inputYAML)
+    allrcps = _load_recipes(inputYAML)
+
+    if catglist is None:
+        dorcps = allrcps
+    else:
+        dorcps = {}
+        for catg in catglist:
+            if catg in allrcps.keys():
+                dorcps[catg] = allrcps[catg]
+            else:
+                raise ValueError(f"ERROR: {catg} is not a supported product category")
+
+    # This import is executed here to defer downloading irdb packages
+    # until we know they're needed
+    from raw_script import simulate
 
     out_dir = Path(outputDir)
-    
     out_dir.mkdir(parents=True, exist_ok=True)
 
     expandables = [
@@ -28,7 +37,7 @@ def run(inputYAML, outputDir, small=False):
         "mjdobs",
     ]
 
-    for name, recipe in rcps.items():
+    for name, recipe in dorcps.items():
         expanded = [key for key in expandables
                     if isinstance(recipe["properties"][key], list)]
         combos = product(*[recipe["properties"][key] for key in expanded])
@@ -38,7 +47,7 @@ def run(inputYAML, outputDir, small=False):
             combodict = dict(zip(expanded, combo))
             props = recipe["properties"] | combodict
 
-            
+
             # Create a filename that resembles that of the real data.
             # The filenames from the ICS software will probably look like
             #     METIS.2024-02-29T01:23:45.678.fits
@@ -65,7 +74,7 @@ def run(inputYAML, outputDir, small=False):
 
 
 def _load_recipes(inputYAML) -> dict:
-    
+
     with Path(inputYAML).open(encoding="utf-8") as file:
         return yaml.safe_load(file)
 
@@ -73,26 +82,37 @@ def _load_recipes(inputYAML) -> dict:
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
-    
-    parser.add_argument('--inputYAML', type=str,
-                    help='input YAML File')
-    parser.add_argument('--outputDir', type=str, 
-                    help='output directory')
-    parser.add_argument('--small', type=bool,
-                    default=False, help='use detectors of 32x32 pixels; for running in the continuous integration')
+
+    parser.add_argument('-i', '--inputYAML', type=str,
+                        help='input YAML File')
+    parser.add_argument('-o', '--outputDir', type=str,
+                        help='output directory')
+    parser.add_argument('-s', '--small', type=bool,
+                        default=False,
+                        help=('use detectors of 32x32 pixels; ' +
+                              'for running in the continuous integration'))
+    parser.add_argument('-p', '--procatg', type=str,
+                        help='comma-separated list of selected product categories')
 
     args = parser.parse_args()
     print(args)
-    if(args.inputYAML):
+
+    if args.inputYAML:
         inputYAML = args.inputYAML
     else:
         inputYAML = Path(__file__).parent / "recipes.yaml"
-    if(args.outputDir):
+
+    if args.outputDir:
         outputDir = args.outputDir
     else:
         outputDir = Path(__file__).parent / "output/"
-    small = args.small
-    print(inputYAML, outputDir, small)
-    run(inputYAML, outputDir, small)
 
-    
+    small = args.small
+
+    if args.procatg:
+        catglist = args.procatg.split(',')
+   # else:
+   #     catglist = None
+
+    print(inputYAML, outputDir, small, catglist)
+    run(inputYAML, outputDir, small, catglist)
