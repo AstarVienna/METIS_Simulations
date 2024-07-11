@@ -109,8 +109,8 @@ if __name__ == "__main__":
 
     small = args.small
 
-    if args.procatg:
-        catglist = args.procatg.split(',')
+    if args.catg:
+        catglist = args.catg.split(',')
     else:
         catglist = None
 
