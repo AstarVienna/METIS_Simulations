@@ -91,8 +91,8 @@ if __name__ == "__main__":
                         default=False,
                         help=('use detectors of 32x32 pixels; ' +
                               'for running in the continuous integration'))
-    parser.add_argument('-p', '--procatg', type=str,
-                        help='comma-separated list of selected product categories')
+    parser.add_argument('-c', '--catg', type=str,
+                        help='comma-separated list of selected output file categories')
 
     args = parser.parse_args()
     print(args)
