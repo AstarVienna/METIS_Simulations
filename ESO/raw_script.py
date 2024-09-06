@@ -19,6 +19,7 @@ import scopesim_templates as sim_tp
 import astropy.units as u
 
 from simulationDefinitions import *
+from sources import *
 
 logger = get_logger(__file__)
 

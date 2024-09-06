@@ -207,7 +207,6 @@ def checkRecipes(rcps):
                 goodInput = 1
             
     # check for values
->>>>>>> 314e488 (Some major updates to the calling of run_recipes.)
 
     # /TODO get list of filter names / ndfilter names
 

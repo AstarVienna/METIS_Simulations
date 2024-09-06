@@ -3,7 +3,7 @@
 ##################### DARKS - LM, N, IFU ######################
 
 LM_WCU_OFF_RAW:
-  prefix: LM_WCU_OFF_RAW
+  do.catg: LM_WCU_OFF_RAW
   mode: "img_lm"
   source: 
     name: empty_sky
@@ -28,7 +28,7 @@ LM_WCU_OFF_RAW:
     nObs: 5
 
 N_WCU_OFF_RAW:
-  prefix: N_WCU_OFF_RAW
+  do.catg: N_WCU_OFF_RAW
   mode: "img_n"
   source: 
     name: empty_sky
@@ -51,7 +51,7 @@ N_WCU_OFF_RAW:
     nObs: 5
 
 IFU_WCU_OFF_RAW:
-  prefix: IFU_WCU_OFF_RAW
+  do.catg: IFU_WCU_OFF_RAW
   mode: "lms"
   source:
     name: empty_sky
@@ -76,7 +76,7 @@ IFU_WCU_OFF_RAW:
 ##################### DETLIN - LM, N, IFU #####################
 
 DETLIN_2RG_RAW:
-  prefix: DETLIN_2RG_RAW
+  do.catg: DETLIN_LM_RAW
   mode: "img_lm"
   source:
     name: flat_field
@@ -103,7 +103,7 @@ DETLIN_2RG_RAW:
     nObs: 5
 
 DETLIN_GEO_RAW:
-  prefix: DETLIN_GEO_RAW
+  do.catg: DETLIN_N_RAW
   mode: "img_n"
   source:
     name: flat_field
@@ -130,7 +130,7 @@ DETLIN_GEO_RAW:
     nObs: 5
 
 DETLIN_IFU_RAW:
-  prefix: DETLIN_IFU_RAW
+  do.catg: DETLIN_IFU_RAW
   mode: "img_lm"
   source:
     name: flat_field
@@ -168,7 +168,7 @@ DETLIN_IFU_RAW:
 
 
 LM_LSS_RSRF_RAW1:
-  prefix: LM_LSS_RSRF_RAW
+  do.catg: LM_LSS_RSRF_RAW
   mode: "img_lm"
   source:
     name: flat_field
@@ -189,7 +189,7 @@ LM_LSS_RSRF_RAW1:
 
 
 LM_LSS_RSRF_RAW2:
-  prefix: LM_LSS_RSRF_RAW
+  do.catg: LM_LSS_RSRF_RAW
   mode: "img_lm"
   source:
     name: flat_field
@@ -210,7 +210,7 @@ LM_LSS_RSRF_RAW2:
 
 
 N_LSS_RSRF_RAW1:
-  prefix: N_LSS_RSRF_RAW
+  do.catg: N_LSS_RSRF_RAW
   mode: "img_n"
   source:
     name: flat_field
@@ -231,7 +231,7 @@ N_LSS_RSRF_RAW1:
 
 
 N_LSS_RSRF_RAW2:
-  prefix: N_LSS_RSRF_RAW
+  do.catg: N_LSS_RSRF_RAW
   mode: "img_n"
   source:
     name: flat_field
@@ -252,7 +252,7 @@ N_LSS_RSRF_RAW2:
 
 
 IFU_RSRF_RAW1:
-  prefix: IFU_RSRF_RAW
+  do.catg: IFU_RSRF_RAW
   mode: "lms"
   source:
     name: flat_field
@@ -273,7 +273,7 @@ IFU_RSRF_RAW1:
     nObs: 5
 
 IFU_RSRF_RAW2:
-  prefix: IFU_RSRF_RAW
+  do.catg: IFU_RSRF_RAW
   mode: "lms"
   source:
     name: flat_field
@@ -298,7 +298,7 @@ IFU_RSRF_RAW2:
 
 
 LM_LSS_RSRF_PINH_RAW1:
-  prefix: LM_LSS_RSRF_PINH_RAW
+  do.catg: LM_LSS_RSRF_PINH_RAW
   mode: "lss_l"
   source: 
     name: pinhole_mask
@@ -318,7 +318,7 @@ LM_LSS_RSRF_PINH_RAW1:
 
 
 LM_LSS_RSRF_PINH_RAW2:
-  prefix: LM_LSS_RSRF_PINH_RAW
+  do.catg: LM_LSS_RSRF_PINH_RAW
   mode: "lss_l"
   source: 
     name: pinhole_mask
@@ -338,7 +338,7 @@ LM_LSS_RSRF_PINH_RAW2:
 
 
 N_LSS_RSRF_PINH_RAW1:
-  prefix: N_LSS_RSRF_PINH_RAW
+  do.catg: N_LSS_RSRF_PINH_RAW
   mode: "lss_n"
   source: 
     name: pinhole_mask
@@ -359,7 +359,7 @@ N_LSS_RSRF_PINH_RAW1:
 
 
 N_LSS_RSRF_PINH_RAW2:
-  prefix: N_LSS_RSRF_PINH_RAW
+  do.catg: N_LSS_RSRF_PINH_RAW
   mode: "lss_n"
   source: 
     name: pinhole_mask
@@ -382,7 +382,7 @@ N_LSS_RSRF_PINH_RAW2:
 #
 
 IFU_RSRF_PINH_RAW1:
-  prefix: IFU_RSRF_PINH_RAW
+  do.catg: IFU_RSRF_PINH_RAW
   mode: "lms"
   source:
     name: pinhole_mask
@@ -400,7 +400,7 @@ IFU_RSRF_PINH_RAW1:
 
 
 IFU_RSRF_PINH_RAW2:
-  prefix: IFU_RSRF_PINH_RAW
+  do.catg: IFU_RSRF_PINH_RAW
   mode: "lms"
   source:
     name: pinhole_mask
@@ -424,7 +424,7 @@ IFU_RSRF_PINH_RAW2:
 ######### IMAGING ###############
 
 LM_IMAGE_STD_RAW1:
-  prefix: LM_IMAGE_STD_RAW
+  do.catg: LM_IMAGE_STD_RAW
   mode: "img_lm"
   source: 
     name: simple_star12
@@ -440,7 +440,7 @@ LM_IMAGE_STD_RAW1:
     nObs: 5
 
 LM_IMAGE_STD_RAW2:
-  prefix: LM_IMAGE_STD_RAW
+  do.catg: LM_IMAGE_STD_RAW
   mode: "img_lm"
   source: 
     name: empty_sky
@@ -456,7 +456,7 @@ LM_IMAGE_STD_RAW2:
     nObs: 5
 
 N_IMAGE_STD_RAW1:
-  prefix: N_IMAGE_STD_RAW
+  do.catg: N_IMAGE_STD_RAW
   mode: "img_n"
   source: 
     name: simple_star12
@@ -472,7 +472,7 @@ N_IMAGE_STD_RAW1:
     nObs: 5
 
 N_IMAGE_STD_RAW2:
-  prefix: N_IMAGE_STD_RAW
+  do.catg: N_IMAGE_STD_RAW
   mode: "img_n"
   source: 
     name: empty_sky
@@ -491,7 +491,7 @@ N_IMAGE_STD_RAW2:
 ######### SPECTRA ###############
 
 LM_LSS_STD_RAW1:
-  prefix: LM_LSS_STD_RAW
+  do.catg: LM_LSS_STD_RAW
   mode: "lss_l"
   source: 
     name: simple_star8
@@ -508,7 +508,7 @@ LM_LSS_STD_RAW1:
 
 
 LM_LSS_STD_RAW2:
-  prefix: LM_LSS_STD_RAW
+  do.catg: LM_LSS_STD_RAW
   mode: "lss_l"
   source: 
     name: empty_sky
@@ -525,7 +525,7 @@ LM_LSS_STD_RAW2:
 
 
 N_LSS_STD_RAW1:
-  prefix: N_LSS_STD_RAW
+  do.catg: N_LSS_STD_RAW
   mode: "lss_n"
   source: 
     name: simple_star8
@@ -541,7 +541,7 @@ N_LSS_STD_RAW1:
     nObs: 5
 
 N_LSS_STD_RAW2:
-  prefix: N_LSS_STD_RAW
+  do.catg: N_LSS_STD_RAW
   mode: "lss_n"
   source: 
     name: empty_sky
@@ -560,7 +560,7 @@ N_LSS_STD_RAW2:
 
 
 IFU_STD_RAW1:
-  prefix: IFU_STD_RAW
+  do.catg: IFU_STD_RAW
   mode: "lms"
   source:
     name: simple_star8
@@ -576,12 +576,13 @@ IFU_STD_RAW1:
     tplname: "METIS_ifu_cal_standard"
     nObs: 5
 
+
 # metis_ifu_reduce does not differentiate between
 # a SKY image for a standard observation and a
 # SKY image for a science observation. They are
 # both IFU_SKY_RAW. Maybe that should be changed?
 IFU_SKY_RAW2:
-  prefix: IFU_SKY_RAW
+  do.catg: IFU_SKY_RAW
   mode: "lms"
   source:
     name: empty_sky
@@ -604,7 +605,7 @@ IFU_SKY_RAW2:
 
 
 LM_IMAGE_SCI_RAW1:
-  prefix: LM_IMAGE_SCI_RAW
+  do.catg: LM_IMAGE_SCI_RAW
   mode: "img_lm"
   source: 
     name: star_field
@@ -620,7 +621,7 @@ LM_IMAGE_SCI_RAW1:
     nObs: 5
 
 LM_IMAGE_SCI_RAW2:
-  prefix: LM_IMAGE_SCI_RAW
+  do.catg: LM_IMAGE_SCI_RAW
   mode: "img_lm"
   source: 
     name: "empty_sky"
@@ -636,7 +637,7 @@ LM_IMAGE_SCI_RAW2:
     nObs: 5
 
 N_IMAGE_SCI_RAW1:
-  prefix: N_IMAGE_SCI_RAW
+  do.catg: N_IMAGE_SCI_RAW
   mode: "img_lm"
   source: 
     name: star_field
@@ -652,7 +653,7 @@ N_IMAGE_SCI_RAW1:
     nObs: 5
 
 N_IMAGE_SCI_RAW2:
-  prefix: N_IMAGE_SCI_RAW
+  do.catg: N_IMAGE_SCI_RAW
   mode: "img_lm"
   source: 
     name: "empty_sky"
@@ -671,7 +672,7 @@ N_IMAGE_SCI_RAW2:
 
 
 N_LSS_SCI_RAW1:
-  prefix: N_LSS_SCI_RAW
+  do.catg: N_LSS_SCI_RAW
   mode: "lss_n"
   source:
     name: simple_gal
@@ -687,7 +688,7 @@ N_LSS_SCI_RAW1:
     nObs: 5
 
 N_LSS_SCI_RAW2:
-  prefix: N_LSS_SCI_RAW
+  do.catg: N_LSS_SCI_RAW
   mode: "lss_n"
   source:
     name: empty_sky
@@ -705,7 +706,7 @@ N_LSS_SCI_RAW2:
     nObs: 5
 
 LM_LSS_SCI_RAW1:
-  prefix: LM_LSS_SCI_RAW
+  do.catg: LM_LSS_SCI_RAW
   mode: "lss_l"
   source:
     name: simple_gal
@@ -721,7 +722,7 @@ LM_LSS_SCI_RAW1:
     nObs: 5
 
 LM_LSS_SCI_RAW2:
-  prefix: LM_LSS_SCI_RAW
+  do.catg: LM_LSS_SCI_RAW
   mode: "lss_l"
   source:
     name: empty_sky
@@ -736,8 +737,8 @@ LM_LSS_SCI_RAW2:
     tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
     nObs: 5
 
-IFU_SCI_RAW:
-  prefix: IFU_SCI_RAW
+IFU_SCI_RAW1:
+  do.catg: IFU_SCI_RAW
   mode: "lms"
   source:
     name: simple_gal
@@ -752,8 +753,8 @@ IFU_SCI_RAW:
     tplname: "METIS_ifu_obs_GenericOffset"
     nObs: 5
 
-IFU_SKY_RAW:
-  prefix: IFU_SKY_RAW
+IFU_SCI_RAW2:
+  do.catg: IFU_SCI_RAW
   mode: "lms"
   source:
     name: empty_sky
@@ -776,7 +777,7 @@ IFU_SKY_RAW:
 
 
 LM_OFF_AXIS_PSF_RAW:
-  prefix: LM_OFF_AXIS_PSF_RAW
+  do.catg: LM_OFF_AXIS_PSF_RAW
   mode: "img_lm"
   source: 
     name: simple_star12
@@ -792,7 +793,7 @@ LM_OFF_AXIS_PSF_RAW:
     nObs: 5
 
 N_OFF_AXIS_PSF_RAW:
-  prefix: N_OFF_AXIS_PSF_RAW
+  do.catg: N_OFF_AXIS_PSF_RAW
   mode: "img_n"
   source: 
     name: simple_star12
@@ -808,7 +809,7 @@ N_OFF_AXIS_PSF_RAW:
     nObs: 5
 
 IFU_OFF_AXIS_PSF_RAW:
-  prefix: IFU_OFF_AXIS_PSF_RAW
+  do.catg: IFU_OFF_AXIS_PSF_RAW
   mode: "lms"
   source:
     name: simple_star8
@@ -827,7 +828,7 @@ IFU_OFF_AXIS_PSF_RAW:
 ######### SOURCE (+ SKY) ##########
 
 LM_IMAGE_SCI_CORONAGRAPH_RAW1:
-  prefix: LM_IMAGE_SCI_RAW
+  do.catg: LM_IMAGE_SCI_RAW
   mode: "img_lm"
   source: 
     name: simple_star12
@@ -844,7 +845,7 @@ LM_IMAGE_SCI_CORONAGRAPH_RAW1:
 
 
 LM_IMAGE_SCI_CORONAGRAPH_RAW2:
-  prefix: LM_IMAGE_SCI_RAW
+  do.catg: LM_IMAGE_SCI_RAW
   mode: "img_lm"
   source: 
     name: empty_sky
@@ -861,7 +862,7 @@ LM_IMAGE_SCI_CORONAGRAPH_RAW2:
 
 
 LM_IMAGE_SCI_CORONAGRAPH_RAW3:
-  prefix: LM_IMAGE_SCI_RAW
+  do.catg: LM_IMAGE_SCI_RAW
   mode: "img_lm"
   source: 
     name: simple_star12
@@ -878,7 +879,7 @@ LM_IMAGE_SCI_CORONAGRAPH_RAW3:
 
 
 LM_IMAGE_SCI_CORONAGRAPH_RAW4:
-  prefix: LM_IMAGE_SCI_RAW
+  do.catg: LM_IMAGE_SCI_RAW
   mode: "img_lm"
   source: 
     name: empty_sky
@@ -894,7 +895,7 @@ LM_IMAGE_SCI_CORONAGRAPH_RAW4:
     nObs: 5
 
 IFU_SCI_CORONAGRAPH_RAW1:
-  prefix: IFU_SCI_RAW
+  do.catg: IFU_SCI_RAW
   mode: "lms"
   source:
     name: simple_star8
@@ -912,6 +913,7 @@ IFU_SCI_CORONAGRAPH_RAW1:
 
 IFU_SCI_CORONAGRAPH_RAW2:
   prefix: IFU_SKY_RAW
+  do.catg: IFU_SCI_RAW
   mode: "lms"
   source:
     name: empty_sky
@@ -933,7 +935,7 @@ IFU_SCI_CORONAGRAPH_RAW2:
 ##################### SLIT LOSSES (11 positions perpendicular to the slit) ########################
 
 LM_SLITLOSSES_RAW1:
-  prefix: LM_SLITLOSSES_RAW
+  do.catg: LM_SLITLOSSES_RAW
   mode: "lss_l"
   source: 
     name: simple_star10
@@ -951,8 +953,9 @@ LM_SLITLOSSES_RAW1:
     nObs: 5
 
 
+
 LM_SLITLOSSES_RAW2:
-  prefix: LM_SLITLOSSES_RAW
+  do.catg: LM_LSS_SLITLOSSES_RAW
   mode: "lss_l"
   source: 
     name: simple_star10
@@ -970,8 +973,9 @@ LM_SLITLOSSES_RAW2:
     nObs: 5
 
 
+
 LM_SLITLOSSES_RAW3:
-  prefix: LM_SLITLOSSES_RAW
+  do.catg: LM_LSS_SLITLOSSES_RAW
   mode: "lss_l"
   source: 
     name: simple_star10
@@ -989,8 +993,9 @@ LM_SLITLOSSES_RAW3:
     nObs: 5
 
 
+
 LM_SLITLOSSES_RAW4:
-  prefix: LM_SLITLOSSES_RAW
+  do.catg: LM_LSS_SLITLOSSES_RAW
   mode: "lss_l"
   source: 
     name: simple_star10
@@ -1008,7 +1013,7 @@ LM_SLITLOSSES_RAW4:
     nObs: 5
 
 LM_SLITLOSSES_RAW5:
-  prefix: LM_SLITLOSSES_RAW
+  do.catg: LM_LSS_SLITLOSSES_RAW
   mode: "lss_l"
   source: 
     name: simple_star10
@@ -1026,8 +1031,9 @@ LM_SLITLOSSES_RAW5:
     nObs: 5
 
 
+
 LM_SLITLOSSES_RAW6:
-  prefix: LM_SLITLOSSES_RAW
+  do.catg: LM_LSS_SLITLOSSES_RAW
   mode: "lss_l"
   source: 
     name: simple_star10
@@ -1044,9 +1050,8 @@ LM_SLITLOSSES_RAW6:
     tplname: "METIS_spec_lm_cal_SlitAdc"
     nObs: 5
 
-
 LM_SLITLOSSES_RAW7:
-  prefix: LM_SLITLOSSES_RAW
+  do.catg: LM_LSS_SLITLOSSES_RAW
   mode: "lss_l"
   source: 
     name: simple_star10
@@ -1065,7 +1070,7 @@ LM_SLITLOSSES_RAW7:
 
 
 LM_SLITLOSSES_RAW8:
-  prefix: LM_SLITLOSSES_RAW
+  do.catg: LM_LSS_SLITLOSSES_RAW
   mode: "lss_l"
   source: 
     name: simple_star10
@@ -1084,7 +1089,7 @@ LM_SLITLOSSES_RAW8:
 
 
 LM_SLITLOSSES_RAW9:
-  prefix: LM_SLITLOSSES_RAW
+  do.catg: LM_LSS_SLITLOSSES_RAW
   mode: "lss_l"
   source: 
     name: simple_star10
@@ -1103,7 +1108,7 @@ LM_SLITLOSSES_RAW9:
 
 
 LM_SLITLOSSES_RAW10:
-  prefix: LM_SLITLOSSES_RAW
+  do.catg: LM_LSS_SLITLOSSES_RAW
   mode: "lss_l"
   source: 
     name: simple_star10
@@ -1122,7 +1127,7 @@ LM_SLITLOSSES_RAW10:
 
 
 LM_SLITLOSSES_RAW11:
-  prefix: LM_SLITLOSSES_RAW
+  do.catg: LM_LSS_SLITLOSSES_RAW
   mode: "lss_l"
   source: 
     name: simple_star10
@@ -1142,7 +1147,7 @@ LM_SLITLOSSES_RAW11:
 
 
 N_LSS_SLITLOSSES_RAW1:
-  prefix: N_SLITLOSSES_RAW
+  do.catg: LM_LSS_SLITLOSSES_RAW
   mode: "lss_n"
   source: 
     name: simple_star10
@@ -1161,7 +1166,7 @@ N_LSS_SLITLOSSES_RAW1:
 
 
 N_LSS_SLITLOSSES_RAW2:
-  prefix: N_SLITLOSSES_RAW
+  do.catg: LM_LSS_SLITLOSSES_RAW
   mode: "lss_n"
   source: 
     name: simple_star10
@@ -1180,7 +1185,7 @@ N_LSS_SLITLOSSES_RAW2:
 
 
 N_LSS_SLITLOSSES_RAW3:
-  prefix: N_SLITLOSSES_RAW
+  do.catg: LM_LSS_SLITLOSSES_RAW
   mode: "lss_n"
   source: 
     name: simple_star10
@@ -1199,7 +1204,7 @@ N_LSS_SLITLOSSES_RAW3:
 
 
 N_LSS_SLITLOSSES_RAW4:
-  prefix: N_SLITLOSSES_RAW
+  do.catg: LM_LSS_SLITLOSSES_RAW
   mode: "lss_n"
   source: 
     name: simple_star10
@@ -1217,7 +1222,7 @@ N_LSS_SLITLOSSES_RAW4:
     nObs: 5
 
 N_LSS_SLITLOSSES_RAW5:
-  prefix: N_SLITLOSSES_RAW
+  do.catg: LM_LSS_SLITLOSSES_RAW
   mode: "lss_n"
   source: 
     name: simple_star10
@@ -1236,7 +1241,7 @@ N_LSS_SLITLOSSES_RAW5:
 
 
 N_LSS_SLITLOSSES_RAW6:
-  prefix: N_SLITLOSSES_RAW
+  do.catg: LM_LSS_SLITLOSSES_RAW
   mode: "lss_n"
   source: 
     name: simple_star10
@@ -1255,7 +1260,7 @@ N_LSS_SLITLOSSES_RAW6:
 
 
 N_LSS_SLITLOSSES_RAW7:
-  prefix: N_SLITLOSSES_RAW
+  do.catg: LM_LSS_SLITLOSSES_RAW
   mode: "lss_n"
   source: 
     name: simple_star10
@@ -1274,7 +1279,7 @@ N_LSS_SLITLOSSES_RAW7:
 
 
 N_LSS_SLITLOSSES_RAW8:
-  prefix: N_SLITLOSSES_RAW
+  do.catg: LM_LSS_SLITLOSSES_RAW
   mode: "lss_n"
   source: 
     name: simple_star10
@@ -1293,7 +1298,7 @@ N_LSS_SLITLOSSES_RAW8:
 
 
 N_LSS_SLITLOSSES_RAW9:
-  prefix: N_SLITLOSSES_RAW
+  do.catg: LM_LSS_SLITLOSSES_RAW
   mode: "lss_n"
   source: 
     name: simple_star10
@@ -1312,7 +1317,7 @@ N_LSS_SLITLOSSES_RAW9:
 
 
 N_LSS_SLITLOSSES_RAW10:
-  prefix: N_SLITLOSSES_RAW
+  do.catg: LM_LSS_SLITLOSSES_RAW
   mode: "lss_n"
   source: 
     name: simple_star10
@@ -1331,7 +1336,7 @@ N_LSS_SLITLOSSES_RAW10:
 
 
 N_LSS_SLITLOSSES_RAW11:
-  prefix: N_SLITLOSSES_RAW
+  do.catg: LM_LSS_SLITLOSSES_RAW
   mode: "lss_n"
   source: 
     name: simple_star10
@@ -1353,7 +1358,7 @@ N_LSS_SLITLOSSES_RAW11:
 ##################### LASER SPECTRUM CALIBRATIONS ######################
 
 LM_LSS_WAVE_RAW:
-  prefix: LM_LSS_WAVE_RAW
+  do.catg: LM_LSS_WAVE_RAW
   mode: "lss_l"
   source:
     name: "laser_spectrum_lm"
@@ -1370,7 +1375,7 @@ LM_LSS_WAVE_RAW:
     nObs: 5
 
 N_LSS_WAVE_RAW:
-  prefix: N_LSS_WAVE_RAW
+  do.catg: N_LSS_WAVE_RAW
   mode: "lss_n"
   source: 
     name: "laser_spectrum_n"
@@ -1387,7 +1392,7 @@ N_LSS_WAVE_RAW:
     nObs: 5
 
 IFU_WAVE_RAW:
-  prefix: IFU_WAVE_RAW
+  do.catg: IFU_LSS_WAVE_RAW
   mode: "lms"
   source: 
     name: "laser_spectrum_lm"
@@ -1408,7 +1413,7 @@ IFU_WAVE_RAW:
 
 
 LM_CHOPPERHOME_RAW:
-  prefix: LM_CHOPPERHOME_RAW
+  do.catg: LM_CHOPPERHOME_RAW
   mode: "img_lm"
   source:
     name: flat_field
@@ -1428,7 +1433,7 @@ LM_CHOPPERHOME_RAW:
     nObs: 5
 
 LM_PUPIL_RAW:
-  prefix: LM_PUPIL_RAW
+  do.catg: LM_PUPIL_RAW
   mode: "img_lm"
   source:
     name: flat_field
@@ -1448,7 +1453,7 @@ LM_PUPIL_RAW:
     nObs: 5
 
 N_PUPIL_RAW:
-  prefix: N_PUPIL_RAW
+  do.catg: N_PUPIL_RAW
   mode: "img_n"
   source:
     name: flat_field
@@ -1472,7 +1477,7 @@ N_PUPIL_RAW:
 ##################### DISTORTION (PINHOLE MASK) L, N, IFU ######################3
 
 LM_DISTORTION_RAW:
-  prefix: LM_DISTORTION_RAW
+  do.catg: LM_DISTORTION_RAW
   mode: "img_lm"
   source:
     name: pinhole_mask
@@ -1489,7 +1494,7 @@ LM_DISTORTION_RAW:
     nObs: 5
 
 N_DISTORTION_RAW:
-  prefix: N_DISTORTION_RAW
+  do.catg: N_DISTORTION_RAW
   mode: "img_n"
   source:
     name: pinhole_mask
@@ -1509,7 +1514,7 @@ N_DISTORTION_RAW:
 
 
 IFU_DISTORTION_RAW:
-  prefix: IFU_DISTORTION_RAW
+  do.catg: IFU_DISTORTION_RAW
   mode: "lms"
   source:
     name: pinhole_mask
