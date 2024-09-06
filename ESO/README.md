@@ -3,11 +3,11 @@
 
 This respository contains scripts which can be used as a wrapper for ScopeSim to generate a set of simulated METIS data for pipeline development. 
 
- - [Installing the Code](installing-the-code)
- - [Simulated Data Summary](simulated-data-summary)
- - [List of Output Fits Files](output-fits-files)
- - [Running the Code](running-the-code)
- - [Custom Simulations](custom-simulations)
+ - [Installing the Code](#installing-the-code)
+ - [Simulated Data Summary](#simulated-data-summary)
+ - [List of Output Fits Files](#output-fits-files)
+ - [Running the Code](#running-the-code)
+ - [Custom Simulations](#custom-simulations)
 
 
 # Installing the Code
@@ -35,7 +35,7 @@ Before the first time you run the code, execute the script
 
 Which will download the instrument, telescope and site specific data packages. 
 
-To run the default set of FITS files, as described in [Data Product Summary](data-product-summary), 
+To run the default set of FITS files, as described in [Data Product Summary](#data-product-summary), 
 
 
 ```
