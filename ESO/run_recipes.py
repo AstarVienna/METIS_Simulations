@@ -9,6 +9,7 @@ import argparse
 
 import simulationDefinitions as sd
 
+
 import yaml
 
 from astar_utils import NestedMapping
@@ -17,7 +18,7 @@ from raw_script import simulate
 from astropy.time import Time, TimeDelta
 import numpy as np
 from datetime import datetime
-
+from updateHeaders import updateHeaders
 
 
 def run(inputYAML, outputDir, small=False, sequence = False, nCalib = 0, startMJD = None, testRun = False, catglist=None):
@@ -73,7 +74,7 @@ def run(inputYAML, outputDir, small=False, sequence = False, nCalib = 0, startMJ
         # observation sequence
         
         mode = recipe["mode"]
-        prefix = recipe["prefix"]
+        prefix = recipe["do.catg"]
         nObs = recipe["properties"]["nObs"]
 
         # cycle through the combos (may only be one)
@@ -98,7 +99,7 @@ def run(inputYAML, outputDir, small=False, sequence = False, nCalib = 0, startMJ
 
 
             print(firstIt, startMJD is not None, sequence)
-            # first iteration, need to intialize mjdObs regardless of method for timestamp
+            # first iteration, need to intialize dateobs regardless of method for timestamp
             if(firstIt):
 
                 #if sequence=True, we get this from startMJD if set, or the YAML file
@@ -106,8 +107,8 @@ def run(inputYAML, outputDir, small=False, sequence = False, nCalib = 0, startMJ
                             
                     if(startMJD is not None):
                         tObs = Time(datetime.strptime(startMJD, '%Y-%m-%d %H:%M:%S'))
-                    elif "mjdobs" in recipe["properties"]:
-                        tObs = Time(recipe["properties"]["mjdobs"])[0]
+                    elif "dateobs" in recipe["properties"]:
+                        tObs = Time(recipe["properties"]["dateobs"])[0]
                     else:
                         print("No appropriate starting time found; exiting")
                         return
@@ -116,21 +117,21 @@ def run(inputYAML, outputDir, small=False, sequence = False, nCalib = 0, startMJ
                     
                 #if sequence = False, get from the YAML file
                 else:
-                    if "mjdobs" in recipe["properties"]:
-                        tObs = Time(recipe["properties"]["mjdobs"])[0]
+                    if "dateobs" in recipe["properties"]:
+                        tObs = Time(recipe["properties"]["dateobs"])[0]
                     else:
                         print("No appropriate starting time found; exiting")
                         return
                 firstIt = False
 
             # if this isn't the first iteration, we increment if sequence=True,
-            # otherwise get from the YAML entry. If the YAML  doesn't have an mjdObs set
+            # otherwise get from the YAML entry. If the YAML  doesn't have an dateobs set
             # increment as for the seuqence case
             else:
                 if(not sequence):
                     # set explicitly, and tDelt = 0
-                    if "mjdobs" in recipe["properties"]:
-                        tObs = Time(recipe["properties"]["mjdobs"])[0]
+                    if "dateobs" in recipe["properties"]:
+                        tObs = Time(recipe["properties"]["dateobs"])[0]
                     else:
                         print("No appropriate starting time found; exiting")
                         return
@@ -142,15 +143,15 @@ def run(inputYAML, outputDir, small=False, sequence = False, nCalib = 0, startMJ
                 # note that tDelt = 0 if we've explicitly set it above
                 tObs = tObs + tDelt
 
-                # update the mjdobs in the dictionary
-                props["mjdobs"] = tObs.tt.datetime
+                # update the dateobs in the dictionary
+                props["dateobs"] = tObs.tt.datetime
                 sdate = tObs.tt.datetime.isoformat()
 
                 # update tDelt for the next iteration
                 tDelt = TimeDelta(props['dit']*props['ndit']*1.2+1, format='sec')   
 
                 # get the filename
-                fname = out_dir / generateFilename(props['mjdobs'],mode,props['dit'],prefix)
+                fname = out_dir / generateFilename(props['dateobs'],mode,props['dit'],prefix)
 
                 print("Starting simulate()")
                 print(f"    fname={fname}")
@@ -175,7 +176,7 @@ def run(inputYAML, outputDir, small=False, sequence = False, nCalib = 0, startMJ
     if(nCalib):
         # increment the observing time from the last exposure
         if(tObs is None):
-            tObs = Time(recipe["properties"]["mjdobs"])[0]+tDelt
+            tObs = Time(recipe["properties"]["dateobs"])[0]+tDelt
         else:
             tObs += tDelt
 
@@ -190,7 +191,7 @@ def checkRecipes(rcps):
     goodInput = 0
 
     # keywords that must exist, either at the top level, or in properties
-    ex1 = ["prefix","mode","properties"]
+    ex1 = ["do.catg","mode","properties"]
     ex2 = ["dit","ndit","filter_name","catg","tech","type","nObs"]
 
     # check for existence
@@ -271,10 +272,10 @@ def _load_recipes(inputYAML) -> dict:
     with Path(inputYAML).open(encoding="utf-8") as file:
         return yaml.safe_load(file)
 
-def generateFilename(mjdobs,doCatg,dit,prefix):
+def generateFilename(dateobs,doCatg,dit,prefix):
 
     """
-    Generate a METIS like filename based on the mjdobs, DO.CATG and dit
+    Generate a METIS like filename based on the dateobs, DO.CATG and dit
 
      The filenames from the ICS software will probably look like
          METIS.2024-02-29T01:23:45.678.fits
@@ -287,7 +288,7 @@ def generateFilename(mjdobs,doCatg,dit,prefix):
      Replace colon so the date can be in Windows filenames.
     """
     
-    sdate = mjdobs.isoformat()
+    sdate = dateobs.isoformat()
     sdate = sdate.replace(":", "_")
     
     fname = f'METIS.{prefix}.{sdate.replace(":","_")}.{doCatg}.{str(dit)}.fits'
@@ -376,6 +377,7 @@ def generateCalibs(allParms,tObs,nObs,small,out_dir,testRun):
     # by setting up the parameters dictionary and the filename in the same way as
     # is done in the main routine
 
+    print(f"Running calibrations: {nObs} of each type")
     dProps={}
     aa = set(calibSet)
     for elem in set(calibSet):
@@ -385,6 +387,7 @@ def generateCalibs(allParms,tObs,nObs,small,out_dir,testRun):
         dProps["ndit"] = elem[1]
         dProps["tech"] = elem[2]
         dProps["filter_name"] = elem[6]
+        prefix = elem[3]
 
         # ndfilter if present
         if(elem[7] != ""):
@@ -400,7 +403,7 @@ def generateCalibs(allParms,tObs,nObs,small,out_dir,testRun):
         for i in range(nObs):
             
             fname = out_dir / generateFilename(tObs.tt.datetime,elem[3],elem[0],prefix)
-            dProps["mjdobs"] = tObs.tt.datetime
+            dProps["dateobs"] = tObs.tt.datetime
             kwargs = NestedMapping({"OBS": dProps})
 
             print("Starting simulate() for calibration files")
@@ -425,6 +428,7 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
 
+
     parser.add_argument('-i', '--inputYAML', type=str,
                         help='input YAML File')
     parser.add_argument('-o', '--outputDir', type=str,
@@ -437,14 +441,16 @@ if __name__ == "__main__":
                         help='comma-separated list of selected output file categories')
     parser.add_argument('d','--doCalib', type=int,
                     default=0, help='automatically generate darks and flats for the dataset. Will generate N of each type')
+
+    # expects either 1 or a date stamp
     parser.add_argument('--sequence', type=str,
-                    default=False, help='options for generating timestamps. Set to a date in the form yyyy-mm-dd hh:mm:ss to start from a specific date, or 1 to use the first mjdObs in the YAML file.')
-    parser.add_argument('--testRun', type=bool,
-                        default=False, help='run the script without executing simulate to check output')
+                    default=False, help='options for generating timestamps. Set to a date in the form yyyy-mm-dd hh:mm:ss to start from a specific date, or 1 to use the first dateobs in the YAML file.')
+
+    # if set, option to true
+    parser.add_argument('--testRun', action="store_true",
+                        help='run the script without executing simulate to check input')
 
     args = parser.parse_args()
-    print(args)
-
     if args.inputYAML:
         inputYAML = args.inputYAML
     else:
@@ -469,10 +475,11 @@ if __name__ == "__main__":
         doCalib = args.doCalib
     else:
         doCalib = 0
-    
+
+
         
     small = args.small
-    doCalib = args.doCalib
+    
     testRun = args.testRun
     
     print(f"Starting Simulations")
@@ -488,7 +495,6 @@ if __name__ == "__main__":
     
     run(inputYAML, outputDir, small, sequence, doCalib, startMJD, testRun)
 
-    small = args.small
 
     if args.catg:
         catglist = args.catg.split(',')
@@ -497,3 +503,7 @@ if __name__ == "__main__":
 
     print(inputYAML, outputDir, small, catglist)
     run(inputYAML, outputDir, small, catglist)
+
+    if(not testRun):
+        updateHeaders(outputDir,outputDir)
+

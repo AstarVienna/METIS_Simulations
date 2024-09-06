@@ -1,4 +1,15 @@
 
+# IMPORTANT NOTICE
+
+<span style="color: red">This repository contains code that is a work in progress.  The current
+set of simulations are designed for METIS pipeline development, at
+this point including correct FITS headers and file format.  The
+resultant files **DO NOT** contain instrumentally or scientifically
+accurate data, and under no circumstances should be used to evaluate
+potential performance of the METIS instrument.</span>
+
+
+
 # METIS Simulations
 
 This respository contains scripts which can be used as a wrapper for ScopeSim to generate a set of simulated METIS data for pipeline development. 
@@ -39,14 +50,12 @@ To run the default set of FITS files, as described in [Data Product Summary](#da
 
 
 ```
-> ./run_recipes.py --doCalib 1
-> ./updateHeaders.py
+> ./run_recipes.py --doCalib=5
 > md5sum -c checksums.dat | grep -v OK
 ```
 
-This will run the script, automatically determining the necessary flats and darks and running them at the end of the sequence.
-The updateHeaders.py does some tidying of the keywords in the ScopeSim output headers.  By default, it reads from output/ and *OVERWRITES* the original files. The final step compares the checksums of the files as of release time. 
-
+This will run the script, automatically determining the necessary flats and darks and running them at the end of the sequence; the number indicates
+how many of each type to generate. 
 
 ## Command Line Options
 
@@ -87,10 +96,10 @@ runs the set of simulations starting the sequence at the given date and automati
 > ./run_recipes.py --sequence 1
 ```
 
-does the same but takes the mjdObs from the first item in the sequence.
+does the same but takes the dateobs from the first item in the sequence.
 
 ```
-> ./run_recipes.py --testRun 1
+> ./run_recipes.py --testRun
 ```
 
 Runs the script without executing the simulations to check input values.
@@ -362,5 +371,5 @@ tech:  one of
 
  nObs: number of each observation to execute
 
- mjdobs: date in the form  yyyy-mm-dd hh:mm:ss.s
+ dateobs: date in the form  yyyy-mm-dd hh:mm:ss.s
 

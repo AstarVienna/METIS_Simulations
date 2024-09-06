@@ -22,7 +22,7 @@ LM_WCU_OFF_RAW:
     catg: "CALIB"
     tech: "IMAGE,LM"
     type: "DARK,WCUOFF"
-    mjdobs:
+    dateobs:
       - 2024-01-02 00:10:00
     tplname: "METIS_img_lm_cal_DetLin"
     nObs: 5
@@ -270,7 +270,7 @@ IFU_RSRF_RAW1:
     type: "RSRF"
     tplname: "METIS_ifu_cal_rsrf"
     type: "FLAT,LAMP"
-    nObs: 5
+    nObs: 1
 
 IFU_RSRF_RAW2:
   do.catg: IFU_RSRF_RAW
@@ -291,7 +291,7 @@ IFU_RSRF_RAW2:
     type: "RSRF"
     tplname: "METIS_ifu_cal_rsrf"
     type: "FLAT,LAMP"
-    nObs: 5
+    nObs: 1
 
 
 ######## WITH PINHOLE ########
@@ -314,7 +314,7 @@ LM_LSS_RSRF_PINH_RAW1:
     type: "FLAT,LAMP,PINH"
     tplname: "METIS_spec_lm_cal_rsrfpinh"
     type: "FLAT,LAMP"
-    nObs: 5
+    nObs: 1
 
 
 LM_LSS_RSRF_PINH_RAW2:
@@ -334,7 +334,7 @@ LM_LSS_RSRF_PINH_RAW2:
     type: "FLAT,LAMP,PINH"
     tplname: "METIS_spec_lm_cal_rsrfpinh"
     type: "FLAT,LAMP"
-    nObs: 5
+    nObs: 1
 
 
 N_LSS_RSRF_PINH_RAW1:
@@ -354,7 +354,7 @@ N_LSS_RSRF_PINH_RAW1:
     type: "FLAT,LAMP,PINH"
     tplname: "METIS_spec_n_cal_rsrfpinh"
     type: "FLAT,LAMP"
-    nObs: 5
+    nObs: 1
 
 
 
@@ -375,7 +375,7 @@ N_LSS_RSRF_PINH_RAW2:
     type: "FLAT,LAMP,PINH"
     tplname: "METIS_spec_n_cal_rsrfpinh"
     type: "FLAT,LAMP"
-    nObs: 5
+    nObs: 1
 
 #
 # IFU_RSRF_PINH_RAW does not exist in the DRLD, should it?
@@ -396,7 +396,7 @@ IFU_RSRF_PINH_RAW1:
     catg: "CALIB"
     tech: "LMS"
     type: "FLAT,LAMP"
-    nObs: 5
+    nObs: 1
 
 
 IFU_RSRF_PINH_RAW2:
@@ -414,7 +414,7 @@ IFU_RSRF_PINH_RAW2:
     catg: "CALIB"
     tech: "LMS"
     type: "FLAT,LAMP"
-    nObs: 5
+    nObs: 1
 
 
 ##################### "STANDARDS" (SINGLE SOURCE AT CENTER) ######################
