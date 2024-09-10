@@ -1,7 +1,4 @@
 
-
-##################### DARKS - LM, N, IFU ######################
-
 LM_WCU_OFF_RAW:
   do.catg: LM_WCU_OFF_RAW
   mode: "img_lm"
@@ -25,7 +22,7 @@ LM_WCU_OFF_RAW:
     dateobs:
       - 2024-01-02 00:10:00
     tplname: "METIS_img_lm_cal_DetLin"
-    nObs: 5
+    nObs: 1
 
 N_WCU_OFF_RAW:
   do.catg: N_WCU_OFF_RAW
@@ -48,7 +45,10 @@ N_WCU_OFF_RAW:
     tech: "IMAGE,N"
     type: "DARK,WCUOFF"
     tplname: "METIS_img_n_cal_DetLin"
-    nObs: 5
+    nObs: 1
+
+
+##################### DARKS - LM, N, IFU ######################
 
 IFU_WCU_OFF_RAW:
   do.catg: IFU_WCU_OFF_RAW
@@ -71,7 +71,8 @@ IFU_WCU_OFF_RAW:
     tech: "LMS"
     type: "DARK,WCUOFF"
     tplname: "METIS_ifu_cal_DetLin" 
-    nObs: 5
+    nObs: 1
+
 
 ##################### DETLIN - LM, N, IFU #####################
 
@@ -100,7 +101,7 @@ DETLIN_2RG_RAW:
     tech: "IMAGE,LM"
     type: "DETLIN"
     tplname: "METIS_img_lm_cal_DetLin"
-    nObs: 5
+    nObs: 1
 
 DETLIN_GEO_RAW:
   do.catg: DETLIN_N_RAW
@@ -127,11 +128,11 @@ DETLIN_GEO_RAW:
     tech: "IMAGE,N"
     type: "DETLIN"
     tplname: "METIS_img_n_cal_DetLin"
-    nObs: 5
+    nObs: 1
 
 DETLIN_IFU_RAW:
   do.catg: DETLIN_IFU_RAW
-  mode: "img_lm"
+  mode: "lms"
   source:
     name: flat_field
     kwargs:
@@ -154,7 +155,7 @@ DETLIN_IFU_RAW:
     tech: "LMS"
     type: "DETLIN"
     tplname: "METIS_ifu_cal_DetLin"
-    nObs: 5
+    nObs: 1
 
 
 ##################### FLATS - LM, N ######################
@@ -169,7 +170,7 @@ DETLIN_IFU_RAW:
 
 LM_LSS_RSRF_RAW1:
   do.catg: LM_LSS_RSRF_RAW
-  mode: "img_lm"
+  mode: "lss_l"
   source:
     name: flat_field
     kwargs:
@@ -185,12 +186,12 @@ LM_LSS_RSRF_RAW1:
     tech: "LSS,LM"
     type: "FLAT,LAMP"
     tplname: "METIS_spec_lm_cal_rsrf"
-    nObs: 5
+    nObs: 1
 
 
 LM_LSS_RSRF_RAW2:
   do.catg: LM_LSS_RSRF_RAW
-  mode: "img_lm"
+  mode: "lss_l"
   source:
     name: flat_field
     kwargs:
@@ -206,12 +207,12 @@ LM_LSS_RSRF_RAW2:
     tech: "LSS,LM"
     type: "FLAT,LAMP"
     tplname: "METIS_spec_lm_cal_rsrf"
-    nObs: 5
+    nObs: 1
 
 
 N_LSS_RSRF_RAW1:
   do.catg: N_LSS_RSRF_RAW
-  mode: "img_n"
+  mode: "lss_n"
   source:
     name: flat_field
     kwargs:
@@ -227,12 +228,12 @@ N_LSS_RSRF_RAW1:
     tech: "LSS,N"
     type: "FLAT,LAMP"
     tplname: "METIS_spec_n_cal_rsrf"
-    nObs: 5
+    nObs: 1
 
 
 N_LSS_RSRF_RAW2:
   do.catg: N_LSS_RSRF_RAW
-  mode: "img_n"
+  mode: "lss_n"
   source:
     name: flat_field
     kwargs:
@@ -248,7 +249,7 @@ N_LSS_RSRF_RAW2:
     tech: "LSS,N"
     type: "FLAT,LAMP"
     tplname: "METIS_spec_n_cal_rsrf"
-    nObs: 5
+    nObs: 1
 
 
 IFU_RSRF_RAW1:
@@ -437,7 +438,7 @@ LM_IMAGE_STD_RAW1:
     tech: "IMAGE,LM"
     type: "STD"
     tplname: "METIS_img_lm_cal_standard"
-    nObs: 5
+    nObs: 1
 
 LM_IMAGE_STD_RAW2:
   do.catg: LM_IMAGE_STD_RAW
@@ -453,7 +454,7 @@ LM_IMAGE_STD_RAW2:
     tech: "IMAGE,LM"
     type: "SKY"
     tplname: "METIS_img_lm_cal_standard"
-    nObs: 5
+    nObs: 1
 
 N_IMAGE_STD_RAW1:
   do.catg: N_IMAGE_STD_RAW
@@ -469,7 +470,7 @@ N_IMAGE_STD_RAW1:
     tech: "IMAGE,N"
     type: "STD"
     tplname: "METIS_img_n_cal_standard"
-    nObs: 5
+    nObs: 1
 
 N_IMAGE_STD_RAW2:
   do.catg: N_IMAGE_STD_RAW
@@ -485,7 +486,7 @@ N_IMAGE_STD_RAW2:
     tech: "IMAGE,N"
     type: "SKY"
     tplname: "METIS_img_n_cal_standard"
-    nObs: 5
+    nObs: 1
 
 
 ######### SPECTRA ###############
@@ -504,7 +505,7 @@ LM_LSS_STD_RAW1:
     tech: "LSS,LM"
     type: "STD"
     tplname: "METIS_spec_lm_cal_Standard"
-    nObs: 5
+    nObs: 1
 
 
 LM_LSS_STD_RAW2:
@@ -521,7 +522,7 @@ LM_LSS_STD_RAW2:
     tech: "LSS,LM"
     type: "SKY"
     tplname: "METIS_spec_lm_cal_Standard"
-    nObs: 5
+    nObs: 1
 
 
 N_LSS_STD_RAW1:
@@ -538,7 +539,7 @@ N_LSS_STD_RAW1:
     tech: "LSS,N"
     type: "STD"
     tplname: "METIS_spec_n_cal_Standard"
-    nObs: 5
+    nObs: 1
 
 N_LSS_STD_RAW2:
   do.catg: N_LSS_STD_RAW
@@ -554,7 +555,7 @@ N_LSS_STD_RAW2:
     tech: "LSS,N"
     type: "SKY"
     tplname: "METIS_spec_n_cal_Standard"
-    nObs: 5
+    nObs: 1
 
 ########## IFU ###############
 
@@ -568,13 +569,13 @@ IFU_STD_RAW1:
   properties:
     dit: 100
     ndit: 3
-    filter_name: "Lp"
+    filter_name: "open"
     wavelen: "3.555"
     catg: "CALIB"
     tech: "LMS"
     type: "STD"
     tplname: "METIS_ifu_cal_standard"
-    nObs: 5
+    nObs: 1
 
 
 # metis_ifu_reduce does not differentiate between
@@ -590,13 +591,13 @@ IFU_SKY_RAW2:
   properties:
     dit: 100
     ndit: 3
-    filter_name: "Lp"
+    filter_name: "open"
     wavelen: "3.555"
     catg: "CALIB"
     tech: "LMS"
     type: "SKY"
     tplname: "METIS_ifu_cal_standard"
-    nObs: 5
+    nObs: 1
 
 
 ##################### STAR FIELD (SCIENCE SOURCE, LM/N) ######################3
@@ -618,7 +619,7 @@ LM_IMAGE_SCI_RAW1:
     tech: "IMAGE,LM"
     type: "OBJECT"
     tplname: "METIS_img_lm_obs_GenericOffset"
-    nObs: 5
+    nObs: 1
 
 LM_IMAGE_SCI_RAW2:
   do.catg: LM_IMAGE_SCI_RAW
@@ -634,39 +635,39 @@ LM_IMAGE_SCI_RAW2:
     tech: "IMAGE,LM"
     type: "SKY"
     tplname: "METIS_img_lm_obs_GenericOffset"
-    nObs: 5
+    nObs: 1
 
 N_IMAGE_SCI_RAW1:
   do.catg: N_IMAGE_SCI_RAW
-  mode: "img_lm"
+  mode: "img_n"
   source: 
     name: star_field
     kwargs: {}
   properties:
     dit: 0.25
     ndit: 4
-    filter_name: "Lp"
+    filter_name: "N1"
     catg: "SCIENCE"
     tech: "IMAGE,N"
     type: "OBJECT"
     tplname: "METIS_img_n_obs_GenericChopNod"
-    nObs: 5
+    nObs: 1
 
 N_IMAGE_SCI_RAW2:
   do.catg: N_IMAGE_SCI_RAW
-  mode: "img_lm"
+  mode: "img_n"
   source: 
     name: "empty_sky"
     kwargs: {}
   properties:
     dit: 0.25
     ndit: 4
-    filter_name: "Lp"
+    filter_name: "N1"
     catg: "SCIENCE"
     tech: "IMAGE,N"
     type: "SKY"
     tplname: "METIS_img_n_obs_GenericChopNod"
-    nObs: 5
+    nObs: 1
 
 ##################### EXTENDED GALAXY (SCIENCE SOURCE SPECTRA) ######################
 
@@ -685,7 +686,7 @@ N_LSS_SCI_RAW1:
     tech: "LSS,N"
     type: "OBJECT"
     tplname: "METIS_spec_n_obs_AutoChopNodOnSlit"
-    nObs: 5
+    nObs: 1
 
 N_LSS_SCI_RAW2:
   do.catg: N_LSS_SCI_RAW
@@ -703,7 +704,7 @@ N_LSS_SCI_RAW2:
     tplname: "METIS_spec_n_obs_AutoChopNodOnSlit"
 
 
-    nObs: 5
+    nObs: 1
 
 LM_LSS_SCI_RAW1:
   do.catg: LM_LSS_SCI_RAW
@@ -719,7 +720,7 @@ LM_LSS_SCI_RAW1:
     tech: "LSS,LM"
     type: "OBJECT"
     tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
-    nObs: 5
+    nObs: 1
 
 LM_LSS_SCI_RAW2:
   do.catg: LM_LSS_SCI_RAW
@@ -735,7 +736,7 @@ LM_LSS_SCI_RAW2:
     tech: "LSS,LM"
     type: "SKY"
     tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
-    nObs: 5
+    nObs: 1
 
 IFU_SCI_RAW1:
   do.catg: IFU_SCI_RAW
@@ -746,12 +747,12 @@ IFU_SCI_RAW1:
   properties:
     dit: 0.25
     ndit: 1
-    filter_name: "Lp"
+    filter_name: "open"
     catg: "SCIENCE"
     tech: "LMS"
     type: "OBJECT"
     tplname: "METIS_ifu_obs_GenericOffset"
-    nObs: 5
+    nObs: 1
 
 IFU_SCI_RAW2:
   do.catg: IFU_SCI_RAW
@@ -762,12 +763,12 @@ IFU_SCI_RAW2:
   properties:
     dit: 0.25
     ndit: 1
-    filter_name: "Lp"
+    filter_name: "open"
     catg: "CALIB"
     tech: "LMS"
     type: "SKY"
     tplname: "METIS_ifu_obs_GenericOffset"
-    nObs: 5
+    nObs: 1
 
 ##################### FOR CORONAGRAPH ################
 
@@ -790,7 +791,7 @@ LM_OFF_AXIS_PSF_RAW:
     tech: "IMAGE,LM"
     type: "PSF,OFFAXIS"
     tplname: "METIS_img_lm_vc_obs_FixedSkyOffset"
-    nObs: 5
+    nObs: 1
 
 N_OFF_AXIS_PSF_RAW:
   do.catg: N_OFF_AXIS_PSF_RAW
@@ -806,7 +807,7 @@ N_OFF_AXIS_PSF_RAW:
     tech: "IMAGE,N"
     type: "PSF,OFFAXIS"
     tplname: "METIS_img_n_cvc_obs_AutoChop"
-    nObs: 5
+    nObs: 1
 
 IFU_OFF_AXIS_PSF_RAW:
   do.catg: IFU_OFF_AXIS_PSF_RAW
@@ -817,13 +818,13 @@ IFU_OFF_AXIS_PSF_RAW:
   properties:
     dit: 100
     ndit: 3
-    filter_name: "Lp"
+    filter_name: "open"
     wavelen: "3.555"
     catg: "CALIB"
     tech: "LMS"
     type: "PSF,OFFAXIS"
     tplname: "METIS_ifu_vc_obs_FixedSkyOffset"
-    nObs: 5
+    nObs: 1
 
 ######### SOURCE (+ SKY) ##########
 
@@ -836,12 +837,12 @@ LM_IMAGE_SCI_CORONAGRAPH_RAW1:
   properties:
     dit: 0.25
     ndit: 1
-    filter_name: "Lp"
+    filter_name: "open"
     catg: "SCIENCE"
     tech: "RAVC,LM"
     type: "OBJECT"
     tplname: "METIS_ifu_vc_obs_FixedSkyOffset"
-    nObs: 5
+    nObs: 1
 
 
 LM_IMAGE_SCI_CORONAGRAPH_RAW2:
@@ -858,7 +859,7 @@ LM_IMAGE_SCI_CORONAGRAPH_RAW2:
     tech: "RAVC,LM"
     type: "SKY"
     tplname: "METIS_ifu_vc_obs_FixedSkyOffset"
-    nObs: 5
+    nObs: 1
 
 
 LM_IMAGE_SCI_CORONAGRAPH_RAW3:
@@ -875,7 +876,7 @@ LM_IMAGE_SCI_CORONAGRAPH_RAW3:
     tech: "APP,LM"
     type: "OBJECT"
     tplname: "METIS_img_lm_app_obs_FixedOffset"
-    nObs: 5
+    nObs: 1
 
 
 LM_IMAGE_SCI_CORONAGRAPH_RAW4:
@@ -892,7 +893,7 @@ LM_IMAGE_SCI_CORONAGRAPH_RAW4:
     tech: "APP,LM"
     type: "SKY"
     tplname: "METIS_img_lm_app_obs_FixedOffset"
-    nObs: 5
+    nObs: 1
 
 IFU_SCI_CORONAGRAPH_RAW1:
   do.catg: IFU_SCI_RAW
@@ -903,13 +904,13 @@ IFU_SCI_CORONAGRAPH_RAW1:
   properties:
     dit: 100
     ndit: 3
-    filter_name: "Lp"
+    filter_name: "open"
     wavelen: "3.555"
     catg: "SCIENCE"
     tech: "RAVC,IFU"
     type: "OBJECT"
     tplname: "METIS_ifu_vc_obs_FixedSkyOffset"
-    nObs: 5
+    nObs: 1
 
 IFU_SCI_CORONAGRAPH_RAW2:
   prefix: IFU_SKY_RAW
@@ -921,13 +922,13 @@ IFU_SCI_CORONAGRAPH_RAW2:
   properties:
     dit: 100
     ndit: 3
-    filter_name: "Lp"
+    filter_name: "open"
     wavelen: "3.555"
     catg: "CALIB"
     tech: "RAVC,IFU"
     type: "SKY"
     tplname: "METIS_ifu_vc_obs_FixedSkyOffset"
-    nObs: 5
+    nObs: 1
 
 
 ################## TECHNICAL IMAGES (not part of normal obs) ####################
@@ -950,7 +951,7 @@ LM_SLITLOSSES_RAW1:
     tech: "LSS,LM"
     type: "SLITLOSS"
     tplname: "METIS_spec_lm_cal_SlitAdc"
-    nObs: 5
+    nObs: 1
 
 
 
@@ -970,7 +971,7 @@ LM_SLITLOSSES_RAW2:
     tech: "LSS,LM"
     type: "SLITLOSS"
     tplname: "METIS_spec_lm_cal_SlitAdc"
-    nObs: 5
+    nObs: 1
 
 
 
@@ -990,7 +991,7 @@ LM_SLITLOSSES_RAW3:
     tech: "LSS,LM"
     type: "SLITLOSS"
     tplname: "METIS_spec_lm_cal_SlitAdc"
-    nObs: 5
+    nObs: 1
 
 
 
@@ -1010,7 +1011,7 @@ LM_SLITLOSSES_RAW4:
     tech: "LSS,LM"
     type: "SLITLOSS"
     tplname: "METIS_spec_lm_cal_SlitAdc"
-    nObs: 5
+    nObs: 1
 
 LM_SLITLOSSES_RAW5:
   do.catg: LM_LSS_SLITLOSSES_RAW
@@ -1028,7 +1029,7 @@ LM_SLITLOSSES_RAW5:
     tech: "LSS,LM"
     type: "SLITLOSS"
     tplname: "METIS_spec_lm_cal_SlitAdc"
-    nObs: 5
+    nObs: 1
 
 
 
@@ -1048,7 +1049,7 @@ LM_SLITLOSSES_RAW6:
     tech: "LSS,LM"
     type: "SLITLOSS"
     tplname: "METIS_spec_lm_cal_SlitAdc"
-    nObs: 5
+    nObs: 1
 
 LM_SLITLOSSES_RAW7:
   do.catg: LM_LSS_SLITLOSSES_RAW
@@ -1066,7 +1067,7 @@ LM_SLITLOSSES_RAW7:
     tech: "LSS,LM"
     type: "SLITLOSS"
     tplname: "METIS_spec_lm_cal_SlitAdc"
-    nObs: 5
+    nObs: 1
 
 
 LM_SLITLOSSES_RAW8:
@@ -1085,7 +1086,7 @@ LM_SLITLOSSES_RAW8:
     tech: "LSS,LM"
     type: "SLITLOSS"
     tplname: "METIS_spec_lm_cal_SlitAdc"
-    nObs: 5
+    nObs: 1
 
 
 LM_SLITLOSSES_RAW9:
@@ -1104,7 +1105,7 @@ LM_SLITLOSSES_RAW9:
     tech: "LSS,LM"
     type: "SLITLOSS"
     tplname: "METIS_spec_lm_cal_SlitAdc"
-    nObs: 5
+    nObs: 1
 
 
 LM_SLITLOSSES_RAW10:
@@ -1123,7 +1124,7 @@ LM_SLITLOSSES_RAW10:
     tech: "LSS,LM"
     type: "SLITLOSS"
     tplname: "METIS_spec_lm_cal_SlitAdc"
-    nObs: 5
+    nObs: 1
 
 
 LM_SLITLOSSES_RAW11:
@@ -1142,7 +1143,7 @@ LM_SLITLOSSES_RAW11:
     tech: "LSS,LM"
     type: "SLITLOSS"
     tplname: "METIS_spec_lm_cal_SlitAdc"
-    nObs: 5
+    nObs: 1
 
 
 
@@ -1162,7 +1163,7 @@ N_LSS_SLITLOSSES_RAW1:
     tech: "LSS,N"
     type: "SLITLOSS"
     tplname: "METIS_spec_n_cal_slit"
-    nObs: 5
+    nObs: 1
 
 
 N_LSS_SLITLOSSES_RAW2:
@@ -1181,7 +1182,7 @@ N_LSS_SLITLOSSES_RAW2:
     tech: "LSS,N"
     type: "SLITLOSS"
     tplname: "METIS_spec_n_cal_slit"
-    nObs: 5
+    nObs: 1
 
 
 N_LSS_SLITLOSSES_RAW3:
@@ -1200,7 +1201,7 @@ N_LSS_SLITLOSSES_RAW3:
     tech: "LSS,N"
     type: "SLITLOSS"
     tplname: "METIS_spec_n_cal_slit"
-    nObs: 5
+    nObs: 1
 
 
 N_LSS_SLITLOSSES_RAW4:
@@ -1219,7 +1220,7 @@ N_LSS_SLITLOSSES_RAW4:
     tech: "LSS,N"
     type: "SLITLOSS"
     tplname: "METIS_spec_n_cal_slit"
-    nObs: 5
+    nObs: 1
 
 N_LSS_SLITLOSSES_RAW5:
   do.catg: LM_LSS_SLITLOSSES_RAW
@@ -1237,7 +1238,7 @@ N_LSS_SLITLOSSES_RAW5:
     tech: "LSS,N"
     type: "SLITLOSS"
     tplname: "METIS_spec_n_cal_slit"
-    nObs: 5
+    nObs: 1
 
 
 N_LSS_SLITLOSSES_RAW6:
@@ -1256,7 +1257,7 @@ N_LSS_SLITLOSSES_RAW6:
     tech: "LSS,N"
     type: "SLITLOSS"
     tplname: "METIS_spec_n_cal_slit"
-    nObs: 5
+    nObs: 1
 
 
 N_LSS_SLITLOSSES_RAW7:
@@ -1275,7 +1276,7 @@ N_LSS_SLITLOSSES_RAW7:
     tech: "LSS,N"
     type: "SLITLOSS"
     tplname: "METIS_spec_n_cal_slit"
-    nObs: 5
+    nObs: 1
 
 
 N_LSS_SLITLOSSES_RAW8:
@@ -1294,7 +1295,7 @@ N_LSS_SLITLOSSES_RAW8:
     tech: "LSS,N"
     type: "SLITLOSS"
     tplname: "METIS_spec_n_cal_slit"
-    nObs: 5
+    nObs: 1
 
 
 N_LSS_SLITLOSSES_RAW9:
@@ -1313,7 +1314,7 @@ N_LSS_SLITLOSSES_RAW9:
     tech: "LSS,N"
     type: "SLITLOSS"
     tplname: "METIS_spec_n_cal_slit"
-    nObs: 5
+    nObs: 1
 
 
 N_LSS_SLITLOSSES_RAW10:
@@ -1332,7 +1333,7 @@ N_LSS_SLITLOSSES_RAW10:
     tech: "LSS,N"
     type: "SLITLOSS"
     tplname: "METIS_spec_n_cal_slit"
-    nObs: 5
+    nObs: 1
 
 
 N_LSS_SLITLOSSES_RAW11:
@@ -1351,7 +1352,7 @@ N_LSS_SLITLOSSES_RAW11:
     tech: "LSS,N"
     type: "SLITLOSS"
     tplname: "METIS_spec_n_cal_slit"
-    nObs: 5
+    nObs: 1
 
 
 
@@ -1372,7 +1373,7 @@ LM_LSS_WAVE_RAW:
     tech: "LSS,LM"
     type: "WAVE"
     tplname: "METIS_spec_lm_cal_InternalWave"
-    nObs: 5
+    nObs: 1
 
 N_LSS_WAVE_RAW:
   do.catg: N_LSS_WAVE_RAW
@@ -1389,7 +1390,7 @@ N_LSS_WAVE_RAW:
     tech: "LSS,N"
     type: "WAVE"
     tplname: "METIS_spec_n_cal_InternalWave"
-    nObs: 5
+    nObs: 1
 
 IFU_WAVE_RAW:
   do.catg: IFU_LSS_WAVE_RAW
@@ -1406,7 +1407,7 @@ IFU_WAVE_RAW:
     tech: "LMS"
     type: "WAVE"
     tplname: "METIS_ifu_cal_InternalWave"
-    nObs: 5
+    nObs: 1
 
 
 ########################### OTHER TECHNICAL #####################
@@ -1430,7 +1431,7 @@ LM_CHOPPERHOME_RAW:
     tech: "IMAGE,LM"
     type: "CHOPHOME"
     tplname: "METIS_img_lm_cal_ChopperHome"
-    nObs: 5
+    nObs: 1
 
 LM_PUPIL_RAW:
   do.catg: LM_PUPIL_RAW
@@ -1450,7 +1451,7 @@ LM_PUPIL_RAW:
     tech: "PUP,M"
     type: "PUPIL"
     tplname: "METIS_pup_lm"
-    nObs: 5
+    nObs: 1
 
 N_PUPIL_RAW:
   do.catg: N_PUPIL_RAW
@@ -1470,7 +1471,7 @@ N_PUPIL_RAW:
     tech: "PUP,N"
     type: "PUPIL"
     tplname: "METIS_pup_n"
-    nObs: 5
+    nObs: 1
 
 
 
@@ -1491,7 +1492,7 @@ LM_DISTORTION_RAW:
     tech: "IMAGE,LM"
     type: "DISTORTION"
     tplname: "METIS_img_lm_cal_distortion"
-    nObs: 5
+    nObs: 1
 
 N_DISTORTION_RAW:
   do.catg: N_DISTORTION_RAW
@@ -1510,7 +1511,7 @@ N_DISTORTION_RAW:
     tech: "IMAGE,N"
     type: "DISTORTION"
     tplname: "METIS_img_n_cal_distortion"
-    nObs: 5
+    nObs: 1
 
 
 IFU_DISTORTION_RAW:
@@ -1528,4 +1529,4 @@ IFU_DISTORTION_RAW:
     tech: "LMS"
     type: "DISTORTION"
     tplname: "METIS_ifu_cal_distortion"
-    nObs: 5
+    nObs: 1

@@ -42,7 +42,7 @@ def run(inputYAML, outputDir, small=False, sequence = False, nCalib = 0, startMJ
 
     # check for valid values, abort if not
     
-    cRep = checkRecipes(rcps)
+    cRep = checkRecipes(dorcps)
     if(cRep == 1):
         return
     
@@ -332,7 +332,7 @@ def generateCalibs(allParms,tObs,nObs,small,out_dir,testRun):
             darks.append((elem[0],elem[1],elem[3]))
 
             # if it's not a DARK, FLAT or DETLIN, it needs a flat image
-            if(np.all(["FLAT" not in elem[4],"DETLIN" not in elem[4]])):
+            if(np.all(["FLAT" not in elem[4],"DETLIN" not in elem[4],"LMS" not in elem[3]])):
                 flats.append((elem[0],elem[1],elem[3],elem[5],elem[6]))
     
                    
@@ -433,13 +433,13 @@ if __name__ == "__main__":
                         help='input YAML File')
     parser.add_argument('-o', '--outputDir', type=str,
                         help='output directory')
-    parser.add_argument('-s', '--small', type=bool,
+    parser.add_argument('-s', '--small', action = "store_true",
                         default=False,
                         help=('use detectors of 32x32 pixels; ' +
                               'for running in the continuous integration'))
     parser.add_argument('-c', '--catg', type=str,
                         help='comma-separated list of selected output file categories')
-    parser.add_argument('d','--doCalib', type=int,
+    parser.add_argument('--doCalib', type=int,
                     default=0, help='automatically generate darks and flats for the dataset. Will generate N of each type')
 
     # expects either 1 or a date stamp
