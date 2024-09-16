@@ -13,7 +13,7 @@ import numpy as np
 
 catgVals = ["CALIB","SCIENCE","TECHNICAL"]
 techVals = ["APP,LM","IMAGE,LM","IMAGE,N","LMS","LSS,LM","LSS,N","PUP,M","PUP,N","RAVC,IFU","RAVC,LM"]
-typeVals = ["CHOPHOME","DARK,WCUOFF","DETLIN","DISTORTION","FLAT,LAMP","OBJECT","PSF,OFFAXIS","PUPIL","SKY","STD","WAVE"]
+typeVals = ["CHOPHOME","DARK,WCUOFF","DETLIN","DISTORTION","FLAT,LAMP","OBJECT","PSF,OFFAXIS","PUPIL","SKY","STD","WAVE",'SLITLOSS']
 modeVals = ["img_lm","lss_m","img_n","lss_l","lss_m","lss_n","lms"]
 
 
