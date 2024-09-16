@@ -32,8 +32,8 @@ jobs:
           pip install git+https://github.com/AstarVienna/ScopeSim.git
           pip install astar-utils numpy more-itertools astropy PyYAML scopesim_templates
       - name: Run recipes
-      	run: |
-	  python ESO/downloads.py
+        run: |
+          python ESO/downloads.py
           python ESO/run_recipes.py --small=True
       - name: Store output files
         uses: actions/upload-artifact@v3
