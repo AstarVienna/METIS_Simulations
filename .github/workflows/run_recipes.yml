@@ -34,7 +34,7 @@ jobs:
       - name: Run recipes
         run: |
           python ESO/downloadPackages.py
-          python ESO/run_recipes.py --small
+          python ESO/run_recipes.py --small --doCalib
       - name: Store output files
         uses: actions/upload-artifact@v3
         with:
