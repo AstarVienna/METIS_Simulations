@@ -1,4 +1,4 @@
-
+#!/usr/bin/env python
 import scopesim as sim
 
 sim.download_packages("Armazones", release="2023-07-11")
