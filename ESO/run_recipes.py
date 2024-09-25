@@ -56,7 +56,9 @@ def run(inputYAML, outputDir, small=False, sequence = False, nCalib = 0, startMJ
     ]
 
         
-    allParms = []
+    darks = []
+    skyFlats = []
+    lampFlats = []
     
     # check for the first iteration
     firstIt = True
@@ -85,20 +87,22 @@ def run(inputYAML, outputDir, small=False, sequence = False, nCalib = 0, startMJ
             
             combodict = dict(zip(expanded, combo))
             props = recipe["properties"] | combodict
+            # a blank value of ndfilter_name if not explicitly given
+            try:
+                nfname = props["ndfilter_name"]
+            except:
+                props["ndfilter_name"] = "open"
 
             # if needed, keep a tally of the different sets of parameters that will be passed to simulate()
             if(nCalib > 0):
 
-                # a blank value of ndfilter_name if not explicitly given
-                try:
-                    nfname = props["ndfilter_name"]
-                except:
-                    nfname = ""
 
-                allParms.append((props['dit'],props["ndit"],props["catg"],props["tech"],props["type"],props["filter_name"],nfname))
-
-
-            print(firstIt, startMJD is not None, sequence)
+                if(nCalib > 0):
+                    # keep a running tally of dark and flat recipes
+                    darks.append(calcDark(props))
+                    skyFlats.append(calcSkyFlat(props))
+                    lampFlats.append(calcLampFlat(props))
+                
             # first iteration, need to intialize dateobs regardless of method for timestamp
             if(firstIt):
 
@@ -138,7 +142,7 @@ def run(inputYAML, outputDir, small=False, sequence = False, nCalib = 0, startMJ
 
 
             # for nObs exposures of each set of parameters
-            for i in range(nObs):        
+            for _ in range(nObs):        
 
                 # note that tDelt = 0 if we've explicitly set it above
                 tObs = tObs + tDelt
@@ -159,30 +163,93 @@ def run(inputYAML, outputDir, small=False, sequence = False, nCalib = 0, startMJ
 
                 # get kwargs for scopeSim
                 kwargs = NestedMapping({"OBS": props})
-                print(f"    dit={props['dit']},ndit={props['ndit']},catg={props['catg']},tech={props['tech']},type={props['type']},filter_name={props['filter_name']}",end="")
-                if("ndfilter_name" in props):
-                    print(f",ndfilter_name={props['ndfilter_name']}")
-                else:
-                    print()
-
-
+                print(f"    dit={props['dit']},ndit={props['ndit']},catg={props['catg']},tech={props['tech']},type={props['type']},filter_name={props['filter_name']}, ndfilter_name={props['ndfilter_name']}")
 
                 # and run the 
                 if(not testRun):
+                    
                     simulate(fname, mode, kwargs, source=recipe["source"], small=small)
 
 
     # do the calibrations if needed
-    if(nCalib):
+    if(nCalib > 0):
         # increment the observing time from the last exposure
         if(tObs is None):
             tObs = Time(recipe["properties"]["dateobs"])[0]+tDelt
         else:
             tObs += tDelt
 
-        generateCalibs(allParms,tObs,nCalib,small,out_dir,testRun)
+        generateCalibs(darks,skyFlats,lampFlats,tObs,nCalib,small,out_dir,testRun)
     return
 
+
+def calcDark(props):
+
+    """determine what sort of dark, if any, is needed for a YAML entry"""
+
+    if("DARK" not in props['type']):
+        if(",LM" in props['tech']):
+            df = sd.DARKLM
+            df['mode'] = "img_lm"
+        elif(",N" in props['tech']):
+            df = sd.DARKN
+            df['mode'] = "img_n"
+        elif(np.any(["LMS" in props['tech'],"IFU" in props['tech']])):
+            df = sd.DARKIFU
+            df['mode'] = "lms"
+        else:
+            return{}
+
+        df['dit'] = props['dit']
+        df['ndit'] = props['ndit']
+        return df
+    else:
+       return {}
+
+def calcSkyFlat(props):
+
+    """determine what sort of sky flat, if any, is needed for a YAML entry"""
+
+    if(np.all(["DARK" not in props['type'], "FLAT" not in props['type'],"DETLIN" not in props['type'],"LMS" not in props['type']])):
+        if(",LM" in props['tech']):
+            df = sd.SKYFLATLM
+            df['mode'] = "img_lm"
+        elif(",N" in props['tech']):
+            df = sd.SKYFLATN
+            df['mode'] = "img_n"
+        else:
+            return{}
+
+        df['properties']['filter_name'] = props['filter_name']
+        df['properties']['ndfilter_name'] = "open"
+        df['dit'] = 0.25
+        df['ndit'] = 1
+        
+        return df
+    else:
+        return {}
+
+def calcLampFlat(props):
+
+    """determine what sort of lamp flat, if any, is needed for a YAML entry"""
+    if(np.all(["DARK" not in props['type'], "FLAT" not in props['type'],"DETLIN" not in props['type'],"LMS" not in props['type']])):
+        if(",LM" in props['tech']):
+            df = sd.LAMPFLATLM
+            df['mode'] = "img_lm"
+        elif(",N" in props['tech']):
+            df = sd.LAMPFLATN
+            df['mode'] = "img_n"
+        else:
+            return{}
+
+        df['properties']['filter_name'] = props['filter_name']
+        df['properties']['ndfilter_name'] = "open"
+        df['dit'] = 0.25
+        df['ndit'] = 1
+        
+        return df
+    else:
+        return {}
 
 def checkRecipes(rcps):
 
@@ -296,7 +363,7 @@ def generateFilename(dateobs,doCatg,dit,prefix):
     return fname
 
 
-def generateCalibs(allParms,tObs,nObs,small,out_dir,testRun):
+def generateCalibs(darks,skyFlats,lampFlats,tObs,nObs,small,out_dir,testRun):
 
 
     """
@@ -320,108 +387,51 @@ def generateCalibs(allParms,tObs,nObs,small,out_dir,testRun):
 
     """
 
-    # pare down the list to just the simulations that will need darks or flats for processing
+    calibSet = {}
+    nLab = 0
+    import json
     
-    darks = []
-    flats = []
-    
-    for elem in set(allParms):
+    for rcp in set(json.dumps(i, sort_keys=True) for i in darks):
+        if(rcp):
+            label = f'd{nLab}'
+            nLab += 1
+            calibSet[label] = rcp
 
-        # if DARK isn't in the TYPE, it needs a corresponding DARK
-        if(np.all(["DARK" not in elem[4]])):
-            darks.append((elem[0],elem[1],elem[3]))
+    for rcp in set(json.dumps(i, sort_keys=True) for i in skyFlats):
+        if(rcp):
+            label = f's{nLab}'
+            nLab += 1
+            calibSet[label] = rcp
 
-            # if it's not a DARK, FLAT or DETLIN, it needs a flat image
-            if(np.all(["FLAT" not in elem[4],"DETLIN" not in elem[4],"LMS" not in elem[3]])):
-                flats.append((elem[0],elem[1],elem[3],elem[5],elem[6]))
-    
-                   
-    # there are three different detectors for darks/flats, but multiple names which can refer to them,
-    # so we need to filter them. 
-    # here, get lists of the dit/ndit/filter/ndfilter for the darks and flats
-    # also, add in the strings for the file name/mode/tech, and the source
-    
+    for rcp in set(json.dumps(i, sort_keys=True) for i in lampFlats):
+        if(rcp):
+            label = f'l{nLab}'
+            nLab += 1
+            calibSet[label] = rcp
 
-    # two sources here - empty sky and a lamp flat
+    for key in calibSet:
+        elem=json.loads(calibSet[key])
+        if(elem):
+            source = elem['source']
+            props = elem['properties']
 
-    sources = {}
-    sources["sky"] = {'name': 'empty_sky', 'kwargs': {}}
-    sources["lamp"] = {'name': 'flat_field', 'kwargs': {'temperature': 200, 'amplitude': 0, 'filter_curve': 'V', 'extend': 15}}
-    # another list of tuples with input parameters
-    # separate loops for teh darks, and twice for the flats (once for sky flats, once for lamp).
-    # logically, we want to generate them sequentially by type
-    calibSet = []
-    for elem in set(darks):
-        if(",LM" in elem[2]):
-            calibSet.append((elem[0],elem[1],"IMAGE,LM","DARK_LM_RAW","DARK","img_lm","closed","","sky"))
-        elif(",N" in elem[2]):        
-            calibSet.append((elem[0],elem[1],"IMAGE,N","DARK_N_RAW","DARK","img_n","closed","","sky"))
-        elif(np.any(["LMS" in elem[2],"IFU" in elem[2]])):
-            calibSet.append((elem[0],elem[1],"LMS","DARK_IFU_RAW","DARK","lms","closed","","sky"))
-    for elem in set(flats):
-        if(",LM" in elem[2]):
-            calibSet.append((elem[0],elem[1],"IMAGE,LM","FLAT_LM_RAW","FLAT,TWILIGHT","img_lm",elem[3],elem[4],"sky"))
-        elif(",N" in elem[2]):       
-            calibSet.append((elem[0],elem[1],"IMAGE,N","FLAT_N_RAW","FLAT,TWILIGHT","img_n",elem[3],elem[4],"sky"))
-        elif(np.any(["LMS" in elem[2],"IFU" in elem[2]])):
-            calibSet.append((elem[0],elem[1],"LMS","FLAT_IFU_RAW","FLAT,TWILIGHT","lms",elem[3],elem[4],"sky"))
-    for elem in set(flats):
-        if(",LM" in elem[2]):
-            calibSet.append((elem[0],elem[1],"IMAGE,LM","FLAT_LM_RAW","FLAT,LAMP","img_lm",elem[3],elem[4],"lamp"))
-        elif(",N" in elem[2]):       
-            calibSet.append((elem[0],elem[1],"IMAGE,N","FLAT_N_RAW","FLAT,LAMP","img_n",elem[3],elem[4],"lamp"))
-        elif(np.any(["LMS" in elem[2],"IFU" in elem[2]])):
-            calibSet.append((elem[0],elem[1],"LMS","FLAT_IFU_RAW","FLAT,LAMP","lms",elem[3],elem[4],"lamp"))
-
-    # now we're going to call simulate for each of the unique combinations involved
-    # by setting up the parameters dictionary and the filename in the same way as
-    # is done in the main routine
-
-    print(f"Running calibrations: {nObs} of each type")
-    dProps={}
-    aa = set(calibSet)
-    for elem in set(calibSet):
-        dProps["catg"] = "CALIB"
-        dProps["type"] = elem[4]
-        dProps["dit"] = elem[0]
-        dProps["ndit"] = elem[1]
-        dProps["tech"] = elem[2]
-        dProps["filter_name"] = elem[6]
-        prefix = elem[3]
-
-        # ndfilter if present
-        if(elem[7] != ""):
-            dProps["ndfilter_name"] = elem[7]
-        else:
-            dProps.pop("ndfilter_name",None)
-
-        mode = elem[5]
-
-        source = sources[elem[8]]
-
-        # do nObs of each uniq file
-        for i in range(nObs):
+            # do nObs of each uniq file
+            for _ in range(nObs):
             
-            fname = out_dir / generateFilename(tObs.tt.datetime,elem[3],elem[0],prefix)
-            dProps["dateobs"] = tObs.tt.datetime
-            kwargs = NestedMapping({"OBS": dProps})
+                fname = out_dir / generateFilename(tObs.tt.datetime,elem['mode'],elem['dit'],elem['do.catg'])
+                elem["properties"]["dateobs"] = tObs.tt.datetime
+                # get kwargs for scopeSim
+                kwargs = NestedMapping({"OBS": elem['properties']})
 
-            print("Starting simulate() for calibration files")
-            print(f"    fname={fname}")
-            print(f'    source =  {source}')
+                print("Starting simulate() for calibration files")
+                print(f"    fname={fname}")
+                print(f'    source =  {source}')
 
-            # get kwargs for scopeSim
-            kwargs = NestedMapping({"OBS": dProps})
-            print(f"    dit={dProps['dit']},ndit={dProps['ndit']},catg={dProps['catg']},tech={dProps['tech']},type={dProps['type']},filter_name={dProps['filter_name']}",end="")
-            if("ndfilter_name" in dProps):
-                print(f",ndfilter_name={ndfilter_name}")
-            else:
-                print()
-
+                print(f"    dit={elem['dit']},ndit={elem['ndit']},catg={props['catg']},tech={props['tech']},type={props['type']},filter_name={props['filter_name']}")
             
-            if(not testRun):
-                simulate(fname, mode, kwargs, source=source, small=small)
-            tObs += TimeDelta(elem[0]*elem[1]*1.2+1, format='sec') 
+                if(not testRun):
+                    simulate(fname, elem['mode'], kwargs, source=source, small=small)
+                tObs += TimeDelta(elem['dit']*elem['ndit']*1.2+1, format='sec') 
 
 
 if __name__ == "__main__":
@@ -501,8 +511,6 @@ if __name__ == "__main__":
     else:
         catglist = None
 
-    print(inputYAML, outputDir, small, catglist)
-    run(inputYAML, outputDir, small, catglist)
 
     if(not testRun):
         updateHeaders(outputDir,outputDir)

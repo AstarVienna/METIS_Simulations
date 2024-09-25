@@ -10,6 +10,16 @@ import scopesim_templates as sim_tp
 import numpy as np
 
 
+import numpy as np
+import scipy
+import astropy.io.fits as fits
+from astropy import units as u
+import matplotlib.pyplot as plt
+
+import scopesim
+
+
+
 ####################### Definitions used by the sources #########################
 
 # import  ScopeSim information needed for some of the sources
@@ -18,6 +28,7 @@ imgLM = sim.OpticalTrain(sim.UserCommands(use_instrument="METIS", set_modes=["im
 specDictLM = imgLM.cmds['!SIM.spectral']
 imgN = sim.OpticalTrain(sim.UserCommands(use_instrument="METIS", set_modes=["img_n"]))
 specDictN = imgN.cmds['!SIM.spectral']
+
 
 
 # a fixed random star field; positions based on image size. We define position, magnitude in the reference
@@ -41,6 +52,16 @@ starFieldM = np.array([13.9583468 , 12.43411042, 13.74490878, 13.41775357, 13.44
        12.90387615, 13.93481948, 13.94240869, 13.82090701, 12.89690625])*u.mag
 
 starFieldT = ["A0V","A0V","A0V","A0V","A0V","A0V","A0V","A0V","A0V","A0V","A0V","A0V","A0V","A0V","A0V","A0V","A0V","A0V","A0V","A0V"]
+
+
+################### Setup input Images here (e.g. HEEPS input for coronagraph) #################
+
+
+hdu = fits.ImageHDU(data=scipy.misc.face(gray=True).astype('float'))
+
+# Give the header some proper WCS info
+hdu.header.update({"CDELT1": 1, "CUNIT1": "arcsec", "CRPIX1": 0, "CRVAL1": 0,
+                   "CDELT2": 1, "CUNIT2": "arcsec", "CRPIX2": 0, "CRVAL2": 0,})
 
 
 
@@ -177,6 +198,13 @@ SOURCEDICT = {
         sim_tp.metis.laser.laser_spectrum_n,
         {
             "specdict":specDictN,
+        }
+        ),
+    "heeps_image": (
+        scopesim.Source,
+        {
+            "image_hdu":hdu,
+            "flux":10*u.ABmag,
         }
         ),
     
