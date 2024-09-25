@@ -23,7 +23,7 @@ This respository contains scripts which can be used as a wrapper for ScopeSim to
 
 # Installing the Code
 
-In a clean conda environment (python 3.9) the following sequence of commands will
+In a clean conda environment the following sequence of commands will
 download and install the software with the correct dependencies. 
 
 
