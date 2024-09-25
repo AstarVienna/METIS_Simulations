@@ -216,7 +216,7 @@ cross-checked against
 # Generating Custom Simulations
 
 If you want to run the scripts for your own models, there are two files you will need to edit, in addition to the
-command line options given [above](??).
+command line options given above.
 
 
 ## YAML file
