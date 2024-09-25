@@ -347,7 +347,6 @@ tech:  one of
 |APP,LM  |APP coronagraph, imaging |
 |RAVC,IFU|RAVC coronagraph, IFU    |
 |RAVC,LM |RAVC coronagraph, imaging|
-(py37) tantalus>
 
 
  type: one of
