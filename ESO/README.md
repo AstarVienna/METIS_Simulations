@@ -270,7 +270,7 @@ current sources
 |simple_gal       |elliptical galaxy              |
 |pinhole_mask     |pinhole mask on WCU            |
 |laser_spectrum_lm|laser spectrum (LM) on WCU     |
-|laser_spectrum_lm|laser spectrum (N) on WCU      |
+|laser_spectrum_n |laser spectrum (N) on WCU      |
 
 properties:
 
