@@ -1,4 +1,123 @@
 
+# IMPORTANT NOTICE
+
+<span style="color: red">This repository contains code that is a work in progress.  The current
+set of simulations are designed for METIS pipeline development, at
+this point including correct FITS headers and file format.  The
+resultant files **DO NOT** contain instrumentally or scientifically
+accurate data, and under no circumstances should be used to evaluate
+potential performance of the METIS instrument.</span>
+
+
+
+# METIS Simulations
+
+This respository contains scripts which can be used as a wrapper for ScopeSim to generate a set of simulated METIS data for pipeline development. 
+
+ - [Installing the Code](#installing-the-code)
+ - [Simulated Data Summary](#simulated-data-summary)
+ - [List of Output Fits Files](#output-fits-files)
+ - [Running the Code](#running-the-code)
+ - [Custom Simulations](#custom-simulations)
+
+
+# Installing the Code
+
+In a clean conda environment the following sequence of commands will
+download and install the software with the correct dependencies. 
+
+
+```
+> git clone git@github.com:AstarVienna/METIS_Simulations.git
+
+> cd METIS_Simulations/ESO
+> poetry install
+> poetry shell
+```
+
+
+# Running the Code
+
+Before the first time you run the code, execute the script
+
+```
+> ./downloadPackages.py
+```
+
+Which will download the instrument, telescope and site specific data packages. 
+
+To run the default set of FITS files, as described in [Data Product Summary](#data-product-summary), 
+
+
+```
+> ./run_recipes.py --doCalib=5
+> md5sum -c checksums.dat | grep -v OK
+```
+
+This will run the script, automatically determining the necessary flats and darks and running them at the end of the sequence; the number indicates
+how many of each type to generate. 
+
+## Command Line Options
+
+There are several command line options
+
+```
+> ./run_recipes.py
+```
+
+Runs the script using recipes.yaml as the input yaml file, write the output to output/, and takes the date of observation from the YAML template. If no date is given, it will increment from the previous date; a date is required for the first template in the YAML file. 
+
+
+```
+> ./run_recipes.py --doCalib 1
+```
+
+Automatically determines which darks, flats, and WCU darks are needed and executes them at the end of the sequence. Any darks/flats in the YAML file will also be run; this may result in duplicate FITS file contents. 
+
+```
+> ./run_recipes.py --inputYAML myFile.yaml
+```
+
+runs the script using myFile.yaml instead of recipes.yaml as the input
+
+```
+> ./run_recipes.py --outputDir myDirectory
+```
+
+writes the output to myDirectory.
+
+```
+> ./run_recipes.py --sequence "yyyy-mm-dd hh:mm:ss" 
+```
+
+runs the set of simulations starting the sequence at the given date and automatically incrementing the time stamp through the sequence.
+
+```
+> ./run_recipes.py --sequence 1
+```
+
+does the same but takes the dateobs from the first item in the sequence.
+
+```
+> ./run_recipes.py --testRun
+```
+
+Runs the script without executing the simulations to check input values.
+
+```
+> ./run_recipes.py --small
+```
+
+runs the script with 32x32 pixel outputs, for testing purposes. 
+
+
+```
+> ./generateSummary.py  --inDir myDir --outFile summary.csv
+```
+
+will generate a summary CSV table of the contents of the given directory. Default is output/ and summary.csv
+
+
 # Simulated Data Summary
 
 This release contains FITS files for all the RAW input files listed in the "Input Data" entries for the 
@@ -45,6 +164,9 @@ This release does not include external calibration files (such as source catalog
 FITS keywords needed by the recipes themselves (but not by the EDPS skeleton) may not
 be complete. 
 
+
+# Output FITS Files
+
 A summary spreadsheet of the files can be found [here].(https://docs.google.com/spreadsheets/d/1aYQh6Nd17dvrPYVx3D96VwUFsnswIY7DlfNHgKLCVys/edit#gid=0)
 
 The set of simulations is as follows
@@ -90,59 +212,163 @@ cross-checked against
     - Matched keywords (needed for the EDPS skeleton)  given in Table 6.
     - The DPR.CATG, TECH, TYPE etc. given in Table 20.
 
-## Generating the Files
 
-The files are generated via the scripts found in METIS_Simulations/ESO.
+# Generating Custom Simulations
 
-In a clean conda environment (python 3.9) the following sequence of commands will
-install the software and generate the files
+If you want to run the scripts for your own models, there are two files you will need to edit, in addition to the
+command line options given above.
 
-```
-> git clone git@github.com:AstarVienna/METIS_Simulations.git
 
-> cd METIS_Simulations/ESO
-> poetry install
-> poetry shell
+## YAML file
 
-> ./run_recipes.py
-> ./updateHeaders.py
-> md5sum -c checksums.dat | grep -v OK
-```
-
-The first time you run this, the necessary instrument packages for ScopeSim will be downloaded; comment out the 
+This file consists of a sequence of templates in the form
 
 ```
-sim.download_packages(...)
+LM_IMAGE_SCI_RAW1:
+  do.catg: LM_IMAGE_SCI_RAW
+  mode: "img_lm"
+  source: 
+    name: star_field
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 4
+    filter_name: "Lp"
+    catg: "SCIENCE"
+    tech: "IMAGE,LM"
+    type: "OBJECT"
+    nObs: 5
 ```
 
-lines in simulationDefinitions.py for further work.
+The first line is a unique label for the template.
 
-run_recipes.py runs ScopeSim using the templates in recipes.yaml, and outputting to the directory output/
+mode: one of
 
-updateHeaders.py adds headers not yet included in ScopeSim but needed by the EDPS skeleton. By default, it reads from output/ and *OVERWRITES* the original files. The final step compares the checksums of the files as of release time. 
-
-The files can also be run as
-
-```
-> ./run_recipes.py --inputYAML myyaml.yaml --outputDir myOutput
-```
-
-which will use a custom input yaml file and output directory and
-
-```
-> ./updateHeaders --inDir myDir --outDir myOtherDir
-```
-
-will read from a custom directory and output to a custom (and potentially different) directory
-
-```
-> ./generateSummary.py
-```
-
-will generate a summary tab separated file with the filenames and relevant FITS keywords; this was
-used as the base for the spreadsheet linked to above.
+|mode  |description    |
+|------|---------------|
+|img_lm|imaging LM band|
+|img_n |imaging N band |
+|lss_l |LSS L band     |
+|lss_m |LSS M band     |
+|lss_n |LSS N band     |
+|lms   |IFU            |
 
 
+source:  details on the source to be used. Sources are given in sources.py
+  A source consists of a name, as in sources.py, and a (possibly empty)
+  list of kwargs (key word arguments). See file sources.py for details.
+
+current sources
+
+|source           |description                    |
+|-----------------|-------------------------------|
+|empty_sky        |blank sky                      |
+|flat_field       |lamp flat                      |
+|star_field       |fixed set of stellar sources   |
+|simple_star12    |12th mag point source at centre|
+|simple_star18    |18th mag point source at centre|
+|simple_gal       |elliptical galaxy              |
+|pinhole_mask     |pinhole mask on WCU            |
+|laser_spectrum_lm|laser spectrum (LM) on WCU     |
+|laser_spectrum_n |laser spectrum (N) on WCU      |
+
+properties:
+
+dit:  DIT value (float)
+
+ndit: NDIT value (integer)
+
+filter_name: one of
+
+|filter_name  |band|
+|-------------|----|
+|open         |any |
+|closed       |any |
+|Lp           |LM  |
+|short-L      |LM  |
+|L_spec       |LM  |
+|Mp           |LM  |
+|M_spec       |LM  |
+|Br_alpha     |LM  |
+|Br_alpha_ref |LM  |
+|PAH_3.3      |LM  |
+|PAH_3.3_ref  |LM  |
+|CO_1-0_ice   |LM  |
+|CO_ref       |LM  |
+|H2O-ice      |LM  |
+|IB_4.05      |LM  |
+|HCI_L_short  |LM  |
+|HCI_L_long   |LM  |
+|HCI_M        |LM  |
+|N1           |N   |
+|N2           |N   |
+|N3           |N   |
+|N_spec       |N   |
+|PAH_8.6      |N   |
+|PAH_8.6_ref  |N   |
+|PAH_11.25    |N   |
+|PAH_11.25_ref|N   |
+|Ne_II        |N   |
+|Ne_II_ref    |N   |
+|S_IV         |N   |
+|S_IV_ref     |N   |
+
+ndfilter_name: optional, one of
+
+|ndfilter_name|
+|-------------|
+|open         |
+|ND_OD1       |
+|ND_OD2       |
+|ND_OD3       |
+|ND_OD4       |
+|ND_OD5       |
+
+catg: one of
+
+|catg     |
+|---------|
+|CALIB    |
+|SCIENCE  |
+|TECHNICAL|
+|---------|
+
+tech:  one of
+
+|tech    |description              |
+|--------|-------------------------|
+|IMAGE,LM|imaging                  |
+|IMAGE,N |imaging                  |
+|LMS     |ifu                      |
+|LSS,LM  |longslit spectroscopy    |
+|LSS,N   |longslit spectroscopy    |
+|PUP,M   |pupil imaging            |
+|PUP,N   |pupil imaging            |
+|APP,LM  |APP coronagraph, imaging |
+|RAVC,IFU|RAVC coronagraph, IFU    |
+|RAVC,LM |RAVC coronagraph, imaging|
 
 
+ type: one of
+
+|TYPE         |description                   |
+|-------------|------------------------------|
+|DARK         |   dark frame                 |
+|CHOPHOME     |chopper home                  |
+|DARK,WCUOFF  |dark (WCU)                    |
+|FLAT,TWILIGHT|   skyflat                    |
+|FLAT,LAMP    |lamp flat                     |
+|DETLIN       |linearity determination       |
+|OBJECT       |science object                |
+|SKY          |sky frame                     |
+|STD          |standard source               |
+|DISTORTION   |distortion (WCU, pinhole mask)|
+|WAVE         |wavelength calibration        |
+|PSF,OFFAXIS  |off axis PSF (coronagraph)    |
+|PUPIL        |pupil imaging                 |
+
+
+ nObs: number of each observation to execute
+
+ dateobs: date in the form  yyyy-mm-dd hh:mm:ss.s
 

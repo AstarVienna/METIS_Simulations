@@ -1,124 +1,57 @@
 
+LM_WCU_OFF_RAW:
+  do.catg: LM_WCU_OFF_RAW
+  mode: "img_lm"
+  source: 
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 
+      - 1.
+      - 17.5
+      - 34.
+      - 50.5
+      - 67.
+      - 83.5
+      - 100
+    ndit: 1
+    filter_name: "closed"
+    catg: "CALIB"
+    tech: "IMAGE,LM"
+    type: "DARK,WCUOFF"
+    dateobs:
+      - 2024-01-02 00:10:00
+    tplname: "METIS_img_lm_cal_DetLin"
+    nObs: 1
+
+N_WCU_OFF_RAW:
+  do.catg: N_WCU_OFF_RAW
+  mode: "img_n"
+  source: 
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 
+      - 1.
+      - 17.5
+      - 34.
+      - 50.5
+      - 67.
+      - 83.5
+      - 100
+    ndit: 1
+    filter_name: "closed"
+    catg: "CALIB"
+    tech: "IMAGE,N"
+    type: "DARK,WCUOFF"
+    tplname: "METIS_img_n_cal_DetLin"
+    nObs: 1
+
 
 ##################### DARKS - LM, N, IFU ######################
 
-DARK_2RG_RAW:
-  prefix: DARK_2RG_RAW
-  mode: "img_lm"
-  source: 
-    name: empty_sky
-    kwargs: {}
-  properties:
-    dit:
-      - 0.004
-      - 0.25
-      - 0.05
-      - 10
-    ndit: 1
-    filter_name: "closed"
-    catg: "CALIB"
-    tech: "IMAGE,LM"
-    type: "DARK"
-    mjdobs:
-      - 2024-01-02 00:45:10
-      - 2024-01-02 00:45:20
-    tplname: "METIS_gen_cal_dark"
-
-DARK_GEO_RAW:
-  prefix: DARK_GEO_RAW
-  mode: "img_n"
-  source: 
-    name: empty_sky
-    kwargs: {}
-  properties:
-    dit: 
-      - 0.004
-      - 0.25
-      - 0.05
-      - 10
-    ndit: 1
-    filter_name: "closed"
-    catg: "CALIB"
-    tech: "IMAGE,N"
-    type: "DARK"
-    mjdobs:
-      - 2024-01-02 00:46:10
-      - 2024-01-02 00:46:20
-    tplname: "METIS_gen_cal_dark"
-
-DARK_IFU_RAW:
-  prefix: DARK_IFU_RAW
-  mode: "lms"
-  source:
-    name: empty_sky
-    kwargs: {}
-  properties:
-    dit: 
-      - 0.004
-      - 100
-      - 10
-    ndit: 1
-    filter_name: "closed"
-    catg: "CALIB"
-    tech: "LMS"
-    type: "DARK"
-    mjdobs:
-      - 2024-01-02 00:47:10
-      - 2024-01-02 00:47:20
-    tplname: "METIS_gen_cal_dark"
-
-LM_WCU_OFF_RAW:
-  prefix: LM_WCU_OFF_RAW
-  mode: "img_lm"
-  source: 
-    name: empty_sky
-    kwargs: {}
-  properties:
-    dit: 
-      - 1.
-      - 17.5
-      - 34.
-      - 50.5
-      - 67.
-      - 83.5
-      - 100
-    ndit: 1
-    filter_name: "closed"
-    catg: "CALIB"
-    tech: "IMAGE,LM"
-    type: "DARK,WCUOFF"
-    mjdobs:
-      - 2024-01-02 00:48:10
-      - 2024-01-02 00:48:20
-    tplname: "METIS_img_lm_cal_DetLin"
-
-N_WCU_OFF_RAW:
-  prefix: N_WCU_OFF_RAW
-  mode: "img_n"
-  source: 
-    name: empty_sky
-    kwargs: {}
-  properties:
-    dit: 
-      - 1.
-      - 17.5
-      - 34.
-      - 50.5
-      - 67.
-      - 83.5
-      - 100
-    ndit: 1
-    filter_name: "closed"
-    catg: "CALIB"
-    tech: "IMAGE,N"
-    type: "DARK,WCUOFF"
-    mjdobs:
-      - 2024-01-02 00:49:10
-      - 2024-01-02 00:49:20
-    tplname: "METIS_img_n_cal_DetLin"
-
 IFU_WCU_OFF_RAW:
-  prefix: IFU_WCU_OFF_RAW
+  do.catg: IFU_WCU_OFF_RAW
   mode: "lms"
   source:
     name: empty_sky
@@ -137,15 +70,14 @@ IFU_WCU_OFF_RAW:
     catg: "CALIB"
     tech: "LMS"
     type: "DARK,WCUOFF"
-    mjdobs:
-      - 2024-01-02 00:50:10
-      - 2024-01-02 00:50:20
     tplname: "METIS_ifu_cal_DetLin" 
+    nObs: 1
+
 
 ##################### DETLIN - LM, N, IFU #####################
 
 DETLIN_2RG_RAW:
-  prefix: DETLIN_2RG_RAW
+  do.catg: DETLIN_LM_RAW
   mode: "img_lm"
   source:
     name: flat_field
@@ -168,13 +100,11 @@ DETLIN_2RG_RAW:
     catg: "CALIB"
     tech: "IMAGE,LM"
     type: "DETLIN"
-    mjdobs:
-      - 2024-01-02 01:45:00
-      - 2024-01-02 01:45:10
     tplname: "METIS_img_lm_cal_DetLin"
+    nObs: 1
 
 DETLIN_GEO_RAW:
-  prefix: DETLIN_GEO_RAW
+  do.catg: DETLIN_N_RAW
   mode: "img_n"
   source:
     name: flat_field
@@ -197,14 +127,12 @@ DETLIN_GEO_RAW:
     catg: "CALIB"
     tech: "IMAGE,N"
     type: "DETLIN"
-    mjdobs:
-      - 2024-01-02 01:46:00
-      - 2024-01-02 01:46:10
     tplname: "METIS_img_n_cal_DetLin"
+    nObs: 1
 
 DETLIN_IFU_RAW:
-  prefix: DETLIN_IFU_RAW
-  mode: "img_lm"
+  do.catg: DETLIN_IFU_RAW
+  mode: "lms"
   source:
     name: flat_field
     kwargs:
@@ -226,10 +154,8 @@ DETLIN_IFU_RAW:
     catg: "CALIB"
     tech: "LMS"
     type: "DETLIN"
-    mjdobs:
-      - 2024-01-02 01:47:00
-      - 2024-01-02 01:47:10
     tplname: "METIS_ifu_cal_DetLin"
+    nObs: 1
 
 
 ##################### FLATS - LM, N ######################
@@ -237,182 +163,14 @@ DETLIN_IFU_RAW:
 # There are only flats for LM and N, but not for the IFU, because
 #  it is not possible to remove the mirrors from the optical path.
 
-#### OPEN FILTER #####
-
-LM_FLAT_LAMP_OPEN_RAW:
-  prefix: LM_FLAT_LAMP_RAW
-  mode: "img_lm"
-  source:
-    name: flat_field
-    kwargs:
-      temperature: 200
-      amplitude: 0
-      filter_curve: "V"
-      extend: 15
-  properties:
-    dit: 10
-    ndit: 1
-    filter_name: "open"
-    catg: "CALIB"
-    tech: "IMAGE,LM"
-    type: "FLAT,LAMP"
-    mjdobs:
-      - 2024-01-02 02:35:10
-      - 2024-01-02 02:35:20
-    tplname: "METIS_img_lm_cal_InternalFlat"
-
-LM_FLAT_TWILIGHT_OPEN_RAW:
-  prefix: LM_FLAT_TWILIGHT_RAW
-  mode: "img_lm"
-  source:
-    name: empty_sky
-    kwargs: {}
-  properties:
-    dit: 10
-    ndit: 1
-    filter_name: "open"
-    catg: "CALIB"
-    tech: "IMAGE,LM"
-    type: "FLAT,TWILIGHT"
-    mjdobs:
-      - 2024-01-02 02:36:10
-      - 2024-01-02 02:36:20
-    tplname: "METIS_img_lm_cal_TwilightFlat"
-
-
-N_FLAT_LAMP_OPEN_RAW:
-  prefix: N_FLAT_LAMP_RAW
-  mode: "img_n"
-  source:
-    name: flat_field
-    kwargs:
-      temperature: 200
-      amplitude: 0
-      filter_curve: "V"
-      extend: 15
-  properties:
-    dit: 10
-    ndit: 1
-    filter_name: "open"
-    catg: "CALIB"
-    tech: "IMAGE,N"
-    type: "FLAT,LAMP"
-    mjdobs:
-      - 2024-01-02 02:37:10
-      - 2024-01-02 02:37:20
-    tplname: "METIS_img_n_cal_InternalFlat"
-
-N_FLAT_TWILIGHT_OPEN_RAW:
-  prefix: N_FLAT_TWILIGHT_RAW
-  mode: "img_n"
-  source:
-    name: empty_sky
-    kwargs: {}
-  properties:
-    dit: 10
-    ndit: 1
-    filter_name: "open"
-    catg: "CALIB"
-    tech: "IMAGE,N"
-    type: "FLAT,TWILIGHT"
-    mjdobs:
-      - 2024-01-02 02:38:10
-      - 2024-01-02 02:38:20
-    tplname: "METIS_img_n_cal_TwilightFlat"
-
-#### WITH FILTER #####
-
-
-LM_FLAT_LAMP_RAW:
-  prefix: LM_FLAT_LAMP_RAW
-  mode: "img_lm"
-  source:
-    name: flat_field
-    kwargs:
-      temperature: 200
-      amplitude: 0
-      filter_curve: "V"
-      extend: 15
-  properties:
-    dit: 10
-    ndit: 1
-    filter_name: "Lp"
-    catg: "CALIB"
-    tech: "IMAGE,LM"
-    type: "FLAT,LAMP"
-    mjdobs:
-      - 2024-01-02 02:41:10
-      - 2024-01-02 02:41:20
-    tplname: "METIS_img_lm_cal_InternalFlat"
-
-LM_FLAT_TWILIGHT_RAW:
-  prefix: LM_FLAT_TWILIGHT_RAW
-  mode: "img_lm"
-  source:
-    name: empty_sky
-    kwargs: {}
-  properties:
-    dit: 10
-    ndit: 1
-    filter_name: "Lp"
-    catg: "CALIB"
-    tech: "IMAGE,LM"
-    type: "FLAT,TWILIGHT"
-    mjdobs:
-      - 2024-01-02 02:42:10
-      - 2024-01-02 02:42:10
-    tplname: "METIS_img_lm_cal_TwilightFlat"
-
-
-N_FLAT_LAMP_N1_RAW:
-  prefix: N_FLAT_LAMP_RAW
-  mode: "img_n"
-  source:
-    name: flat_field
-    kwargs:
-      temperature: 200
-      amplitude: 0
-      filter_curve: "V"
-      extend: 15
-  properties:
-    dit: 10
-    ndit: 1
-    filter_name: "N1"
-    catg: "CALIB"
-    tech: "IMAGE,N"
-    type: "FLAT,LAMP"
-    mjdobs:
-      - 2024-01-02 02:45:10
-      - 2024-01-02 02:45:20
-    tplname: "METIS_img_n_cal_InternalFlat"
-
-N_FLAT_TWILIGHT_N1_RAW:
-  prefix: N_FLAT_TWILIGHT_RAW
-  mode: "img_n"
-  source:
-    name: empty_sky
-    kwargs: {}
-  properties:
-    dit: 10
-    ndit: 1
-    filter_name: "N1"
-    catg: "CALIB"
-    tech: "IMAGE,N"
-    type: "FLAT,TWILIGHT"
-    mjdobs:
-      - 2024-01-02 02:46:10
-      - 2024-01-02 02:46:20
-    tplname: "METIS_img_n_cal_TwilightFlat"
-
-
 ##################### RSRF ######################3
 
 ####### TWO TEMPERATURES FOR EACH #########
 
 
 LM_LSS_RSRF_RAW1:
-  prefix: LM_LSS_RSRF_RAW
-  mode: "img_lm"
+  do.catg: LM_LSS_RSRF_RAW
+  mode: "lss_l"
   source:
     name: flat_field
     kwargs:
@@ -427,15 +185,13 @@ LM_LSS_RSRF_RAW1:
     catg: "CALIB"
     tech: "LSS,LM"
     type: "FLAT,LAMP"
-    mjdobs:
-      - 2024-01-02 03:35:10
-      - 2024-01-02 03:35:20
     tplname: "METIS_spec_lm_cal_rsrf"
+    nObs: 1
 
 
 LM_LSS_RSRF_RAW2:
-  prefix: LM_LSS_RSRF_RAW
-  mode: "img_lm"
+  do.catg: LM_LSS_RSRF_RAW
+  mode: "lss_l"
   source:
     name: flat_field
     kwargs:
@@ -450,15 +206,13 @@ LM_LSS_RSRF_RAW2:
     catg: "CALIB"
     tech: "LSS,LM"
     type: "FLAT,LAMP"
-    mjdobs:
-      - 2024-01-02 03:36:10
-      - 2024-01-02 03:36:20
     tplname: "METIS_spec_lm_cal_rsrf"
+    nObs: 1
 
 
 N_LSS_RSRF_RAW1:
-  prefix: N_LSS_RSRF_RAW
-  mode: "img_n"
+  do.catg: N_LSS_RSRF_RAW
+  mode: "lss_n"
   source:
     name: flat_field
     kwargs:
@@ -473,15 +227,13 @@ N_LSS_RSRF_RAW1:
     catg: "CALIB"
     tech: "LSS,N"
     type: "FLAT,LAMP"
-    mjdobs:
-      - 2024-01-02 03:37:10
-      - 2024-01-02 03:37:20
     tplname: "METIS_spec_n_cal_rsrf"
+    nObs: 1
 
 
 N_LSS_RSRF_RAW2:
-  prefix: N_LSS_RSRF_RAW
-  mode: "img_n"
+  do.catg: N_LSS_RSRF_RAW
+  mode: "lss_n"
   source:
     name: flat_field
     kwargs:
@@ -496,14 +248,12 @@ N_LSS_RSRF_RAW2:
     catg: "CALIB"
     tech: "LSS,N"
     type: "FLAT,LAMP"
-    mjdobs:
-      - 2024-01-02 03:38:10
-      - 2024-01-02 03:38:20
     tplname: "METIS_spec_n_cal_rsrf"
+    nObs: 1
 
 
 IFU_RSRF_RAW1:
-  prefix: IFU_RSRF_RAW
+  do.catg: IFU_RSRF_RAW
   mode: "lms"
   source:
     name: flat_field
@@ -519,13 +269,12 @@ IFU_RSRF_RAW1:
     catg: "CALIB"
     tech: "LMS"
     type: "RSRF"
-    mjdobs:
-      - 2024-01-02 03:39:10
-      - 2024-01-02 03:39:20
     tplname: "METIS_ifu_cal_rsrf"
+    type: "FLAT,LAMP"
+    nObs: 1
 
 IFU_RSRF_RAW2:
-  prefix: IFU_RSRF_RAW
+  do.catg: IFU_RSRF_RAW
   mode: "lms"
   source:
     name: flat_field
@@ -541,17 +290,16 @@ IFU_RSRF_RAW2:
     catg: "CALIB"
     tech: "LMS"
     type: "RSRF"
-    mjdobs:
-      - 2024-01-02 03:40:10
-      - 2024-01-02 03:40:20
     tplname: "METIS_ifu_cal_rsrf"
+    type: "FLAT,LAMP"
+    nObs: 1
+
 
 ######## WITH PINHOLE ########
 
 
-
 LM_LSS_RSRF_PINH_RAW1:
-  prefix: LM_LSS_RSRF_PINH_RAW
+  do.catg: LM_LSS_RSRF_PINH_RAW
   mode: "lss_l"
   source: 
     name: pinhole_mask
@@ -565,14 +313,13 @@ LM_LSS_RSRF_PINH_RAW1:
     catg: "CALIB"
     tech: "LSS,LM"
     type: "FLAT,LAMP,PINH"
-    mjdobs:
-      - 2024-01-02 03:41:10
-      - 2024-01-02 03:41:20
     tplname: "METIS_spec_lm_cal_rsrfpinh"
+    type: "FLAT,LAMP"
+    nObs: 1
 
 
 LM_LSS_RSRF_PINH_RAW2:
-  prefix: LM_LSS_RSRF_PINH_RAW
+  do.catg: LM_LSS_RSRF_PINH_RAW
   mode: "lss_l"
   source: 
     name: pinhole_mask
@@ -586,14 +333,13 @@ LM_LSS_RSRF_PINH_RAW2:
     catg: "CALIB"
     tech: "LSS,LM"
     type: "FLAT,LAMP,PINH"
-    mjdobs:
-      - 2024-01-02 03:42:10
-      - 2024-01-02 03:42:20
     tplname: "METIS_spec_lm_cal_rsrfpinh"
+    type: "FLAT,LAMP"
+    nObs: 1
 
 
 N_LSS_RSRF_PINH_RAW1:
-  prefix: N_LSS_RSRF_PINH_RAW
+  do.catg: N_LSS_RSRF_PINH_RAW
   mode: "lss_n"
   source: 
     name: pinhole_mask
@@ -607,15 +353,14 @@ N_LSS_RSRF_PINH_RAW1:
     catg: "CALIB"
     tech: "LSS,N"
     type: "FLAT,LAMP,PINH"
-    mjdobs:
-      - 2024-01-02 03:43:10
-      - 2024-01-02 03:43:20
     tplname: "METIS_spec_n_cal_rsrfpinh"
+    type: "FLAT,LAMP"
+    nObs: 1
 
 
 
 N_LSS_RSRF_PINH_RAW2:
-  prefix: N_LSS_RSRF_PINH_RAW
+  do.catg: N_LSS_RSRF_PINH_RAW
   mode: "lss_n"
   source: 
     name: pinhole_mask
@@ -629,53 +374,48 @@ N_LSS_RSRF_PINH_RAW2:
     catg: "CALIB"
     tech: "LSS,N"
     type: "FLAT,LAMP,PINH"
-    mjdobs:
-      - 2024-01-02 03:44:10
-      - 2024-01-02 03:44:20
     tplname: "METIS_spec_n_cal_rsrfpinh"
+    type: "FLAT,LAMP"
+    nObs: 1
 
 #
 # IFU_RSRF_PINH_RAW does not exist in the DRLD, should it?
 #
 
-#IFU_RSRF_PINH_RAW1:
-#  prefix: IFU_RSRF_PINH_RAW
-#  mode: "lms"
-#  source:
-#    name: pinhole_mask
-#    kwargs:
-#      temperature: 5500
-#  properties:
-#    dit: 15
-#    ndit: 1
-#    filter_name: "open"
-#    ndfilter_name: "ND_OD3"
-#    catg: "CALIB"
-#    tech: "LMS"
-#    type: "FLAT,LAMP"
-#    mjdobs:
-#      - 2024-01-02 03:45:10
-#      - 2024-01-02 03:45:20
-#
-#
-#IFU_RSRF_PINH_RAW2:
-#  prefix: IFU_RSRF_PINH_RAW
-#  mode: "lms"
-#  source:
-#    name: pinhole_mask
-#    kwargs:
-#      temperature: 5000
-#  properties:
-#    dit: 15
-#    ndit: 1
-#    filter_name: "open"
-#    ndfilter_name: "ND_OD3"
-#    catg: "CALIB"
-#    tech: "LMS"
-#    type: "FLAT,LAMP"
-#    mjdobs:
-#      - 2024-01-02 03:46:10
-#      - 2024-01-02 03:46:20
+IFU_RSRF_PINH_RAW1:
+  do.catg: IFU_RSRF_PINH_RAW
+  mode: "lms"
+  source:
+    name: pinhole_mask
+    kwargs:
+      temperature: 5500
+  properties:
+    dit: 15
+    ndit: 1
+    filter_name: "open"
+    ndfilter_name: "ND_OD3"
+    catg: "CALIB"
+    tech: "LMS"
+    type: "FLAT,LAMP"
+    nObs: 1
+
+
+IFU_RSRF_PINH_RAW2:
+  do.catg: IFU_RSRF_PINH_RAW
+  mode: "lms"
+  source:
+    name: pinhole_mask
+    kwargs:
+      temperature: 5000
+  properties:
+    dit: 15
+    ndit: 1
+    filter_name: "open"
+    ndfilter_name: "ND_OD3"
+    catg: "CALIB"
+    tech: "LMS"
+    type: "FLAT,LAMP"
+    nObs: 1
 
 
 ##################### "STANDARDS" (SINGLE SOURCE AT CENTER) ######################
@@ -685,7 +425,7 @@ N_LSS_RSRF_PINH_RAW2:
 ######### IMAGING ###############
 
 LM_IMAGE_STD_RAW1:
-  prefix: LM_IMAGE_STD_RAW
+  do.catg: LM_IMAGE_STD_RAW
   mode: "img_lm"
   source: 
     name: simple_star12
@@ -697,13 +437,11 @@ LM_IMAGE_STD_RAW1:
     catg: "CALIB"
     tech: "IMAGE,LM"
     type: "STD"
-    mjdobs:
-      - 2024-01-02 04:35:10
-      - 2024-01-02 04:35:20
     tplname: "METIS_img_lm_cal_standard"
+    nObs: 1
 
 LM_IMAGE_STD_RAW2:
-  prefix: LM_IMAGE_STD_RAW
+  do.catg: LM_IMAGE_STD_RAW
   mode: "img_lm"
   source: 
     name: empty_sky
@@ -715,13 +453,11 @@ LM_IMAGE_STD_RAW2:
     catg: "CALIB"
     tech: "IMAGE,LM"
     type: "SKY"
-    mjdobs:
-      - 2024-01-02 04:36:10
-      - 2024-01-02 04:36:20
     tplname: "METIS_img_lm_cal_standard"
+    nObs: 1
 
 N_IMAGE_STD_RAW1:
-  prefix: N_IMAGE_STD_RAW
+  do.catg: N_IMAGE_STD_RAW
   mode: "img_n"
   source: 
     name: simple_star12
@@ -733,13 +469,11 @@ N_IMAGE_STD_RAW1:
     catg: "CALIB"
     tech: "IMAGE,N"
     type: "STD"
-    mjdobs:
-      - 2024-01-02 04:37:10
-      - 2024-01-02 04:37:20
     tplname: "METIS_img_n_cal_standard"
+    nObs: 1
 
 N_IMAGE_STD_RAW2:
-  prefix: N_IMAGE_STD_RAW
+  do.catg: N_IMAGE_STD_RAW
   mode: "img_n"
   source: 
     name: empty_sky
@@ -751,16 +485,14 @@ N_IMAGE_STD_RAW2:
     catg: "CALIB"
     tech: "IMAGE,N"
     type: "SKY"
-    mjdobs:
-      - 2024-01-02 04:38:10
-      - 2024-01-02 04:38:20
     tplname: "METIS_img_n_cal_standard"
+    nObs: 1
 
 
 ######### SPECTRA ###############
 
 LM_LSS_STD_RAW1:
-  prefix: LM_LSS_STD_RAW
+  do.catg: LM_LSS_STD_RAW
   mode: "lss_l"
   source: 
     name: simple_star8
@@ -772,14 +504,12 @@ LM_LSS_STD_RAW1:
     catg: "CALIB"
     tech: "LSS,LM"
     type: "STD"
-    mjdobs:
-      - 2024-01-02 04:41:10
-      - 2024-01-02 04:41:20
     tplname: "METIS_spec_lm_cal_Standard"
+    nObs: 1
 
 
 LM_LSS_STD_RAW2:
-  prefix: LM_LSS_STD_RAW
+  do.catg: LM_LSS_STD_RAW
   mode: "lss_l"
   source: 
     name: empty_sky
@@ -791,14 +521,12 @@ LM_LSS_STD_RAW2:
     catg: "CALIB"
     tech: "LSS,LM"
     type: "SKY"
-    mjdobs:
-      - 2024-01-02 04:42:10
-      - 2024-01-02 04:42:20
     tplname: "METIS_spec_lm_cal_Standard"
+    nObs: 1
 
 
 N_LSS_STD_RAW1:
-  prefix: N_LSS_STD_RAW
+  do.catg: N_LSS_STD_RAW
   mode: "lss_n"
   source: 
     name: simple_star8
@@ -810,13 +538,11 @@ N_LSS_STD_RAW1:
     catg: "CALIB"
     tech: "LSS,N"
     type: "STD"
-    mjdobs:
-      - 2024-01-02 04:43:10
-      - 2024-01-02 04:43:20
     tplname: "METIS_spec_n_cal_Standard"
+    nObs: 1
 
 N_LSS_STD_RAW2:
-  prefix: N_LSS_STD_RAW
+  do.catg: N_LSS_STD_RAW
   mode: "lss_n"
   source: 
     name: empty_sky
@@ -828,16 +554,14 @@ N_LSS_STD_RAW2:
     catg: "CALIB"
     tech: "LSS,N"
     type: "SKY"
-    mjdobs:
-      - 2024-01-02 04:44:10
-      - 2024-01-02 04:44:20
     tplname: "METIS_spec_n_cal_Standard"
+    nObs: 1
 
 ########## IFU ###############
 
 
 IFU_STD_RAW1:
-  prefix: IFU_STD_RAW
+  do.catg: IFU_STD_RAW
   mode: "lms"
   source:
     name: simple_star8
@@ -845,22 +569,21 @@ IFU_STD_RAW1:
   properties:
     dit: 100
     ndit: 3
-    filter_name: "Lp"
+    filter_name: "open"
     wavelen: "3.555"
     catg: "CALIB"
     tech: "LMS"
     type: "STD"
-    mjdobs:
-      - 2024-01-02 04:47:10
-      - 2024-01-02 04:47:20
     tplname: "METIS_ifu_cal_standard"
+    nObs: 1
+
 
 # metis_ifu_reduce does not differentiate between
 # a SKY image for a standard observation and a
 # SKY image for a science observation. They are
 # both IFU_SKY_RAW. Maybe that should be changed?
 IFU_SKY_RAW2:
-  prefix: IFU_SKY_RAW
+  do.catg: IFU_SKY_RAW
   mode: "lms"
   source:
     name: empty_sky
@@ -868,15 +591,13 @@ IFU_SKY_RAW2:
   properties:
     dit: 100
     ndit: 3
-    filter_name: "Lp"
+    filter_name: "open"
     wavelen: "3.555"
     catg: "CALIB"
     tech: "LMS"
     type: "SKY"
-    mjdobs:
-      - 2024-01-02 04:48:10
-      - 2024-01-02 04:48:20
     tplname: "METIS_ifu_cal_standard"
+    nObs: 1
 
 
 ##################### STAR FIELD (SCIENCE SOURCE, LM/N) ######################3
@@ -885,7 +606,7 @@ IFU_SKY_RAW2:
 
 
 LM_IMAGE_SCI_RAW1:
-  prefix: LM_IMAGE_SCI_RAW
+  do.catg: LM_IMAGE_SCI_RAW
   mode: "img_lm"
   source: 
     name: star_field
@@ -897,13 +618,11 @@ LM_IMAGE_SCI_RAW1:
     catg: "SCIENCE"
     tech: "IMAGE,LM"
     type: "OBJECT"
-    mjdobs:
-      - 2024-01-02 05:35:10
-      - 2024-01-02 05:35:20
     tplname: "METIS_img_lm_obs_GenericOffset"
+    nObs: 1
 
 LM_IMAGE_SCI_RAW2:
-  prefix: LM_IMAGE_SCI_RAW
+  do.catg: LM_IMAGE_SCI_RAW
   mode: "img_lm"
   source: 
     name: "empty_sky"
@@ -915,52 +634,46 @@ LM_IMAGE_SCI_RAW2:
     catg: "SCIENCE"
     tech: "IMAGE,LM"
     type: "SKY"
-    mjdobs:
-      - 2024-01-02 05:36:10
-      - 2024-01-02 05:36:20
     tplname: "METIS_img_lm_obs_GenericOffset"
+    nObs: 1
 
 N_IMAGE_SCI_RAW1:
-  prefix: N_IMAGE_SCI_RAW
-  mode: "img_lm"
+  do.catg: N_IMAGE_SCI_RAW
+  mode: "img_n"
   source: 
     name: star_field
     kwargs: {}
   properties:
     dit: 0.25
     ndit: 4
-    filter_name: "Lp"
+    filter_name: "N1"
     catg: "SCIENCE"
     tech: "IMAGE,N"
     type: "OBJECT"
-    mjdobs:
-      - 2024-01-02 05:37:10
-      - 2024-01-02 05:37:20
     tplname: "METIS_img_n_obs_GenericChopNod"
+    nObs: 1
 
 N_IMAGE_SCI_RAW2:
-  prefix: N_IMAGE_SCI_RAW
-  mode: "img_lm"
+  do.catg: N_IMAGE_SCI_RAW
+  mode: "img_n"
   source: 
     name: "empty_sky"
     kwargs: {}
   properties:
     dit: 0.25
     ndit: 4
-    filter_name: "Lp"
+    filter_name: "N1"
     catg: "SCIENCE"
     tech: "IMAGE,N"
     type: "SKY"
-    mjdobs:
-      - 2024-01-02 05:38:10
-      - 2024-01-02 05:38:10
     tplname: "METIS_img_n_obs_GenericChopNod"
+    nObs: 1
 
 ##################### EXTENDED GALAXY (SCIENCE SOURCE SPECTRA) ######################
 
 
 N_LSS_SCI_RAW1:
-  prefix: N_LSS_SCI_RAW
+  do.catg: N_LSS_SCI_RAW
   mode: "lss_n"
   source:
     name: simple_gal
@@ -972,13 +685,11 @@ N_LSS_SCI_RAW1:
     catg: "SCIENCE"
     tech: "LSS,N"
     type: "OBJECT"
-    mjdobs:
-      - 2024-01-02 05:39:10
-      - 2024-01-02 05:39:20
     tplname: "METIS_spec_n_obs_AutoChopNodOnSlit"
+    nObs: 1
 
 N_LSS_SCI_RAW2:
-  prefix: N_LSS_SCI_RAW
+  do.catg: N_LSS_SCI_RAW
   mode: "lss_n"
   source:
     name: empty_sky
@@ -990,15 +701,13 @@ N_LSS_SCI_RAW2:
     catg: "SCIENCE"
     tech: "LSS,N"
     type: "SKY"
-    mjdobs:
-      - 2024-01-02 05:40:10
-      - 2024-01-02 05:40:20
     tplname: "METIS_spec_n_obs_AutoChopNodOnSlit"
 
 
+    nObs: 1
 
 LM_LSS_SCI_RAW1:
-  prefix: LM_LSS_SCI_RAW
+  do.catg: LM_LSS_SCI_RAW
   mode: "lss_l"
   source:
     name: simple_gal
@@ -1010,13 +719,11 @@ LM_LSS_SCI_RAW1:
     catg: "SCIENCE"
     tech: "LSS,LM"
     type: "OBJECT"
-    mjdobs:
-      - 2024-01-02 05:50:10
-      - 2024-01-02 05:50:20
     tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
+    nObs: 1
 
 LM_LSS_SCI_RAW2:
-  prefix: LM_LSS_SCI_RAW
+  do.catg: LM_LSS_SCI_RAW
   mode: "lss_l"
   source:
     name: empty_sky
@@ -1028,13 +735,11 @@ LM_LSS_SCI_RAW2:
     catg: "SCIENCE"
     tech: "LSS,LM"
     type: "SKY"
-    mjdobs:
-      - 2024-01-02 05:51:10
-      - 2024-01-02 05:51:20
     tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
+    nObs: 1
 
-IFU_SCI_RAW:
-  prefix: IFU_SCI_RAW
+IFU_SCI_RAW1:
+  do.catg: IFU_SCI_RAW
   mode: "lms"
   source:
     name: simple_gal
@@ -1042,17 +747,15 @@ IFU_SCI_RAW:
   properties:
     dit: 0.25
     ndit: 1
-    filter_name: "Lp"
+    filter_name: "open"
     catg: "SCIENCE"
     tech: "LMS"
     type: "OBJECT"
-    mjdobs:
-      - 2024-01-02 05:52:10
-      - 2024-01-02 05:52:20
     tplname: "METIS_ifu_obs_GenericOffset"
+    nObs: 1
 
-IFU_SKY_RAW:
-  prefix: IFU_SKY_RAW
+IFU_SCI_RAW2:
+  do.catg: IFU_SCI_RAW
   mode: "lms"
   source:
     name: empty_sky
@@ -1060,14 +763,12 @@ IFU_SKY_RAW:
   properties:
     dit: 0.25
     ndit: 1
-    filter_name: "Lp"
+    filter_name: "open"
     catg: "CALIB"
     tech: "LMS"
     type: "SKY"
-    mjdobs:
-      - 2024-01-02 05:53:10
-      - 2024-01-02 05:53:20
     tplname: "METIS_ifu_obs_GenericOffset"
+    nObs: 1
 
 ##################### FOR CORONAGRAPH ################
 
@@ -1077,7 +778,7 @@ IFU_SKY_RAW:
 
 
 LM_OFF_AXIS_PSF_RAW:
-  prefix: LM_OFF_AXIS_PSF_RAW
+  do.catg: LM_OFF_AXIS_PSF_RAW
   mode: "img_lm"
   source: 
     name: simple_star12
@@ -1089,12 +790,11 @@ LM_OFF_AXIS_PSF_RAW:
     catg: "CALIB"
     tech: "IMAGE,LM"
     type: "PSF,OFFAXIS"
-    mjdobs:
-      - 2024-01-02 06:35:10
     tplname: "METIS_img_lm_vc_obs_FixedSkyOffset"
+    nObs: 1
 
 N_OFF_AXIS_PSF_RAW:
-  prefix: N_OFF_AXIS_PSF_RAW
+  do.catg: N_OFF_AXIS_PSF_RAW
   mode: "img_n"
   source: 
     name: simple_star12
@@ -1106,12 +806,11 @@ N_OFF_AXIS_PSF_RAW:
     catg: "CALIB"
     tech: "IMAGE,N"
     type: "PSF,OFFAXIS"
-    mjdobs:
-      - 2024-01-02 06:37:10
     tplname: "METIS_img_n_cvc_obs_AutoChop"
+    nObs: 1
 
 IFU_OFF_AXIS_PSF_RAW:
-  prefix: IFU_OFF_AXIS_PSF_RAW
+  do.catg: IFU_OFF_AXIS_PSF_RAW
   mode: "lms"
   source:
     name: simple_star8
@@ -1119,19 +818,18 @@ IFU_OFF_AXIS_PSF_RAW:
   properties:
     dit: 100
     ndit: 3
-    filter_name: "Lp"
+    filter_name: "open"
     wavelen: "3.555"
     catg: "CALIB"
     tech: "LMS"
     type: "PSF,OFFAXIS"
-    mjdobs:
-      - 2024-01-02 06:38:10
     tplname: "METIS_ifu_vc_obs_FixedSkyOffset"
+    nObs: 1
 
 ######### SOURCE (+ SKY) ##########
 
 LM_IMAGE_SCI_CORONAGRAPH_RAW1:
-  prefix: LM_IMAGE_SCI_RAW
+  do.catg: LM_IMAGE_SCI_RAW
   mode: "img_lm"
   source: 
     name: simple_star12
@@ -1139,18 +837,16 @@ LM_IMAGE_SCI_CORONAGRAPH_RAW1:
   properties:
     dit: 0.25
     ndit: 1
-    filter_name: "Lp"
+    filter_name: "open"
     catg: "SCIENCE"
     tech: "RAVC,LM"
     type: "OBJECT"
-    mjdobs:
-      - 2024-01-02 06:39:10
-      - 2024-01-02 06:39:20
     tplname: "METIS_ifu_vc_obs_FixedSkyOffset"
+    nObs: 1
 
 
 LM_IMAGE_SCI_CORONAGRAPH_RAW2:
-  prefix: LM_IMAGE_SCI_RAW
+  do.catg: LM_IMAGE_SCI_RAW
   mode: "img_lm"
   source: 
     name: empty_sky
@@ -1162,14 +858,12 @@ LM_IMAGE_SCI_CORONAGRAPH_RAW2:
     catg: "SCIENCE"
     tech: "RAVC,LM"
     type: "SKY"
-    mjdobs:
-      - 2024-01-02 06:40:10
-      - 2024-01-02 06:40:20
     tplname: "METIS_ifu_vc_obs_FixedSkyOffset"
+    nObs: 1
 
 
 LM_IMAGE_SCI_CORONAGRAPH_RAW3:
-  prefix: LM_IMAGE_SCI_RAW
+  do.catg: LM_IMAGE_SCI_RAW
   mode: "img_lm"
   source: 
     name: simple_star12
@@ -1181,14 +875,12 @@ LM_IMAGE_SCI_CORONAGRAPH_RAW3:
     catg: "SCIENCE"
     tech: "APP,LM"
     type: "OBJECT"
-    mjdobs:
-      - 2024-01-02 06:41:10
-      - 2024-01-02 06:41:20
     tplname: "METIS_img_lm_app_obs_FixedOffset"
+    nObs: 1
 
 
 LM_IMAGE_SCI_CORONAGRAPH_RAW4:
-  prefix: LM_IMAGE_SCI_RAW
+  do.catg: LM_IMAGE_SCI_RAW
   mode: "img_lm"
   source: 
     name: empty_sky
@@ -1200,13 +892,11 @@ LM_IMAGE_SCI_CORONAGRAPH_RAW4:
     catg: "SCIENCE"
     tech: "APP,LM"
     type: "SKY"
-    mjdobs:
-      - 2024-01-02 06:42:10
-      - 2024-01-02 06:42:20
     tplname: "METIS_img_lm_app_obs_FixedOffset"
+    nObs: 1
 
 IFU_SCI_CORONAGRAPH_RAW1:
-  prefix: IFU_SCI_RAW
+  do.catg: IFU_SCI_RAW
   mode: "lms"
   source:
     name: simple_star8
@@ -1214,18 +904,17 @@ IFU_SCI_CORONAGRAPH_RAW1:
   properties:
     dit: 100
     ndit: 3
-    filter_name: "Lp"
+    filter_name: "open"
     wavelen: "3.555"
     catg: "SCIENCE"
     tech: "RAVC,IFU"
     type: "OBJECT"
-    mjdobs:
-      - 2024-01-02 06:43:10
-      - 2024-01-02 06:43:20
     tplname: "METIS_ifu_vc_obs_FixedSkyOffset"
+    nObs: 1
 
 IFU_SCI_CORONAGRAPH_RAW2:
   prefix: IFU_SKY_RAW
+  do.catg: IFU_SCI_RAW
   mode: "lms"
   source:
     name: empty_sky
@@ -1233,15 +922,13 @@ IFU_SCI_CORONAGRAPH_RAW2:
   properties:
     dit: 100
     ndit: 3
-    filter_name: "Lp"
+    filter_name: "open"
     wavelen: "3.555"
     catg: "CALIB"
     tech: "RAVC,IFU"
     type: "SKY"
-    mjdobs:
-      - 2024-01-02 05:44:10
-      - 2024-01-02 05:44:20
     tplname: "METIS_ifu_vc_obs_FixedSkyOffset"
+    nObs: 1
 
 
 ################## TECHNICAL IMAGES (not part of normal obs) ####################
@@ -1249,7 +936,7 @@ IFU_SCI_CORONAGRAPH_RAW2:
 ##################### SLIT LOSSES (11 positions perpendicular to the slit) ########################
 
 LM_SLITLOSSES_RAW1:
-  prefix: LM_SLITLOSSES_RAW
+  do.catg: LM_SLITLOSSES_RAW
   mode: "lss_l"
   source: 
     name: simple_star10
@@ -1263,13 +950,13 @@ LM_SLITLOSSES_RAW1:
     catg: "CALIB"
     tech: "LSS,LM"
     type: "SLITLOSS"
-    mjdobs:
-      - 2024-01-03 03:30:10
     tplname: "METIS_spec_lm_cal_SlitAdc"
+    nObs: 1
+
 
 
 LM_SLITLOSSES_RAW2:
-  prefix: LM_SLITLOSSES_RAW
+  do.catg: LM_LSS_SLITLOSSES_RAW
   mode: "lss_l"
   source: 
     name: simple_star10
@@ -1283,13 +970,13 @@ LM_SLITLOSSES_RAW2:
     catg: "CALIB"
     tech: "LSS,LM"
     type: "SLITLOSS"
-    mjdobs:
-      - 2024-01-03 03:31:10
     tplname: "METIS_spec_lm_cal_SlitAdc"
+    nObs: 1
+
 
 
 LM_SLITLOSSES_RAW3:
-  prefix: LM_SLITLOSSES_RAW
+  do.catg: LM_LSS_SLITLOSSES_RAW
   mode: "lss_l"
   source: 
     name: simple_star10
@@ -1303,13 +990,13 @@ LM_SLITLOSSES_RAW3:
     catg: "CALIB"
     tech: "LSS,LM"
     type: "SLITLOSS"
-    mjdobs:
-      - 2024-01-03 03:32:10
     tplname: "METIS_spec_lm_cal_SlitAdc"
+    nObs: 1
+
 
 
 LM_SLITLOSSES_RAW4:
-  prefix: LM_SLITLOSSES_RAW
+  do.catg: LM_LSS_SLITLOSSES_RAW
   mode: "lss_l"
   source: 
     name: simple_star10
@@ -1323,12 +1010,11 @@ LM_SLITLOSSES_RAW4:
     catg: "CALIB"
     tech: "LSS,LM"
     type: "SLITLOSS"
-    mjdobs:
-      - 2024-01-03 03:33:10
     tplname: "METIS_spec_lm_cal_SlitAdc"
+    nObs: 1
 
 LM_SLITLOSSES_RAW5:
-  prefix: LM_SLITLOSSES_RAW
+  do.catg: LM_LSS_SLITLOSSES_RAW
   mode: "lss_l"
   source: 
     name: simple_star10
@@ -1342,13 +1028,13 @@ LM_SLITLOSSES_RAW5:
     catg: "CALIB"
     tech: "LSS,LM"
     type: "SLITLOSS"
-    mjdobs:
-      - 2024-01-03 03:34:10
     tplname: "METIS_spec_lm_cal_SlitAdc"
+    nObs: 1
+
 
 
 LM_SLITLOSSES_RAW6:
-  prefix: LM_SLITLOSSES_RAW
+  do.catg: LM_LSS_SLITLOSSES_RAW
   mode: "lss_l"
   source: 
     name: simple_star10
@@ -1362,13 +1048,11 @@ LM_SLITLOSSES_RAW6:
     catg: "CALIB"
     tech: "LSS,LM"
     type: "SLITLOSS"
-    mjdobs:
-      - 2024-01-03 03:35:10
     tplname: "METIS_spec_lm_cal_SlitAdc"
-
+    nObs: 1
 
 LM_SLITLOSSES_RAW7:
-  prefix: LM_SLITLOSSES_RAW
+  do.catg: LM_LSS_SLITLOSSES_RAW
   mode: "lss_l"
   source: 
     name: simple_star10
@@ -1382,13 +1066,12 @@ LM_SLITLOSSES_RAW7:
     catg: "CALIB"
     tech: "LSS,LM"
     type: "SLITLOSS"
-    mjdobs:
-      - 2024-01-03 03:36:10
     tplname: "METIS_spec_lm_cal_SlitAdc"
+    nObs: 1
 
 
 LM_SLITLOSSES_RAW8:
-  prefix: LM_SLITLOSSES_RAW
+  do.catg: LM_LSS_SLITLOSSES_RAW
   mode: "lss_l"
   source: 
     name: simple_star10
@@ -1402,13 +1085,12 @@ LM_SLITLOSSES_RAW8:
     catg: "CALIB"
     tech: "LSS,LM"
     type: "SLITLOSS"
-    mjdobs:
-      - 2024-01-03 03:37:10
     tplname: "METIS_spec_lm_cal_SlitAdc"
+    nObs: 1
 
 
 LM_SLITLOSSES_RAW9:
-  prefix: LM_SLITLOSSES_RAW
+  do.catg: LM_LSS_SLITLOSSES_RAW
   mode: "lss_l"
   source: 
     name: simple_star10
@@ -1422,13 +1104,12 @@ LM_SLITLOSSES_RAW9:
     catg: "CALIB"
     tech: "LSS,LM"
     type: "SLITLOSS"
-    mjdobs:
-      - 2024-01-03 03:38:10
     tplname: "METIS_spec_lm_cal_SlitAdc"
+    nObs: 1
 
 
 LM_SLITLOSSES_RAW10:
-  prefix: LM_SLITLOSSES_RAW
+  do.catg: LM_LSS_SLITLOSSES_RAW
   mode: "lss_l"
   source: 
     name: simple_star10
@@ -1442,13 +1123,12 @@ LM_SLITLOSSES_RAW10:
     catg: "CALIB"
     tech: "LSS,LM"
     type: "SLITLOSS"
-    mjdobs:
-      - 2024-01-03 03:39:10
     tplname: "METIS_spec_lm_cal_SlitAdc"
+    nObs: 1
 
 
 LM_SLITLOSSES_RAW11:
-  prefix: LM_SLITLOSSES_RAW
+  do.catg: LM_LSS_SLITLOSSES_RAW
   mode: "lss_l"
   source: 
     name: simple_star10
@@ -1462,14 +1142,13 @@ LM_SLITLOSSES_RAW11:
     catg: "CALIB"
     tech: "LSS,LM"
     type: "SLITLOSS"
-    mjdobs:
-      - 2024-01-03 03:40:10
     tplname: "METIS_spec_lm_cal_SlitAdc"
+    nObs: 1
 
 
 
 N_LSS_SLITLOSSES_RAW1:
-  prefix: N_SLITLOSSES_RAW
+  do.catg: LM_LSS_SLITLOSSES_RAW
   mode: "lss_n"
   source: 
     name: simple_star10
@@ -1483,13 +1162,12 @@ N_LSS_SLITLOSSES_RAW1:
     catg: "CALIB"
     tech: "LSS,N"
     type: "SLITLOSS"
-    mjdobs:
-      - 2024-01-03 03:41:10
     tplname: "METIS_spec_n_cal_slit"
+    nObs: 1
 
 
 N_LSS_SLITLOSSES_RAW2:
-  prefix: N_SLITLOSSES_RAW
+  do.catg: LM_LSS_SLITLOSSES_RAW
   mode: "lss_n"
   source: 
     name: simple_star10
@@ -1503,13 +1181,12 @@ N_LSS_SLITLOSSES_RAW2:
     catg: "CALIB"
     tech: "LSS,N"
     type: "SLITLOSS"
-    mjdobs:
-      - 2024-01-03 03:42:10
     tplname: "METIS_spec_n_cal_slit"
+    nObs: 1
 
 
 N_LSS_SLITLOSSES_RAW3:
-  prefix: N_SLITLOSSES_RAW
+  do.catg: LM_LSS_SLITLOSSES_RAW
   mode: "lss_n"
   source: 
     name: simple_star10
@@ -1523,12 +1200,12 @@ N_LSS_SLITLOSSES_RAW3:
     catg: "CALIB"
     tech: "LSS,N"
     type: "SLITLOSS"
-    mjdobs:
-      - 2024-01-03 03:43:10
     tplname: "METIS_spec_n_cal_slit"
+    nObs: 1
+
 
 N_LSS_SLITLOSSES_RAW4:
-  prefix: N_SLITLOSSES_RAW
+  do.catg: LM_LSS_SLITLOSSES_RAW
   mode: "lss_n"
   source: 
     name: simple_star10
@@ -1542,12 +1219,11 @@ N_LSS_SLITLOSSES_RAW4:
     catg: "CALIB"
     tech: "LSS,N"
     type: "SLITLOSS"
-    mjdobs:
-      - 2024-01-03 03:44:10
     tplname: "METIS_spec_n_cal_slit"
+    nObs: 1
 
 N_LSS_SLITLOSSES_RAW5:
-  prefix: N_SLITLOSSES_RAW
+  do.catg: LM_LSS_SLITLOSSES_RAW
   mode: "lss_n"
   source: 
     name: simple_star10
@@ -1561,13 +1237,12 @@ N_LSS_SLITLOSSES_RAW5:
     catg: "CALIB"
     tech: "LSS,N"
     type: "SLITLOSS"
-    mjdobs:
-      - 2024-01-03 03:45:10
     tplname: "METIS_spec_n_cal_slit"
+    nObs: 1
 
 
 N_LSS_SLITLOSSES_RAW6:
-  prefix: N_SLITLOSSES_RAW
+  do.catg: LM_LSS_SLITLOSSES_RAW
   mode: "lss_n"
   source: 
     name: simple_star10
@@ -1581,13 +1256,12 @@ N_LSS_SLITLOSSES_RAW6:
     catg: "CALIB"
     tech: "LSS,N"
     type: "SLITLOSS"
-    mjdobs:
-      - 2024-01-03 03:46:10
     tplname: "METIS_spec_n_cal_slit"
+    nObs: 1
 
 
 N_LSS_SLITLOSSES_RAW7:
-  prefix: N_SLITLOSSES_RAW
+  do.catg: LM_LSS_SLITLOSSES_RAW
   mode: "lss_n"
   source: 
     name: simple_star10
@@ -1601,12 +1275,12 @@ N_LSS_SLITLOSSES_RAW7:
     catg: "CALIB"
     tech: "LSS,N"
     type: "SLITLOSS"
-    mjdobs:
-      - 2024-01-03 03:47:10
     tplname: "METIS_spec_n_cal_slit"
+    nObs: 1
+
 
 N_LSS_SLITLOSSES_RAW8:
-  prefix: N_SLITLOSSES_RAW
+  do.catg: LM_LSS_SLITLOSSES_RAW
   mode: "lss_n"
   source: 
     name: simple_star10
@@ -1620,13 +1294,12 @@ N_LSS_SLITLOSSES_RAW8:
     catg: "CALIB"
     tech: "LSS,N"
     type: "SLITLOSS"
-    mjdobs:
-      - 2024-01-03 03:48:10
     tplname: "METIS_spec_n_cal_slit"
+    nObs: 1
 
 
 N_LSS_SLITLOSSES_RAW9:
-  prefix: N_SLITLOSSES_RAW
+  do.catg: LM_LSS_SLITLOSSES_RAW
   mode: "lss_n"
   source: 
     name: simple_star10
@@ -1640,13 +1313,12 @@ N_LSS_SLITLOSSES_RAW9:
     catg: "CALIB"
     tech: "LSS,N"
     type: "SLITLOSS"
-    mjdobs:
-      - 2024-01-03 03:49:10
     tplname: "METIS_spec_n_cal_slit"
+    nObs: 1
 
 
 N_LSS_SLITLOSSES_RAW10:
-  prefix: N_SLITLOSSES_RAW
+  do.catg: LM_LSS_SLITLOSSES_RAW
   mode: "lss_n"
   source: 
     name: simple_star10
@@ -1660,13 +1332,12 @@ N_LSS_SLITLOSSES_RAW10:
     catg: "CALIB"
     tech: "LSS,N"
     type: "SLITLOSS"
-    mjdobs:
-      - 2024-01-03 03:50:10
     tplname: "METIS_spec_n_cal_slit"
+    nObs: 1
 
 
 N_LSS_SLITLOSSES_RAW11:
-  prefix: N_SLITLOSSES_RAW
+  do.catg: LM_LSS_SLITLOSSES_RAW
   mode: "lss_n"
   source: 
     name: simple_star10
@@ -1680,16 +1351,15 @@ N_LSS_SLITLOSSES_RAW11:
     catg: "CALIB"
     tech: "LSS,N"
     type: "SLITLOSS"
-    mjdobs:
-      - 2024-01-03 03:51:10
     tplname: "METIS_spec_n_cal_slit"
+    nObs: 1
 
 
 
 ##################### LASER SPECTRUM CALIBRATIONS ######################
 
 LM_LSS_WAVE_RAW:
-  prefix: LM_LSS_WAVE_RAW
+  do.catg: LM_LSS_WAVE_RAW
   mode: "lss_l"
   source:
     name: "laser_spectrum_lm"
@@ -1702,12 +1372,11 @@ LM_LSS_WAVE_RAW:
     catg: "CALIB"
     tech: "LSS,LM"
     type: "WAVE"
-    mjdobs:
-      - 2024-01-03 04:45:10
     tplname: "METIS_spec_lm_cal_InternalWave"
+    nObs: 1
 
 N_LSS_WAVE_RAW:
-  prefix: N_LSS_WAVE_RAW
+  do.catg: N_LSS_WAVE_RAW
   mode: "lss_n"
   source: 
     name: "laser_spectrum_n"
@@ -1720,12 +1389,11 @@ N_LSS_WAVE_RAW:
     catg: "CALIB"
     tech: "LSS,N"
     type: "WAVE"
-    mjdobs:
-      - 2024-01-03 04:46:10
     tplname: "METIS_spec_n_cal_InternalWave"
+    nObs: 1
 
 IFU_WAVE_RAW:
-  prefix: IFU_WAVE_RAW
+  do.catg: IFU_LSS_WAVE_RAW
   mode: "lms"
   source: 
     name: "laser_spectrum_lm"
@@ -1738,15 +1406,15 @@ IFU_WAVE_RAW:
     catg: "CALIB"
     tech: "LMS"
     type: "WAVE"
-    mjdobs:
-      - 2024-01-03 04:47:10
     tplname: "METIS_ifu_cal_InternalWave"
+    nObs: 1
+
 
 ########################### OTHER TECHNICAL #####################
 
 
 LM_CHOPPERHOME_RAW:
-  prefix: LM_CHOPPERHOME_RAW
+  do.catg: LM_CHOPPERHOME_RAW
   mode: "img_lm"
   source:
     name: flat_field
@@ -1762,12 +1430,11 @@ LM_CHOPPERHOME_RAW:
     catg: "CALIB"
     tech: "IMAGE,LM"
     type: "CHOPHOME"
-    mjdobs:
-      - 2024-01-03 05:45:10
     tplname: "METIS_img_lm_cal_ChopperHome"
+    nObs: 1
 
 LM_PUPIL_RAW:
-  prefix: LM_PUPIL_RAW
+  do.catg: LM_PUPIL_RAW
   mode: "img_lm"
   source:
     name: flat_field
@@ -1783,12 +1450,11 @@ LM_PUPIL_RAW:
     catg: "TECHNICAL"
     tech: "PUP,M"
     type: "PUPIL"
-    mjdobs:
-      - 2024-01-03 05:46:10
     tplname: "METIS_pup_lm"
+    nObs: 1
 
 N_PUPIL_RAW:
-  prefix: N_PUPIL_RAW
+  do.catg: N_PUPIL_RAW
   mode: "img_n"
   source:
     name: flat_field
@@ -1804,16 +1470,15 @@ N_PUPIL_RAW:
     catg: "TECHNICAL"
     tech: "PUP,N"
     type: "PUPIL"
-    mjdobs:
-      - 2024-01-03 05:47:10
     tplname: "METIS_pup_n"
+    nObs: 1
 
 
 
 ##################### DISTORTION (PINHOLE MASK) L, N, IFU ######################3
 
 LM_DISTORTION_RAW:
-  prefix: LM_DISTORTION_RAW
+  do.catg: LM_DISTORTION_RAW
   mode: "img_lm"
   source:
     name: pinhole_mask
@@ -1826,12 +1491,11 @@ LM_DISTORTION_RAW:
     catg: "CALIB"
     tech: "IMAGE,LM"
     type: "DISTORTION"
-    mjdobs:
-      - 2024-01-03 05:48:10
     tplname: "METIS_img_lm_cal_distortion"
+    nObs: 1
 
 N_DISTORTION_RAW:
-  prefix: N_DISTORTION_RAW
+  do.catg: N_DISTORTION_RAW
   mode: "img_n"
   source:
     name: pinhole_mask
@@ -1846,13 +1510,12 @@ N_DISTORTION_RAW:
     catg: "CALIB"
     tech: "IMAGE,N"
     type: "DISTORTION"
-    mjdobs:
-      - 2024-01-03 05:49:10
     tplname: "METIS_img_n_cal_distortion"
+    nObs: 1
 
 
 IFU_DISTORTION_RAW:
-  prefix: IFU_DISTORTION_RAW
+  do.catg: IFU_DISTORTION_RAW
   mode: "lms"
   source:
     name: pinhole_mask
@@ -1865,7 +1528,5 @@ IFU_DISTORTION_RAW:
     catg: "CALIB"
     tech: "LMS"
     type: "DISTORTION"
-    mjdobs:
-      - 2024-01-03 05:50:10
     tplname: "METIS_ifu_cal_distortion"
-
+    nObs: 1

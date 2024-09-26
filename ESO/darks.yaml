@@ -1,0 +1,24 @@
+
+DARK_LM_RAW:
+  prefix: DARK_LM_RAW
+  mode: "img_lm"
+  source: 
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit:
+      - 0.004
+      - 0.25
+      - 0.05
+      - 10
+    ndit: 1
+    filter_name: "closed"
+    catg: "CALIB"
+    tech: "IMAGE,LM"
+    type: "DARK"
+    mjdobs:
+      - 2024-01-02 00:45:10
+      - 2024-01-02 00:45:20
+      - 2024-01-02 00:45:30
+      - 2024-01-02 00:45:40
+      - 2024-01-02 00:45:50
