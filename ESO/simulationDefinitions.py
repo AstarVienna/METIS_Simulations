@@ -8,12 +8,47 @@ import astropy.units as u
 import scopesim as sim
 import scopesim_templates as sim_tp
 import numpy as np
+
+
+
+# default location of IRDB
+DEFAULT_IRDB_LOCATION = "../IRDB/"
+
+
+# variables that can be expanded
+
+expandables = [
+    "dit",
+]
+
 # valid values of input parameters
 
 catgVals = ["CALIB","SCIENCE","TECHNICAL"]
 techVals = ["APP,LM","IMAGE,LM","IMAGE,N","LMS","LSS,LM","LSS,N","PUP,M","PUP,N","RAVC,IFU","RAVC,LM"]
-typeVals = ["CHOPHOME","DARK,WCUOFF","DETLIN","DISTORTION","FLAT,LAMP","OBJECT","PSF,OFFAXIS","PUPIL","SKY","STD","WAVE",'SLITLOSS']
+typeVals = ["CHOPHOME","DARK,WCUOFF","DETLIN","DISTORTION","FLAT,LAMP","OBJECT","PSF,OFFAXIS","PUPIL","SKY","STD","WAVE","SLITLOSS"]
 modeVals = ["img_lm","lss_m","img_n","lss_l","lss_m","lss_n","lms"]
+
+
+# filters sorted by mode. extracted from scopesim allowed combinations \TODO check LMS values and HCI values
+validFilters = {
+    "img_lm" : ["Lp","short-L","Mp","Br_alpha","Br_alpha_ref","PAH_3.3","PAH_3.3_ref","CO_1-0_ice","CO_ref","H2O-ice","IB_4.05","open","closed", "HCI_M","HCI_L_short","HCI_L_long"],
+    "img_n" : ["N1","N2","N3","PAH_8.6","PAH_8.6_ref","PAH_11.25","PAH_11.25_ref","Ne_II","Ne_II_ref","S_IV","S_IV_ref","open","closed"],
+     "lss_l": ["L_spec"],
+     "lss_m": ["M_spec"],
+     "lss_n": ["N_spec"],
+      "lms": ["Lp","short-L","Mp","Br_alpha","Br_alpha_ref","PAH_3.3","PAH_3.3_ref","CO_1-0_ice","CO_ref","H2O-ice","IB_4.05","open","closed", "HCI_M","HCI_L_short","HCI_L_long"],
+    }
+
+
+validND = ["open","ND_OD1","ND_OD2","ND_OD3","ND_OD4","ND_OD5"]
+
+hciFilters = ["HCI_M","HCI_L_short","HCI_L_long","open","closed"]
+
+
+# keywords that must exist, either at the top level, or in properties  
+
+topKey = ["do.catg","mode","properties"]
+propKey = ["dit","ndit","filter_name","catg","tech","type","nObs"]
 
 
 # dictionary of modes and tech
@@ -36,10 +71,9 @@ SOURCEMODEDICT = {
     "RSRF": "flat",
 }
 
-# default location of IRDB
-DEFAULT_IRDB_LOCATION = "../IRDB/"
 
-# some templates for calibrations
+# some templates for general calibrations
+
 DARKLM = {
     "do.catg": "DARK_LM_RAW",
     "mode":"",
@@ -51,7 +85,6 @@ DARKLM = {
         "filter_name": "closed",
         "tplname":'METIS_img_lm_det_dark',}}
 
- # some templates for calibrations
 
 DARKN = {
     "do.catg": "DARK_N_RAW",
@@ -116,4 +149,3 @@ SKYFLATN = {
         "type": "FLAT,TWILIGHT",
         "tplname":'METIS_img_n_det_flat',}}
 
-    
