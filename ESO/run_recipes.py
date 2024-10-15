@@ -45,6 +45,11 @@ def runRecipes(argv):
         if(simulationSet.params['calibFile'] is not None):
             simulationSet.dumpCalibsToFile()
 
+    simulationSet.allFileNames.sort()
+    for elem in simulationSet.allFileNames:
+        print(elem)
+
+
     # if simulations were done, update the headers
     if(not simulationSet.params['testRun']):
         simulationSet.updateHeaders()

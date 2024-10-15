@@ -26,6 +26,7 @@ class runRecipes():
         self.firstIt = True
         self.tDelt = TimeDelta(0, format='sec') 
         self.allFileNames = []
+        self.allmjd = []
         
     def parseCommandLine(self,args):
 
@@ -410,7 +411,7 @@ class runRecipes():
         sdate = dateobs.isoformat()
         sdate = sdate.replace(":", "_")
         
-        fname = f'METIS.{prefix}.{sdate.replace(":","_")}.{doCatg}.fits'
+        fname = f'METIS.{prefix}.{sdate.replace(":","_")}.fits'
                 
         return fname
                 
@@ -449,13 +450,16 @@ class runRecipes():
         """
         
     
-        for fName in self.allFileNames:
+        for fName,mjd in zip(self.allFileNames,self.allmjd):
             print(f'Processing {fName}')
             # open the file
             hdul = fits.open(fName)
-            if type(hdul[0].header['MJD-OBS']) == str:
-                mjdobs = hdul[0].header['MJD-OBS']
-                hdul[0].header['MJD-OBS'] = astropy.time.Time(mjdobs,format="isot").mjd
+
+            hdul[0].header['MJD-OBS'] = mjd
+            
+            #if type(hdul[0].header['MJD-OBS']) == str:
+            #    mjdobs = hdul[0].header['MJD-OBS']
+            #    hdul[0].header['MJD-OBS'] = astropy.time.Time(mjdobs,format="isot").mjd
             # get the tech and filter keywords
            
             tech = hdul[0].header['HIERARCH ESO DPR TECH']
@@ -624,6 +628,7 @@ class runRecipes():
                         # set explicitly, and tDelt = 0
                         if "dateobs" in recipe["properties"]:
                             self.tObs = Time(recipe["properties"]["dateobs"])[0]
+                            self.tDelt = TimeDelta(0, format='sec') 
                         else:
                             print("No appropriate starting time found; exiting")
                             return
@@ -633,19 +638,18 @@ class runRecipes():
                 for _ in range(nObs):        
     
                     # note that tDelt = 0 if we've explicitly set it above
-                    tObs = self.tObs + self.tDelt
-    
+                    self.tObs = self.tObs + self.tDelt
+
                     # update the dateobs in the dictionary
                     props["dateobs"] = self.tObs.tt.datetime
-                    sdate = self.tObs.tt.datetime.isoformat()
-    
+                    props["MJD-OBS"] = self.tObs.mjd
                     # update tDelt for the next iteration
                     self.tDelt = TimeDelta(props['dit']*props['ndit']*1.2+1, format='sec')   
-    
+
                     # get the filename
                     fname = out_dir / self.generateFilename(props['dateobs'],mode,props['dit'],prefix)
                     self.allFileNames.append(fname)
-                    
+                    self.allmjd.append(self.tObs.mjd)
                     print("Starting simulate()")
                     print(f"    fname={fname}")
                     print(f'    source =  {recipe["source"]}')
@@ -656,7 +660,6 @@ class runRecipes():
     
                     # and run the 
                     if(not self.params['testRun']):
-                        pass
                         simulate(fname, mode, kwargs, source=recipe["source"], small=self.params['small'])
 
     
