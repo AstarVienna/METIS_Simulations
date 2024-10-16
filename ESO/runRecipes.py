@@ -47,6 +47,11 @@ class runRecipes():
                             default=False,
                             help=('use detectors of 32x32 pixels; ' +
                                   'for running in the continuous integration'))
+        
+        parser.add_argument('-e', '--doStatic', action = "store_true",
+                            default=False,
+                            help=('Generate prototypes for static/external calibration files'))
+
         parser.add_argument('-c', '--catg', type=str,
                             help='comma-separated list of selected output file categories')
         parser.add_argument('--doCalib', type=int,
@@ -97,7 +102,9 @@ class runRecipes():
         
             
         params['small'] = args.small
-        
+
+        params['doStatic'] = args.doStatic
+                            
         params['testRun'] = args.testRun
 
         params['calibFile'] = args.calibFile
@@ -112,6 +119,7 @@ class runRecipes():
             print(f"  Observation dates will be taken from YAML file if given")
         print(f"  Automatically generated darks and flats {params['doCalib']}")
         print(f"  Small output option {params['small']}")
+        print(f"  Generate External Calibs {params['doCalib']}")
     
         self.params = params
 

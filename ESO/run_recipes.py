@@ -55,7 +55,8 @@ def runRecipes(argv):
     if(not simulationSet.params['testRun']):
         simulationSet.updateHeaders()
 
-    makeCalibPrototypes.generateStaticCalibs(simulationSet.params['outputDir'])
+    if(simulationSet.params['doStatic']):
+        makeCalibPrototypes.generateStaticCalibs(simulationSet.params['outputDir'])
         
 if __name__ == "__main__":
     
