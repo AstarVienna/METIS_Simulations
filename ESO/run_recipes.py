@@ -7,6 +7,7 @@
 
 import runRecipes as rr
 import sys
+import makeCalibPrototypes
 
 
 def runRecipes(argv):
@@ -36,7 +37,7 @@ def runRecipes(argv):
 
     # run the simulations
     simulationSet.runSimulations()
-
+    
     # run the calibrations if requested
     if(simulationSet.params['doCalib'] > 0):
         simulationSet.runCalibrations()
@@ -54,6 +55,8 @@ def runRecipes(argv):
     if(not simulationSet.params['testRun']):
         simulationSet.updateHeaders()
 
+    makeCalibPrototypes.generateStaticCalibs(simulationSet.params['outputDir'])
+        
 if __name__ == "__main__":
     
     runRecipes(sys.argv)
