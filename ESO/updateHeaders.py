@@ -79,7 +79,7 @@ def updateHeaders(inDir,outDir):
             hdul[0].header['HIERARCH ESO INS OPTI6 NAME'] = filt
             hdul[0].header['HIERARCH ESO DRS IFU'] = filt
             hdul[0].header['HIERARCH ESO DPR TECH'] = "IFU"
-            
+
         #HCI
         if(tech == "RAVC,LM"):
             hdul[0].header['HIERARCH ESO INS OPTI10 NAME'] = filt
@@ -120,6 +120,9 @@ def updateHeaders(inDir,outDir):
         if(tech == "PUP,N"):
             hdul[0].header['HIERARCH ESO INS MODE'] = "IMG_N"
             hdul[0].header['HIERARCH ESO INS OPTI15 NAME'] = "PUPIL2"
+        if(type == "PERSISTENCE"):
+            hdul[0].header['HIERARCH ESO PRO CATG'] = "PERSISTENCE_MAP"
+            
 
         
         # get the filename from the path

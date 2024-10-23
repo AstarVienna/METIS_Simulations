@@ -8,8 +8,6 @@ resultant files **DO NOT** contain instrumentally or scientifically
 accurate data, and under no circumstances should be used to evaluate
 potential performance of the METIS instrument.</span>
 
-
-
 # METIS Simulations
 
 This respository contains scripts which can be used as a wrapper for ScopeSim to generate a set of simulated METIS data for pipeline development. 
@@ -50,12 +48,12 @@ To run the default set of FITS files, as described in [Data Product Summary](#da
 
 
 ```
-> ./run_recipes.py --doCalib=5
+> ./run_recipes.py --doCalib=1 --sequence=1
 > md5sum -c checksums.dat | grep -v OK
 ```
 
 This will run the script, automatically determining the necessary flats and darks and running them at the end of the sequence; the number indicates
-how many of each type to generate. 
+how many of each type to generate. The sequence takes the observation time of the first entry in the YAML file and increments from there. 
 
 ## Command Line Options
 
@@ -93,7 +91,7 @@ writes the output to myDirectory.
 runs the set of simulations starting the sequence at the given date and automatically incrementing the time stamp through the sequence.
 
 ```
-> ./run_recipes.py --sequence 1
+> ./run_recipes.py --sequence 2
 ```
 
 does the same but takes the dateobs from the first item in the sequence.
@@ -107,6 +105,13 @@ Runs the script without executing the simulations to check input values.
 ```
 > ./run_recipes.py --small
 ```
+
+```
+> ./run_recipes.py --doCalib=1 --dumpCalib=calib.yaml
+```
+
+runs the script with automatically generated calibration files, and writes the calibration files to a
+recipe YAML file. 
 
 runs the script with 32x32 pixel outputs, for testing purposes. 
 
@@ -151,19 +156,31 @@ set DIT/NDIT/Filters for reasonable flux levels, and to refine the
 choice of science targets and standard stars for more accurate (and
 science-case appropriate) choices. We have generated data and
 calibrations for one set of filters for each mode as a base set; this
-can easily be extended to multiple sets as needed. For images where
-the data will be averaged, two files have been generated with
-different time of observation and the same settings. 
+can easily be extended to multiple sets as needed. One of each type of
+image has been generated; this is sufficient for pipeline skeleton development. 
 
 The coronagraph, pupil imaging and chopper home images currently
 contain placeholder data as these are not modes sximulated by
 ScopeSim; by the next release these will be updated to include input
 simulated images.
 
-This release does not include external calibration files (such as source catalogues).
+This release contains placeholder files for the internal pipeline
+representation of the of the external calibration files (such as
+source catalogues). The EDPS relevant header keywords are set, and
+there is a first draft of the internal format.
+
 FITS keywords needed by the recipes themselves (but not by the EDPS skeleton) may not
 be complete. 
 
+## SOF Files
+
+A set of SOF files to match the simulated data is provided in sofFiles/. There is one SOF file for
+each recipe, with the exception of
+
+ - SOF files for both lamp and twilight flats
+ - recipes for both sci/std  processing in the metis_det_img_basic_reduce recipes
+ 
+due to recipes that handle more than one type of input data that is used as input for another recipe.
 
 # Output FITS Files
 
@@ -202,7 +219,23 @@ The set of simulations is as follows
 - pupil images
 - dark frames to match the exposure times for the above
 
-The list of  RAW files was compiled from the DRLD recipe listings
+## External Calibration Files
+
+ - PINHOLE_TABLE
+ - LASER_TAB
+ - LSF_KERNEL
+ - LM_LSS_WAVE_GUESS
+ - N_LSS_WAVE_GUESS
+ - N_LSS_DIST_SOL
+ - LM_DIST_SOL
+ - ATM_LINE_CAT
+ - AO_PSF_MODEL
+ - N_SYNTH_TRANS
+ - LM_SYNTH_TRANS
+ - FLUXSTD_CATALOG
+ - REF_STD_CAT_star1
+
+The list of  RAW files and external calibration files was compiled from the DRLD recipe listings
 in Chapter 6, specifically the "Input Data" entry. FITS keywords and file types were
 cross-checked against
 
@@ -212,12 +245,10 @@ cross-checked against
     - Matched keywords (needed for the EDPS skeleton)  given in Table 6.
     - The DPR.CATG, TECH, TYPE etc. given in Table 20.
 
-
 # Generating Custom Simulations
 
 If you want to run the scripts for your own models, there are two files you will need to edit, in addition to the
 command line options given above.
-
 
 ## YAML file
 

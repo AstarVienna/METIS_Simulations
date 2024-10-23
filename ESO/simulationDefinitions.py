@@ -9,8 +9,6 @@ import scopesim as sim
 import scopesim_templates as sim_tp
 import numpy as np
 
-
-
 # default location of IRDB
 DEFAULT_IRDB_LOCATION = "../IRDB/"
 
@@ -72,11 +70,50 @@ SOURCEMODEDICT = {
 }
 
 
-# some templates for general calibrations
+# some templates for calibration dictionaries. DIT/NDIT/obsdate need to be added
+# for a runnable dictionary.
+# DARK
+# DARK,WCUOFF
+# FLAT,LAMP
+# FLAT,TWILIGHT
+
+
+WCUDARKLM = {
+    "do.catg": "LM_WCU_OFF_RAW",
+    "mode": "img_lm",
+    "source":{'name': 'empty_sky', 'kwargs': {}},
+    "properties": {
+        "catg": "CALIB",
+        "tech": "IMAGE,LM",
+        "type": "DARK,WCUOFF",
+        "filter_name": "closed",
+        "tplname":'METIS_img_lm_det_dark',}}
+
+WCUDARKN = {
+    "do.catg": "N_WCU_OFF_RAW",
+    "mode": "img_n",
+    "source": {'name': 'empty_sky', 'kwargs': {}},
+    "properties": {
+        "catg": "CALIB",
+        "tech": "IMAGE,N",
+        "type": "DARK,WCUOFF",
+        "filter_name": "closed",
+        "tplname":'METIS_img_n_det_dark',}}
+
+WCUDARKIFU = {
+    "do.catg": "IFU_WCU_OFF_RAW",
+    "mode": "lms",
+    "source": {'name': 'empty_sky', 'kwargs': {}},
+    "properties": {
+        "catg": "CALIB",
+        "tech": "LMS",
+        "type": "DARK,WCUOFF",
+        "filter_name": "closed",
+        "tplname":'METIS_lms_det_dark',}}
 
 DARKLM = {
     "do.catg": "DARK_LM_RAW",
-    "mode":"",
+    "mode": "img_lm",
     "source":{'name': 'empty_sky', 'kwargs': {}},
     "properties": {
         "catg": "CALIB",
@@ -85,10 +122,9 @@ DARKLM = {
         "filter_name": "closed",
         "tplname":'METIS_img_lm_det_dark',}}
 
-
 DARKN = {
     "do.catg": "DARK_N_RAW",
-    "mode":"",
+    "mode": "img_n",
     "source": {'name': 'empty_sky', 'kwargs': {}},
     "properties": {
         "catg": "CALIB",
@@ -99,7 +135,7 @@ DARKN = {
 
 DARKIFU = {
     "do.catg": "DARK_IFU_RAW",
-    "mode":"",
+    "mode": "lms",
     "source": {'name': 'empty_sky', 'kwargs': {}},
     "properties": {
         "catg": "CALIB",
@@ -109,8 +145,8 @@ DARKIFU = {
         "tplname":'METIS_lms_det_dark',}}
 
 LAMPFLATLM = {
-    "do.catg": "FLAT_LM_RAW",
-    "mode":"",
+    "do.catg": "FLAT_LM_LAMP_RAW",
+    "mode": "img_lm",
     "source": {'name': 'flat_field', 'kwargs': {'temperature': 200, 'amplitude': 0, 'filter_curve': 'V', 'extend': 15}},
     "properties": {
         "catg": "CALIB",
@@ -119,8 +155,8 @@ LAMPFLATLM = {
         "tplname":'METIS_img_lm_det_flat',}}
 
 LAMPFLATN = {
-    "do.catg": "FLAT_N_RAW",
-    "mode":"",
+    "do.catg": "FLAT_N_LAMP_RAW",
+    "mode": "img_n",
     "source": {'name': 'flat_field', 'kwargs': {'temperature': 200, 'amplitude': 0, 'filter_curve': 'V', 'extend': 15}},
     "properties": {
         "catg": "CALIB",
@@ -130,8 +166,8 @@ LAMPFLATN = {
 
     
 SKYFLATLM = {
-    "do.catg": "FLAT_LM_RAW",
-    "mode":"",
+    "do.catg": "FLAT_LM_TWILIGHT_RAW",
+    "mode": "img_lm",
     "source":{'name': 'empty_sky', 'kwargs': {}},
     "properties": {
         "catg": "CALIB",
@@ -140,8 +176,8 @@ SKYFLATLM = {
         "tplname":'METIS_img_lm_det_flat',}}
 
 SKYFLATN = {
-    "do.catg": "FLAT_N_RAW",
-    "mode":"",
+    "do.catg": "FLAT_N_TWILIGHT_RAW",
+    "mode": "img_lm",
     "source":{'name': 'empty_sky', 'kwargs': {}},
     "properties": {
         "catg": "CALIB",
