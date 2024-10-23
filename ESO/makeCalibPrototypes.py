@@ -62,7 +62,7 @@ def generateStaticCalibs(outputDir):
 
 
     hdul = fits.HDUList([primaryhdu, hdu])
-    hdul.writeto(f"{outputDir}/METIS.REF_STD_CAT_{starName}.fits",overwrite=True)
+    hdul.writeto(f"{outputDir}/REF_STD_CAT_{starName}.fits",overwrite=True)
 
     #################### FLUXSTD_CATALOG ###################
 
@@ -89,7 +89,7 @@ def generateStaticCalibs(outputDir):
     hdu.header['TTYPE4'] = "flux"
 
     hdul = fits.HDUList([primaryhdu, hdu])
-    hdul.writeto(f"{outputDir}/METIS.FLUXSTD_CATALOG.fits",overwrite=True)
+    hdul.writeto(f"{outputDir}/FLUXSTD_CATALOG.fits",overwrite=True)
     
 
     #################### LM_SYNTH_TRANS ###################
@@ -110,7 +110,7 @@ def generateStaticCalibs(outputDir):
 
     
     hdul = fits.HDUList([primaryhdu, hdu])
-    hdul.writeto(f"{outputDir}/METIS.LM_SYNTH_TRANS.fits",overwrite=True)
+    hdul.writeto(f"{outputDir}/LM_SYNTH_TRANS.fits",overwrite=True)
 
     #################### N_SYNTH_TRANS ###################
 
@@ -130,7 +130,7 @@ def generateStaticCalibs(outputDir):
 
     
     hdul = fits.HDUList([primaryhdu, hdu])
-    hdul.writeto(f"{outputDir}/METIS.N_SYNTH_TRANS.fits",overwrite=True)
+    hdul.writeto(f"{outputDir}/N_SYNTH_TRANS.fits",overwrite=True)
     
     #################### AO_PSF_MODEL ###################
 
@@ -151,7 +151,7 @@ def generateStaticCalibs(outputDir):
     hdu.header['CRPIX']=14.5
 
     hdul = fits.HDUList([primaryhdu,hdu])
-    hdul.writeto(f"{outputDir}/METIS.AO_PSF_MODEL.fits",overwrite=True)
+    hdul.writeto(f"{outputDir}/AO_PSF_MODEL.fits",overwrite=True)
 
 
     #################### ATM_LINE_CAT ###################
@@ -183,7 +183,7 @@ def generateStaticCalibs(outputDir):
         hdu.header[f'TUNIT{ii+1}']=tt
 
     hdul = fits.HDUList([primaryhdu,hdu])
-    hdul.writeto(f"{outputDir}/METIS.ATM_LINE_CAT.fits",overwrite=True)
+    hdul.writeto(f"{outputDir}/ATM_LINE_CAT.fits",overwrite=True)
 
 
 
@@ -240,7 +240,7 @@ def generateStaticCalibs(outputDir):
         hdu.header[f'TUNIT{i+4}']="ppmv"
 
     hdul = fits.HDUList([primaryhdu,hdu])
-    hdul.writeto(f"{outputDir}/METIS.ATM_LINE_CAT.fits",overwrite=True)
+    hdul.writeto(f"{outputDir}/ATM_LINE_CAT.fits",overwrite=True)
 
     
     #################### LM_LSS_DIST_SOL ###################
@@ -269,7 +269,7 @@ def generateStaticCalibs(outputDir):
     primaryhdu = fits.PrimaryHDU()
     primaryhdu.header['HIERARCH ESO PRO CATG'] = "LM_LSS_DIST_SOL"
     hdul = fits.HDUList([primaryhdu,hdu])
-    hdul.writeto(f"{outputDir}/METIS.LM_DIST_SOL.fits",overwrite=True)
+    hdul.writeto(f"{outputDir}/LM_DIST_SOL.fits",overwrite=True)
     
     #################### N_LSS_DIST_SOL ###################
 
@@ -299,7 +299,7 @@ def generateStaticCalibs(outputDir):
     primaryhdu = fits.PrimaryHDU()
     primaryhdu.header['HIERARCH ESO PRO CATG'] = "N_LSS_DIST_SOL"
     hdul = fits.HDUList([primaryhdu,hdu])
-    hdul.writeto(f"{outputDir}/METIS.N_LSS_DIST_SOL.fits",overwrite=True)
+    hdul.writeto(f"{outputDir}/N_LSS_DIST_SOL.fits",overwrite=True)
 
 
     #################### LM_LSS_WAVE_GUESS ###################
@@ -327,7 +327,7 @@ def generateStaticCalibs(outputDir):
     primaryhdu = fits.PrimaryHDU()
     primaryhdu.header['HIERARCH ESO PRO CATG'] = "N_LSS_WAVE_GUESS"
     hdul = fits.HDUList([primaryhdu,hdu])
-    hdul.writeto(f"{outputDir}/METIS.N_LSS_WAVE_GUESS.fits",overwrite=True)
+    hdul.writeto(f"{outputDir}/N_LSS_WAVE_GUESS.fits",overwrite=True)
 
     #################### N_LSS_WAVE_GUESS ###################
 
@@ -350,7 +350,7 @@ def generateStaticCalibs(outputDir):
     primaryhdu = fits.PrimaryHDU()
     primaryhdu.header['HIERARCH ESO PRO CATG'] = "LM_LSS_WAVE_GUESS"
     hdul = fits.HDUList([primaryhdu,hdu])
-    hdul.writeto(f"{outputDir}/METIS.LM_LSS_WAVE_GUESS.fits",overwrite=True)
+    hdul.writeto(f"{outputDir}/LM_LSS_WAVE_GUESS.fits",overwrite=True)
     
     #################### LSF_KERNEL ###################
 
@@ -370,7 +370,7 @@ def generateStaticCalibs(outputDir):
     hdu.header[f'TTYPE2']=""
 
     hdul = fits.HDUList([primaryhdu,hdu])
-    hdul.writeto(f"{outputDir}/METIS.LSF_KERNEL.fits",overwrite=True)
+    hdul.writeto(f"{outputDir}/LSF_KERNEL.fits",overwrite=True)
 
     
     #################### LASER_TAB ###################
@@ -387,7 +387,7 @@ def generateStaticCalibs(outputDir):
     hdu.header[f'TTYPE1']="Hz"
 
     hdul = fits.HDUList([primaryhdu,hdu])
-    hdul.writeto(f"{outputDir}/METIS.LASER_TAB.fits",overwrite=True)
+    hdul.writeto(f"{outputDir}/LASER_TAB.fits",overwrite=True)
 
     
     #################### PINHOLE_TABLE ###################
@@ -407,7 +407,7 @@ def generateStaticCalibs(outputDir):
     hdu.header[f'TTYPE2']="mm"
 
     hdul = fits.HDUList([primaryhdu,hdu])
-    hdul.writeto(f"{outputDir}/METIS.PINHOLE_TABLE.fits",overwrite=True)
+    hdul.writeto(f"{outputDir}/PINHOLE_TABLE.fits",overwrite=True)
 
 
 if __name__ == "__main__":
