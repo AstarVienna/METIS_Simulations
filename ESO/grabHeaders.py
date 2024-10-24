@@ -4,8 +4,10 @@ import pandas as pd
 from importlib import reload
 import glob
 import os
+from pathlib import Path
 
-fNames = glob.glob("/Users/karr/software/METIS_Simulations/ESO/output/METIS*.fits")
+dir_output = Path(__file__).parent / "output"
+fNames = list(dir_output.glob("METIS*.fits"))
 fNames.sort()
 
 outFile = open("summary.csv","w")
