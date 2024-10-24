@@ -1,6 +1,6 @@
 """
 Definition of sources used in template YAML files. Sources are derived from either 
-scopesim, or scopesim templates; you should understand these before making your 
+scopesim, or scopesim templates; you should understand these programs before making your 
 own. 
 """
 
@@ -17,7 +17,6 @@ from astropy import units as u
 import matplotlib.pyplot as plt
 
 import scopesim
-
 
 
 ####################### Definitions used by the sources #########################

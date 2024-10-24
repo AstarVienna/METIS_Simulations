@@ -16,6 +16,7 @@ from datetime import datetime
 import numpy as np
 from astropy.io import fits
 import astropy
+import copy
 
 class runRecipes():
 
@@ -47,6 +48,11 @@ class runRecipes():
                             default=False,
                             help=('use detectors of 32x32 pixels; ' +
                                   'for running in the continuous integration'))
+        
+        parser.add_argument('-e', '--doStatic', action = "store_true",
+                            default=False,
+                            help=('Generate prototypes for static/external calibration files'))
+
         parser.add_argument('-c', '--catg', type=str,
                             help='comma-separated list of selected output file categories')
         parser.add_argument('--doCalib', type=int,
@@ -97,7 +103,9 @@ class runRecipes():
         
             
         params['small'] = args.small
-        
+
+        params['doStatic'] = args.doStatic
+                            
         params['testRun'] = args.testRun
 
         params['calibFile'] = args.calibFile
@@ -112,6 +120,7 @@ class runRecipes():
             print(f"  Observation dates will be taken from YAML file if given")
         print(f"  Automatically generated darks and flats {params['doCalib']}")
         print(f"  Small output option {params['small']}")
+        print(f"  Generate External Calibs {params['doCalib']}")
     
         self.params = params
 
@@ -255,15 +264,15 @@ class runRecipes():
 
         """determine what sort of dark, if any, is needed for a YAML entry and return a recipe dictionary for it"""
     
-        if("DARK" not in props['type']):
+        if(np.all(["DARK" not in props['type'],"PERSISTENCE" not in props['type']])):
             if(",LM" in props['tech']):
-                df = sd.DARKLM
+                df = copy.deepcopy(sd.DARKLM)
                 df['mode'] = "img_lm"
             elif(",N" in props['tech']):
-                df = sd.DARKN
+                df = copy.deepcopy(sd.DARKN)
                 df['mode'] = "img_n"
             elif(np.any(["LMS" in props['tech'],"IFU" in props['tech']])):
-                df = sd.DARKIFU
+                df = copy.deepcopy(sd.DARKIFU)
                 df['mode'] = "lms"
             else:
                 return{}
@@ -271,7 +280,31 @@ class runRecipes():
             df['properties']['dit'] = props['dit']
             df['properties']['ndit'] = props['ndit']
             df['properties']['nObs'] = self.params['doCalib']
-            
+
+            return df
+        else:
+           return {}
+
+    def calcWcuDark(self,props):
+
+        """determine what sort of dark, if any, is needed for a YAML entry and return a recipe dictionary for it"""
+    
+        if(np.all(["DARK" not in props['type'],"PERSISTENCE" not in props['type']])):
+            if(",LM" in props['tech']):
+                df = copy.deepcopy(sd.WCUDARKLM)
+                df['mode'] = "img_lm"
+            elif(",N" in props['tech']):
+                df = copy.deepcopy(sd.WCUDARKN)
+                df['mode'] = "img_n"
+            elif(np.any(["LMS" in props['tech'],"IFU" in props['tech']])):
+                df = copy.deepcopy(sd.WCUDARKIFU)
+                df['mode'] = "lms"
+            else:
+                return{}
+
+            df['properties']['dit'] = props['dit']
+            df['properties']['ndit'] = props['ndit']
+            df['properties']['nObs'] = self.params['doCalib']
             return df
         else:
            return {}
@@ -280,12 +313,12 @@ class runRecipes():
     
         """determine what sort of sky flat, if any, is needed for a YAML entry and return a recipe dictionary for it"""
     
-        if(np.all(["DARK" not in props['type'], "FLAT" not in props['type'],"DETLIN" not in props['type'],"LMS" not in props['type']])):
+        if(np.all(["DARK" not in props['type'], "FLAT" not in props['type'],"DETLIN" not in props['type'],"LMS" not in props['type'],"PERSISTENCE" not in props['type']])):
             if(",LM" in props['tech']):
-                df = sd.SKYFLATLM
+                df = copy.deepcopy(sd.SKYFLATLM)
                 df['mode'] = "img_lm"
             elif(",N" in props['tech']):
-                df = sd.SKYFLATN
+                df = copy.deepcopy(sd.SKYFLATN)
                 df['mode'] = "img_n"
             else:
                 return{}
@@ -303,12 +336,12 @@ class runRecipes():
     def calcLampFlat(self,props):
     
         """determine what sort of lamp flat, if any, is needed for a YAML entry and return a recipe dictionary for it"""
-        if(np.all(["DARK" not in props['type'], "FLAT" not in props['type'],"DETLIN" not in props['type'],"LMS" not in props['type']])):
+        if(np.all(["DARK" not in props['type'], "FLAT" not in props['type'],"DETLIN" not in props['type'],"LMS" not in props['type'],"PERSISTENCE" not in props['type']])):
             if(",LM" in props['tech']):
-                df = sd.LAMPFLATLM
+                df = copy.deepcopy(sd.LAMPFLATLM)
                 df['mode'] = "img_lm"
             elif(",N" in props['tech']):
-                df = sd.LAMPFLATN
+                df = copy.deepcopy(sd.LAMPFLATN)
                 df['mode'] = "img_n"
             else:
                 return{}
@@ -336,11 +369,13 @@ class runRecipes():
         """
 
         darks = []
+        wcuDarks = []
         skyFlats = []
         lampFlats = []
 
         # assemble a list of the dark / skyflat / lampflat recipe dicionaries
-        
+
+        ii=0
         for name, recipe in self.dorcps.items():
             expanded = [key for key in sd.expandables
                         if isinstance(recipe["properties"][key], list)]
@@ -356,26 +391,41 @@ class runRecipes():
                     props["ndfilter_name"] = "open"
 
 
-                darks.append(self.calcDark(props))
+                if(np.any(["SLITLOSS" in props["type"],"DETLIN" in props["type"], "DISTORTION" in props["type"]])):
+
+                    wcuDarks.append(self.calcWcuDark(props))
+                    
+                    
+                else:
+                    darks.append(self.calcDark(props))
                 skyFlats.append(self.calcSkyFlat(props))
                 lampFlats.append(self.calcLampFlat(props))
 
+                ii+=1
 
+            
         nLab = 0
-
         self.calibSet = {}
 
         # use set to get the unique values, with some json fiddling because you can't
         # use set on a list of dictionaries
         # assign each dictionary to the master dictionary, with a unique label
 
+                      
         for rcp in set(json.dumps(i, sort_keys=True) for i in darks):
             drcp = json.loads(rcp)
             if bool(drcp):
                 label = f'd{nLab}'
                 nLab += 1
                 self.calibSet[label] = drcp
-                
+
+        for rcp in set(json.dumps(i, sort_keys=True) for i in wcuDarks):
+            drcp = json.loads(rcp)
+            if bool(drcp):
+                label = f'd{nLab}'
+                nLab += 1
+                self.calibSet[label] = drcp
+
         for rcp in set(json.dumps(i, sort_keys=True) for i in skyFlats):
             drcp = json.loads(rcp)
             if bool(drcp):
@@ -408,21 +458,21 @@ class runRecipes():
          Replace colon so the date can be in Windows filenames.
         """
         
-        sdate = dateobs.isoformat()
+        sdate = dateobs.isoformat(":", 'seconds')
         sdate = sdate.replace(":", "_")
         
         fname = f'METIS.{prefix}.{sdate.replace(":","_")}.fits'
                 
         return fname
                 
-    def dumpCalibsToFile(self,filename):
+    def dumpCalibsToFile(self):
 
         """
         Dump the calibration yaml recipes to a file, similar to the recipes YAML file
         """
         
-        with open(filename, 'w') as outfile:
-            yaml.dump(self.calibSet, self.params['calibFile'], default_flow_style=False)
+        with open(self.params['calibFile'], 'w') as outfile:
+            yaml.dump(self.calibSet, outfile, default_flow_style=False)
     
     def updateHeaders(self):
     
