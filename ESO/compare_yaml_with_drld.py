@@ -20,6 +20,10 @@ HACK_RAWS_THAT_SHOULD_BE_ADDED_TO_THE_DRLD = {
     'IFU_RSRF_PINH_RAW',
 }
 
+HACK_RAW_TEMPLATE_COMBINATIONS_THAT_SHOULD_BE_ADDED_TO_THE_DRLD = {
+    ("IFU_SKY_RAW", "metis_ifu_cal_standard"),
+}
+
 PATH_HERE = Path(__file__).parent
 
 if len(sys.argv) == 1:
@@ -62,7 +66,8 @@ for name, settings in recipes.items():
 
     tplname = props["tplname"].lower()
     if tplname not in di.templates:
-        problems.append(f"{do_catg} has tplname {tplname} but only {di.templates} create it")
+        if (do_catg, tplname) not in HACK_RAW_TEMPLATE_COMBINATIONS_THAT_SHOULD_BE_ADDED_TO_THE_DRLD:
+            problems.append(f"{do_catg} has tplname {tplname} but only {di.templates} create it")
 
 do_catg_used_in_yaml = {
     settings['do.catg']
