@@ -145,7 +145,7 @@ DARKIFU = {
         "tplname":'METIS_lms_det_dark',}}
 
 LAMPFLATLM = {
-    "do.catg": "FLAT_LM_LAMP_RAW",
+    "do.catg": "LM_FLAT_LAMP_RAW",
     "mode": "img_lm",
     "source": {'name': 'flat_field', 'kwargs': {'temperature': 200, 'amplitude': 0, 'filter_curve': 'V', 'extend': 15}},
     "properties": {
@@ -155,7 +155,7 @@ LAMPFLATLM = {
         "tplname":'METIS_img_lm_det_flat',}}
 
 LAMPFLATN = {
-    "do.catg": "FLAT_N_LAMP_RAW",
+    "do.catg": "N_FLAT_LAMP_RAW",
     "mode": "img_n",
     "source": {'name': 'flat_field', 'kwargs': {'temperature': 200, 'amplitude': 0, 'filter_curve': 'V', 'extend': 15}},
     "properties": {
@@ -166,7 +166,7 @@ LAMPFLATN = {
 
     
 SKYFLATLM = {
-    "do.catg": "FLAT_LM_TWILIGHT_RAW",
+    "do.catg": "LM_FLAT_TWILIGHT_RAW",
     "mode": "img_lm",
     "source":{'name': 'empty_sky', 'kwargs': {}},
     "properties": {
@@ -176,7 +176,7 @@ SKYFLATLM = {
         "tplname":'METIS_img_lm_det_flat',}}
 
 SKYFLATN = {
-    "do.catg": "FLAT_N_TWILIGHT_RAW",
+    "do.catg": "N_FLAT_TWILIGHT_RAW",
     "mode": "img_lm",
     "source":{'name': 'empty_sky', 'kwargs': {}},
     "properties": {
