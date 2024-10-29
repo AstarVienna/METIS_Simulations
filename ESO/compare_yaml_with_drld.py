@@ -10,6 +10,8 @@ from pathlib import Path
 
 from codes.drld_parser.data_reduction_library_design import METIS_DataReductionLibraryDesign
 
+import simulationDefinitions
+
 PATH_HERE = Path(__file__).parent
 
 if len(sys.argv) == 1:
@@ -19,6 +21,12 @@ else:
 
 with open(filename_yaml) as f:
     recipes = yaml.safe_load(f)
+
+dicts_from_sim_defs = {
+    k: v
+    for k, v in simulationDefinitions.__dict__.items()
+    if k.upper() == k and isinstance(v, dict) and "do.catg" in v
+}
 
 problems = []
 for name, settings in recipes.items():
@@ -47,7 +55,10 @@ for name, settings in recipes.items():
     if tplname not in di.templates:
         problems.append(f"{do_catg} has tplname {tplname} but only {di.templates} create it")
 
-do_catg_used_in_yaml = {settings['do.catg'] for settings in recipes.values()}
+do_catg_used_in_yaml = {
+    settings['do.catg']
+    for settings in list(recipes.values()) + list(dicts_from_sim_defs.values())
+}
 do_catg_used_in_drld = {a for a in METIS_DataReductionLibraryDesign.dataitems if a.endswith("_RAW")}
 do_catg_only_in_yaml = do_catg_used_in_yaml - do_catg_used_in_drld
 do_catg_only_in_drld = do_catg_used_in_drld - do_catg_used_in_yaml
