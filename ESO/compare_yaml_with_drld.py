@@ -22,7 +22,7 @@ with open(filename_yaml) as f:
 
 problems = []
 for name, settings in recipes.items():
-    do_catg = settings['prefix']
+    do_catg = settings['do.catg']
     # assert name.startswith(do_catg)
     if do_catg not in METIS_DataReductionLibraryDesign.dataitems:
         problems.append(f"Cannot find {do_catg} in METIS_DataReductionLibraryDesign!")
@@ -47,7 +47,7 @@ for name, settings in recipes.items():
     if tplname not in di.templates:
         problems.append(f"{do_catg} has tplname {tplname} but only {di.templates} create it")
 
-do_catg_used_in_yaml = {settings['prefix'] for settings in recipes.values()}
+do_catg_used_in_yaml = {settings['do.catg'] for settings in recipes.values()}
 do_catg_used_in_drld = {a for a in METIS_DataReductionLibraryDesign.dataitems if a.endswith("_RAW")}
 do_catg_only_in_yaml = do_catg_used_in_yaml - do_catg_used_in_drld
 do_catg_only_in_drld = do_catg_used_in_drld - do_catg_used_in_yaml
