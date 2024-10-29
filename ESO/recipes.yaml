@@ -139,7 +139,6 @@ IFU_RSRF_RAW1:
     tech: "LMS"
     type: "RSRF"
     tplname: "METIS_ifu_cal_rsrf"
-    type: "FLAT,LAMP"
     nObs: 1
 
 
@@ -162,7 +161,6 @@ LM_LSS_RSRF_PINH_RAW1:
     tech: "LSS,LM"
     type: "FLAT,LAMP,PINH"
     tplname: "METIS_spec_lm_cal_rsrfpinh"
-    type: "FLAT,LAMP"
     nObs: 1
 
 
@@ -183,7 +181,6 @@ N_LSS_RSRF_PINH_RAW1:
     tech: "LSS,N"
     type: "FLAT,LAMP,PINH"
     tplname: "METIS_spec_n_cal_rsrfpinh"
-    type: "FLAT,LAMP"
     nObs: 1
 
 
