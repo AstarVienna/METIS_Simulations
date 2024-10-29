@@ -3,7 +3,7 @@
 ##################### DETLIN - LM, N, IFU #####################
 
 DETLIN_2RG_RAW:
-  do.catg: DETLIN_LM_RAW
+  do.catg: DETLIN_2RG_RAW
   mode: "img_lm"
   source:
     name: flat_field
@@ -26,7 +26,7 @@ DETLIN_2RG_RAW:
       - 2024-01-02 00:10:00
 
 DETLIN_GEO_RAW:
-  do.catg: DETLIN_N_RAW
+  do.catg: DETLIN_GEO_RAW
   mode: "img_n"
   source:
     name: flat_field
@@ -799,7 +799,7 @@ N_LSS_WAVE_RAW:
     nObs: 1
 
 IFU_WAVE_RAW:
-  do.catg: IFU_LSS_WAVE_RAW
+  do.catg: IFU_WAVE_RAW
   mode: "lms"
   source: 
     name: "laser_spectrum_lm"
