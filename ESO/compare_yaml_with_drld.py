@@ -10,6 +10,20 @@ from pathlib import Path
 
 from codes.drld_parser.data_reduction_library_design import METIS_DataReductionLibraryDesign
 
+import simulationDefinitions
+
+HACK_RAWS_THAT_SHOULD_BE_ADDED_TO_THE_DRLD = {
+    'N_IMAGE_SKY_RAW',
+    'LM_IMAGE_SKY_RAW',
+    'N_LSS_SKY_RAW',
+    'LM_LSS_SKY_RAW',
+    'IFU_RSRF_PINH_RAW',
+}
+
+HACK_RAW_TEMPLATE_COMBINATIONS_THAT_SHOULD_BE_ADDED_TO_THE_DRLD = {
+    ("IFU_SKY_RAW", "metis_ifu_cal_standard"),
+}
+
 PATH_HERE = Path(__file__).parent
 
 if len(sys.argv) == 1:
@@ -20,12 +34,19 @@ else:
 with open(filename_yaml) as f:
     recipes = yaml.safe_load(f)
 
+dicts_from_sim_defs = {
+    k: v
+    for k, v in simulationDefinitions.__dict__.items()
+    if k.upper() == k and isinstance(v, dict) and "do.catg" in v
+}
+
 problems = []
 for name, settings in recipes.items():
-    do_catg = settings['prefix']
+    do_catg = settings['do.catg']
     # assert name.startswith(do_catg)
     if do_catg not in METIS_DataReductionLibraryDesign.dataitems:
-        problems.append(f"Cannot find {do_catg} in METIS_DataReductionLibraryDesign!")
+        if do_catg not in HACK_RAWS_THAT_SHOULD_BE_ADDED_TO_THE_DRLD:
+            problems.append(f"Cannot find {do_catg} in METIS_DataReductionLibraryDesign!")
         continue
     di = METIS_DataReductionLibraryDesign.dataitems[do_catg]
     props = settings['properties']
@@ -45,11 +66,15 @@ for name, settings in recipes.items():
 
     tplname = props["tplname"].lower()
     if tplname not in di.templates:
-        problems.append(f"{do_catg} has tplname {tplname} but only {di.templates} create it")
+        if (do_catg, tplname) not in HACK_RAW_TEMPLATE_COMBINATIONS_THAT_SHOULD_BE_ADDED_TO_THE_DRLD:
+            problems.append(f"{do_catg} has tplname {tplname} but only {di.templates} create it")
 
-do_catg_used_in_yaml = {settings['prefix'] for settings in recipes.values()}
+do_catg_used_in_yaml = {
+    settings['do.catg']
+    for settings in list(recipes.values()) + list(dicts_from_sim_defs.values())
+}
 do_catg_used_in_drld = {a for a in METIS_DataReductionLibraryDesign.dataitems if a.endswith("_RAW")}
-do_catg_only_in_yaml = do_catg_used_in_yaml - do_catg_used_in_drld
+do_catg_only_in_yaml = do_catg_used_in_yaml - do_catg_used_in_drld - HACK_RAWS_THAT_SHOULD_BE_ADDED_TO_THE_DRLD
 do_catg_only_in_drld = do_catg_used_in_drld - do_catg_used_in_yaml
 if do_catg_only_in_yaml:
     problems.append(f"DO.CATG values only used in yaml file but not in the DRLD: {do_catg_only_in_yaml}")
