@@ -51,6 +51,12 @@ def simulate(fname, mode, kwargs, source=None, small=False):
     if isinstance(source, Mapping):
         src_kwargs |= source["kwargs"]
 
+    # Fix units
+    if "temperature" in src_kwargs and not isinstance(src_kwargs["temperature"], u.Quantity):
+        src_kwargs["temperature"] <<= u.K
+    if "amplitude" in src_kwargs and not isinstance(src_kwargs["amplitude"], u.Quantity):
+        src_kwargs["amplitude"] <<= u.ABmag
+
     src = src_fct(**src_kwargs)
     logger.info("Source function: %s", src_fct.__name__)
     logger.debug("Source kwargs: %s", src_kwargs)
