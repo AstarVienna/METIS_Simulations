@@ -21,7 +21,13 @@ This respository contains scripts which can be used as a wrapper for ScopeSim to
 
 # Installing the Code
 
-In a clean conda environment the following sequence of commands will
+First create a clean Python environment with a recent Python version and poetry, for example through conda:
+```
+conda create -n metissim python==3.12 poetry
+conda activate metissim
+```
+
+The following sequence of commands will
 download and install the software with the correct dependencies. 
 
 
