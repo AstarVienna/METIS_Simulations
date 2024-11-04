@@ -412,28 +412,28 @@ class runRecipes():
         # assign each dictionary to the master dictionary, with a unique label
 
                       
-        for rcp in set(json.dumps(i, sort_keys=True) for i in darks):
+        for rcp in np.unique([json.dumps(i, sort_keys=True) for i in darks]):
             drcp = json.loads(rcp)
             if bool(drcp):
                 label = f'd{nLab}'
                 nLab += 1
                 self.calibSet[label] = drcp
 
-        for rcp in set(json.dumps(i, sort_keys=True) for i in wcuDarks):
+        for rcp in np.unique([json.dumps(i, sort_keys=True) for i in wcuDarks]):
             drcp = json.loads(rcp)
             if bool(drcp):
                 label = f'd{nLab}'
                 nLab += 1
                 self.calibSet[label] = drcp
 
-        for rcp in set(json.dumps(i, sort_keys=True) for i in skyFlats):
+        for rcp in np.unique([json.dumps(i, sort_keys=True) for i in skyFlats]):
             drcp = json.loads(rcp)
             if bool(drcp):
                 label = f's{nLab}'
                 nLab += 1
                 self.calibSet[label] = drcp
 
-        for rcp in set(json.dumps(i, sort_keys=True) for i in lampFlats):
+        for rcp in np.unique([json.dumps(i, sort_keys=True) for i in lampFlats]):
             drcp = json.loads(rcp)
             if bool(drcp):
                 label = f'l{nLab}'
