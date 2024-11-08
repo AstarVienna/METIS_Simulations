@@ -8,7 +8,6 @@ DETLIN_2RG_RAW:
   source:
     name: flat_field
     kwargs:
-      temperature: 200
       amplitude: 0
       filter_curve: "V"
       extend: 15
@@ -31,7 +30,6 @@ DETLIN_GEO_RAW:
   source:
     name: flat_field
     kwargs:
-      temperature: 200
       amplitude: 0
       filter_curve: "V"
       extend: 15
@@ -52,7 +50,6 @@ DETLIN_IFU_RAW:
   source:
     name: flat_field
     kwargs:
-      temperature: 200
       amplitude: 0
       filter_curve: "V"
       extend: 15
@@ -84,7 +81,6 @@ LM_LSS_RSRF_RAW1:
   source:
     name: flat_field
     kwargs:
-      temperature: 5000
       amplitude: 0
       filter_curve: "V"
       extend: 15
@@ -105,7 +101,6 @@ N_LSS_RSRF_RAW1:
   source:
     name: flat_field
     kwargs:
-      temperature: 5000
       amplitude: 0
       filter_curve: "V"
       extend: 15
@@ -127,7 +122,6 @@ IFU_RSRF_RAW1:
   source:
     name: flat_field
     kwargs:
-      temperature: 5500
       amplitude: 0
       filter_curve: "V"
       extend: 15
@@ -151,7 +145,6 @@ LM_LSS_RSRF_PINH_RAW1:
   source: 
     name: pinhole_mask
     kwargs:
-      temperature: 5500
       dx: 5
   properties:
     dit: 0.25
@@ -171,7 +164,6 @@ N_LSS_RSRF_PINH_RAW1:
   source: 
     name: pinhole_mask
     kwargs:
-      temperature: 5500
       dx: 5
   properties:
     dit: 0.005
@@ -194,7 +186,6 @@ IFU_RSRF_PINH_RAW1:
   source:
     name: pinhole_mask
     kwargs:
-      temperature: 5500
   properties:
     dit: 15
     ndit: 1
@@ -822,7 +813,6 @@ LM_CHOPPERHOME_RAW:
   source:
     name: flat_field
     kwargs:
-      temperature: 200
       amplitude: 0
       filter_curve: "V"
       extend: 15
@@ -842,7 +832,6 @@ LM_PUPIL_RAW:
   source:
     name: flat_field
     kwargs:
-      temperature: 200
       amplitude: 0
       filter_curve: "V"
       extend: 15
@@ -862,7 +851,6 @@ N_PUPIL_RAW:
   source:
     name: flat_field
     kwargs:
-      temperature: 200
       amplitude: 0
       filter_curve: "V"
       extend: 15
