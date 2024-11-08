@@ -96,7 +96,7 @@ SOURCEDICT = {
     "flat_field": (
         sim_tp.calibration.flat_field,
         {
-            "temperature": 200,
+            "temperature": 200 * u.Kelvin,
             "amplitude": 0,
             "filter_curve": "V",
             "extend": 15,
