@@ -147,7 +147,7 @@ DARKIFU = {
 LAMPFLATLM = {
     "do.catg": "LM_FLAT_LAMP_RAW",
     "mode": "img_lm",
-    "source": {'name': 'flat_field', 'kwargs': {'temperature': 200, 'amplitude': 0, 'filter_curve': 'V', 'extend': 15}},
+    "source": {'name': 'flat_field', 'kwargs': {'temperature': 200 * u.Kelvin, 'amplitude': 0, 'filter_curve': 'V', 'extend': 15}},
     "properties": {
         "catg": "CALIB",
         "tech": "IMAGE,LM",
@@ -157,7 +157,7 @@ LAMPFLATLM = {
 LAMPFLATN = {
     "do.catg": "N_FLAT_LAMP_RAW",
     "mode": "img_n",
-    "source": {'name': 'flat_field', 'kwargs': {'temperature': 200, 'amplitude': 0, 'filter_curve': 'V', 'extend': 15}},
+    "source": {'name': 'flat_field', 'kwargs': {'temperature': 200 * u.Kelvin, 'amplitude': 0, 'filter_curve': 'V', 'extend': 15}},
     "properties": {
         "catg": "CALIB",
         "tech": "IMAGE,N",
