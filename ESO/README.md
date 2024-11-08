@@ -54,7 +54,7 @@ To run the default set of FITS files, as described in [Data Product Summary](#da
 
 
 ```
-> ./run_recipes.py --doCalib=1 --sequence=1
+> ./run_recipes.py --doCalib=1 --sequence=1 --doStatic
 > md5sum -c checksums.dat | grep -v OK
 ```
 
@@ -119,8 +119,11 @@ Runs the script without executing the simulations to check input values.
 runs the script with automatically generated calibration files, and writes the calibration files to a
 recipe YAML file. 
 
-runs the script with 32x32 pixel outputs, for testing purposes. 
+```
+> ./run_recipes.py --doStatic
+```
 
+runs the script and generates a set of minimal external calibration files (persistence maps, flux calibrators, etc.)
 
 ```
 > ./generateSummary.py  --inDir myDir --outFile summary.csv
