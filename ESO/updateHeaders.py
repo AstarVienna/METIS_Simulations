@@ -47,6 +47,10 @@ def updateHeaders(inDir,outDir):
         print(f'Processing {fName}')
         # open the file
         hdul = fits.open(fName)
+
+        for hdu in hdul:
+            hdu.header.pop("pixel_size", None)
+
         if type(hdul[0].header['MJD-OBS']) == str:
             mjdobs = hdul[0].header['MJD-OBS']
             hdul[0].header['MJD-OBS'] = astropy.time.Time(mjdobs,format="isot").mjd
