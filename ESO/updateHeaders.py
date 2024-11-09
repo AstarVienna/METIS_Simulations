@@ -53,6 +53,7 @@ def updateHeaders(inDir,outDir):
         # get the tech and filter keywords
        
         tech = hdul[0].header['HIERARCH ESO DPR TECH']
+        mode = hdul[0].header['HIERARCH ESO INS MODE']
         filt = hdul[0].header['HIERARCH ESO DRS FILTER']
         print(fName,tech)
 
@@ -74,14 +75,14 @@ def updateHeaders(inDir,outDir):
             hdul[0].header['HIERARCH ESO INS OPTI13 NAME'] = filt
         
         #IFU
-        if(tech == "LMS"):
+        if(tech == "LMS" or mode == "IFU_nominal"):
             hdul[0].header['HIERARCH ESO INS MODE'] = "IFU_nominal"
             hdul[0].header['HIERARCH ESO INS OPTI6 NAME'] = filt
             hdul[0].header['HIERARCH ESO DRS IFU'] = filt
             hdul[0].header['HIERARCH ESO DPR TECH'] = "IFU"
 
         #HCI
-        if(tech == "RAVC,LM"):
+        if(tech == "RAVC,LM" or mode == "IMG_LM_RAVC"):
             hdul[0].header['HIERARCH ESO INS OPTI10 NAME'] = filt
             hdul[0].header['HIERARCH ESO INS MODE'] = "IMG_LM_RAVC"
             hdul[0].header['HIERARCH ESO DRS MASK'] = "VPM-L,RAP-LM,RLS-LMS"
@@ -90,7 +91,7 @@ def updateHeaders(inDir,outDir):
             hdul[0].header['HIERARCH ESO INS OPTI5 NAME'] = "RLS-LMS"
             hdul[0].header['HIERARCH ESO DPR TECH'] = "IMAGE,LM"
         
-        if(tech == "APP,LM"):
+        if(tech == "APP,LM" or mode == "IMG_LM_APP"):
             hdul[0].header['HIERARCH ESO INS OPTI10 NAME'] = filt
             hdul[0].header['HIERARCH ESO INS MODE'] = "IMG_LM_APP"
             hdul[0].header['HIERARCH ESO DPR TECH'] = "IMAGE,LM"
@@ -99,7 +100,7 @@ def updateHeaders(inDir,outDir):
             hdul[0].header['HIERARCH ESO INS OPTI5 NAME'] = "APP-LMS"
             hdul[0].header['HIERARCH ESO DRS MASK'] = "VPM-L,RAP-LM,APP-LMS"
         
-        if(tech == "RAVC,IFU"):
+        if(tech == "RAVC,IFU" or mode == "IFU_nominal_RAVC"):
             hdul[0].header['HIERARCH ESO INS OPTI6 NAME'] = filt
             hdul[0].header['HIERARCH ESO INS MODE'] = "IFU_nominal_RAVC"
             hdul[0].header['HIERARCH ESO DRS IFU'] = filt
