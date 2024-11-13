@@ -19,9 +19,14 @@ PATH_FITS = PATH_HERE / "output"
 problems_raws = []
 problems_tags = []
 problems_names = []
+problems_input = []
 
 for filename in PATH_SOFS.glob("*.sof"):
-    # print(filename)
+    # E.g. "metis_lm_img_flat.twilight.sof" -> "metis_lm_img_flat"
+    recipe_name = filename.stem.split(".")[0]
+    assert recipe_name in METIS_DataReductionLibraryDesign.recipes, f"{recipe_name} not found in METIS_DataReductionLibraryDesign"
+    recipe = METIS_DataReductionLibraryDesign.recipes[recipe_name]
+
     lines1 = open(filename, mode="r", encoding="utf-8").readlines()
     lines = [
         [a.split("/")[-1] for a in line.split()]
