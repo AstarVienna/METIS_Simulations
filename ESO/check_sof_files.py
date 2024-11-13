@@ -24,7 +24,8 @@ problems_input = []
 for filename in PATH_SOFS.glob("*.sof"):
     # E.g. "metis_lm_img_flat.twilight.sof" -> "metis_lm_img_flat"
     recipe_name = filename.stem.split(".")[0]
-    assert recipe_name in METIS_DataReductionLibraryDesign.recipes, f"{recipe_name} not found in METIS_DataReductionLibraryDesign"
+    assert recipe_name in METIS_DataReductionLibraryDesign.recipes, (f"{recipe_name} not found in "
+                                                                     f"METIS_DataReductionLibraryDesign")
     recipe = METIS_DataReductionLibraryDesign.recipes[recipe_name]
 
     lines1 = open(filename, mode="r", encoding="utf-8").readlines()
@@ -65,6 +66,15 @@ for filename in PATH_SOFS.glob("*.sof"):
     if fns_raw_missing:
         problems_raws.append((filename.name, fns_raw_missing))
 
+    # Check whether files mentioned in SOF files are actually input to the recipes.
+    tags_input_to_recipe = [di.name for di in recipe.input_data]
+    tags_not_input_to_recipe_according_to_drld = [
+        tag for tag in tags
+        if tag not in tags_input_to_recipe
+    ]
+    if tags_not_input_to_recipe_according_to_drld:
+        problems_input.append((filename.name, tags_not_input_to_recipe_according_to_drld))
+
 if problems_raws:
     print("Some RAW files are missing:")
     for fn_sof, fns_missing in problems_raws:
@@ -82,12 +92,19 @@ if problems_tags:
 
 print()
 if problems_names:
-    print("Some filenames do not contain the tag::")
+    print("Some filenames do not contain the tag:")
     for fn_sof, fns_missing in problems_names:
         print("-", fn_sof)
         for fn in fns_missing:
             print("  -", fn)
 
+print()
+if problems_input:
+    print("Some tags in SOF files are not actually input to the recipe:")
+    for fn_sof, tags_not_input in problems_input:
+        print("-", fn_sof)
+        for fn in tags_not_input:
+            print("  -", fn)
 
 if problems_raws or problems_tags:
     exit(1)
