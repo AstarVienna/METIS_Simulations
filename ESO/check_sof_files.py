@@ -13,15 +13,10 @@ from codes.drld_parser.data_reduction_library_design import METIS_DataReductionL
 
 
 PATH_HERE = Path(__file__).parent
-PATH_SOFS = PATH_HERE / "sofFiles"
 PATH_FITS = PATH_HERE / "output"
 
-problems_raws = []
-problems_tags = []
-problems_names = []
-problems_input = []
 
-for filename in PATH_SOFS.glob("*.sof"):
+def check_sof_file(filename, problems_raws, problems_tags, problems_names, problems_input):
     # E.g. "metis_lm_img_flat.twilight.sof" -> "metis_lm_img_flat"
     recipe_name = filename.stem.split(".")[0]
     assert recipe_name in METIS_DataReductionLibraryDesign.recipes, (f"{recipe_name} not found in "
@@ -75,36 +70,68 @@ for filename in PATH_SOFS.glob("*.sof"):
     if tags_not_input_to_recipe_according_to_drld:
         problems_input.append((filename.name, tags_not_input_to_recipe_according_to_drld))
 
-if problems_raws:
-    print("Some RAW files are missing:")
-    for fn_sof, fns_missing in problems_raws:
-        print("-", fn_sof)
-        for fn in fns_missing:
-            print("  -", fn)
 
-print()
-if problems_tags:
-    print("Some tags are not in the DRLD:")
-    for fn_sof, fns_missing in problems_tags:
-        print("-", fn_sof)
-        for fn in fns_missing:
-            print("  -", fn)
+def check_sof_directory(directory, check_files_existing=True):
+    problems_raws = []
+    problems_tags = []
+    problems_names = []
+    problems_input = []
 
-print()
-if problems_names:
-    print("Some filenames do not contain the tag:")
-    for fn_sof, fns_missing in problems_names:
-        print("-", fn_sof)
-        for fn in fns_missing:
-            print("  -", fn)
+    for filename in directory.glob("*.sof"):
+        if "persistence" in filename.name:
+            continue
+        check_sof_file(filename, problems_raws, problems_tags, problems_names, problems_input)
 
-print()
-if problems_input:
-    print("Some tags in SOF files are not actually input to the recipe:")
-    for fn_sof, tags_not_input in problems_input:
-        print("-", fn_sof)
-        for fn in tags_not_input:
-            print("  -", fn)
+    if problems_raws and check_files_existing:
+        print("Some RAW files are missing:")
+        for fn_sof, fns_missing in problems_raws:
+            print("-", fn_sof)
+            for fn in fns_missing:
+                print("  -", fn)
 
-if problems_raws or problems_tags:
-    exit(1)
+    print()
+    if problems_tags:
+        print("Some tags are not in the DRLD:")
+        for fn_sof, fns_missing in problems_tags:
+            print("-", fn_sof)
+            for fn in fns_missing:
+                print("  -", fn)
+
+    print()
+    if problems_names:
+        print("Some filenames do not contain the tag:")
+        for fn_sof, fns_missing in problems_names:
+            print("-", fn_sof)
+            for fn in fns_missing:
+                print("  -", fn)
+
+    print()
+    if problems_input:
+        print("Some tags in SOF files are not actually input to the recipe:")
+        for fn_sof, tags_not_input in problems_input:
+            print("-", fn_sof)
+            for fn in tags_not_input:
+                print("  -", fn)
+
+    if problems_raws or problems_tags:
+        return False
+    return True
+
+
+def main():
+    PATH_SOFS = PATH_HERE / "sofFiles"
+    PATH_TEMPLATES = PATH_HERE / "sofTemplates"
+
+    print("Doing the SOF files.")
+    sofs_ok = check_sof_directory(PATH_SOFS)
+
+    print()
+    print("Doing the Templates.")
+    templates_ok = check_sof_directory(PATH_TEMPLATES, check_files_existing=False)
+
+    return sofs_ok and templates_ok
+
+if __name__ == "__main__":
+    all_ok = main()
+    if not all_ok:
+        exit(1)
