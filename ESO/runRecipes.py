@@ -692,6 +692,7 @@ class runRecipes():
 
                     # update the dateobs in the dictionary
                     props["dateobs"] = self.tObs.tt.datetime
+                    props["tplstart"] = self.tObs.tt.datetime
                     props["MJD-OBS"] = self.tObs.mjd
                     # update tDelt for the next iteration
                     self.tDelt = TimeDelta(props['dit']*props['ndit']*1.2+1, format='sec')   

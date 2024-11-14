@@ -550,7 +550,7 @@ IFU_SCI_RAW2:
     dit: 0.25
     ndit: 1
     filter_name: "open"
-    catg: "CALIB"
+    catg: "SCIENCE"
     tech: "LMS"
     type: "SKY"
     tplname: "METIS_ifu_obs_GenericOffset"
@@ -627,7 +627,7 @@ LM_IMAGE_SCI_CORONAGRAPH_RAW1:
     catg: "SCIENCE"
     tech: "RAVC,LM"
     type: "OBJECT"
-    tplname: "METIS_ifu_vc_obs_FixedSkyOffset"
+    tplname: "METIS_img_lm_ravc_obs_FixedSkyOffset"
     nObs: 1
 
 
@@ -644,7 +644,7 @@ LM_IMAGE_SCI_CORONAGRAPH_RAW2:
     catg: "SCIENCE"
     tech: "RAVC,LM"
     type: "SKY"
-    tplname: "METIS_ifu_vc_obs_FixedSkyOffset"
+    tplname: "METIS_img_lm_ravc_obs_FixedSkyOffset"
     nObs: 1
 
 
