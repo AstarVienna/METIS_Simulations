@@ -505,6 +505,13 @@ class runRecipes():
             # open the file
             hdul = fits.open(fName)
 
+            for hdu in hdul:
+                # Remove lower case keywords, in particular "pixel_size"
+                for k in hdu.header:
+                    if k.upper() != k:
+                        print(f"Lower case keyword found and removed: {k}")
+                        hdu.header.pop(k)
+
             hdul[0].header['MJD-OBS'] = mjd
             
             #if type(hdul[0].header['MJD-OBS']) == str:
