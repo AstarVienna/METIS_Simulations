@@ -558,7 +558,7 @@ IFU_SCI_RAW2:
 
 ##################### FOR CORONAGRAPH ################
 
-### KLUDGING THE KEYWORDS A BIT HERE - RUN updateHeaders.py after ####
+### KLUDGING THE KEYWORDS A BIT HERE - fixed by updateHeaders() in runRecipes.py ####
 
 ##### OFF AXIS PSFs #####
 

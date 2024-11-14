@@ -53,7 +53,7 @@ for name, settings in recipes.items():
     if props['catg'] != di.dpr_catg:
         problems.append(f"{do_catg} has DPR.CATG {props['catg']} in yaml but {di.dpr_catg} in DRLD")
     # Workaround for special yaml_tech values that
-    # are fixed in updateHeaders.py
+    # are fixed through updateHeaders() in runRecipes.py
     yaml_tech = props['tech']
     if yaml_tech in ["RAVC,LM", "APP,LM"]:
         yaml_tech = "IMAGE,LM"
