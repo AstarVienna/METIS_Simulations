@@ -41,10 +41,14 @@ for fn_fits in fns_fits:
             # Assert all subsystems in HIERARCH keyword are max 8 characters.
             assert all(len(ki) <= 8 for ki in ks), k
 
-    catg = fn_fits.name.split(".")[1]
+    fn_split = fn_fits.name.split(".")
+    catg = fn_split[1] if fn_split[0] == "METIS" else fn_split[0]
     if catg in HACK_RAWS_THAT_SHOULD_BE_ADDED_TO_THE_DRLD:
         continue
     di = METIS_DataReductionLibraryDesign.dataitems[catg]
-    assert hdus[0].header["ESO DPR CATG"] == di.dpr_catg
-    assert hdus[0].header["ESO DPR TYPE"] == di.dpr_type
-    assert hdus[0].header["ESO DPR TECH"] == di.dpr_tech
+    if di.dpr_catg:
+        assert hdus[0].header["ESO DPR CATG"] == di.dpr_catg
+    if di.dpr_type:
+        assert hdus[0].header["ESO DPR TYPE"] == di.dpr_type
+    if di.dpr_tech:
+        assert hdus[0].header["ESO DPR TECH"] == di.dpr_tech
