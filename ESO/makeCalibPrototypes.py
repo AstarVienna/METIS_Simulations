@@ -269,7 +269,7 @@ def generateStaticCalibs(outputDir):
     primaryhdu = fits.PrimaryHDU()
     primaryhdu.header['HIERARCH ESO PRO CATG'] = "LM_LSS_DIST_SOL"
     hdul = fits.HDUList([primaryhdu,hdu])
-    hdul.writeto(f"{outputDir}/LM_DIST_SOL.fits",overwrite=True)
+    hdul.writeto(f"{outputDir}/LM_LSS_DIST_SOL.fits",overwrite=True)
     
     #################### N_LSS_DIST_SOL ###################
 
