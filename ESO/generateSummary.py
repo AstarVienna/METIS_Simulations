@@ -10,7 +10,7 @@ import argparse
 def generateSummary(inDir,outFileName):
 
     # get the fits files in the directory
-    fNames = glob.glob(os.path.join(inDir,"*.fits"))
+    fNames = glob.glob(os.path.join(inDir,"METIS*.fits"))
 
     # sort for tidier output
     fNames.sort()
@@ -97,7 +97,7 @@ if __name__ == "__main__":
     if(args.outFile):
         outFile = args.outFile
     else:
-        outDir = "output"
+        outFile = "summary.csv"
     if(args.inDir):
         inDir = args.inDir
     else:
