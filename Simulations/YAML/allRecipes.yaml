@@ -4,7 +4,7 @@
 PERSISTENCE_MAP_LM:
   do.catg: "PERSISTENCE_MAP"
   mode: "img_lm"
-  source: 
+  source:
     name: empty_sky
     kwargs: {}
   properties: 
@@ -19,7 +19,7 @@ PERSISTENCE_MAP_LM:
 PERSISTENCE_MAP_N:
   do.catg: "PERSISTENCE_MAP"
   mode: "img_n"
-  source: 
+  source:
     name: empty_sky
     kwargs: {}
   properties: 
@@ -34,7 +34,7 @@ PERSISTENCE_MAP_N:
 PERSISTENCE_MAP_IFU:
   do.catg: "PERSISTENCE_MAP"
   mode: "lms"
-  source: 
+  source:
     name: empty_sky
     kwargs: {}
   properties: 
@@ -196,7 +196,7 @@ IFU_RSRF_RAW1:
 LM_LSS_RSRF_PINH_RAW1:
   do.catg: LM_LSS_RSRF_PINH_RAW
   mode: "lss_l"
-  source: 
+  source:
     name: pinhole_mask
     kwargs:
       temperature: 5500
@@ -216,7 +216,7 @@ LM_LSS_RSRF_PINH_RAW1:
 N_LSS_RSRF_PINH_RAW1:
   do.catg: N_LSS_RSRF_PINH_RAW
   mode: "lss_n"
-  source: 
+  source:
     name: pinhole_mask
     kwargs:
       temperature: 5500
@@ -261,7 +261,7 @@ IFU_RSRF_PINH_RAW1:
 LM_SLITLOSSES_RAW1:
   do.catg: LM_SLITLOSSES_RAW
   mode: "lss_l"
-  source: 
+  source:
     name: simple_star10
     kwargs:
       x: 0
@@ -281,7 +281,7 @@ LM_SLITLOSSES_RAW1:
 N_LSS_SLITLOSSES_RAW1:
   do.catg: N_SLITLOSSES_RAW
   mode: "lss_n"
-  source: 
+  source:
     name: simple_star10
     kwargs:
       x: 0
@@ -319,7 +319,7 @@ LM_LSS_WAVE_RAW:
 N_LSS_WAVE_RAW:
   do.catg: N_LSS_WAVE_RAW
   mode: "lss_n"
-  source: 
+  source:
     name: "laser_spectrum_n"
     kwargs: {}
   properties:
@@ -336,7 +336,7 @@ N_LSS_WAVE_RAW:
 IFU_WAVE_RAW:
   do.catg: IFU_WAVE_RAW
   mode: "lms"
-  source: 
+  source:
     name: "laser_spectrum_lm"
     kwargs: {}
   properties:
@@ -354,8 +354,8 @@ IFU_WAVE_RAW:
 ########################### OTHER TECHNICAL #####################
 
 
-LM_CHOPPERHOME_RAW:
-  do.catg: LM_CHOPPERHOME_RAW
+LM_CHOPHOME_RAW:
+  do.catg: LM_CHOPHOME_RAW
   mode: "img_lm"
   source:
     name: flat_field
@@ -372,7 +372,7 @@ LM_CHOPPERHOME_RAW:
     tech: "IMAGE,LM"
     type: "CHOPHOME"
     tplname: "METIS_img_lm_cal_ChopperHome"
-    nObs: 1
+    nObs: 3
 
 LM_PUPIL_RAW:
   do.catg: LM_PUPIL_RAW
@@ -481,7 +481,7 @@ IFU_DISTORTION_RAW:
 LM_IMAGE_STD_RAW1:
   do.catg: LM_IMAGE_STD_RAW
   mode: "img_lm"
-  source: 
+  source:
     name: simple_star12
     kwargs: {}
   properties:
@@ -497,7 +497,7 @@ LM_IMAGE_STD_RAW1:
 LM_IMAGE_STD_RAW2:
   do.catg: LM_IMAGE_SKY_RAW
   mode: "img_lm"
-  source: 
+  source:
     name: empty_sky
     kwargs: {}
   properties:
@@ -513,7 +513,7 @@ LM_IMAGE_STD_RAW2:
 N_IMAGE_STD_RAW1:
   do.catg: N_IMAGE_STD_RAW
   mode: "img_n"
-  source: 
+  source:
     name: simple_star12
     kwargs: {}
   properties:
@@ -529,7 +529,7 @@ N_IMAGE_STD_RAW1:
 N_IMAGE_STD_RAW2:
   do.catg: N_IMAGE_SKY_RAW
   mode: "img_n"
-  source: 
+  source:
     name: empty_sky
     kwargs: {}
   properties:
@@ -551,7 +551,7 @@ N_IMAGE_STD_RAW2:
 LM_IMAGE_SCI_RAW1:
   do.catg: LM_IMAGE_SCI_RAW
   mode: "img_lm"
-  source: 
+  source:
     name: star_field
     kwargs: {}
   properties:
@@ -567,7 +567,7 @@ LM_IMAGE_SCI_RAW1:
 LM_IMAGE_SCI_RAW2:
   do.catg: LM_IMAGE_SKY_RAW
   mode: "img_lm"
-  source: 
+  source:
     name: "empty_sky"
     kwargs: {}
   properties:
@@ -583,7 +583,7 @@ LM_IMAGE_SCI_RAW2:
 N_IMAGE_SCI_RAW1:
   do.catg: N_IMAGE_SCI_RAW
   mode: "img_n"
-  source: 
+  source:
     name: star_field
     kwargs: {}
   properties:
@@ -599,7 +599,7 @@ N_IMAGE_SCI_RAW1:
 N_IMAGE_SCI_RAW2:
   do.catg: N_IMAGE_SKY_RAW
   mode: "img_n"
-  source: 
+  source:
     name: "empty_sky"
     kwargs: {}
   properties:
@@ -623,7 +623,7 @@ N_IMAGE_SCI_RAW2:
 LM_LSS_STD_RAW1:
   do.catg: LM_LSS_STD_RAW
   mode: "lss_l"
-  source: 
+  source:
     name: simple_star8
     kwargs: {}
   properties:
@@ -640,7 +640,7 @@ LM_LSS_STD_RAW1:
 LM_LSS_STD_RAW2:
   do.catg: LM_LSS_SKY_RAW
   mode: "lss_l"
-  source: 
+  source:
     name: empty_sky
     kwargs: {}
   properties:
@@ -657,7 +657,7 @@ LM_LSS_STD_RAW2:
 N_LSS_STD_RAW1:
   do.catg: N_LSS_STD_RAW
   mode: "lss_n"
-  source: 
+  source:
     name: simple_star8
     kwargs: {}
   properties:
@@ -673,7 +673,7 @@ N_LSS_STD_RAW1:
 N_LSS_STD_RAW2:
   do.catg: N_LSS_SKY_RAW
   mode: "lss_n"
-  source: 
+  source:
     name: empty_sky
     kwargs: {}
   properties:
@@ -845,7 +845,7 @@ IFU_SCI_RAW2:
 LM_OFF_AXIS_PSF_RAW:
   do.catg: LM_OFF_AXIS_PSF_RAW
   mode: "img_lm"
-  source: 
+  source:
     name: simple_star12
     kwargs: {}
   properties:
@@ -861,7 +861,7 @@ LM_OFF_AXIS_PSF_RAW:
 N_OFF_AXIS_PSF_RAW:
   do.catg: N_OFF_AXIS_PSF_RAW
   mode: "img_n"
-  source: 
+  source:
     name: simple_star12
     kwargs: {}
   properties:
@@ -896,7 +896,7 @@ IFU_OFF_AXIS_PSF_RAW:
 LM_IMAGE_SCI_CORONAGRAPH_RAW1:
   do.catg: LM_IMAGE_SCI_RAW
   mode: "img_lm"
-  source: 
+  source:
     name: simple_star12
     kwargs: {}
   properties:
@@ -913,7 +913,7 @@ LM_IMAGE_SCI_CORONAGRAPH_RAW1:
 LM_IMAGE_SCI_CORONAGRAPH_RAW2:
   do.catg: LM_IMAGE_SKY_RAW
   mode: "img_lm"
-  source: 
+  source:
     name: empty_sky
     kwargs: {}
   properties:
@@ -930,7 +930,7 @@ LM_IMAGE_SCI_CORONAGRAPH_RAW2:
 LM_IMAGE_SCI_CORONAGRAPH_RAW3:
   do.catg: LM_IMAGE_SCI_RAW
   mode: "img_lm"
-  source: 
+  source:
     name: simple_star12
     kwargs: {}
   properties:
@@ -947,7 +947,7 @@ LM_IMAGE_SCI_CORONAGRAPH_RAW3:
 LM_IMAGE_SCI_CORONAGRAPH_RAW4:
   do.catg: LM_IMAGE_SKY_RAW
   mode: "img_lm"
-  source: 
+  source:
     name: empty_sky
     kwargs: {}
   properties:

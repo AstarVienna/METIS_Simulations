@@ -67,17 +67,17 @@ hdu.header.update({"CDELT1": 1, "CUNIT1": "arcsec", "CRPIX1": 0, "CRVAL1": 0,
 ####################### Dictionary of Sources #########################
 
 # Each entry contains a unique name, a scopesim or scopesim_templates source, and
-# keywords needed by the source. 
+# keywords needed by the source.
 
 
 """
 empty_sky: blank sky, used for twilight flats and darks, or anywhere you don't want a source
 
-flat_field: lamp based flat field. 
+flat_field: lamp based flat field.
 
 star_field: fixed random star field
 
-simpleStarNN: a single stellar source at the centre of the field with magnitude NN. The magnitude is 
+simpleStarNN: a single stellar source at the centre of the field with magnitude NN. The magnitude is
               fixed rather than set in the YAML file due to the need to pass the value with astropy units.
 
 simple_gal: elliptical galaxy
@@ -118,7 +118,6 @@ SOURCEDICT = {
             "filter_name":"V",
             "amplitude": [10],
             }),
-        
         
     "simple_star18": (
         sim_tp.stellar.star,
@@ -175,7 +174,7 @@ SOURCEDICT = {
             "angle":30,
         },
         ),
-    
+
     "simple_gal1": (
         sim_tp.extragalactic.elliptical,
         {
@@ -215,6 +214,6 @@ SOURCEDICT = {
             "flux":10*u.ABmag,
         }
         ),
-    
+
 
 }
