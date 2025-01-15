@@ -15,7 +15,7 @@ import scipy
 import astropy.io.fits as fits
 from astropy import units as u
 import matplotlib.pyplot as plt
-
+from scipy import datasets
 import scopesim
 
 
@@ -56,7 +56,7 @@ starFieldT = ["A0V","A0V","A0V","A0V","A0V","A0V","A0V","A0V","A0V","A0V","A0V",
 ################### Setup input Images here (e.g. HEEPS input for coronagraph) #################
 
 
-hdu = fits.ImageHDU(data=scipy.misc.face(gray=True).astype('float'))
+hdu = fits.ImageHDU(data=datasets.face(gray=True).astype('float'))
 
 # Give the header some proper WCS info
 hdu.header.update({"CDELT1": 1, "CUNIT1": "arcsec", "CRPIX1": 0, "CRVAL1": 0,
