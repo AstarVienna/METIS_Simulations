@@ -1,0 +1,82 @@
+
+##################### "STANDARDS" (SINGLE SOURCE AT CENTER) ######################
+
+#### EACH IMAGE PAIRED WITH SKY ######
+
+########## IFU ###############
+
+
+IFU_STD_RAW1:
+  do.catg: IFU_STD_RAW
+  mode: "lms"
+  source:
+    name: simple_star8
+    kwargs: {}
+  properties:
+    dit: 100
+    ndit: 3
+    filter_name: "open"
+    wavelen: "3.555"
+    catg: "CALIB"
+    tech: "LMS"
+    type: "STD"
+    tplname: "METIS_ifu_cal_standard"
+    nObs: 1
+
+
+# metis_ifu_reduce does not differentiate between
+# a SKY image for a standard observation and a
+# SKY image for a science observation. They are
+# both IFU_SKY_RAW. Maybe that should be changed?
+IFU_SKY_RAW2:
+  do.catg: IFU_SKY_RAW
+  mode: "lms"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 100
+    ndit: 3
+    filter_name: "open"
+    wavelen: "3.555"
+    catg: "CALIB"
+    tech: "LMS"
+    type: "SKY"
+    tplname: "METIS_ifu_cal_standard"
+    nObs: 1
+
+
+##################### EXTENDED GALAXY (SCIENCE SOURCE SPECTRA) ######################
+
+
+IFU_SCI_RAW1:
+  do.catg: IFU_SCI_RAW
+  mode: "lms"
+  source:
+    name: simple_gal
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "open"
+    catg: "SCIENCE"
+    tech: "LMS"
+    type: "OBJECT"
+    tplname: "METIS_ifu_obs_GenericOffset"
+    nObs: 1
+
+IFU_SCI_RAW2:
+  do.catg: IFU_SKY_RAW
+  mode: "lms"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "open"
+    catg: "CALIB"
+    tech: "LMS"
+    type: "SKY"
+    tplname: "METIS_ifu_obs_GenericOffset"
+    nObs: 1

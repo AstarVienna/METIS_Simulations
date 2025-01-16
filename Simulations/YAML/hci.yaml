@@ -1,0 +1,160 @@
+
+##################### FOR CORONAGRAPH ################
+
+### KLUDGING THE KEYWORDS A BIT HERE - fixed by updateHeaders() in runRecipes.py ####
+
+##### OFF AXIS PSFs #####
+
+
+LM_OFF_AXIS_PSF_RAW:
+  do.catg: LM_OFF_AXIS_PSF_RAW
+  mode: "img_lm"
+  source: 
+    name: simple_star12
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "Lp"
+    catg: "CALIB"
+    tech: "IMAGE,LM"
+    type: "PSF,OFFAXIS"
+    tplname: "METIS_img_lm_vc_obs_FixedSkyOffset"
+    nObs: 1
+
+N_OFF_AXIS_PSF_RAW:
+  do.catg: N_OFF_AXIS_PSF_RAW
+  mode: "img_n"
+  source: 
+    name: simple_star12
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "N1"
+    catg: "CALIB"
+    tech: "IMAGE,N"
+    type: "PSF,OFFAXIS"
+    tplname: "METIS_img_n_cvc_obs_AutoChop"
+    nObs: 1
+
+IFU_OFF_AXIS_PSF_RAW:
+  do.catg: IFU_OFF_AXIS_PSF_RAW
+  mode: "lms"
+  source:
+    name: simple_star8
+    kwargs: {}
+  properties:
+    dit: 100
+    ndit: 3
+    filter_name: "open"
+    wavelen: "3.555"
+    catg: "CALIB"
+    tech: "LMS"
+    type: "PSF,OFFAXIS"
+    tplname: "METIS_ifu_vc_obs_FixedSkyOffset"
+    nObs: 1
+
+######### SOURCE (+ SKY) ##########
+
+LM_IMAGE_SCI_CORONAGRAPH_RAW1:
+  do.catg: LM_IMAGE_SCI_RAW
+  mode: "img_lm"
+  source: 
+    name: simple_star12
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "open"
+    catg: "SCIENCE"
+    tech: "RAVC,LM"
+    type: "OBJECT"
+    tplname: "METIS_ifu_vc_obs_FixedSkyOffset"
+    nObs: 1
+
+
+LM_IMAGE_SCI_CORONAGRAPH_RAW2:
+  do.catg: LM_IMAGE_SKY_RAW
+  mode: "img_lm"
+  source: 
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "Lp"
+    catg: "SCIENCE"
+    tech: "RAVC,LM"
+    type: "SKY"
+    tplname: "METIS_ifu_vc_obs_FixedSkyOffset"
+    nObs: 1
+
+
+LM_IMAGE_SCI_CORONAGRAPH_RAW3:
+  do.catg: LM_IMAGE_SCI_RAW
+  mode: "img_lm"
+  source: 
+    name: simple_star12
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "Lp"
+    catg: "SCIENCE"
+    tech: "APP,LM"
+    type: "OBJECT"
+    tplname: "METIS_img_lm_app_obs_FixedOffset"
+    nObs: 1
+
+
+LM_IMAGE_SCI_CORONAGRAPH_RAW4:
+  do.catg: LM_IMAGE_SKY_RAW
+  mode: "img_lm"
+  source: 
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "Lp"
+    catg: "SCIENCE"
+    tech: "APP,LM"
+    type: "SKY"
+    tplname: "METIS_img_lm_app_obs_FixedOffset"
+    nObs: 1
+
+IFU_SCI_CORONAGRAPH_RAW1:
+  do.catg: IFU_SCI_RAW
+  mode: "lms"
+  source:
+    name: simple_star8
+    kwargs: {}
+  properties:
+    dit: 100
+    ndit: 3
+    filter_name: "open"
+    wavelen: "3.555"
+    catg: "SCIENCE"
+    tech: "RAVC,IFU"
+    type: "OBJECT"
+    tplname: "METIS_ifu_vc_obs_FixedSkyOffset"
+    nObs: 1
+
+IFU_SCI_CORONAGRAPH_RAW2:
+  do.catg: IFU_SKY_RAW
+  mode: "lms"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 100
+    ndit: 3
+    filter_name: "open"
+    wavelen: "3.555"
+    catg: "CALIB"
+    tech: "RAVC,IFU"
+    type: "SKY"
+    tplname: "METIS_ifu_vc_obs_FixedSkyOffset"
+    nObs: 1
+

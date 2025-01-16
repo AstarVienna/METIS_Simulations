@@ -1,0 +1,141 @@
+##################### "STANDARDS" (SINGLE SOURCE AT CENTER) ######################
+
+#### EACH IMAGE PAIRED WITH SKY ######
+
+
+######### IMAGING ###############
+
+LM_IMAGE_STD_RAW1:
+  do.catg: LM_IMAGE_STD_RAW
+  mode: "img_lm"
+  source: 
+    name: simple_star12
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "Lp"
+    catg: "CALIB"
+    tech: "IMAGE,LM"
+    type: "STD"
+    tplname: "METIS_img_lm_cal_standard"
+    nObs: 1
+
+LM_IMAGE_STD_RAW2:
+  do.catg: LM_IMAGE_SKY_RAW
+  mode: "img_lm"
+  source: 
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "Lp"
+    catg: "CALIB"
+    tech: "IMAGE,LM"
+    type: "SKY"
+    tplname: "METIS_img_lm_cal_standard"
+    nObs: 1
+
+N_IMAGE_STD_RAW1:
+  do.catg: N_IMAGE_STD_RAW
+  mode: "img_n"
+  source: 
+    name: simple_star12
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "N1"
+    catg: "CALIB"
+    tech: "IMAGE,N"
+    type: "STD"
+    tplname: "METIS_img_n_cal_standard"
+    nObs: 1
+
+N_IMAGE_STD_RAW2:
+  do.catg: N_IMAGE_SKY_RAW
+  mode: "img_n"
+  source: 
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "N1"
+    catg: "CALIB"
+    tech: "IMAGE,N"
+    type: "SKY"
+    tplname: "METIS_img_n_cal_standard"
+    nObs: 1
+
+
+##################### STAR FIELD (SCIENCE SOURCE, LM/N) ######################3
+
+### POSITIONS / MAGNITUDES WERE INTIALLY SET RANDOMLY, BUT FIXED FOR THE SET OF SIMULATIONS #####
+
+
+LM_IMAGE_SCI_RAW1:
+  do.catg: LM_IMAGE_SCI_RAW
+  mode: "img_lm"
+  source: 
+    name: star_field
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 4
+    filter_name: "Lp"
+    catg: "SCIENCE"
+    tech: "IMAGE,LM"
+    type: "OBJECT"
+    tplname: "METIS_img_lm_obs_GenericOffset"
+    nObs: 1
+
+LM_IMAGE_SCI_RAW2:
+  do.catg: LM_IMAGE_SKY_RAW
+  mode: "img_lm"
+  source: 
+    name: "empty_sky"
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 4
+    filter_name: "Lp"
+    catg: "SCIENCE"
+    tech: "IMAGE,LM"
+    type: "SKY"
+    tplname: "METIS_img_lm_obs_GenericOffset"
+    nObs: 1
+
+N_IMAGE_SCI_RAW1:
+  do.catg: N_IMAGE_SCI_RAW
+  mode: "img_n"
+  source: 
+    name: star_field
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 4
+    filter_name: "N1"
+    catg: "SCIENCE"
+    tech: "IMAGE,N"
+    type: "OBJECT"
+    tplname: "METIS_img_n_obs_GenericChopNod"
+    nObs: 1
+
+N_IMAGE_SCI_RAW2:
+  do.catg: N_IMAGE_SKY_RAW
+  mode: "img_n"
+  source: 
+    name: "empty_sky"
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 4
+    filter_name: "N1"
+    catg: "SCIENCE"
+    tech: "IMAGE,N"
+    type: "SKY"
+    tplname: "METIS_img_n_obs_GenericChopNod"
+    nObs: 1
+

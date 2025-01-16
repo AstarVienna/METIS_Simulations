@@ -1,0 +1,140 @@
+
+##################### "STANDARDS" (SINGLE SOURCE AT CENTER) ######################
+
+#### EACH IMAGE PAIRED WITH SKY ######
+
+
+######### SPECTRA ###############
+
+LM_LSS_STD_RAW1:
+  do.catg: LM_LSS_STD_RAW
+  mode: "lss_l"
+  source: 
+    name: simple_star8
+    kwargs: {}
+  properties:
+    dit: 0.05
+    ndit: 1
+    filter_name: "L_spec"
+    catg: "CALIB"
+    tech: "LSS,LM"
+    type: "STD"
+    tplname: "METIS_spec_lm_cal_Standard"
+    nObs: 1
+
+
+LM_LSS_STD_RAW2:
+  do.catg: LM_LSS_SKY_RAW
+  mode: "lss_l"
+  source: 
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.05
+    ndit: 1
+    filter_name: "L_spec"
+    catg: "CALIB"
+    tech: "LSS,LM"
+    type: "SKY"
+    tplname: "METIS_spec_lm_cal_Standard"
+    nObs: 1
+
+
+N_LSS_STD_RAW1:
+  do.catg: N_LSS_STD_RAW
+  mode: "lss_n"
+  source: 
+    name: simple_star8
+    kwargs: {}
+  properties:
+    dit: 0.05
+    ndit: 1
+    filter_name: "N_spec"
+    catg: "CALIB"
+    tech: "LSS,N"
+    type: "STD"
+    tplname: "METIS_spec_n_cal_Standard"
+    nObs: 1
+
+N_LSS_STD_RAW2:
+  do.catg: N_LSS_SKY_RAW
+  mode: "lss_n"
+  source: 
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.05
+    ndit: 1
+    filter_name: "N_spec"
+    catg: "CALIB"
+    tech: "LSS,N"
+    type: "SKY"
+    tplname: "METIS_spec_n_cal_Standard"
+    nObs: 1
+
+##################### EXTENDED GALAXY (SCIENCE SOURCE SPECTRA) ######################
+
+
+N_LSS_SCI_RAW1:
+  do.catg: N_LSS_SCI_RAW
+  mode: "lss_n"
+  source:
+    name: simple_gal
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "N_spec"
+    catg: "SCIENCE"
+    tech: "LSS,N"
+    type: "OBJECT"
+    tplname: "METIS_spec_n_obs_AutoChopNodOnSlit"
+    nObs: 1
+
+N_LSS_SCI_RAW2:
+  do.catg: N_LSS_SKY_RAW
+  mode: "lss_n"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "N_spec"
+    catg: "SCIENCE"
+    tech: "LSS,N"
+    type: "SKY"
+    tplname: "METIS_spec_n_obs_AutoChopNodOnSlit"
+    nObs: 1
+
+LM_LSS_SCI_RAW1:
+  do.catg: LM_LSS_SCI_RAW
+  mode: "lss_l"
+  source:
+    name: simple_gal
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "L_spec"
+    catg: "SCIENCE"
+    tech: "LSS,LM"
+    type: "OBJECT"
+    tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
+    nObs: 1
+
+LM_LSS_SCI_RAW2:
+  do.catg: LM_LSS_SKY_RAW
+  mode: "lss_l"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "L_spec"
+    catg: "SCIENCE"
+    tech: "LSS,LM"
+    type: "SKY"
+    tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
+    nObs: 1
