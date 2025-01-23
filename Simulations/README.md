@@ -34,7 +34,7 @@ download and install the software with the correct dependencies.
 ```
 > git clone git@github.com:AstarVienna/METIS_Simulations.git
 
-> cd METIS_Simulations/ESO
+> cd METIS_Simulations/Simulations
 > poetry install
 > poetry shell
 ```
@@ -45,7 +45,7 @@ download and install the software with the correct dependencies.
 Before the first time you run the code, execute the script
 
 ```
-> ./downloadPackages.py
+> ./python/downloadPackages.py
 ```
 
 Which will download the instrument, telescope and site specific data packages. 
@@ -54,8 +54,7 @@ To run the default set of FITS files, as described in [Data Product Summary](#da
 
 
 ```
-> ./run_recipes.py --doCalib=1 --sequence=1 --doStatic
-> md5sum -c checksums.dat | grep -v OK
+> ./python/run_recipes.py --doCalib=1 --sequence=1 --doStatic
 ```
 
 This will run the script, automatically determining the necessary flats and darks and running them at the end of the sequence; the number indicates
@@ -63,81 +62,79 @@ how many of each type to generate. The sequence takes the observation time of th
 
 ## Command Line Options
 
-There are several command line options
+```
+--doCalib=n
+```
+automatically determine and generate the required flats and darks, n is the number of each type to generate. Default is turned off.
 
 ```
-> ./run_recipes.py
+--sequence=1
+--sequence="yyyy-mm-dd hh:mm:ss"
 ```
 
-Runs the script using recipes.yaml as the input yaml file, write the output to output/, and takes the date of observation from the YAML template. If no date is given, it will increment from the previous date; a date is required for the first template in the YAML file. 
+automatically generate a time sequence of observations
 
-
-```
-> ./run_recipes.py --doCalib 1
-```
-
-Automatically determines which darks, flats, and WCU darks are needed and executes them at the end of the sequence. Any darks/flats in the YAML file will also be run; this may result in duplicate FITS file contents. 
+   - if sequence is not specified, use explicitly given dateObs from the YAML tempates
+   - if sequence=1, generate starting either from the dateObs in the first template, or using a default value
+   - if sequence="yyyy-mm-dd hh:mm:ss" start the sequence from the given date
 
 ```
-> ./run_recipes.py --inputYAML myFile.yaml
+--outputDir=outDir
 ```
 
-runs the script using myFile.yaml instead of recipes.yaml as the input
+   set output directory to outDir, default is output/
 
 ```
-> ./run_recipes.py --outputDir myDirectory
+--inputYAML=myfile.yaml
 ```
 
-writes the output to myDirectory.
+   set input YAML file to myfile.yaml, default is YAML/recipes.yaml
 
 ```
-> ./run_recipes.py --sequence "yyyy-mm-dd hh:mm:ss" 
+--small
 ```
 
-runs the set of simulations starting the sequence at the given date and automatically incrementing the time stamp through the sequence.
+   generate small images with correct headers, useful for skeleton testing. Default is off
 
 ```
-> ./run_recipes.py --sequence 2
+--testRun
 ```
 
-does the same but takes the dateobs from the first item in the sequence.
+   do everything except the actual file generation, useful for checking input YAML templates. Default is off
 
 ```
-> ./run_recipes.py --testRun
+--calibFile=calib.yaml
 ```
 
-Runs the script without executing the simulations to check input values.
+   dump the YAML templates generated for doCalib to a calib.yaml, default is off
 
 ```
-> ./run_recipes.py --small
+--fixed
 ```
 
-```
-> ./run_recipes.py --doCalib=1 --dumpCalib=calib.yaml
-```
+   use a fixed random seed for the image generation, for testing and validation purposes, default is off
 
-runs the script with automatically generated calibration files, and writes the calibration files to a
-recipe YAML file. 
+## Generating a summary
 
-```
-> ./run_recipes.py --doStatic
-```
+./python/generateSummary.py
 
-runs the script and generates a set of minimal external calibration files (persistence maps, flux calibrators, etc.)
+generates a CSV file containing a list of files and a summary of the important keywords. Options are
 
 ```
-> ./generateSummary.py  --inDir myDir --outFile summary.csv
+--inDir=myDir
 ```
 
-will generate a summary CSV table of the contents of the given directory. Default is output/ and summary.csv
+Read the files from directory myDir, default is output/
 
+```
+--outFile=outfile.csv
+```
+
+write output to file outfile.csv, default is summary.csv
 
 # Simulated Data Summary
 
-This release contains FITS files for all the RAW input files listed in the "Input Data" entries for the 
-recipe descriptions in Chapter 6 of the DRLD.  Each file has the correct dimensions, plus compliant keywords 
-as required for developing the EDPS skeleton, specifically the matched keywords and derived aliases, as well 
-as the standard FITS keywords provided by ScopeSim. 
+Running the versions of the command listed at the top of this document generates a minimal set of input test files for skeleton pipeline development, i.e. one each of any file needed for input to a recipes as specified in Chapter 6 of the DRLD.  Each file has the correct dimensions, plus ESO compliant keywords as required for developing the EDPS skeleton, specifically the matched keywords and derived aliases, as well as the standard FITS keywords provided by ScopeSim. 
 
 ## Included Keywords
 
@@ -256,8 +253,7 @@ cross-checked against
 
 # Generating Custom Simulations
 
-If you want to run the scripts for your own models, there are two files you will need to edit, in addition to the
-command line options given above.
+If you want to run the scripts for your own models, there are two files you will need to edit, in addition to the command line options given above.
 
 ## YAML file
 
