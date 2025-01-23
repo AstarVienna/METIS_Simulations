@@ -58,6 +58,7 @@ def generateStaticCalibs(outputDir):
     hdu.header['TUNIT2'] = "W m-2 Hz-1"
     hdu.header['TTYPE1'] = "wavelength"
     hdu.header['TTYPE2'] = "flux"
+    primaryhdu.header['INSTRUME'] = "METIS"
     primaryhdu.header['HIERARCH ESO PRO CATG'] = "REF_STD_CAT"
 
 
@@ -77,6 +78,7 @@ def generateStaticCalibs(outputDir):
 
     hdu = fits.BinTableHDU.from_columns([ld, star1])
     primaryhdu = fits.PrimaryHDU()
+    primaryhdu.header['INSTRUME'] = "METIS"
     primaryhdu.header['HIERARCH ESO PRO CATG'] = "FLUXSTD_CATALOG"
 
     hdu.header['TUNIT2'] = ""
@@ -100,6 +102,7 @@ def generateStaticCalibs(outputDir):
     ld = fits.Column(name='wavelength', array=np.arange(0,100), format='E')
     trans = fits.Column(name='transmission', array=np.ones(100), format='E')
     primaryhdu = fits.PrimaryHDU()
+    primaryhdu.header['INSTRUME'] = "METIS"
     primaryhdu.header['HIERARCH ESO PRO CATG'] = "LM_SYNTH_TRANS"
 
     hdu = fits.BinTableHDU.from_columns([ld, trans])
@@ -120,6 +123,7 @@ def generateStaticCalibs(outputDir):
     ld = fits.Column(name='wavelength', array=np.arange(0,100), format='E')
     trans = fits.Column(name='transmission', array=np.ones(100), format='E')
     primaryhdu = fits.PrimaryHDU()
+    primaryhdu.header['INSTRUME'] = "METIS"
     primaryhdu.header['HIERARCH ESO PRO CATG'] = " N_SYNTH_TRANS"
 
     hdu = fits.BinTableHDU.from_columns([ld, trans])
@@ -137,6 +141,7 @@ def generateStaticCalibs(outputDir):
     # creates a fits file with an image extension containing an AO PSF model
     
     primaryhdu = fits.PrimaryHDU()
+    primaryhdu.header['INSTRUME'] = "METIS"
     primaryhdu.header['HIERARCH ESO PRO CATG'] = "AO_PSF_MODEL"
 
     data = np.zeros((30,30))
@@ -160,6 +165,7 @@ def generateStaticCalibs(outputDir):
     # approximation of columns taken from HITRANS website. 
     
     primaryhdu = fits.PrimaryHDU()
+    primaryhdu.header['INSTRUME'] = "METIS"
     primaryhdu.header['HIERARCH ESO PRO CATG'] = "ATM_LINE_CAT"
 
     c1 = fits.Column(name='name', array=np.array(["mol1","mol2"]), format='A10')
@@ -230,6 +236,7 @@ def generateStaticCalibs(outputDir):
 
     hdu = fits.BinTableHDU.from_columns(cList)
     primaryhdu = fits.PrimaryHDU()
+    primaryhdu.header['INSTRUME'] = "METIS"
     primaryhdu.header['HIERARCH ESO PRO CATG'] = "ATM_PROFILE"
 
     hdu.header[f'TUNIT1']="km"
@@ -267,6 +274,7 @@ def generateStaticCalibs(outputDir):
     hdu.header[f'TUNIT3']=""
 
     primaryhdu = fits.PrimaryHDU()
+    primaryhdu.header['INSTRUME'] = "METIS"
     primaryhdu.header['HIERARCH ESO PRO CATG'] = "LM_LSS_DIST_SOL"
     hdul = fits.HDUList([primaryhdu,hdu])
     hdul.writeto(f"{outputDir}/LM_LSS_DIST_SOL.fits",overwrite=True)
@@ -297,6 +305,7 @@ def generateStaticCalibs(outputDir):
     hdu.header[f'TUNIT3']=""
 
     primaryhdu = fits.PrimaryHDU()
+    primaryhdu.header['INSTRUME'] = "METIS"
     primaryhdu.header['HIERARCH ESO PRO CATG'] = "N_LSS_DIST_SOL"
     hdul = fits.HDUList([primaryhdu,hdu])
     hdul.writeto(f"{outputDir}/N_LSS_DIST_SOL.fits",overwrite=True)
@@ -325,6 +334,7 @@ def generateStaticCalibs(outputDir):
     hdu.header[f'TUNIT3']=""
 
     primaryhdu = fits.PrimaryHDU()
+    primaryhdu.header['INSTRUME'] = "METIS"
     primaryhdu.header['HIERARCH ESO PRO CATG'] = "N_LSS_WAVE_GUESS"
     hdul = fits.HDUList([primaryhdu,hdu])
     hdul.writeto(f"{outputDir}/N_LSS_WAVE_GUESS.fits",overwrite=True)
@@ -348,6 +358,7 @@ def generateStaticCalibs(outputDir):
     hdu.header[f'TUNIT3']=""
 
     primaryhdu = fits.PrimaryHDU()
+    primaryhdu.header['INSTRUME'] = "METIS"
     primaryhdu.header['HIERARCH ESO PRO CATG'] = "LM_LSS_WAVE_GUESS"
     hdul = fits.HDUList([primaryhdu,hdu])
     hdul.writeto(f"{outputDir}/LM_LSS_WAVE_GUESS.fits",overwrite=True)
@@ -358,6 +369,7 @@ def generateStaticCalibs(outputDir):
     # in the form of a table of pixels vs intensity
 
     primaryhdu = fits.PrimaryHDU()
+    primaryhdu.header['INSTRUME'] = "METIS"
     primaryhdu.header['HIERARCH ESO PRO CATG'] = "LSF_KERNEL"
     xPos = np.arange(0,100,0.5)
     yPos = np.arange(0,100,0.5)
@@ -378,6 +390,7 @@ def generateStaticCalibs(outputDir):
     # FITS file with an extension containing a table of laser frequencies for the WCU 
 
     primaryhdu = fits.PrimaryHDU()
+    primaryhdu.header['INSTRUME'] = "METIS"
     primaryhdu.header['HIERARCH ESO PRO CATG'] = "LASER_TAB"
     freq = np.zeros((5))
     
@@ -395,6 +408,7 @@ def generateStaticCalibs(outputDir):
     # FITS file with an extension containing a table of X,Y positions for the pinhole masks
 
     primaryhdu = fits.PrimaryHDU()
+    primaryhdu.header['INSTRUME'] = "METIS"
     primaryhdu.header['HIERARCH ESO PRO CATG'] = "PINHOLE_TABLE"
     xPos = np.arange(0,100,0.5)
     yPos = np.arange(0,100,0.5)
