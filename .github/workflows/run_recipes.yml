@@ -33,8 +33,8 @@ jobs:
           pip install astar-utils numpy more-itertools astropy PyYAML scopesim_templates
       - name: Run recipes
         run: |
-          python python/downloadPackages.py
-          python python/run_recipes.py --small --doCalib=1 --sequence=1
+          python Simulations/python/downloadPackages.py
+          python Simulations/python/run_recipes.py --small --doCalib=1 --sequence=1
       - name: Store output files
         uses: actions/upload-artifact@v3
         with:
