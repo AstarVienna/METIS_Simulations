@@ -36,7 +36,7 @@ jobs:
           python ESO/downloadPackages.py
           python ESO/run_recipes.py --small --doCalib=1 --sequence=1
       - name: Store output files
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: output
           path: output/
