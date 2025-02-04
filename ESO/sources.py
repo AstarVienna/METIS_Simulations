@@ -1,7 +1,7 @@
 """
-Definition of sources used in template YAML files. Sources are derived from either 
-scopesim, or scopesim templates; you should understand these programs before making your 
-own. 
+Definition of sources used in template YAML files. Sources are derived from either
+scopesim, or scopesim templates; you should understand these programs before making your
+own.
 """
 
 import astropy.units as u
@@ -56,7 +56,7 @@ starFieldT = ["A0V","A0V","A0V","A0V","A0V","A0V","A0V","A0V","A0V","A0V","A0V",
 ################### Setup input Images here (e.g. HEEPS input for coronagraph) #################
 
 
-hdu = fits.ImageHDU(data=scipy.misc.face(gray=True).astype('float'))
+hdu = fits.ImageHDU(data=scipy.datasets.face(gray=True).astype('float'))
 
 # Give the header some proper WCS info
 hdu.header.update({"CDELT1": 1, "CUNIT1": "arcsec", "CRPIX1": 0, "CRVAL1": 0,
@@ -67,17 +67,17 @@ hdu.header.update({"CDELT1": 1, "CUNIT1": "arcsec", "CRPIX1": 0, "CRVAL1": 0,
 ####################### Dictionary of Sources #########################
 
 # Each entry contains a unique name, a scopesim or scopesim_templates source, and
-# keywords needed by the source. 
+# keywords needed by the source.
 
 
 """
 empty_sky: blank sky, used for twilight flats and darks, or anywhere you don't want a source
 
-flat_field: lamp based flat field. 
+flat_field: lamp based flat field.
 
 star_field: fixed random star field
 
-simpleStarNN: a single stellar source at the centre of the field with magnitude NN. The magnitude is 
+simpleStarNN: a single stellar source at the centre of the field with magnitude NN. The magnitude is
               fixed rather than set in the YAML file due to the need to pass the value with astropy units.
 
 simple_gal: elliptical galaxy
@@ -112,7 +112,7 @@ SOURCEDICT = {
             "spec_types":starFieldT,
         }),
 
-    
+
     "simple_star18": (
         sim_tp.stellar.star,
         {
@@ -155,29 +155,29 @@ SOURCEDICT = {
         sim_tp.extragalactic.elliptical,
         {
             "sed":"brown/NGC4473",
-            "z":0, 
-            "amplitude":5, 
-            "filter_name":"Ks", 
-            "pixel_scale":0.1, 
+            "z":0,
+            "amplitude":5,
+            "filter_name":"Ks",
+            "pixel_scale":0.1,
             "half_light_radius":30,
-            "n":4, 
-            "ellip":0.5, 
+            "n":4,
+            "ellip":0.5,
             "ellipticity":0.5,
             "angle":30,
         },
         ),
-    
+
     "simple_gal1": (
         sim_tp.extragalactic.elliptical,
         {
             "sed":"brown/NGC4473",
-            "z":0, 
-            "amplitude":0, 
-            "filter_name":"Ks", 
-            "pixel_scale":0.1, 
+            "z":0,
+            "amplitude":0,
+            "filter_name":"Ks",
+            "pixel_scale":0.1,
             "half_light_radius":30,
-            "n":4, 
-            "ellip":0.5, 
+            "n":4,
+            "ellip":0.5,
             "ellipticity":0.5,
             "angle":30,
         }
@@ -206,6 +206,6 @@ SOURCEDICT = {
             "flux":10*u.ABmag,
         }
         ),
-    
+
 
 }
