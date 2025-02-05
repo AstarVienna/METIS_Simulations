@@ -54,7 +54,7 @@ To run the default set of FITS files, as described in [Data Product Summary](#da
 
 
 ```
-> ./python/run_recipes.py --doCalib=1 --sequence=1 --doStatic
+> /runESO.sh
 ```
 
 This will run the script, automatically determining the necessary flats and darks and running them at the end of the sequence; the number indicates

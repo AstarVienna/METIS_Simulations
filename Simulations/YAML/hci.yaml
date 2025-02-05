@@ -9,7 +9,7 @@
 LM_OFF_AXIS_PSF_RAW:
   do.catg: LM_OFF_AXIS_PSF_RAW
   mode: "img_lm"
-  source: 
+  source:
     name: simple_star12
     kwargs: {}
   properties:
@@ -25,7 +25,7 @@ LM_OFF_AXIS_PSF_RAW:
 N_OFF_AXIS_PSF_RAW:
   do.catg: N_OFF_AXIS_PSF_RAW
   mode: "img_n"
-  source: 
+  source:
     name: simple_star12
     kwargs: {}
   properties:
@@ -60,7 +60,7 @@ IFU_OFF_AXIS_PSF_RAW:
 LM_IMAGE_SCI_CORONAGRAPH_RAW1:
   do.catg: LM_IMAGE_SCI_RAW
   mode: "img_lm"
-  source: 
+  source:
     name: simple_star12
     kwargs: {}
   properties:
@@ -77,7 +77,7 @@ LM_IMAGE_SCI_CORONAGRAPH_RAW1:
 LM_IMAGE_SCI_CORONAGRAPH_RAW2:
   do.catg: LM_IMAGE_SKY_RAW
   mode: "img_lm"
-  source: 
+  source:
     name: empty_sky
     kwargs: {}
   properties:
@@ -94,7 +94,7 @@ LM_IMAGE_SCI_CORONAGRAPH_RAW2:
 LM_IMAGE_SCI_CORONAGRAPH_RAW3:
   do.catg: LM_IMAGE_SCI_RAW
   mode: "img_lm"
-  source: 
+  source:
     name: simple_star12
     kwargs: {}
   properties:
@@ -111,7 +111,7 @@ LM_IMAGE_SCI_CORONAGRAPH_RAW3:
 LM_IMAGE_SCI_CORONAGRAPH_RAW4:
   do.catg: LM_IMAGE_SKY_RAW
   mode: "img_lm"
-  source: 
+  source:
     name: empty_sky
     kwargs: {}
   properties:

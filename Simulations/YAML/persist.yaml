@@ -4,7 +4,7 @@
 PERSISTENCE_MAP_LM:
   do.catg: "PERSISTENCE_MAP"
   mode: "img_lm"
-  source: 
+  source:
     name: empty_sky
     kwargs: {}
   properties: 
@@ -19,7 +19,7 @@ PERSISTENCE_MAP_LM:
 PERSISTENCE_MAP_N:
   do.catg: "PERSISTENCE_MAP"
   mode: "img_n"
-  source: 
+  source:
     name: empty_sky
     kwargs: {}
   properties: 
@@ -34,7 +34,7 @@ PERSISTENCE_MAP_N:
 PERSISTENCE_MAP_IFU:
   do.catg: "PERSISTENCE_MAP"
   mode: "lms"
-  source: 
+  source:
     name: empty_sky
     kwargs: {}
   properties: 

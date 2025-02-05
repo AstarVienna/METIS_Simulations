@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """
 Script to generate SOF files from the templates, to add 
 the real file names.

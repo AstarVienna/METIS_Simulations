@@ -8,7 +8,7 @@
 LM_IMAGE_STD_RAW1:
   do.catg: LM_IMAGE_STD_RAW
   mode: "img_lm"
-  source: 
+  source:
     name: simple_star12
     kwargs: {}
   properties:
@@ -24,7 +24,7 @@ LM_IMAGE_STD_RAW1:
 LM_IMAGE_STD_RAW2:
   do.catg: LM_IMAGE_SKY_RAW
   mode: "img_lm"
-  source: 
+  source:
     name: empty_sky
     kwargs: {}
   properties:
@@ -40,7 +40,7 @@ LM_IMAGE_STD_RAW2:
 N_IMAGE_STD_RAW1:
   do.catg: N_IMAGE_STD_RAW
   mode: "img_n"
-  source: 
+  source:
     name: simple_star12
     kwargs: {}
   properties:
@@ -56,7 +56,7 @@ N_IMAGE_STD_RAW1:
 N_IMAGE_STD_RAW2:
   do.catg: N_IMAGE_SKY_RAW
   mode: "img_n"
-  source: 
+  source:
     name: empty_sky
     kwargs: {}
   properties:
@@ -78,7 +78,7 @@ N_IMAGE_STD_RAW2:
 LM_IMAGE_SCI_RAW1:
   do.catg: LM_IMAGE_SCI_RAW
   mode: "img_lm"
-  source: 
+  source:
     name: star_field
     kwargs: {}
   properties:
@@ -94,7 +94,7 @@ LM_IMAGE_SCI_RAW1:
 LM_IMAGE_SCI_RAW2:
   do.catg: LM_IMAGE_SKY_RAW
   mode: "img_lm"
-  source: 
+  source:
     name: "empty_sky"
     kwargs: {}
   properties:
@@ -110,7 +110,7 @@ LM_IMAGE_SCI_RAW2:
 N_IMAGE_SCI_RAW1:
   do.catg: N_IMAGE_SCI_RAW
   mode: "img_n"
-  source: 
+  source:
     name: star_field
     kwargs: {}
   properties:
@@ -126,7 +126,7 @@ N_IMAGE_SCI_RAW1:
 N_IMAGE_SCI_RAW2:
   do.catg: N_IMAGE_SKY_RAW
   mode: "img_n"
-  source: 
+  source:
     name: "empty_sky"
     kwargs: {}
   properties:

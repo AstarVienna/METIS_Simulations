@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """ 
 Script for generating prototypes of internal use structures for external
 calibration files. 
@@ -51,6 +52,7 @@ def generateStaticCalibs(outputDir):
 
     hdu = fits.BinTableHDU.from_columns([ld, star1])
     primaryhdu = fits.PrimaryHDU()
+    primaryhdu.header['INSTRUME'] = "METIS"
     primaryhdu.header['OBJECT'] = "star1"
     primaryhdu.header['RA'] = 0
     primaryhdu.header['DEC'] = 0
@@ -78,6 +80,7 @@ def generateStaticCalibs(outputDir):
     hdu = fits.BinTableHDU.from_columns([ld, star1])
     primaryhdu = fits.PrimaryHDU()
     primaryhdu.header['HIERARCH ESO PRO CATG'] = "FLUXSTD_CATALOG"
+    primaryhdu.header['INSTRUME'] = "METIS"
 
     hdu.header['TUNIT2'] = ""
     hdu.header['TTYPE2'] = "source name"
@@ -101,6 +104,7 @@ def generateStaticCalibs(outputDir):
     trans = fits.Column(name='transmission', array=np.ones(100), format='E')
     primaryhdu = fits.PrimaryHDU()
     primaryhdu.header['HIERARCH ESO PRO CATG'] = "LM_SYNTH_TRANS"
+    primaryhdu.header['INSTRUME'] = "METIS"
 
     hdu = fits.BinTableHDU.from_columns([ld, trans])
     hdu.header['TUNIT1'] = 'm'
@@ -121,6 +125,7 @@ def generateStaticCalibs(outputDir):
     trans = fits.Column(name='transmission', array=np.ones(100), format='E')
     primaryhdu = fits.PrimaryHDU()
     primaryhdu.header['HIERARCH ESO PRO CATG'] = " N_SYNTH_TRANS"
+    primaryhdu.header['INSTRUME'] = "METIS"
 
     hdu = fits.BinTableHDU.from_columns([ld, trans])
     hdu.header['TUNIT1'] = 'm'
@@ -138,6 +143,7 @@ def generateStaticCalibs(outputDir):
     
     primaryhdu = fits.PrimaryHDU()
     primaryhdu.header['HIERARCH ESO PRO CATG'] = "AO_PSF_MODEL"
+    primaryhdu.header['INSTRUME'] = "METIS"
 
     data = np.zeros((30,30))
     hdu = fits.ImageHDU(data, name="AO_PSF_MODEL")
@@ -161,6 +167,7 @@ def generateStaticCalibs(outputDir):
     
     primaryhdu = fits.PrimaryHDU()
     primaryhdu.header['HIERARCH ESO PRO CATG'] = "ATM_LINE_CAT"
+    primaryhdu.header['INSTRUME'] = "METIS"
 
     c1 = fits.Column(name='name', array=np.array(["mol1","mol2"]), format='A10')
     c2 = fits.Column(name='molec_id', array=np.array([]), format='i2')
@@ -268,6 +275,7 @@ def generateStaticCalibs(outputDir):
 
     primaryhdu = fits.PrimaryHDU()
     primaryhdu.header['HIERARCH ESO PRO CATG'] = "LM_LSS_DIST_SOL"
+    primaryhdu.header['INSTRUME'] = "METIS"
     hdul = fits.HDUList([primaryhdu,hdu])
     hdul.writeto(f"{outputDir}/LM_LSS_DIST_SOL.fits",overwrite=True)
     
@@ -298,6 +306,7 @@ def generateStaticCalibs(outputDir):
 
     primaryhdu = fits.PrimaryHDU()
     primaryhdu.header['HIERARCH ESO PRO CATG'] = "N_LSS_DIST_SOL"
+    primaryhdu.header['INSTRUME'] = "METIS"
     hdul = fits.HDUList([primaryhdu,hdu])
     hdul.writeto(f"{outputDir}/N_LSS_DIST_SOL.fits",overwrite=True)
 
@@ -326,6 +335,7 @@ def generateStaticCalibs(outputDir):
 
     primaryhdu = fits.PrimaryHDU()
     primaryhdu.header['HIERARCH ESO PRO CATG'] = "N_LSS_WAVE_GUESS"
+    primaryhdu.header['INSTRUME'] = "METIS"
     hdul = fits.HDUList([primaryhdu,hdu])
     hdul.writeto(f"{outputDir}/N_LSS_WAVE_GUESS.fits",overwrite=True)
 
@@ -349,6 +359,7 @@ def generateStaticCalibs(outputDir):
 
     primaryhdu = fits.PrimaryHDU()
     primaryhdu.header['HIERARCH ESO PRO CATG'] = "LM_LSS_WAVE_GUESS"
+    primaryhdu.header['INSTRUME'] = "METIS"
     hdul = fits.HDUList([primaryhdu,hdu])
     hdul.writeto(f"{outputDir}/LM_LSS_WAVE_GUESS.fits",overwrite=True)
     
@@ -359,6 +370,7 @@ def generateStaticCalibs(outputDir):
 
     primaryhdu = fits.PrimaryHDU()
     primaryhdu.header['HIERARCH ESO PRO CATG'] = "LSF_KERNEL"
+    primaryhdu.header['INSTRUME'] = "METIS"
     xPos = np.arange(0,100,0.5)
     yPos = np.arange(0,100,0.5)
     
@@ -379,6 +391,7 @@ def generateStaticCalibs(outputDir):
 
     primaryhdu = fits.PrimaryHDU()
     primaryhdu.header['HIERARCH ESO PRO CATG'] = "LASER_TAB"
+    primaryhdu.header['INSTRUME'] = "METIS"
     freq = np.zeros((5))
     
     c1 = fits.Column(name='frequency', array=freq, format='e')
@@ -396,6 +409,7 @@ def generateStaticCalibs(outputDir):
 
     primaryhdu = fits.PrimaryHDU()
     primaryhdu.header['HIERARCH ESO PRO CATG'] = "PINHOLE_TABLE"
+    primaryhdu.header['INSTRUME'] = "METIS"
     xPos = np.arange(0,100,0.5)
     yPos = np.arange(0,100,0.5)
     

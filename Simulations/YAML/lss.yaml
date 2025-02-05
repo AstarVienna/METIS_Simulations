@@ -9,7 +9,7 @@
 LM_LSS_STD_RAW1:
   do.catg: LM_LSS_STD_RAW
   mode: "lss_l"
-  source: 
+  source:
     name: simple_star8
     kwargs: {}
   properties:
@@ -26,7 +26,7 @@ LM_LSS_STD_RAW1:
 LM_LSS_STD_RAW2:
   do.catg: LM_LSS_SKY_RAW
   mode: "lss_l"
-  source: 
+  source:
     name: empty_sky
     kwargs: {}
   properties:
@@ -43,7 +43,7 @@ LM_LSS_STD_RAW2:
 N_LSS_STD_RAW1:
   do.catg: N_LSS_STD_RAW
   mode: "lss_n"
-  source: 
+  source:
     name: simple_star8
     kwargs: {}
   properties:
@@ -59,7 +59,7 @@ N_LSS_STD_RAW1:
 N_LSS_STD_RAW2:
   do.catg: N_LSS_SKY_RAW
   mode: "lss_n"
-  source: 
+  source:
     name: empty_sky
     kwargs: {}
   properties:

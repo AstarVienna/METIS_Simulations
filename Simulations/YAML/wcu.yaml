@@ -149,7 +149,7 @@ IFU_RSRF_RAW1:
 LM_LSS_RSRF_PINH_RAW1:
   do.catg: LM_LSS_RSRF_PINH_RAW
   mode: "lss_l"
-  source: 
+  source:
     name: pinhole_mask
     kwargs:
       temperature: 5500
@@ -169,7 +169,7 @@ LM_LSS_RSRF_PINH_RAW1:
 N_LSS_RSRF_PINH_RAW1:
   do.catg: N_LSS_RSRF_PINH_RAW
   mode: "lss_n"
-  source: 
+  source:
     name: pinhole_mask
     kwargs:
       temperature: 5500
@@ -214,7 +214,7 @@ IFU_RSRF_PINH_RAW1:
 LM_SLITLOSSES_RAW1:
   do.catg: LM_SLITLOSSES_RAW
   mode: "lss_l"
-  source: 
+  source:
     name: simple_star10
     kwargs:
       x: 0
@@ -234,7 +234,7 @@ LM_SLITLOSSES_RAW1:
 N_LSS_SLITLOSSES_RAW1:
   do.catg: N_SLITLOSSES_RAW
   mode: "lss_n"
-  source: 
+  source:
     name: simple_star10
     kwargs:
       x: 0
@@ -272,7 +272,7 @@ LM_LSS_WAVE_RAW:
 N_LSS_WAVE_RAW:
   do.catg: N_LSS_WAVE_RAW
   mode: "lss_n"
-  source: 
+  source:
     name: "laser_spectrum_n"
     kwargs: {}
   properties:
@@ -289,7 +289,7 @@ N_LSS_WAVE_RAW:
 IFU_WAVE_RAW:
   do.catg: IFU_WAVE_RAW
   mode: "lms"
-  source: 
+  source:
     name: "laser_spectrum_lm"
     kwargs: {}
   properties:
@@ -307,8 +307,8 @@ IFU_WAVE_RAW:
 ########################### OTHER TECHNICAL #####################
 
 
-LM_CHOPPERHOME_RAW:
-  do.catg: LM_CHOPPERHOME_RAW
+LM_CHOPHOME_RAW:
+  do.catg: LM_CHOPHOME_RAW
   mode: "img_lm"
   source:
     name: flat_field
@@ -325,7 +325,7 @@ LM_CHOPPERHOME_RAW:
     tech: "IMAGE,LM"
     type: "CHOPHOME"
     tplname: "METIS_img_lm_cal_ChopperHome"
-    nObs: 1
+    nObs: 3
 
 LM_PUPIL_RAW:
   do.catg: LM_PUPIL_RAW

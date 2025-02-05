@@ -1,6 +1,6 @@
 """
-Definition of sources used in template YAML files. Sources are derived from either 
-scopesim, or scopesim templates; you should understand these programs before making your 
+Definition of sources used in template YAML files. Sources are derived from either
+scopesim, or scopesim templates; you should understand these programs before making your
 own. 
 """
 
@@ -164,13 +164,13 @@ SOURCEDICT = {
         sim_tp.extragalactic.elliptical,
         {
             "sed":"brown/NGC4473",
-            "z":0, 
-            "amplitude":5, 
-            "filter_name":"Ks", 
-            "pixel_scale":0.1, 
+            "z":0,
+            "amplitude":5,
+            "filter_name":"Ks",
+            "pixel_scale":0.1,
             "half_light_radius":30,
-            "n":4, 
-            "ellip":0.5, 
+            "n":4,
+            "ellip":0.5,
             "ellipticity":0.5,
             "angle":30,
         },
@@ -180,13 +180,13 @@ SOURCEDICT = {
         sim_tp.extragalactic.elliptical,
         {
             "sed":"brown/NGC4473",
-            "z":0, 
-            "amplitude":0, 
-            "filter_name":"Ks", 
-            "pixel_scale":0.1, 
+            "z":0,
+            "amplitude":0,
+            "filter_name":"Ks",
+            "pixel_scale":0.1,
             "half_light_radius":30,
-            "n":4, 
-            "ellip":0.5, 
+            "n":4,
+            "ellip":0.5,
             "ellipticity":0.5,
             "angle":30,
         }
