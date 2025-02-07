@@ -247,7 +247,7 @@ def generateStaticCalibs(outputDir):
         hdu.header[f'TUNIT{i+4}']="ppmv"
 
     hdul = fits.HDUList([primaryhdu,hdu])
-    hdul.writeto(f"{outputDir}/ATM_LINE_CAT.fits",overwrite=True)
+    hdul.writeto(f"{outputDir}/ATM_PROFILE.fits",overwrite=True)
 
     
     #################### LM_LSS_DIST_SOL ###################
