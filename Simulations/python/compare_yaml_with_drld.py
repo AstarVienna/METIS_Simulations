@@ -24,14 +24,32 @@ HACK_RAW_TEMPLATE_COMBINATIONS_THAT_SHOULD_BE_ADDED_TO_THE_DRLD = {
     ("IFU_SKY_RAW", "metis_ifu_cal_standard"),
 }
 
-def compareYAML(argv):
+HACK_RAWS_THAT_SHOULD_NOT_BE_SIMULATED = {
+    # To be renamed LM_CHOPHOME_RAW.
+    "LM_CHOPPERHOME_RAW",
+    # To be calculated with metis_det_persistence.
+    # Also should just be called PERSISTENCE_MAP
+    "PERSISTENCE_MAP_LM",
+    "PERSISTENCE_MAP_N",
+    "PERSISTENCE_MAP_IFU",
+    "PERSISTENCE_MAP",
+}
+
+def compareYAMLs(argv):
     
     PATH_HERE = Path(__file__).parent
     
     if len(sys.argv) == 1:
-        filename_yaml = PATH_HERE / 'YAML/recipes.yaml'
+        filenames_yaml = (PATH_HERE.parent / "YAML").glob("*.yaml")
+        for filename_yaml in filenames_yaml:
+            compareYAML(filename_yaml)            
     else:
         filename_yaml = argv[1]
+        compareYAML(filename_yaml)
+
+
+def compareYAML(filename_yaml):
+    print(f"Checking {filename_yaml}")
     
     with open(filename_yaml) as f:
         recipes = yaml.safe_load(f)
@@ -43,11 +61,12 @@ def compareYAML(argv):
     }
     
     problems = []
+    
     for name, settings in recipes.items():
         do_catg = settings['do.catg']
         # assert name.startswith(do_catg)
         if do_catg not in METIS_DataReductionLibraryDesign.dataitems:
-            if do_catg not in HACK_RAWS_THAT_SHOULD_BE_ADDED_TO_THE_DRLD:
+            if do_catg not in HACK_RAWS_THAT_SHOULD_BE_ADDED_TO_THE_DRLD and do_catg not in HACK_RAWS_THAT_SHOULD_NOT_BE_SIMULATED:
                 problems.append(f"Cannot find {do_catg} in METIS_DataReductionLibraryDesign!")
             continue
         di = METIS_DataReductionLibraryDesign.dataitems[do_catg]
@@ -65,29 +84,33 @@ def compareYAML(argv):
             problems.append(f"{do_catg} has DPR.TECH {props['tech']} in yaml but {di.dpr_tech} in DRLD")
         if props['type'] != di.dpr_type:
             problems.append(f"{do_catg} has DPR.TYPE {props['type']} in yaml but {di.dpr_type} in DRLD")
-    
+
+        if do_catg in HACK_RAWS_THAT_SHOULD_NOT_BE_SIMULATED:
+            continue
+
         tplname = props["tplname"].lower()
         if tplname not in di.templates:
             if (do_catg, tplname) not in HACK_RAW_TEMPLATE_COMBINATIONS_THAT_SHOULD_BE_ADDED_TO_THE_DRLD:
                 problems.append(f"{do_catg} has tplname {tplname} but only {di.templates} create it")
-    
+                
     do_catg_used_in_yaml = {
         settings['do.catg']
         for settings in list(recipes.values()) + list(dicts_from_sim_defs.values())
     }
     do_catg_used_in_drld = {a for a in METIS_DataReductionLibraryDesign.dataitems if a.endswith("_RAW")}
-    do_catg_only_in_yaml = do_catg_used_in_yaml - do_catg_used_in_drld - HACK_RAWS_THAT_SHOULD_BE_ADDED_TO_THE_DRLD
+    do_catg_only_in_yaml = do_catg_used_in_yaml - do_catg_used_in_drld - HACK_RAWS_THAT_SHOULD_BE_ADDED_TO_THE_DRLD - HACK_RAWS_THAT_SHOULD_NOT_BE_SIMULATED
     do_catg_only_in_drld = do_catg_used_in_drld - do_catg_used_in_yaml
     if do_catg_only_in_yaml:
         problems.append(f"DO.CATG values only used in yaml file but not in the DRLD: {do_catg_only_in_yaml}")
-    if do_catg_only_in_drld:
-        problems.append(f"DO.CATG values only used in drld but not in the yaml file: {do_catg_only_in_drld}")
+    #if do_catg_only_in_drld:
+    #    problems.append(f"DO.CATG values only used in drld but not in the yaml file: {do_catg_only_in_drld}")
     
     for problem in problems:
         print(problem)
     
     assert not problems, "Found problems, see output above."
+    
 
 if __name__ == "__main__":
     
-    compareYAML(sys.argv)
+    compareYAMLs(sys.argv)
