@@ -190,7 +190,7 @@ due to recipes that handle more than one type of input data that is used as inpu
 
 # Output FITS Files
 
-A summary spreadsheet of the files can be found [here].(https://docs.google.com/spreadsheets/d/1aYQh6Nd17dvrPYVx3D96VwUFsnswIY7DlfNHgKLCVys/edit#gid=0)
+A summary spreadsheet of the files can be found [here].(https://docs.google.com/spreadsheets/d/1WW2CTb9ZTmTsDVCFfH5E_shXY9rRbVToDdXYt0VA-_4/edit?usp=sharing)
 
 The set of simulations is as follows
 
@@ -234,12 +234,13 @@ The set of simulations is as follows
  - N_LSS_WAVE_GUESS
  - N_LSS_DIST_SOL
  - LM_DIST_SOL
- - ATM_LINE_CAT
+ - ATM_PROFILE
  - AO_PSF_MODEL
  - N_SYNTH_TRANS
  - LM_SYNTH_TRANS
  - FLUXSTD_CATALOG
  - REF_STD_CAT_star1
+ - PERSISTANCE_MAP
 
 The list of  RAW files and external calibration files was compiled from the DRLD recipe listings
 in Chapter 6, specifically the "Input Data" entry. FITS keywords and file types were
