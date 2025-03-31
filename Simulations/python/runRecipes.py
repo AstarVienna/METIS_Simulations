@@ -17,6 +17,7 @@ import numpy as np
 from astropy.io import fits
 import astropy
 import copy
+from multiprocessing import Pool,Process,Manager
 
 class runRecipes():
 
@@ -69,7 +70,11 @@ class runRecipes():
         parser.add_argument('-f', '--calibFile', type=str,
                             default = None,
                             help='File to dump calibration file YAML to')
+        parser.add_argument('-n', '--nCores', type=int,
+                            default = 1,
+                            help='number of cores for parallel processing')
 
+        
         args = parser.parse_args()
         if args.inputYAML:
             params['inputYAML'] = args.inputYAML
@@ -109,6 +114,11 @@ class runRecipes():
         params['testRun'] = args.testRun
 
         params['calibFile'] = args.calibFile
+
+        if(args.nCores):
+            params['nCores'] = args.nCores
+        else:
+            params['nCores'] = 1
         
         print(f"Starting Simulations")
         print(f"   input YAML = {params['inputYAML']}, output directory =  {params['outputDir']}")
@@ -622,6 +632,8 @@ class runRecipes():
         out_dir = Path(self.params['outputDir'])
         out_dir.mkdir(parents=True, exist_ok=True)
 
+        allArgs = []
+        
         # cycle through all the recipes
         for name, recipe in dorcps.items():
 
@@ -714,11 +726,21 @@ class runRecipes():
                     # get kwargs for scopeSim
                     kwargs = NestedMapping({"OBS": props})
                     print(f"    dit={props['dit']},ndit={props['ndit']},catg={props['catg']},tech={props['tech']},type={props['type']},filter_name={props['filter_name']}, ndfilter_name={props['ndfilter_name']}")
-    
-                    # and run the 
-                    if(not self.params['testRun']):
-                        simulate(fname, mode, kwargs, source=recipe["source"], small=self.params['small'])
 
+                    # keep track of the list of arguments
+                    allArgs.append((fname,mode,kwargs,recipe["source"],self.params["small"]))
+    
+        # and run the
+
+
+        if(not self.params['testRun']):
+            nCores = self.params['nCores']
+
+            with Pool(nCores) as pool:
+                pool.starmap(simulate, allArgs)
+                #simulate(fname, mode, kwargs, source=recipe["source"], small=self.params['small'])
+                pool.close()
+                pool.join()
     
                        
 
