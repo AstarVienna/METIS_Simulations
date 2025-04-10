@@ -21,6 +21,7 @@ import astropy.units as u
 
 from simulationDefinitions import *
 from sources import *
+sim.rc.__config__["!SIM.file.local_packages_path"] = DEFAULT_IRDB_LOCATION
 
 logger = get_logger(__file__)
 
@@ -33,7 +34,7 @@ logger = get_logger(__file__)
 # Current Solution: use the mode field in the YAML file directly.
 # may want to error trap for invalid combinations in the future
 
-def simulate(fname, mode, kwargs, source=None, small=False):
+def simulate(fname, mode, kwargs, wcu, source=None, small=False):
     """Run main function for this script."""
     logger.info("*****************************************")
     logger.info("Observation type: %s", kwargs["!OBS.type"])
@@ -49,6 +50,7 @@ def simulate(fname, mode, kwargs, source=None, small=False):
     else:
         src_name = source or SOURCEMODEDICT[kwargs["!OBS.type"]]
     src_fct, src_kwargs = SOURCEDICT[src_name]
+
     if isinstance(source, Mapping):
         src_kwargs |= source["kwargs"]
 
@@ -72,18 +74,47 @@ def simulate(fname, mode, kwargs, source=None, small=False):
     # Fix the random number generator for now. This should ensure our data
     # is reproducible, so we can create the exact same dataset again at a
     # later date.
-    kwargs["!SIM.random.seed"] = 9001
+    #kwargs["!SIM.random.seed"] = 9001
 
     #mode = MODESDICT[kwargs["!OBS.tech"]]
     logger.info("ScopeSim mode: %s", mode)
     # return None
-    cmd = sim.UserCommands(
-        use_instrument="METIS",
-        set_modes=[mode],
-        properties=kwargs
-    )
+
+    #changed the way the simulation is called, because the previous method wasn't
+    #producing expeced results
+    
+    kwargs['OBS'].pop("nObs")
+
+    #set up the simulation
+    if("wavelen" in kwargs["OBS"].keys()):
+        cmd = sim.UserCommands(use_instrument="metis", set_modes=[mode],properties={"!OBS.wavelen": kwargs["OBS"]['wavelen']})
+    else:
+        cmd = sim.UserCommands(use_instrument="metis", set_modes=[mode])
+    print(kwargs.keys())
+    
+    #copy over the OBS settings directly, then set up the optical train
+    for item in kwargs["OBS"]:
+       cmd["OBS"][item] = kwargs["OBS"][item]
+       print(item,kwargs["OBS"][item])
 
     metis = sim.OpticalTrain(cmd)
+
+    #set the WCU mode arguments
+    if(wcu is not None):
+        allargs = wcu
+        if(np.all(["bb_temp" in allargs,"is_temp" in allargs, "wcu_temp" in allargs])):
+            metis['wcu_source'].set_temperature(bb_temp=allargs['bb_temp']*u.K, is_temp=allargs['is_temp']*u.K,wcu_temp=allargs['wcu_temp']*u.K)
+        if("current_fpmask" in allargs):
+            if("xshift") in allargs:
+                metis['wcu_source'].set_fpmask(allargs['current_fpmask'],shift=(allargs['xshift'],allargs['yshift']))
+            else:
+                metis['wcu_source'].set_fpmask(allargs['current_fpmask'])
+
+        if("bb_aperture" in allargs):
+            metis['wcu_source'].set_bb_aperture(allargs['bb_aperture'])
+
+
+            
 
     if small:
         # Hack to make the detectors smaller, so we can run the simulations
@@ -101,12 +132,16 @@ def simulate(fname, mode, kwargs, source=None, small=False):
             "train, FITS header will be incomplete. Make sure you are using "
             "an up-to-date version of the METIS IRDB package!")
 
-    metis["auto_exposure"].include = False
+    print(metis.cmds)
+
+    #metis["auto_exposure"].include = False
     if shutter:
         metis.optics_manager["METIS"].add_effect(sim.effects.Shutter())
 
+    # now observe and readout
     metis.observe(src)
-    hdus = metis.readout(str(fname))
+    
+    hdus = metis.readout(str(fname),dit=kwargs["OBS"]['dit'],ndit=kwargs["OBS"]['ndit'])
     return hdus[0]
 
 
@@ -339,7 +374,7 @@ def main():
 
         }
 
-        simulate(fname, mode, props, source=source)
+        simulate(fname, mode, props, wcu, source=source)
 
 
 if __name__ == "__main__":

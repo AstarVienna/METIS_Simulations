@@ -115,7 +115,7 @@ class runRecipes():
 
         params['calibFile'] = args.calibFile
 
-        if args.nCores:
+        if(args.nCores):
             params['nCores'] = args.nCores
         else:
             params['nCores'] = 1
@@ -383,6 +383,9 @@ class runRecipes():
         skyFlats = []
         lampFlats = []
 
+        #list of modes that use WCU OFF
+        wcuModes = ["SLITLOSS","DETLIN","DISTORTION","RSRF","CHOPHOME","PUPIL","WAVE","FLAT,LAMP"]
+
         # assemble a list of the dark / skyflat / lampflat recipe dicionaries
 
         ii=0
@@ -401,7 +404,7 @@ class runRecipes():
                     props["ndfilter_name"] = "open"
 
 
-                if(np.any(["SLITLOSS" in props["type"],"DETLIN" in props["type"], "DISTORTION" in props["type"]])):
+                if(props["type"] in wcuModes):
 
                     wcuDarks.append(self.calcWcuDark(props))
                     
@@ -722,20 +725,25 @@ class runRecipes():
                     print("Starting simulate()")
                     print(f"    fname={fname}")
                     print(f'    source =  {recipe["source"]}')
-    
+
+                    print(props)
                     # get kwargs for scopeSim
                     kwargs = NestedMapping({"OBS": props})
                     print(f"    dit={props['dit']},ndit={props['ndit']},catg={props['catg']},tech={props['tech']},type={props['type']},filter_name={props['filter_name']}, ndfilter_name={props['ndfilter_name']}")
 
                     # keep track of the list of arguments
-                    allArgs.append((fname,mode,kwargs,recipe["source"],self.params["small"]))
+                    if("wcu" not in recipe.keys()):
+                       recipe["wcu"] = None
+
+                    allArgs.append((fname,mode,kwargs,recipe["wcu"],recipe["source"],self.params["small"]))
     
         # and run the
+        
 
-
-        if not self.params['testRun']:
+        if(not self.params['testRun']):
             nCores = self.params['nCores']
 
+            
             with Pool(nCores) as pool:
                 pool.starmap(simulate, allArgs)
                 #simulate(fname, mode, kwargs, source=recipe["source"], small=self.params['small'])

@@ -1,0 +1,304 @@
+
+##################### DETLIN - LM, N, IFU #####################
+##CHANGES bb_aperture to change flux; currently linear changes TODO update
+
+DETLIN_2RG_RAW1:
+  do.catg: DETLIN_2RG_RAW
+  mode: "wcu_img_lm"
+  source: 
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.01
+    ndit: 1
+    filter_name: "open"
+    ndfilter_name: "ND_OD4"
+    catg: "CALIB"
+    tech: "IMAGE,LM"
+    type: "DETLIN"
+    tplname: "METIS_img_lm_cal_DetLin"
+    nObs: 1
+  wcu:
+    current_fpmask: "open"
+    bb_aperture: 0.1
+    bb_temp: 1000
+    is_temp: 320
+    wcu_temp: 295
+    
+DETLIN_2RG_RAW2:
+  do.catg: DETLIN_2RG_RAW
+  mode: "wcu_img_lm"
+  source: 
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.01
+    ndit: 1
+    filter_name: "open"
+    ndfilter_name: "ND_OD4"
+    catg: "CALIB"
+    tech: "IMAGE,LM"
+    type: "DETLIN"
+    tplname: "METIS_img_lm_cal_DetLin"
+    nObs: 1
+  wcu:
+    current_fpmask: "open"
+    bb_aperture: 0.25
+    bb_temp: 1000
+    is_temp: 320
+    wcu_temp: 295
+
+DETLIN_2RG_RAW3:
+  do.catg: DETLIN_2RG_RAW
+  mode: "wcu_img_lm"
+  source: 
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.01
+    ndit: 1
+    filter_name: "open"
+    ndfilter_name: "ND_OD4"
+    catg: "CALIB"
+    tech: "IMAGE,LM"
+    type: "DETLIN"
+    tplname: "METIS_img_lm_cal_DetLin"
+    nObs: 1
+  wcu:
+    current_fpmask: "open"
+    bb_aperture: 0.5
+    bb_temp: 400
+    is_temp: 320
+    wcu_temp: 295
+
+DETLIN_2RG_RAW4:
+  do.catg: DETLIN_2RG_RAW
+  mode: "wcu_img_lm"
+  source: 
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.01
+    ndit: 1
+    filter_name: "open"
+    ndfilter_name: "ND_OD4"
+    catg: "CALIB"
+    tech: "IMAGE,LM"
+    type: "DETLIN"
+    tplname: "METIS_img_lm_cal_DetLin"
+    nObs: 1
+  wcu:
+    current_fpmask: "open"
+    bb_aperture: 0.75
+    bb_temp: 400
+    is_temp: 320
+    wcu_temp: 295
+
+DETLIN_2RG_RAW5:
+  do.catg: DETLIN_2RG_RAW
+  mode: "wcu_img_lm"
+  source: 
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.01
+    ndit: 1
+    filter_name: "open"
+    ndfilter_name: "ND_OD4"
+    catg: "CALIB"
+    tech: "IMAGE,LM"
+    type: "DETLIN"
+    tplname: "METIS_img_lm_cal_DetLin"
+    nObs: 1
+  wcu:
+    current_fpmask: "open"
+    bb_aperture: 0.75
+    bb_temp: 400
+    is_temp: 320
+    wcu_temp: 295
+
+##################### IFU RSRF #####################
+##PINHOLE TRACES IN VARIOUS TRACES
+##TODO - get all traces covered
+
+IFU_RSRF_RAW1:
+  do.catg: IFU_RSRF_RAW
+  mode: "wcu_lms"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 50
+    ndit: 20
+    wavelen: 3.555
+    filter_name: "open"
+    ndfilter_name: "open"
+    catg: "CALIB"
+    tech: "LMS"
+    type: "RSRF"
+    tplname: "METIS_ifu_cal_rsrf"
+    nObs: 1
+  wcu:
+    current_fpmask: "grid_lm"
+    bb_aperture: 1
+    bb_temp: 8000
+    is_temp: 300
+    wcu_temp: 300
+    xshift: 0
+    yshift: 0
+
+IFU_RSRF_RAW2:
+  do.catg: IFU_RSRF_RAW
+  mode: "wcu_lms"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 50
+    ndit: 20
+    wavelen: 3.555
+    filter_name: "open"
+    ndfilter_name: "open"
+    catg: "CALIB"
+    tech: "LMS"
+    type: "RSRF"
+    tplname: "METIS_ifu_cal_rsrf"
+    nObs: 1
+  wcu:
+    current_fpmask: "grid_lm"
+    bb_aperture: 1
+    bb_temp: 8000
+    is_temp: 300
+    wcu_temp: 300
+    xshift: 0
+    yshift: 0.1
+
+IFU_RSRF_RAW3:
+  do.catg: IFU_RSRF_RAW
+  mode: "wcu_lms"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 50
+    ndit: 20
+    wavelen: 3.555
+    filter_name: "open"
+    ndfilter_name: "open"
+    catg: "CALIB"
+    tech: "LMS"
+    type: "RSRF"
+    tplname: "METIS_ifu_cal_rsrf"
+    nObs: 1
+  wcu:
+    current_fpmask: "grid_lm"
+    bb_aperture: 1
+    bb_temp: 8000
+    is_temp: 300
+    wcu_temp: 300
+    xshift: 0
+    yshift: 0.2
+
+
+##################### LASER SPECTRUM CALIBRATIONS ######################
+##NOTE - currently using sky lines until we have a better solution for
+##WCU configurable laser
+
+IFU_WAVE_RAW:
+  do.catg: IFU_WAVE_RAW
+  mode: "lms"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 10
+    ndit: 30
+    wavelen: "3.555"
+    filter_name: "Lp"
+    nd_filter_name: "open"
+    catg: "CALIB"
+    tech: "LMS"
+    type: "WAVE"
+    tplname: "METIS_ifu_cal_InternalWave"
+    nObs: 1
+
+
+##################### LM_CHOPHOME ######################
+##single pinhole source at centre
+
+LM_CHOPHOME_RAW:
+  do.catg: LM_CHOPHOME_RAW
+  mode: "wcu_img_lm"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.04
+    ndit: 1
+    filter_name: "Lp"
+    ndfilter_name: "ND_OD4"
+    catg: "CALIB"
+    tech: "IMAGE,LM"
+    type: "CHOPHOME"
+    tplname: "METIS_img_lm_cal_ChopperHome"
+    nObs: 1
+  wcu:
+    current_fpmask: "pinhole_lm"
+    bb_aperture: 0.2
+    bb_temp: 1000
+    is_temp: 320
+    wcu_temp: 295
+ 
+##################### LM SCIENCE IMAGE - field of stars + sky ######################
+##STAR FIELD
+##TWO sky images, with the same field offset slightly between images, constant background
+
+
+LM_IMAGE_SCI_RAW1:
+  do.catg: LM_IMAGE_SCI_RAW
+  mode: "img_lm"
+  source:
+    name: star_field
+    kwargs: {}
+  properties:
+    dit: 0.04
+    ndit: 4
+    filter_name: "Lp"
+    catg: "SCIENCE"
+    tech: "IMAGE,LM"
+    type: "OBJECT"
+    tplname: "METIS_img_lm_obs_GenericOffset"
+    nObs: 1
+
+LM_IMAGE_SCI_RAW2:
+  do.catg: LM_IMAGE_SKY_RAW
+  mode: "img_lm"
+  source:
+    name: "star_sky1"
+    kwargs: {}
+  properties:
+    dit: 0.04
+    ndit: 4
+    filter_name: "Lp"
+    catg: "SCIENCE"
+    tech: "IMAGE,LM"
+    type: "SKY"
+    tplname: "METIS_img_lm_obs_GenericOffset"
+    nObs: 1
+
+LM_IMAGE_SCI_RAW3:
+  do.catg: LM_IMAGE_SKY_RAW
+  mode: "img_lm"
+  source:
+    name: "star_sky2"
+    kwargs: {}
+  properties:
+    dit: 0.04
+    ndit: 4
+    filter_name: "Lp"
+    catg: "SCIENCE"
+    tech: "IMAGE,LM"
+    type: "SKY"
+    tplname: "METIS_img_lm_obs_GenericOffset"
+    nObs: 1
+
