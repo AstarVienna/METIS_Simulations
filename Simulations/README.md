@@ -132,6 +132,14 @@ Read the files from directory myDir, default is output/
 
 write output to file outfile.csv, default is summary.csv
 
+
+```
+--nCores=n
+```
+
+Will run the code in parallel mode, using n cores. The default is 1.
+
+
 # Simulated Data Summary
 
 Running the versions of the command listed at the top of this document generates a minimal set of input test files for skeleton pipeline development, i.e. one each of any file needed for input to a recipes as specified in Chapter 6 of the DRLD.  Each file has the correct dimensions, plus ESO compliant keywords as required for developing the EDPS skeleton, specifically the matched keywords and derived aliases, as well as the standard FITS keywords provided by ScopeSim. 
