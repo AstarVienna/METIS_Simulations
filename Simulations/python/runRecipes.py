@@ -115,7 +115,7 @@ class runRecipes():
 
         params['calibFile'] = args.calibFile
 
-        if(args.nCores):
+        if args.nCores:
             params['nCores'] = args.nCores
         else:
             params['nCores'] = 1
