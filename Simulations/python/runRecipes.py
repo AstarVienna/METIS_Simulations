@@ -733,7 +733,7 @@ class runRecipes():
         # and run the
 
 
-        if(not self.params['testRun']):
+        if not self.params['testRun']:
             nCores = self.params['nCores']
 
             with Pool(nCores) as pool:
