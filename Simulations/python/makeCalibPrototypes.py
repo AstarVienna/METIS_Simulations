@@ -38,7 +38,7 @@ def generateStaticCalibs(outputDir):
     generated (once, or on the fly as appropriate) by dedicated recipes, but 
     protoyping the format is a necessary first step.
     """
-    
+
     #################### REF_STD_CAT ###################
 
     # Generate a FITS file for a calibration spectrum. FITS file contains
@@ -64,7 +64,7 @@ def generateStaticCalibs(outputDir):
 
 
     hdul = fits.HDUList([primaryhdu, hdu])
-    hdul.writeto(f"{outputDir}/REF_STD_CAT_{starName}.fits",overwrite=True)
+    hdul.writeto(f"{outputDir}/REF_STD_CAT.{starName}.fits",overwrite=True)
 
     #################### FLUXSTD_CATALOG ###################
 
