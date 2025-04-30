@@ -261,14 +261,14 @@ LM_IMAGE_SCI_RAW1:
     name: star_field
     kwargs: {}
   properties:
-    dit: 0.04
+    dit: 0.25
     ndit: 4
     filter_name: "Lp"
     catg: "SCIENCE"
     tech: "IMAGE,LM"
     type: "OBJECT"
     tplname: "METIS_img_lm_obs_GenericOffset"
-    nObs: 1
+    nObs: 5
 
 LM_IMAGE_SCI_RAW2:
   do.catg: LM_IMAGE_SKY_RAW

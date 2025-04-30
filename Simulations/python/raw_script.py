@@ -35,6 +35,7 @@ logger = get_logger(__file__)
 # may want to error trap for invalid combinations in the future
 
 def simulate(fname, mode, kwargs, wcu, source=None, small=False):
+
     """Run main function for this script."""
     logger.info("*****************************************")
     logger.info("Observation type: %s", kwargs["!OBS.type"])
@@ -64,17 +65,15 @@ def simulate(fname, mode, kwargs, wcu, source=None, small=False):
     logger.info("Source function: %s", src_fct.__name__)
     logger.debug("Source kwargs: %s", src_kwargs)
 
-    # HACK: closed filter is not yet implemented
-    if kwargs["!OBS.filter_name"] == "closed":
-        shutter = True
-        kwargs["!OBS.filter_name"] = "open"
-    else:
-        shutter = False
-
-    # Fix the random number generator for now. This should ensure our data
-    # is reproducible, so we can create the exact same dataset again at a
-    # later date.
-    #kwargs["!SIM.random.seed"] = 9001
+    # HACK: closed filter is not yet implemented:
+    # changed the hack below, because changing kwargs here changes the props dictionary from which
+    # kwargs is generated, outside of this subroutine, for reasons I do not understant.
+    
+    #if kwargs["!OBS.filter_name"] == "closed":
+    #    shutter = True
+    #    kwargs["!OBS.filter_name"] = "open"
+    #else:
+    #    shutter = False
 
     #mode = MODESDICT[kwargs["!OBS.tech"]]
     logger.info("ScopeSim mode: %s", mode)
@@ -83,22 +82,34 @@ def simulate(fname, mode, kwargs, wcu, source=None, small=False):
     #changed the way the simulation is called, because the previous method wasn't
     #producing expeced results
     
-    kwargs['OBS'].pop("nObs")
-
     #set up the simulation
     if("wavelen" in kwargs["OBS"].keys()):
         cmd = sim.UserCommands(use_instrument="metis", set_modes=[mode],properties={"!OBS.wavelen": kwargs["OBS"]['wavelen']})
     else:
         cmd = sim.UserCommands(use_instrument="metis", set_modes=[mode])
-    print(kwargs.keys())
-    
-    #copy over the OBS settings directly, then set up the optical train
-    for item in kwargs["OBS"]:
-       cmd["OBS"][item] = kwargs["OBS"][item]
-       print(item,kwargs["OBS"][item])
 
+    #copy over the OBS settings directly, then set up the optical train
+
+    shutter = False
+    cmd["!OBS.catg"] = kwargs["OBS"]["catg"]
+    cmd["!OBS.type"] = kwargs["OBS"]["type"]
+    cmd["!OBS.tech"] = kwargs["OBS"]["tech"]
+    cmd["!OBS.mjd-obs"] = kwargs["OBS"]["MJD-OBS"]
+    cmd["!OBS.dateobs"] = kwargs["OBS"]["dateobs"]
+    cmd["!OBS.ndfilter_name"] = kwargs["OBS"]["ndfilter_name"]
+    cmd["!OBS.filter_name"] = kwargs["OBS"]["filter_name"]
+    if kwargs["!OBS.filter_name"] == "closed":
+        cmd["!OBS.filter_name"] = "open"
+        shutter = True
+
+
+    if("tplname" in kwargs["OBS"].keys()):
+        cmd["!OBS.tplname"] = kwargs["OBS"]["tplname"]
+
+     
     metis = sim.OpticalTrain(cmd)
 
+    
     #set the WCU mode arguments
     if(wcu is not None):
         allargs = wcu
@@ -132,7 +143,6 @@ def simulate(fname, mode, kwargs, wcu, source=None, small=False):
             "train, FITS header will be incomplete. Make sure you are using "
             "an up-to-date version of the METIS IRDB package!")
 
-    print(metis.cmds)
 
     #metis["auto_exposure"].include = False
     if shutter:
@@ -140,7 +150,7 @@ def simulate(fname, mode, kwargs, wcu, source=None, small=False):
 
     # now observe and readout
     metis.observe(src)
-    
+
     hdus = metis.readout(str(fname),dit=kwargs["OBS"]['dit'],ndit=kwargs["OBS"]['ndit'])
     return hdus[0]
 

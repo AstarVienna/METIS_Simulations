@@ -276,13 +276,13 @@ class runRecipes():
     
         if(np.all(["DARK" not in props['type'],"PERSISTENCE" not in props['type']])):
             if(",LM" in props['tech']):
-                df = copy.deepcopy(sd.DARKLM)
+                df = json.loads(json.dumps(sd.DARKLM))
                 df['mode'] = "img_lm"
             elif(",N" in props['tech']):
-                df = copy.deepcopy(sd.DARKN)
+                df = json.loads(json.dumps(sd.DARKN))
                 df['mode'] = "img_n"
             elif(np.any(["LMS" in props['tech'],"IFU" in props['tech']])):
-                df = copy.deepcopy(sd.DARKIFU)
+                df = json.loads(json.dumps(sd.DARKIFU))
                 df['mode'] = "lms"
             else:
                 return{}
@@ -290,6 +290,7 @@ class runRecipes():
             df['properties']['dit'] = props['dit']
             df['properties']['ndit'] = props['ndit']
             df['properties']['nObs'] = self.params['doCalib']
+
 
             return df
         else:
@@ -301,13 +302,13 @@ class runRecipes():
     
         if(np.all(["DARK" not in props['type'],"PERSISTENCE" not in props['type']])):
             if(",LM" in props['tech']):
-                df = copy.deepcopy(sd.WCUDARKLM)
+                df = json.loads(json.dumps(sd.WCUDARKLM))
                 df['mode'] = "img_lm"
             elif(",N" in props['tech']):
-                df = copy.deepcopy(sd.WCUDARKN)
+                df = json.loads(json.dumps(sd.WCUDARKN))
                 df['mode'] = "img_n"
             elif(np.any(["LMS" in props['tech'],"IFU" in props['tech']])):
-                df = copy.deepcopy(sd.WCUDARKIFU)
+                df = json.loads(json.dumps(sd.WCUDARKIFU))
                 df['mode'] = "lms"
             else:
                 return{}
@@ -325,10 +326,10 @@ class runRecipes():
     
         if(np.all(["DARK" not in props['type'], "FLAT" not in props['type'],"DETLIN" not in props['type'],"LMS" not in props['type'],"PERSISTENCE" not in props['type']])):
             if(",LM" in props['tech']):
-                df = copy.deepcopy(sd.SKYFLATLM)
+                df = json.loads(json.dumps(sd.SKYFLATLM))
                 df['mode'] = "img_lm"
             elif(",N" in props['tech']):
-                df = copy.deepcopy(sd.SKYFLATN)
+                df = json.loads(json.dumps(sd.SKYFLATN))
                 df['mode'] = "img_n"
             else:
                 return{}
@@ -348,10 +349,10 @@ class runRecipes():
         """determine what sort of lamp flat, if any, is needed for a YAML entry and return a recipe dictionary for it"""
         if(np.all(["DARK" not in props['type'], "FLAT" not in props['type'],"DETLIN" not in props['type'],"LMS" not in props['type'],"PERSISTENCE" not in props['type']])):
             if(",LM" in props['tech']):
-                df = copy.deepcopy(sd.LAMPFLATLM)
+                df = json.loads(json.dumps(sd.LAMPFLATLM))
                 df['mode'] = "img_lm"
             elif(",N" in props['tech']):
-                df = copy.deepcopy(sd.LAMPFLATN)
+                df = json.loads(json.dumps(sd.LAMPFLATN))
                 df['mode'] = "img_n"
             else:
                 return{}
@@ -435,7 +436,7 @@ class runRecipes():
         for rcp in np.unique([json.dumps(i, sort_keys=True) for i in wcuDarks]):
             drcp = json.loads(rcp)
             if bool(drcp):
-                label = f'd{nLab}'
+                label = f'w{nLab}'
                 nLab += 1
                 self.calibSet[label] = drcp
 
@@ -617,7 +618,6 @@ class runRecipes():
         """Calls _run for calibration recipes"""
 
         self._run(self.calibSet)
-        
 
     def _run(self,dorcps):
         
@@ -660,6 +660,8 @@ class runRecipes():
                 
                 combodict = dict(zip(expanded, combo))
                 props = recipe["properties"] | combodict
+
+                
                 # a blank value of ndfilter_name if not explicitly given
                 try:
                     nfname = props["ndfilter_name"]
@@ -705,10 +707,10 @@ class runRecipes():
                             print("No appropriate starting time found; exiting")
                             return
     
-    
+
                 # for nObs exposures of each set of parameters
                 for _ in range(nObs):        
-    
+
                     # note that tDelt = 0 if we've explicitly set it above
                     self.tObs = self.tObs + self.tDelt
 
@@ -726,23 +728,22 @@ class runRecipes():
                     print(f"    fname={fname}")
                     print(f'    source =  {recipe["source"]}')
 
-                    print(props)
                     # get kwargs for scopeSim
                     kwargs = NestedMapping({"OBS": props})
+
+                    
                     print(f"    dit={props['dit']},ndit={props['ndit']},catg={props['catg']},tech={props['tech']},type={props['type']},filter_name={props['filter_name']}, ndfilter_name={props['ndfilter_name']}")
 
                     # keep track of the list of arguments
                     if("wcu" not in recipe.keys()):
                        recipe["wcu"] = None
+                    #simulate(fname, mode, kwargs,recipe["wcu"], source=recipe["source"], small=self.params['small'])
 
                     allArgs.append((fname,mode,kwargs,recipe["wcu"],recipe["source"],self.params["small"]))
-    
-        # and run the
         
-
         if(not self.params['testRun']):
             nCores = self.params['nCores']
-
+        
             
             with Pool(nCores) as pool:
                 pool.starmap(simulate, allArgs)
