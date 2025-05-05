@@ -30,7 +30,8 @@ jobs:
           python -m pip install --upgrade pip
           pip install git+https://github.com/AstarVienna/ScopeSim_Data.git
           pip install git+https://github.com/AstarVienna/ScopeSim.git
-          pip install astar-utils numpy more-itertools astropy PyYAML scopesim_templates
+          pip install git+https://github.com/AstarVienna/ScopeSim_Templates.git
+          pip install astar-utils numpy more-itertools astropy PyYAML
       - name: Run recipes
         run: |
           python Simulations/python/downloadPackages.py
