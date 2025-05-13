@@ -10,8 +10,9 @@ LM_LSS_STD_RAW1:
   do.catg: LM_LSS_STD_RAW
   mode: "lss_l"
   source:
-    name: simple_star8
-    kwargs: {}
+    name: calib_star
+    kwargs:
+      amplitude: 8
   properties:
     dit: 0.05
     ndit: 1
@@ -44,8 +45,9 @@ N_LSS_STD_RAW1:
   do.catg: N_LSS_STD_RAW
   mode: "lss_n"
   source:
-    name: simple_star8
-    kwargs: {}
+    name: calib_star
+    kwargs:
+      amplitude: 8
   properties:
     dit: 0.05
     ndit: 1

@@ -21,7 +21,7 @@ import astropy.units as u
 
 from simulationDefinitions import *
 from sources import *
-sim.rc.__config__["!SIM.file.local_packages_path"] = DEFAULT_IRDB_LOCATION
+#sim.rc.__config__["!SIM.file.local_packages_path"] = DEFAULT_IRDB_LOCATION
 
 logger = get_logger(__file__)
 
