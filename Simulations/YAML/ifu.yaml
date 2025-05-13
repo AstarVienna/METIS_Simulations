@@ -10,8 +10,9 @@ IFU_STD_RAW1:
   do.catg: IFU_STD_RAW
   mode: "lms"
   source:
-    name: simple_star8
-    kwargs: {}
+    name: calib_star
+    kwargs:
+      amplitude: 8
   properties:
     dit: 100
     ndit: 3

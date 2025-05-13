@@ -215,8 +215,9 @@ LM_SLITLOSSES_RAW1:
   do.catg: LM_SLITLOSSES_RAW
   mode: "lss_l"
   source:
-    name: simple_star10
+    name: calib_star
     kwargs:
+      amplitude: 10
       x: 0
       y: -0.025   
   properties:
@@ -235,8 +236,9 @@ N_LSS_SLITLOSSES_RAW1:
   do.catg: N_SLITLOSSES_RAW
   mode: "lss_n"
   source:
-    name: simple_star10
+    name: calib_star
     kwargs:
+      amplitude: 10
       x: 0
       y: -0.025   
   properties:

@@ -9,8 +9,9 @@ LM_IMAGE_STD_RAW1:
   do.catg: LM_IMAGE_STD_RAW
   mode: "img_lm"
   source:
-    name: simple_star12
-    kwargs: {}
+    name: calib_star
+    kwargs:
+      amplitude: 12
   properties:
     dit: 0.25
     ndit: 1
@@ -41,8 +42,9 @@ N_IMAGE_STD_RAW1:
   do.catg: N_IMAGE_STD_RAW
   mode: "img_n"
   source:
-    name: simple_star12
-    kwargs: {}
+    name: calib_star
+    kwargs:
+      amplitude: 12
   properties:
     dit: 0.25
     ndit: 1

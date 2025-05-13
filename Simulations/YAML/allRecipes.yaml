@@ -262,8 +262,9 @@ LM_SLITLOSSES_RAW1:
   do.catg: LM_SLITLOSSES_RAW
   mode: "lss_l"
   source:
-    name: simple_star10
+    name: calib_star
     kwargs:
+      amplitude: 10
       x: 0
       y: -0.025   
   properties:
@@ -282,8 +283,9 @@ N_LSS_SLITLOSSES_RAW1:
   do.catg: N_SLITLOSSES_RAW
   mode: "lss_n"
   source:
-    name: simple_star10
+    name: calib_star
     kwargs:
+      amplitude: 10
       x: 0
       y: -0.025   
   properties:
@@ -482,8 +484,9 @@ LM_IMAGE_STD_RAW1:
   do.catg: LM_IMAGE_STD_RAW
   mode: "img_lm"
   source:
-    name: simple_star12
-    kwargs: {}
+    name: calib_star
+    kwargs:
+      amplitude: 12
   properties:
     dit: 0.25
     ndit: 1
@@ -514,8 +517,9 @@ N_IMAGE_STD_RAW1:
   do.catg: N_IMAGE_STD_RAW
   mode: "img_n"
   source:
-    name: simple_star12
-    kwargs: {}
+    name: calib_star
+    kwargs:
+      amplitude: 12
   properties:
     dit: 0.25
     ndit: 1
@@ -624,8 +628,9 @@ LM_LSS_STD_RAW1:
   do.catg: LM_LSS_STD_RAW
   mode: "lss_l"
   source:
-    name: simple_star8
-    kwargs: {}
+    name: calib_star
+    kwargs:
+      amplitude: 8
   properties:
     dit: 0.05
     ndit: 1
@@ -658,8 +663,9 @@ N_LSS_STD_RAW1:
   do.catg: N_LSS_STD_RAW
   mode: "lss_n"
   source:
-    name: simple_star8
-    kwargs: {}
+    name: calib_star
+    kwargs:
+      amplitude: 8
   properties:
     dit: 0.05
     ndit: 1
@@ -764,8 +770,9 @@ IFU_STD_RAW1:
   do.catg: IFU_STD_RAW
   mode: "lms"
   source:
-    name: simple_star8
-    kwargs: {}
+    name: calib_star
+    kwargs:
+      amplitude: 8
   properties:
     dit: 100
     ndit: 3
@@ -846,8 +853,9 @@ LM_OFF_AXIS_PSF_RAW:
   do.catg: LM_OFF_AXIS_PSF_RAW
   mode: "img_lm"
   source:
-    name: simple_star12
-    kwargs: {}
+    name: calib_star
+    kwargs:
+      amplitude: 12
   properties:
     dit: 0.25
     ndit: 1
@@ -862,8 +870,9 @@ N_OFF_AXIS_PSF_RAW:
   do.catg: N_OFF_AXIS_PSF_RAW
   mode: "img_n"
   source:
-    name: simple_star12
-    kwargs: {}
+    name: calib_star
+    kwargs:
+      amplitude: 12
   properties:
     dit: 0.25
     ndit: 1
@@ -878,8 +887,9 @@ IFU_OFF_AXIS_PSF_RAW:
   do.catg: IFU_OFF_AXIS_PSF_RAW
   mode: "lms"
   source:
-    name: simple_star8
-    kwargs: {}
+    name: calib_star
+    kwargs:
+      amplitude: 8
   properties:
     dit: 100
     ndit: 3
@@ -897,8 +907,9 @@ LM_IMAGE_SCI_CORONAGRAPH_RAW1:
   do.catg: LM_IMAGE_SCI_RAW
   mode: "img_lm"
   source:
-    name: simple_star12
-    kwargs: {}
+    name: calib_star
+    kwargs:
+      amplitude: 12
   properties:
     dit: 0.25
     ndit: 1
@@ -931,8 +942,9 @@ LM_IMAGE_SCI_CORONAGRAPH_RAW3:
   do.catg: LM_IMAGE_SCI_RAW
   mode: "img_lm"
   source:
-    name: simple_star12
-    kwargs: {}
+    name: calib_star
+    kwargs:
+      amplitude: 12
   properties:
     dit: 0.25
     ndit: 1
@@ -964,8 +976,9 @@ IFU_SCI_CORONAGRAPH_RAW1:
   do.catg: IFU_SCI_RAW
   mode: "lms"
   source:
-    name: simple_star8
-    kwargs: {}
+    name: calib_star
+    kwargs:
+      amplitude: 8
   properties:
     dit: 100
     ndit: 3
