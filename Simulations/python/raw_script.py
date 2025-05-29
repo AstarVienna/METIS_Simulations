@@ -84,9 +84,9 @@ def simulate(fname, mode, kwargs, wcu, source=None, small=False):
     
     #set up the simulation
     if("wavelen" in kwargs["OBS"].keys()):
-        cmd = sim.UserCommands(use_instrument="metis", set_modes=[mode],properties={"!OBS.wavelen": kwargs["OBS"]['wavelen']})
+        cmd = sim.UserCommands(use_instrument="METIS", set_modes=[mode],properties={"!OBS.wavelen": kwargs["OBS"]['wavelen']})
     else:
-        cmd = sim.UserCommands(use_instrument="metis", set_modes=[mode])
+        cmd = sim.UserCommands(use_instrument="METIS", set_modes=[mode])
 
     #copy over the OBS settings directly, then set up the optical train
 

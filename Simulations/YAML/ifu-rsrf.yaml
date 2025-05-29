@@ -1,0 +1,102 @@
+
+##################### IFU RSRF #####################
+##PINHOLE TRACES IN VARIOUS TRACES
+IFU_RSRF_RAW1:
+  do.catg: IFU_RSRF_PINH_RAW
+  mode: "wcu_lms"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 10
+    ndit: 20
+    wavelen: 3.555
+    filter_name: "open"
+    ndfilter_name: "open"
+    catg: "CALIB"
+    tech: "LMS"
+    type: "RSRF"
+    tplname: "METIS_ifu_cal_rsrf"
+    nObs: 1
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "grid_lm"
+    bb_aperture: 0.5
+    bb_temp: 800
+    is_temp: 300
+    wcu_temp: 300
+    xshift: 0
+    yshift: -0.1
+
+##WCU flats
+IFU_RSRF_RAW2:
+  do.catg: IFU_RSRF_RAW
+  mode: "wcu_lms"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 10
+    ndit: 20
+    wavelen: 3.555
+    filter_name: "open"
+    ndfilter_name: "open"
+    catg: "CALIB"
+    tech: "LMS"
+    type: "RSRF"
+    tplname: "METIS_ifu_cal_rsrf"
+    nObs: 1
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 0.0001
+    bb_temp: 8000
+    is_temp: 300
+    wcu_temp: 300
+    xshift: 0
+    yshift: 0
+
+
+## WCU_OFF frames
+IFU_WCU_OFF1:
+  do.catg: IFU_WCU_OFF_RAW
+  mode: "wcu_lms"
+  source: 
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 10
+    ndit: 20
+    wavelen: 3.555
+    filter_name: "open"
+    ndfilter_name: "open"
+    catg: "CALIB"
+    tech: "LMS"
+    type: "RSRF"
+    tplname: "METIS_ifu_cal_rsrf"
+    nObs: 1
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 0.0
+    bb_temp: 300
+    is_temp: 300
+    wcu_temp: 300
+
+## SKY image for waveval
+IFU_SKY_RAW1:
+  do.catg: IFU_WAVE_RAW
+  mode: "lms"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 100
+    ndit: 3
+    filter_name: "open"
+    wavelen: "3.555"
+    catg: "CALIB"
+    tech: "LMS"
+    type: "SKY"
+    tplname: "METIS_ifu_cal_standard"
+    nObs: 1
