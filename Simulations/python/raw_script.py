@@ -20,8 +20,7 @@ import scopesim_templates as sim_tp
 import astropy.units as u
 
 from simulationDefinitions import *
-from sources import *
-#sim.rc.__config__["!SIM.file.local_packages_path"] = DEFAULT_IRDB_LOCATION
+import sources
 
 logger = get_logger(__file__)
 
@@ -34,7 +33,7 @@ logger = get_logger(__file__)
 # Current Solution: use the mode field in the YAML file directly.
 # may want to error trap for invalid combinations in the future
 
-def simulate(fname, mode, kwargs, wcu, source=None, small=False):
+def simulate(scopesim_path, fname, mode, kwargs, wcu, source=None, small=False ):
 
     """Run main function for this script."""
     logger.info("*****************************************")
@@ -45,6 +44,10 @@ def simulate(fname, mode, kwargs, wcu, source=None, small=False):
         logger.debug("output filename: %s", fname)
     else:
         logger.warning("Output filename not set, result will not be saved.")
+    
+    if scopesim_path is not None:
+        sources.setup_scopesim_sources(scopesim_path)
+        SOURCEDICT = sources.get_SOURCEDICT()
 
     if isinstance(source, Mapping):
         src_name = source["name"]
@@ -84,9 +87,9 @@ def simulate(fname, mode, kwargs, wcu, source=None, small=False):
     
     #set up the simulation
     if("wavelen" in kwargs["OBS"].keys()):
-        cmd = sim.UserCommands(use_instrument="metis", set_modes=[mode],properties={"!OBS.wavelen": kwargs["OBS"]['wavelen']})
+        cmd = sim.UserCommands(use_instrument="METIS", set_modes=[mode],properties={"!OBS.wavelen": kwargs["OBS"]['wavelen']})
     else:
-        cmd = sim.UserCommands(use_instrument="metis", set_modes=[mode])
+        cmd = sim.UserCommands(use_instrument="METIS", set_modes=[mode])
 
     #copy over the OBS settings directly, then set up the optical train
 

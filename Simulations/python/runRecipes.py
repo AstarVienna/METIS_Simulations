@@ -15,9 +15,7 @@ from astar_utils import NestedMapping
 from datetime import datetime
 import numpy as np
 from astropy.io import fits
-import astropy
-import copy
-from multiprocessing import Pool,Process,Manager
+from multiprocessing import Pool
 
 class runRecipes():
 
@@ -29,110 +27,29 @@ class runRecipes():
         self.tDelt = TimeDelta(0, format='sec') 
         self.allFileNames = []
         self.allmjd = []
-        
-    def parseCommandLine(self,args):
-
+        self.params = {}
+    
+    def setParms(self, **params):
         """
-        Parse the command line options to get the paramters to run the set of simulations
-        Creates a dictionary, params, containing all command line options
+        Set parameters directly from keyword arguments or a dictionary.
         """
-        
-        parser = argparse.ArgumentParser()
-
-        params = {}
-
-        parser.add_argument('-i', '--inputYAML', type=str,
-                            help='input YAML File')
-        parser.add_argument('-o', '--outputDir', type=str,
-                            help='output directory')
-        parser.add_argument('-s', '--small', action = "store_true",
-                            default=False,
-                            help=('use detectors of 32x32 pixels; ' +
-                                  'for running in the continuous integration'))
-        
-        parser.add_argument('-e', '--doStatic', action = "store_true",
-                            default=False,
-                            help=('Generate prototypes for static/external calibration files'))
-
-        parser.add_argument('-c', '--catg', type=str,
-                            help='comma-separated list of selected output file categories')
-        parser.add_argument('--doCalib', type=int,
-                            default=0, help='automatically generate darks and flats for the dataset. Will generate N of each type')
-
-        # expects either 1 or a date stamp
-        parser.add_argument('--sequence', type=str,
-                            default=False, help='options for generating timestamps. Set to a date in the form yyyy-mm-dd hh:mm:ss to start from a specific date, or 1 to use the first dateobs in the YAML file.')
-
-        # if set, option to true
-        parser.add_argument('--testRun', action="store_true",
-                            help='run the script without executing simulate to check input')
-
-        parser.add_argument('-f', '--calibFile', type=str,
-                            default = None,
-                            help='File to dump calibration file YAML to')
-        parser.add_argument('-n', '--nCores', type=int,
-                            default = 1,
-                            help='number of cores for parallel processing')
-
-        
-        args = parser.parse_args()
-        if args.inputYAML:
-            params['inputYAML'] = args.inputYAML
-        else:
-            params['inputYAML'] = Path(__file__).parents[1] / "YAML/allRecipes.yaml/"
-
-        if args.outputDir:
-            params['outputDir'] = args.outputDir
-        else:
-            params['outputDir'] = Path(__file__).parents[1] / "output/"
-        if(args.sequence):
-            if(args.sequence == "1"):
-                params['startMJD'] = None
-                params['sequence'] = True
-            else:
-                params['startMJD'] = args.sequence
-                params['sequence'] = True
-        else:
-            params['sequence'] = False
-            params['startMJD'] = None
-        
-        if(args.doCalib):
-            params['doCalib'] = args.doCalib
-        else:
-            params['doCalib'] = 0
-        
-        if args.catg:
-            params['catglist'] = args.catg.split(',')
-        else:
-            params['catglist'] = None
-        
-            
-        params['small'] = args.small
-
-        params['doStatic'] = args.doStatic
-                            
-        params['testRun'] = args.testRun
-
-        params['calibFile'] = args.calibFile
-
-        if(args.nCores):
-            params['nCores'] = args.nCores
-        else:
-            params['nCores'] = 1
+        self.params = params
         
         print(f"Starting Simulations")
         print(f"   input YAML = {params['inputYAML']}, output directory =  {params['outputDir']}")
-        if(params['startMJD'] is not None):
-            print(f"  observation sequence starting at {params['startMJD']}")
-        elif(params['sequence']):
+        if(params['sequence'] == "1"):
+            params['startMJD'] = None
+            params['sequence'] = True
+        else:
+            params['startMJD'] = params['sequence']
+            params['sequence'] = True
+        if(params['sequence']):
             print(f"  Observation sequence will start from first date in YAML file")
         else:
             print(f"  Observation dates will be taken from YAML file if given")
         print(f"  Automatically generated darks and flats {params['doCalib']}")
         print(f"  Small output option {params['small']}")
         print(f"  Generate External Calibs {params['doCalib']}")
-    
-        self.params = params
 
     def loadYAML(self):
 
@@ -157,16 +74,8 @@ class runRecipes():
 
         """filter a dictionary of recipes"""
 
-        if self.params['catglist'] is None:
-            
-            dorcps = allrcps
-        else:
-            dorcps = {}
-            for catg in self.params['catglist']:
-                if catg in allrcps.keys():
-                    dorcps[catg] = allrcps[catg]
-                else:
-                    raise ValueError(f"ERROR: {catg} is not a supported product category")
+        dorcps = allrcps
+
         return dorcps
     
     def validateYAML(self):
@@ -739,7 +648,7 @@ class runRecipes():
                        recipe["wcu"] = None
                     #simulate(fname, mode, kwargs,recipe["wcu"], source=recipe["source"], small=self.params['small'])
 
-                    allArgs.append((fname,mode,kwargs,recipe["wcu"],recipe["source"],self.params["small"]))
+                    allArgs.append((self.params["scopesim_path"],fname,mode,kwargs,recipe["wcu"],recipe["source"],self.params["small"]))
         
         if(not self.params['testRun']):
             nCores = self.params['nCores']
