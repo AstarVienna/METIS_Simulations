@@ -28,6 +28,116 @@ class runRecipes():
         self.allFileNames = []
         self.allmjd = []
         self.params = {}
+
+    def parseCommandLine(self,args):
+
+        """
+        Parse the command line options to get the paramters to run the set of simulations
+        Creates a dictionary, params, containing all command line options
+        """
+        
+        parser = argparse.ArgumentParser()
+
+        params = {}
+
+        parser.add_argument('-i', '--inputYAML', type=str,
+                            help='input YAML File')
+        parser.add_argument('-o', '--outputDir', type=str,
+                            help='output directory')
+        parser.add_argument('-s', '--small', action = "store_true",
+                            default=False,
+                            help=('use detectors of 32x32 pixels; ' +
+                                  'for running in the continuous integration'))
+        
+        parser.add_argument('-e', '--doStatic', action = "store_true",
+                            default=False,
+                            help=('Generate prototypes for static/external calibration files'))
+
+        parser.add_argument('-c', '--catg', type=str,
+                            help='comma-separated list of selected output file categories')
+        parser.add_argument('--doCalib', type=int,
+                            default=0, help='automatically generate darks and flats for the dataset. Will generate N of each type')
+
+        # expects either 1 or a date stamp
+        parser.add_argument('--sequence', type=str,
+                            default=False, help='options for generating timestamps. Set to a date in the form yyyy-mm-dd hh:mm:ss to start from a specific date, or 1 to use the first dateobs in the YAML file.')
+
+        # if set, option to true
+        parser.add_argument('--testRun', action="store_true",
+                            help='run the script without executing simulate to check input')
+
+        parser.add_argument('-f', '--calibFile', type=str,
+                            default = None,
+                            help='File to dump calibration file YAML to')
+        parser.add_argument('-n', '--nCores', type=int,
+                            default = 1,
+                            help='number of cores for parallel processing')
+        parser.add_argument('-p', '--scopesim_path', type=str,
+                            default = str(Path.home()) + '/.inst_pkgs',
+                            help='Path to the IRDB instrument packages')
+
+        
+        args = parser.parse_args()
+        if args.inputYAML:
+            params['inputYAML'] = args.inputYAML
+        else:
+            params['inputYAML'] = Path(__file__).parents[1] / "YAML/allRecipes.yaml/"
+
+        if args.outputDir:
+            params['outputDir'] = args.outputDir
+        else:
+            params['outputDir'] = Path(__file__).parents[1] / "output/"
+        if(args.sequence):
+            if(args.sequence == "1"):
+                params['startMJD'] = None
+                params['sequence'] = True
+            else:
+                params['startMJD'] = args.sequence
+                params['sequence'] = True
+        else:
+            params['sequence'] = False
+            params['startMJD'] = None
+        
+        if(args.doCalib):
+            params['doCalib'] = args.doCalib
+        else:
+            params['doCalib'] = 0
+        
+        if args.catg:
+            params['catglist'] = args.catg.split(',')
+        else:
+            params['catglist'] = None
+        
+            
+        params['small'] = args.small
+
+        params['doStatic'] = args.doStatic
+                            
+        params['testRun'] = args.testRun
+
+        params['calibFile'] = args.calibFile
+
+        if(args.nCores):
+            params['nCores'] = args.nCores
+        else:
+            params['nCores'] = 1
+        
+        if args.scopesim_path:
+            params['scopesim_path'] = args.scopesim_path
+        
+        print(f"Starting Simulations")
+        print(f"   input YAML = {params['inputYAML']}, output directory =  {params['outputDir']}")
+        if(params['startMJD'] is not None):
+            print(f"  observation sequence starting at {params['startMJD']}")
+        elif(params['sequence']):
+            print(f"  Observation sequence will start from first date in YAML file")
+        else:
+            print(f"  Observation dates will be taken from YAML file if given")
+        print(f"  Automatically generated darks and flats {params['doCalib']}")
+        print(f"  Small output option {params['small']}")
+        print(f"  Generate External Calibs {params['doCalib']}")
+    
+        self.params = params
     
     def setParms(self, **params):
         """

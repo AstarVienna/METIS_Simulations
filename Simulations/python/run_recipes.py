@@ -10,7 +10,18 @@ import sys
 import makeCalibPrototypes
 from pathlib import Path
 
-def runRecipes(inputYAML=Path.joinpath(Path(__file__).parent.parent, "YAML/img.yaml"), outputDir="output/", small=False, doStatic=False, doCalib=0, sequence="1", testRun=False, calibFile=None, nCores=8, scopesim_path=Path.home() / ".sigmas_pkg", **kwargs):
+def runRecipes(inputYAML=Path.joinpath(Path(__file__).parent.parent, 
+                                       "YAML/allRecipes.yaml"), 
+                                       outputDir="output/", 
+                                       small=False, 
+                                       doStatic=False, 
+                                       doCalib=0, 
+                                       sequence="1", 
+                                       testRun=False, 
+                                       calibFile=None, 
+                                       nCores=8, 
+                                       scopesim_path=Path.home() / ".sigmas_pkg", 
+                                       **kwargs):
     """
     Run a set of recipes with explicit arguments instead of command line.
     Arguments:
@@ -77,4 +88,33 @@ def runRecipes(inputYAML=Path.joinpath(Path(__file__).parent.parent, "YAML/img.y
         makeCalibPrototypes.generateStaticCalibs(simulationSet.params['outputDir'])
         
 if __name__ == "__main__":
-    runRecipes()
+    simulationSet = rr.runRecipes()
+    simulationSet.parseCommandLine(sys.argv[1:])
+
+    simulationSet.loadYAML()
+    
+    goodInput = simulationSet.validateYAML()
+
+    if (not goodInput):
+        exit
+
+    if(simulationSet.params['doCalib'] > 0):
+        simulationSet.calculateCalibs()
+
+    simulationSet.runSimulations()
+    
+    if(simulationSet.params['doCalib'] > 0):
+        simulationSet.runCalibrations()
+
+        if(simulationSet.params['calibFile'] is not None):
+            simulationSet.dumpCalibsToFile()
+
+    simulationSet.allFileNames.sort()
+    for elem in simulationSet.allFileNames:
+        print(elem)
+
+    if(not simulationSet.params['testRun']):
+        simulationSet.updateHeaders()
+
+    if(simulationSet.params['doStatic']):
+        makeCalibPrototypes.generateStaticCalibs(simulationSet.params['outputDir'])

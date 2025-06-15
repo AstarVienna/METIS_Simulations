@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 
 import scopesim as sim
+from pathlib import Path
 
-sim.download_packages("METIS",release="github:dev_master")
-sim.download_packages("Armazones", release="2023-07-11")
-sim.download_packages("ELT", release="2024-02-29")
+pkgs = ["METIS", "Armazones", "ELT"]
+
+for pkg in pkgs:
+    sim.download_packages(pkg,release="stable", save_dir=str(Path.home()) + '/.inst_pkgs' )
