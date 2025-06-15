@@ -15,9 +15,7 @@ from astar_utils import NestedMapping
 from datetime import datetime
 import numpy as np
 from astropy.io import fits
-import astropy
-import copy
-from multiprocessing import Pool,Process,Manager
+from multiprocessing import Pool
 
 class runRecipes():
 
@@ -29,7 +27,8 @@ class runRecipes():
         self.tDelt = TimeDelta(0, format='sec') 
         self.allFileNames = []
         self.allmjd = []
-        
+        self.params = {}
+
     def parseCommandLine(self,args):
 
         """
@@ -73,6 +72,9 @@ class runRecipes():
         parser.add_argument('-n', '--nCores', type=int,
                             default = 1,
                             help='number of cores for parallel processing')
+        parser.add_argument('-p', '--scopesim_path', type=str,
+                            default = str(Path.home()) + '/.inst_pkgs',
+                            help='Path to the IRDB instrument packages')
 
         
         args = parser.parse_args()
@@ -120,6 +122,9 @@ class runRecipes():
         else:
             params['nCores'] = 1
         
+        if args.scopesim_path:
+            params['scopesim_path'] = args.scopesim_path
+        
         print(f"Starting Simulations")
         print(f"   input YAML = {params['inputYAML']}, output directory =  {params['outputDir']}")
         if(params['startMJD'] is not None):
@@ -133,6 +138,28 @@ class runRecipes():
         print(f"  Generate External Calibs {params['doCalib']}")
     
         self.params = params
+    
+    def setParms(self, **params):
+        """
+        Set parameters directly from keyword arguments or a dictionary.
+        """
+        self.params = params
+        
+        print(f"Starting Simulations")
+        print(f"   input YAML = {params['inputYAML']}, output directory =  {params['outputDir']}")
+        if(params['sequence'] == "1"):
+            params['startMJD'] = None
+            params['sequence'] = True
+        else:
+            params['startMJD'] = params['sequence']
+            params['sequence'] = True
+        if(params['sequence']):
+            print(f"  Observation sequence will start from first date in YAML file")
+        else:
+            print(f"  Observation dates will be taken from YAML file if given")
+        print(f"  Automatically generated darks and flats {params['doCalib']}")
+        print(f"  Small output option {params['small']}")
+        print(f"  Generate External Calibs {params['doCalib']}")
 
     def loadYAML(self):
 
@@ -157,16 +184,8 @@ class runRecipes():
 
         """filter a dictionary of recipes"""
 
-        if self.params['catglist'] is None:
-            
-            dorcps = allrcps
-        else:
-            dorcps = {}
-            for catg in self.params['catglist']:
-                if catg in allrcps.keys():
-                    dorcps[catg] = allrcps[catg]
-                else:
-                    raise ValueError(f"ERROR: {catg} is not a supported product category")
+        dorcps = allrcps
+
         return dorcps
     
     def validateYAML(self):
@@ -739,7 +758,7 @@ class runRecipes():
                        recipe["wcu"] = None
                     #simulate(fname, mode, kwargs,recipe["wcu"], source=recipe["source"], small=self.params['small'])
 
-                    allArgs.append((fname,mode,kwargs,recipe["wcu"],recipe["source"],self.params["small"]))
+                    allArgs.append((self.params["scopesim_path"],fname,mode,kwargs,recipe["wcu"],recipe["source"],self.params["small"]))
         
         if(not self.params['testRun']):
             nCores = self.params['nCores']
