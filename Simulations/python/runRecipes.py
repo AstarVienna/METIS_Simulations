@@ -72,8 +72,8 @@ class runRecipes():
         parser.add_argument('-n', '--nCores', type=int,
                             default = 1,
                             help='number of cores for parallel processing')
-        parser.add_argument('-p', '--scopesim_path', type=str,
-                            default = str(Path.home()) + '/.inst_pkgs',
+        parser.add_argument('-p', '--irdb_path', type=str,
+                            default = './inst_pkgs',
                             help='Path to the IRDB instrument packages')
 
         
@@ -87,16 +87,6 @@ class runRecipes():
             params['outputDir'] = args.outputDir
         else:
             params['outputDir'] = Path(__file__).parents[1] / "output/"
-        if(args.sequence):
-            if(args.sequence == "1"):
-                params['startMJD'] = None
-                params['sequence'] = True
-            else:
-                params['startMJD'] = args.sequence
-                params['sequence'] = True
-        else:
-            params['sequence'] = False
-            params['startMJD'] = None
         
         if(args.doCalib):
             params['doCalib'] = args.doCalib
@@ -122,21 +112,8 @@ class runRecipes():
         else:
             params['nCores'] = 1
         
-        if args.scopesim_path:
-            params['scopesim_path'] = args.scopesim_path
-        
-        print(f"Starting Simulations")
-        print(f"   input YAML = {params['inputYAML']}, output directory =  {params['outputDir']}")
-        if(params['startMJD'] is not None):
-            print(f"  observation sequence starting at {params['startMJD']}")
-        elif(params['sequence']):
-            print(f"  Observation sequence will start from first date in YAML file")
-        else:
-            print(f"  Observation dates will be taken from YAML file if given")
-        print(f"  Automatically generated darks and flats {params['doCalib']}")
-        print(f"  Small output option {params['small']}")
-        print(f"  Generate External Calibs {params['doCalib']}")
-    
+        if args.irdb_path:
+            params['irdb_path'] = args.irdb_path
         self.params = params
     
     def setParms(self, **params):
@@ -184,8 +161,16 @@ class runRecipes():
 
         """filter a dictionary of recipes"""
 
-        dorcps = allrcps
-
+        if self.params['catglist'] is None:
+            
+            dorcps = allrcps
+        else:
+            dorcps = {}
+            for catg in self.params['catglist']:
+                if catg in allrcps.keys():
+                    dorcps[catg] = allrcps[catg]
+                else:
+                    raise ValueError(f"ERROR: {catg} is not a supported product category")
         return dorcps
     
     def validateYAML(self):
@@ -758,7 +743,7 @@ class runRecipes():
                        recipe["wcu"] = None
                     #simulate(fname, mode, kwargs,recipe["wcu"], source=recipe["source"], small=self.params['small'])
 
-                    allArgs.append((self.params["scopesim_path"],fname,mode,kwargs,recipe["wcu"],recipe["source"],self.params["small"]))
+                    allArgs.append((self.params["irdb_path"],fname,mode,kwargs,recipe["wcu"],recipe["source"],self.params["small"]))
         
         if(not self.params['testRun']):
             nCores = self.params['nCores']
