@@ -11,7 +11,7 @@ on:
     # Run every Sunday at 1:05 UTC.
     # We can't run this more often because otherwise it might use all
     # of A*V's github data.
-    - cron: "5 1 * * 7"
+    - cron: "5 1 * * 0"
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
