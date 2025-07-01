@@ -68,7 +68,7 @@ N_IMAGE_STD_RAW1:
     tplname: "METIS_img_n_cal_standard"
     nObs: 1
 
-N_IMAGE_STD_RAW2:
+N_IMAGE_SKY_RAW2:
   do.catg: N_IMAGE_SKY_RAW
   mode: "img_n"
   source:
