@@ -1,12 +1,11 @@
-#### COMPLETE SET OF RAW INPUT FILES FOR N BAND RECIPES #####
-
+#### COMPLETE SET OF RAW INPUT FILES FOR LM BAND RECIPES #####
 
 ############# WCU DATA ##############
 ### DETLIN AND DISTORTION ###########
 
-DETLIN_GEO_RAW:
-  do.catg: DETLIN_GEO_RAW
-  mode: "img_n"
+DETLIN_2RG_RAW:
+  do.catg: DETLIN_2RG_RAW
+  mode: "img_lm"
   source:
     name: flat_field
     kwargs:
@@ -20,29 +19,26 @@ DETLIN_GEO_RAW:
     ndit: 1
     filter_name: "open"
     catg: "CALIB"
-    tech: "IMAGE,N"
+    tech: "IMAGE,LM"
     type: "DETLIN"
-    tplname: "METIS_img_n_cal_DetLin"
+    tplname: "METIS_img_lm_cal_DetLin"
     nObs: 1
 
-
-N_DISTORTION_RAW:
-  do.catg: N_DISTORTION_RAW
-  mode: "img_n"
+LM_DISTORTION_RAW:
+  do.catg: LM_DISTORTION_RAW
+  mode: "img_lm"
   source:
     name: pinhole_mask
-    kwargs:
-      dx: 5
-      dy: 5
+    kwargs: {}
   properties:
     dit: 0.25
     ndit: 1
-    filter_name: "open"
-    nd_filter_name: "ND_OD4"
+    filter_name: "Lp"
+    nd_filter_name: "ND_OD3"
     catg: "CALIB"
-    tech: "IMAGE,N"
+    tech: "IMAGE,LM"
     type: "DISTORTION"
-    tplname: "METIS_img_n_cal_distortion"
+    tplname: "METIS_img_lm_cal_distortion"
     nObs: 1
 
 
@@ -50,9 +46,12 @@ N_DISTORTION_RAW:
 
 #### EACH IMAGE PAIRED WITH SKY ######
 
-N_IMAGE_STD_RAW1:
-  do.catg: N_IMAGE_STD_RAW
-  mode: "img_n"
+
+######### IMAGING ###############
+
+LM_IMAGE_STD_RAW1:
+  do.catg: LM_IMAGE_STD_RAW
+  mode: "img_lm"
   source:
     name: calib_star
     kwargs:
@@ -60,64 +59,63 @@ N_IMAGE_STD_RAW1:
   properties:
     dit: 0.25
     ndit: 1
-    filter_name: "N1"
+    filter_name: "Lp"
     catg: "CALIB"
-    tech: "IMAGE,N"
+    tech: "IMAGE,LM"
     type: "STD"
-    tplname: "METIS_img_n_cal_standard"
+    tplname: "METIS_img_lm_cal_standard"
     nObs: 1
 
-N_IMAGE_SKY_RAW2:
-  do.catg: N_IMAGE_SKY_RAW
-  mode: "img_n"
+LM_IMAGE_SKY_RAW1:
+  do.catg: LM_IMAGE_SKY_RAW
+  mode: "img_lm"
   source:
     name: empty_sky
     kwargs: {}
   properties:
     dit: 0.25
     ndit: 1
-    filter_name: "N1"
+    filter_name: "Lp"
     catg: "CALIB"
-    tech: "IMAGE,N"
+    tech: "IMAGE,LM"
     type: "SKY"
-    tplname: "METIS_img_n_cal_standard"
+    tplname: "METIS_img_lm_cal_standard"
     nObs: 1
+
 
 
 ##################### STAR FIELD (SCIENCE SOURCE, LM/N) ######################3
 
-### POSITIONS / MAGNITUDES WERE INTIALLY SET RANDOMLY ###
-### BUT FIXED FOR THE SET OF SIMULATIONS #####
+### POSITIONS / MAGNITUDES WERE INTIALLY SET RANDOMLY, BUT FIXED FOR THE SET OF SIMULATIONS #####
 
-N_IMAGE_SCI_RAW1:
-  do.catg: N_IMAGE_SCI_RAW
-  mode: "img_n"
+LM_IMAGE_SCI_RAW2:
+  do.catg: LM_IMAGE_SCI_RAW
+  mode: "img_lm"
   source:
     name: star_field
     kwargs: {}
   properties:
     dit: 0.25
     ndit: 4
-    filter_name: "N1"
+    filter_name: "Lp"
     catg: "SCIENCE"
-    tech: "IMAGE,N"
+    tech: "IMAGE,LM"
     type: "OBJECT"
-    tplname: "METIS_img_n_obs_GenericChopNod"
+    tplname: "METIS_img_lm_obs_GenericOffset"
     nObs: 1
 
-N_IMAGE_SKY_RAW2:
-  do.catg: N_IMAGE_SKY_RAW
-  mode: "img_n"
+LM_IMAGE_SKY_RAW2:
+  do.catg: LM_IMAGE_SKY_RAW
+  mode: "img_lm"
   source:
     name: "empty_sky"
     kwargs: {}
   properties:
     dit: 0.25
     ndit: 4
-    filter_name: "N1"
+    filter_name: "Lp"
     catg: "SCIENCE"
-    tech: "IMAGE,N"
+    tech: "IMAGE,LM"
     type: "SKY"
-    tplname: "METIS_img_n_obs_GenericChopNod"
+    tplname: "METIS_img_lm_obs_GenericOffset"
     nObs: 1
-

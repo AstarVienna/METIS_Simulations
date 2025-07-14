@@ -1,9 +1,12 @@
 #!/bin/bash
 
+
 cat YAML/persist.yaml > YAML/allRecipes.yaml
 cat YAML/wcu.yaml >> YAML/allRecipes.yaml
-cat YAML/img.yaml >> YAML/allRecipes.yaml
-cat YAML/lss.yaml >> YAML/allRecipes.yaml
+cat YAML/imgLM.yaml >> YAML/allRecipes.yaml
+cat YAML/imgN.yaml >> YAML/allRecipes.yaml
+cat YAML/lssLM.yaml >> YAML/allRecipes.yaml
+cat YAML/lssN.yaml >> YAML/allRecipes.yaml
 cat YAML/ifu.yaml >> YAML/allRecipes.yaml
 cat YAML/hci.yaml >> YAML/allRecipes.yaml
 
