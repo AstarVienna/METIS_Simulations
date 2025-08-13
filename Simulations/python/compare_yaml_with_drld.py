@@ -29,7 +29,7 @@ def compareYAML(argv):
     PATH_HERE = Path(__file__).parent
     
     if len(sys.argv) == 1:
-        filename_yaml = PATH_HERE / 'YAML/recipes.yaml'
+        filename_yaml = PATH_HERE.parent / 'YAML/allRecipes.yaml'
     else:
         filename_yaml = argv[1]
     
@@ -65,7 +65,11 @@ def compareYAML(argv):
             problems.append(f"{do_catg} has DPR.TECH {props['tech']} in yaml but {di.dpr_tech} in DRLD")
         if props['type'] != di.dpr_type:
             problems.append(f"{do_catg} has DPR.TYPE {props['type']} in yaml but {di.dpr_type} in DRLD")
-    
+
+        if "tplname" not in props:
+            assert props["type"] == "PERSISTENCE"
+            continue
+
         tplname = props["tplname"].lower()
         if tplname not in di.templates:
             if (do_catg, tplname) not in HACK_RAW_TEMPLATE_COMBINATIONS_THAT_SHOULD_BE_ADDED_TO_THE_DRLD:
