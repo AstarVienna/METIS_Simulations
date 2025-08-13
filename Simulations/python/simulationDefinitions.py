@@ -79,37 +79,64 @@ SOURCEMODEDICT = {
 
 
 WCUDARKLM = {
-    "do.catg": "LM_WCU_OFF_RAW",
-    "mode": "img_lm",
+    "do.catg": "LM_IMG_WCU_OFF_RAW",
+    "mode": "wcu_img_lm",
     "source":{'name': 'empty_sky', 'kwargs': {}},
     "properties": {
         "catg": "CALIB",
         "tech": "IMAGE,LM",
-        "type": "DARK,WCUOFF",
-        "filter_name": "closed",
-        "tplname":'METIS_img_lm_det_dark',}}
+        "type": "DARK,WCU_OFF",
+        "filter_name": "open",
+        "ndfilter_name": "closed",
+        "tplname":'METIS_img_lm_det_dark',},
+    "wcu": {
+        "current_lamp": "bb",
+        "current_fpmask": "open",
+        "bb_aperture": 0.0,
+        "bb_temp": 300,
+        "is_temp": 300,
+        "wcu_temp": 300}}
+
 
 WCUDARKN = {
-    "do.catg": "N_WCU_OFF_RAW",
-    "mode": "img_n",
+    "do.catg": "N_IMG_WCU_OFF_RAW",
+    "mode": "wcu_img_n",
     "source": {'name': 'empty_sky', 'kwargs': {}},
     "properties": {
         "catg": "CALIB",
         "tech": "IMAGE,N",
-        "type": "DARK,WCUOFF",
-        "filter_name": "closed",
-        "tplname":'METIS_img_n_det_dark',}}
+        "type": "DARK,WCU_OFF",
+        "filter_name": "open",
+        "ndfilter_name": "closed",
+        "tplname":'METIS_img_n_det_dark',},
+    "wcu": {
+        "current_lamp": "bb",
+        "current_fpmask": "open",
+        "bb_aperture": 0.0,
+        "bb_temp": 300,
+        "is_temp": 300,
+        "wcu_temp": 300}}
+
 
 WCUDARKIFU = {
     "do.catg": "IFU_WCU_OFF_RAW",
-    "mode": "lms",
+    "mode": "wcu_lms",
     "source": {'name': 'empty_sky', 'kwargs': {}},
     "properties": {
         "catg": "CALIB",
         "tech": "LMS",
-        "type": "DARK,WCUOFF",
-        "filter_name": "closed",
-        "tplname":'METIS_lms_det_dark',}}
+        "type": "DARK,WCU_OFF",
+        "filter_name": "open",
+        "ndfilter_name": "closed",
+        "tplname":'METIS_lms_det_dark',},
+    "wcu": {
+        "current_lamp": "bb",
+        "current_fpmask": "open",
+        "bb_aperture": 0.0,
+        "bb_temp": 300,
+        "is_temp": 300,
+        "wcu_temp": 300}}
+
 
 DARKLM = {
     "do.catg": "DARK_2RG_RAW",
