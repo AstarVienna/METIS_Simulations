@@ -303,13 +303,13 @@ class runRecipes():
         if(np.all(["DARK" not in props['type'],"PERSISTENCE" not in props['type']])):
             if(",LM" in props['tech']):
                 df = json.loads(json.dumps(sd.WCUDARKLM))
-                df['mode'] = "img_lm"
+                df['mode'] = "wcu_img_lm"
             elif(",N" in props['tech']):
                 df = json.loads(json.dumps(sd.WCUDARKN))
-                df['mode'] = "img_n"
+                df['mode'] = "wcu_img_n"
             elif(np.any(["LMS" in props['tech'],"IFU" in props['tech']])):
                 df = json.loads(json.dumps(sd.WCUDARKIFU))
-                df['mode'] = "lms"
+                df['mode'] = "wcu_lms"
             else:
                 return{}
 
@@ -526,6 +526,7 @@ class runRecipes():
                         print(f"Lower case keyword found and removed: {k}")
                         hdu.header.pop(k)
 
+            
             hdul[0].header['MJD-OBS'] = mjd
             
             #if type(hdul[0].header['MJD-OBS']) == str:
@@ -535,34 +536,35 @@ class runRecipes():
            
             tech = hdul[0].header['HIERARCH ESO DPR TECH']
             filt = hdul[0].header['HIERARCH ESO DRS FILTER']
-    
+
+            
             if(tech == "LSS,LM"):
                 hdul[0].header['HIERARCH ESO INS MODE'] = "SPEC_LM"
-                hdul[0].header['HIERARCH ESO INS OPTI9 NAME'] = filt
-                hdul[0].header['HIERARCH ESO INS DRS SLIT'] = "C-38_1"
+                #hdul[0].header['HIERARCH ESO INS OPTI9 NAME'] = filt
+                #hdul[0].header['HIERARCH ESO INS DRS SLIT'] = "C-38_1"
             if(tech == "LSS,N"):
                 hdul[0].header['HIERARCH ESO INS MODE'] = "SPEC_N_LOW"
-                hdul[0].header['HIERARCH ESO INS OPTI12 NAME'] = filt
+                #hdul[0].header['HIERARCH ESO INS OPTI12 NAME'] = filt
                 hdul[0].header['HIERARCH ESO INS DRS SLIT'] = "C-38_1"
             
             #IMAGING
             if(tech == "IMAGE,LM"):
                 hdul[0].header['HIERARCH ESO INS MODE'] = "IMG_LM"
-                hdul[0].header['HIERARCH ESO INS OPTI10 NAME'] = filt
+                #hdul[0].header['HIERARCH ESO INS OPTI10 NAME'] = filt
             if(tech == "IMAGE,N"):
                 hdul[0].header['HIERARCH ESO INS MODE'] = "IMG_N"
-                hdul[0].header['HIERARCH ESO INS OPTI13 NAME'] = filt
+                #hdul[0].header['HIERARCH ESO INS OPTI13 NAME'] = filt
             
             #IFU
             if(tech == "LMS"):
                 hdul[0].header['HIERARCH ESO INS MODE'] = "IFU_nominal"
-                hdul[0].header['HIERARCH ESO INS OPTI6 NAME'] = filt
+                #hdul[0].header['HIERARCH ESO INS OPTI6 NAME'] = filt
                 hdul[0].header['HIERARCH ESO DRS IFU'] = filt
                 hdul[0].header['HIERARCH ESO DPR TECH'] = "IFU"
                 
             #HCI
             if(tech == "RAVC,LM"):
-                hdul[0].header['HIERARCH ESO INS OPTI10 NAME'] = filt
+                #hdul[0].header['HIERARCH ESO INS OPTI10 NAME'] = filt
                 hdul[0].header['HIERARCH ESO INS MODE'] = "IMG_LM_RAVC"
                 hdul[0].header['HIERARCH ESO DRS MASK'] = "VPM-L,RAP-LM,RLS-LMS"
                 hdul[0].header['HIERARCH ESO INS OPTI1 NAME'] = "RAP-LM"
@@ -571,7 +573,7 @@ class runRecipes():
                 hdul[0].header['HIERARCH ESO DPR TECH'] = "IMAGE,LM"
             
             if(tech == "APP,LM"):
-                hdul[0].header['HIERARCH ESO INS OPTI10 NAME'] = filt
+                #hdul[0].header['HIERARCH ESO INS OPTI10 NAME'] = filt
                 hdul[0].header['HIERARCH ESO INS MODE'] = "IMG_LM_APP"
                 hdul[0].header['HIERARCH ESO DPR TECH'] = "IMAGE,LM"
                 hdul[0].header['HIERARCH ESO INS OPTI1 NAME'] = "RAP-LM"
@@ -601,8 +603,6 @@ class runRecipes():
                 hdul[0].header['HIERARCH ESO INS MODE'] = "IMG_N"
                 hdul[0].header['HIERARCH ESO INS OPTI15 NAME'] = "PUPIL2"
     
-            
-            
             hdul.writeto(fName,overwrite=True)
             hdul.close()
 
@@ -734,10 +734,12 @@ class runRecipes():
                     
                     print(f"    dit={props['dit']},ndit={props['ndit']},catg={props['catg']},tech={props['tech']},type={props['type']},filter_name={props['filter_name']}, ndfilter_name={props['ndfilter_name']}")
 
+                    print(fname, recipe.keys())
                     # keep track of the list of arguments
                     if("wcu" not in recipe.keys()):
                        recipe["wcu"] = None
                     #simulate(fname, mode, kwargs,recipe["wcu"], source=recipe["source"], small=self.params['small'])
+                    print(f'    wcu =  {recipe["wcu"]}')
 
                     allArgs.append((fname,mode,kwargs,recipe["wcu"],recipe["source"],self.params["small"]))
         

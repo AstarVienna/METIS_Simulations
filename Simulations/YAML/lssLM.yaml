@@ -1,0 +1,175 @@
+###############  Generates a set of images for LM_LSS ##############
+
+
+LM_LSS_RSRF_RAW:
+  do.catg: LM_LSS_RSRF_RAW
+  mode: "wcu_lss_l"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "L_spec"
+    catg: "CALIB"
+    tech: "LSS,LM"
+    type: "FLAT,LAMP"
+    tplname: "METIS_spec_lm_cal_rsrf"
+    nObs: 1
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 0.0001
+    bb_temp: 8000
+    is_temp: 300
+    wcu_temp: 300
+
+LM_LSS_RSRF_PINH_RAW:
+  do.catg: LM_LSS_RSRF_PINH_RAW
+  mode: "wcu_lss_l"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "open"
+    catg: "CALIB"
+    tech: "LSS,LM"
+    type: "FLAT,LAMP,PINH"
+    tplname: "METIS_spec_lm_cal_rsrfpinh"
+    nObs: 1
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "grid_lm"
+    bb_aperture: 0.5
+    bb_temp: 800
+    is_temp: 300
+    wcu_temp: 300
+    xshift: 0
+    yshift: -0.1
+    
+
+##########  DETLIN INPUT ############
+
+
+DETLIN_2RG_RAW:
+  do.catg: DETLIN_2RG_RAW
+  mode: "wcu_img_lm"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit:
+      - 1.
+    ndit: 1
+    filter_name: "open"
+    catg: "CALIB"
+    tech: "IMAGE,LM"
+    type: "DETLIN"
+    tplname: "METIS_img_lm_cal_DetLin"
+    nObs: 1
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 0.0
+    bb_temp: 300
+    is_temp: 300
+    wcu_temp: 300
+
+
+##################### LASER SPECTRUM CALIBRATIONS ######################
+
+LM_LSS_WAVE_RAW:
+  do.catg: LM_LSS_WAVE_RAW
+  mode: "lss_l"
+  source:
+    name: "laser_spectrum_lm"
+    kwargs: {}
+  properties:
+    dit: 0.004
+    ndit: 1
+    filter_name: "open"
+    nd_filter_name: "ND_OD4"
+    catg: "CALIB"
+    tech: "LSS,LM"
+    type: "WAVE"
+    tplname: "METIS_spec_lm_cal_InternalWave"
+    nObs: 1
+
+
+#### EACH IMAGE PAIRED WITH SKY ######
+
+######SCIENCE SOURCE ########
+##################### EXTENDED GALAXY (SCIENCE SOURCE SPECTRA) ######################
+
+
+LM_LSS_SCI_RAW:
+  do.catg: LM_LSS_SCI_RAW
+  mode: "lss_l"
+  source:
+    name: simple_gal
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "L_spec"
+    catg: "SCIENCE"
+    tech: "LSS,LM"
+    type: "OBJECT"
+    tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
+    nObs: 1
+
+LM_LSS_SCI_SKY_RAW:
+  do.catg: LM_LSS_SKY_RAW
+  mode: "lss_l"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "L_spec"
+    catg: "SCIENCE"
+    tech: "LSS,LM"
+    type: "SKY"
+    tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
+    nObs: 1
+
+##################### "STANDARDS" (SINGLE SOURCE AT CENTER) ######################
+
+
+LM_LSS_STD_RAW:
+  do.catg: LM_LSS_STD_RAW
+  mode: "lss_l"
+  source:
+    name: calib_star
+    kwargs:
+      amplitude: 8
+  properties:
+    dit: 0.05
+    ndit: 1
+    filter_name: "L_spec"
+    catg: "CALIB"
+    tech: "LSS,LM"
+    type: "STD"
+    tplname: "METIS_spec_lm_cal_Standard"
+    nObs: 1
+
+
+LM_LSS_STD_SKY_RAW:
+  do.catg: LM_LSS_SKY_RAW
+  mode: "lss_l"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.05
+    ndit: 1
+    filter_name: "L_spec"
+    catg: "CALIB"
+    tech: "LSS,LM"
+    type: "SKY"
+    tplname: "METIS_spec_lm_cal_Standard"
+    nObs: 1
+
