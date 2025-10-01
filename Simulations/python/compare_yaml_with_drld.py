@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """Compare the main yaml file against the DRLD.
 
 First install the DRLD with

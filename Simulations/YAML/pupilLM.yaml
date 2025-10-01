@@ -1,0 +1,20 @@
+LM_PUPIL_RAW:
+  do.catg: LM_PUPIL_RAW
+  mode: "img_lm"
+  source:
+    name: flat_field
+    kwargs:
+      temperature: 200
+      amplitude: 0
+      filter_curve: "V"
+      extend: 15
+  properties:
+    dit: 10.
+    ndit: 1
+    filter_name: "open"
+    ndfilter_name: "open"
+    catg: "TECHNICAL"
+    tech: "PUP,LM"
+    type: "PUPIL"
+    tplname: "METIS_pup_lm"
+    nObs: 1

@@ -1,0 +1,20 @@
+
+###############  STANDALONE DARK OBSERVATION ################
+
+DARK_N_RAW:
+  do.catg: DARK_N_RAW
+  mode: "img_n"
+  source: 
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 1.
+    ndit: 1
+    filter_name: "closed"
+    ndfilter_name: "open"
+    catg: "CALIB"
+    tech: "IMAGE,N"
+    type: "DARK"
+    tplname: "METIS_img_n_det_dark"
+    nObs: 3
+    

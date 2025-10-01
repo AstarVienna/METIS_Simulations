@@ -3,33 +3,26 @@
 
 
 """ run a set of recipes from a YAML file"""
+#!/usr/bin/env python
 
 
-import runRecipes as rr
+import setupSimulations as rr
 import sys
 import makeCalibPrototypes
 
 
 def runRecipes(argv):
     
-    simulationSet = rr.runRecipes()
+    simulationSet = rr.setupSimulations()
 
     #simulationSet.setParms(inputYAML = None) \TODO - set parameters directly rather than commandline
 
     # get the command line arguments
     
     simulationSet.parseCommandLine(argv[1:])
-
     # read in the YAML
     simulationSet.loadYAML()
-
-    # validate the YAML
-    
-    goodInput = simulationSet.validateYAML()
-
-    # exit if the YAML entries are not valid
-    if (not goodInput):
-        exit
+    simulationSet.getStartDate()
 
     # if requested, get the list of flats and darks
     if(simulationSet.params['doCalib'] > 0):
@@ -40,16 +33,8 @@ def runRecipes(argv):
     
     # run the calibrations if requested
     if(simulationSet.params['doCalib'] > 0):
-        simulationSet.runCalibrations()
-
-        # if requested, dump the calibration dictionary to a YAML file in the same format as the input YAML
-        if(simulationSet.params['calibFile'] is not None):
-            simulationSet.dumpCalibsToFile()
-
-    simulationSet.allFileNames.sort()
-    for elem in simulationSet.allFileNames:
-        print(elem)
-
+        simulationSet.calculateDarks(simulationSet.darkParms)
+        simulationSet.calculateFlats(simulationSet.flatParms)
 
     # if simulations were done, update the headers
     if(not simulationSet.params['testRun']):

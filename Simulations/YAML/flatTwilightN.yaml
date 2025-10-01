@@ -1,0 +1,15 @@
+
+N_FLAT_TWILIGHT_RAW:
+  do.catg: N_FLAT_TWILIGHT_RAW
+  mode: img_n
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    catg: CALIB
+    tech: IMAGE,N
+    type: FLAT,TWILIGHT
+    tplname:'METIS_img_n_det_flat
+    
