@@ -1,0 +1,35 @@
+N_LSS_STD_RAW:
+  do.catg: N_LSS_STD_RAW
+  mode: "lss_n"
+  source:
+    name: calib_star
+    kwargs:
+      amplitude: 8
+  properties:
+    dit: 0.05
+    ndit: 1
+    filter_name: "open"
+    ndfilter_name: "open"
+    catg: "CALIB"
+    tech: "LSS,N"
+    type: "STD"
+    tplname: "METIS_spec_n_cal_Standard"
+    nObs: 1
+
+N_LSS_STD_SKY_RAW:
+  do.catg: N_LSS_SKY_RAW
+  mode: "lss_n"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.05
+    ndit: 1
+    filter_name: "open"
+    ndfilter_name: "open"
+    catg: "CALIB"
+    tech: "LSS,N"
+    type: "SKY"
+    tplname: "METIS_spec_n_cal_Standard"
+    nObs: 1
+    

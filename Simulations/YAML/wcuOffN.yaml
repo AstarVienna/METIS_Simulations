@@ -1,0 +1,23 @@
+###############  STANDALONE WCU,OFF OBSERVATION ################
+
+N_WCU_OFF_RAW:
+  do.catg: N_WCU_OFF_RAW
+  mode: wcu_img_n
+  source:
+    name: empty_sky
+    kwargs": {}
+    properties:
+        filter_name: "open"
+        ndfilter_name: "closed"
+        catg: "CALIB"
+        tech: "IMAGE,N"
+        type: "DARK,WCU_OFF"
+        tplname: "METIS_n_det_dark"
+    wcu:
+        current_lamp: "bb"
+        current_fpmask: "open"
+        bb_aperture: 0.0
+        bb_temp: 300
+        is_temp: 300
+        wcu_temp: 300
+

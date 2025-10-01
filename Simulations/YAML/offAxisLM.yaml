@@ -1,0 +1,17 @@
+LM_OFF_AXIS_PSF_RAW:
+  do.catg: LM_OFF_AXIS_PSF_RAW
+  mode: "img_lm"
+  source:
+    name: calib_star
+    kwargs:
+      amplitude: 12
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "Lp"
+    ndfilter_name: "open"
+    catg: "CALIB"
+    tech: "IMAGE,LM"
+    type: "PSF,OFFAXIS"
+    tplname: "METIS_img_lm_vc_obs_FixedSkyOffset"
+    nObs: 1

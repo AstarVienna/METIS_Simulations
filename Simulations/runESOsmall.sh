@@ -1,13 +1,12 @@
-#!/bin/bash
 
-cat YAML/persist.yaml > YAML/allRecipes.yaml
-cat YAML/imgLM.yaml >> YAML/allRecipes.yaml
-cat YAML/imgN.yaml >> YAML/allRecipes.yaml
-cat YAML/lssLM.yaml >> YAML/allRecipes.yaml
-cat YAML/lssN.yaml >> YAML/allRecipes.yaml
-cat YAML/ifu.yaml >> YAML/allRecipes.yaml
-cat YAML/hci.yaml >> YAML/allRecipes.yaml
-cat YAML/calib.yaml >> YAML/allRecipes.yaml
+# run the simulation blocks for all instruments
 
-python/run_recipes.py --inputYAML=YAML/allRecipes.yaml --outputDir outputSmall/ --doCalib=1 --sequence=1 --doStatic --nCores=8 --small
-
+python/imgLM_small.py
+python/imgN_small.py
+python/lssLM_small.py
+python/lssN_small.py
+python/ifu_small.py
+python/calib_small.py
+python/hciRavcLM_small.py
+python/hciAppLM_small.py
+python/hciRavcIFU_small.py

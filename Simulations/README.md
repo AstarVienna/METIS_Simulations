@@ -60,84 +60,91 @@ To run the default set of FITS files, as described in [Data Product Summary](#da
 This will run the script, automatically determining the necessary flats and darks and running them at the end of the sequence; the number indicates
 how many of each type to generate. The sequence takes the observation time of the first entry in the YAML file and increments from there. 
 
-## Command Line Options
+
+## Running a "Simulation Block"
+
+There is a YAML parameter file for each observing template. A "simulation block" is by running a set of individual observing templates.
+An example is the file imgLM.py, which generates all files needed to run the LM workflow.
 
 ```
---doCalib=n
+import runSimulationBlock as rs
+if __name__ == '__main__':    
+
+	params = {}
+	params['outputDir'] = "output/imgLM"
+	params['small'] = False
+	params['doStatic'] = True
+	params['doCalib'] = 2
+	params['sequence'] = True
+	params['startMJD'] =  "2027-01-25 00:00:00"
+	params['calibFile'] = None
+	params['nCores'] = 8
+	params['testRun'] = False
+	
+	yamlFiles = ["YAML/scienceLM.yaml","YAML/stdLM.yaml","YAML/distortionLM.yaml","YAML/detlinLM.yaml"]
+	
+	rs.runSimulationBlock(yamlFiles,params)
+
+```
+
+with a common set of input paramters as follows
+
+
+```
+doCalib = n
 ```
 automatically determine and generate the required flats and darks, n is the number of each type to generate. Default is turned off.
 
 ```
---sequence=1
---sequence="yyyy-mm-dd hh:mm:ss"
+startMJD = "2027-01-25 00:00:00"
 ```
 
-automatically generate a time sequence of observations
-
-   - if sequence is not specified, use explicitly given dateObs from the YAML tempates
-   - if sequence=1, generate starting either from the dateObs in the first template, or using a default value
-   - if sequence="yyyy-mm-dd hh:mm:ss" start the sequence from the given date
+Starting date for the observation sequence, in the above format. 
 
 ```
---outputDir=outDir
+outputDir = output/
 ```
 
-   set output directory to outDir, default is output/
+   set output directory. Can be nested. 
+
 
 ```
---inputYAML=myfile.yaml
+small = False
 ```
 
-   set input YAML file to myfile.yaml, default is YAML/recipes.yaml
+   generate small images with correct headers, useful for skeleton testing
 
 ```
---small
-```
-
-   generate small images with correct headers, useful for skeleton testing. Default is off
-
-```
---testRun
+testRun = False
 ```
 
    do everything except the actual file generation, useful for checking input YAML templates. Default is off
 
 ```
---calibFile=calib.yaml
+nCores = 8
 ```
 
-   dump the YAML templates generated for doCalib to a calib.yaml, default is off
+Number of cores to use
 
 ```
---fixed
+doStatid = True
 ```
+Generated static calibration files. 
 
-   use a fixed random seed for the image generation, for testing and validation purposes, default is off
 
 ## Generating a summary
 
-./python/generateSummary.py
+./python/generateSummary.py output/imgN,output/imgLM
 
-generates a CSV file containing a list of files and a summary of the important keywords. Options are
+generates a CSV file containing a list of files and a summary of the important keywords for files in a
+comma separated list of directories. 
 
-```
---inDir=myDir
-```
-
-Read the files from directory myDir, default is output/
 
 ```
 --outFile=outfile.csv
 ```
 
 write output to file outfile.csv, default is summary.csv
-
-
-```
---nCores=n
-```
-
-Will run the code in parallel mode, using n cores. The default is 1.
 
 
 # Simulated Data Summary

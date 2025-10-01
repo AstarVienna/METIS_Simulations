@@ -1,0 +1,21 @@
+LM_CHOPHOME_RAW:
+  do.catg: LM_CHOPHOME_RAW
+  mode: "img_lm"
+  source:
+    name: flat_field
+    kwargs:
+      temperature: 200
+      amplitude: 0
+      filter_curve: "V"
+      extend: 15
+  properties:
+    dit: 10.
+    ndit: 1
+    filter_name: "open"
+    ndfilter_name: "open"    
+    catg: "CALIB"
+    tech: "IMAGE,LM"
+    type: "CHOPHOME"
+    tplname: "METIS_img_lm_cal_ChopperHome"
+    nObs: 3
+    
