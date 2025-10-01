@@ -49,7 +49,7 @@ dark:
 wcuOff:
    ifu:
      do.catg: IFU_IMG_WCUOFF_RAW
-     mode: "wcu_img_lms"
+     mode: "wcu_lms"
      source: 
        name: empty_sky
        kwargs: {}
