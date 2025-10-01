@@ -64,7 +64,6 @@ class setupSimulations():
         
         parser = argparse.ArgumentParser()
 
-        print(args)
         parser.add_argument('-i', '--inputYAML', type=str,
                             help='input YAML File')
         
@@ -240,7 +239,6 @@ class setupSimulations():
                 recipe["properties"]["filter_name"] = elem[0]
                 recipe["properties"]["ndfilter_name"] = elem[1]
 
-                print(tpe,elem)
  
                 recipe = self.increment(recipe)
 
@@ -267,13 +265,11 @@ class setupSimulations():
         
         allArgs = []
         for elem in darkParams:
-            print("GG",elem)
             tplStart = self.tObs.tt.datetime
             # now for each iteration
 
             for i in range(self.params['doCalib']):
                 recipe = self.copyRecipe("dark",elem[2])
-                print("GG",recipe)
                 recipe["wcu"] = None
                 recipe["properties"]["tplstart"] = tplStart
                 recipe["properties"]["dit"] = elem[0]
@@ -412,7 +408,6 @@ class setupSimulations():
              
             else:
                 darkParms.append((props['dit'],props['ndit'],props['tech']))
-                print("FF",(props['dit'],props['ndit'],props['tech']))
             flatParms.append((props['filter_name'],props['ndfilter_name'],props['tech']))
                              
         self.darkParms = darkParms
