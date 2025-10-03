@@ -181,6 +181,7 @@ WCU_FLAT_LM_RAW:
     tplname: "METIS_img_lm_det_flat"
     dit: 1
     ndit: 1
+    nObs: 1
   wcu:
     current_lamp: "bb"
     current_fpmask: "open"
@@ -204,6 +205,7 @@ WCU_FLAT_N_RAW:
     tplname: "METIS_img_n_det_flat"
     dit: 1
     ndit: 1
+    nObs: 1
   wcu:
     current_lamp: "bb"
     current_fpmask: "open"
@@ -220,12 +222,15 @@ LM_FLAT_TWILIGHT_RAW:
     name: empty_sky
     kwargs: {}
   properties:
+    filter_name: "open"
+    ndfilter_name: "open"
     dit: 0.25
     ndit: 1
     catg: CALIB
     tech: IMAGE,LM
     type: FLAT,TWILIGHT
-    tplname:'METIS_img_lm_det_flat
+    tplname: METIS_img_lm_det_flat
+    nObs: 1
 
 
 N_FLAT_TWILIGHT_RAW:
@@ -240,7 +245,10 @@ N_FLAT_TWILIGHT_RAW:
     catg: CALIB
     tech: IMAGE,N
     type: FLAT,TWILIGHT
-    tplname:'METIS_img_n_det_flat
+    tplname: METIS_img_n_det_flat
+    filter_name: "open"
+    ndfilter_name: "open"
+    nObs: 1
 
 
 LM_IMAGE_SCI_CORONAGRAPH_RAW:
@@ -593,15 +601,18 @@ IFU_WCU_OFF_RAW:
   mode: wcu_lms
   source:
     name: empty_sky
-    kwargs": {}
-    properties:
+    kwargs: {}
+  properties:
         filter_name: "open"
         ndfilter_name: "closed"
         catg: "CALIB"
         tech: "LMS"
         type: "DARK,WCU_OFF"
         tplname: "METIS_lms_det_dark"
-    wcu:
+        nObs: 1
+        dit: 1.
+        ndit: 1.
+  wcu:
         current_lamp: "bb"
         current_fpmask: "open"
         bb_aperture: 0.0
@@ -616,15 +627,18 @@ LM_WCU_OFF_RAW:
   mode: wcu_img_lm
   source:
     name: empty_sky
-    kwargs": {}
-    properties:
+    kwargs: {}
+  properties:
         filter_name: "open"
         ndfilter_name: "closed"
         catg: "CALIB"
         tech: "IMAGE,LM"
         type: "DARK,WCU_OFF"
         tplname: "METIS_lm_det_dark"
-    wcu:
+        nObs: 1
+        dit: 1.
+        ndit: 1.
+  wcu:
         current_lamp: "bb"
         current_fpmask: "open"
         bb_aperture: 0.0
@@ -639,15 +653,18 @@ N_WCU_OFF_RAW:
   mode: wcu_img_n
   source:
     name: empty_sky
-    kwargs": {}
-    properties:
+    kwargs: {}
+  properties:
         filter_name: "open"
         ndfilter_name: "closed"
         catg: "CALIB"
         tech: "IMAGE,N"
         type: "DARK,WCU_OFF"
         tplname: "METIS_n_det_dark"
-    wcu:
+        nObs: 1
+        dit: 1.
+        ndit: 1.
+  wcu:
         current_lamp: "bb"
         current_fpmask: "open"
         bb_aperture: 0.0

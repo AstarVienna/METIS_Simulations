@@ -35,7 +35,8 @@ jobs:
       - name: Run recipes
         run: |
           python Simulations/python/downloadPackages.py
-          python Simulations/python/testAll.py
+	  cd Simulations
+          python python/testAll.py
       - name: Store output files
         uses: actions/upload-artifact@v4
         with:
