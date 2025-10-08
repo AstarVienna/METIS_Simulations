@@ -212,7 +212,8 @@ class setupSimulations():
         return recipe
 
     def copyRecipe(self,tpe,band):
-        
+
+        recipe = None
         if(",LM" in band):
             recipe = json.loads(json.dumps(self.templates[tpe]["lm"]))
         elif(",N" in band):
@@ -317,7 +318,8 @@ class setupSimulations():
         # cycle through all the recipes
         for name, recipe in allrcps.items():
             # get the mode and the prefix for the title
-            
+
+            print(recipe)
             mode = recipe["mode"]
             prefix = recipe["do.catg"]
             nObs = recipe["properties"]["nObs"]
@@ -354,15 +356,16 @@ class setupSimulations():
             
                 if(recipe["wcu"] is not None):
                     recipeDark = self.copyRecipe("wcuOff",recipe['properties']['tech'])
-                    recipe["properties"]["tplstart"] = self.tplStart
-                    recipeDark["properties"]["dit"] = recipe["properties"]["dit"] 
-                    recipeDark["properties"]["ndit"] = recipe["properties"]["ndit"] 
-                    recipeDark = self.increment(recipeDark)
-
-                    self.allFileNames.append(self.fname)
-                    self.allmjd.append(self.tObs.mjd)
-
-                    allArgs.append((self.fname, recipeDark, self.params["small"]))
+                    if(recipeDark is not None):
+                        recipe["properties"]["tplstart"] = self.tplStart
+                        recipeDark["properties"]["dit"] = recipe["properties"]["dit"] 
+                        recipeDark["properties"]["ndit"] = recipe["properties"]["ndit"] 
+                        recipeDark = self.increment(recipeDark)
+                        
+                        self.allFileNames.append(self.fname)
+                        self.allmjd.append(self.tObs.mjd)
+                        
+                        allArgs.append((self.fname, recipeDark, self.params["small"]))
 
         # calculate the observation date for the next observation, for
         # stringing a sequence of templates together
