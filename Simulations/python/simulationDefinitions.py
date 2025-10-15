@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """
 Useful definitions used in the simulations. This file generally does not 
 need to be edited by the user.
@@ -11,13 +12,6 @@ import numpy as np
 
 # default location of IRDB
 DEFAULT_IRDB_LOCATION = "../IRDB/"
-
-
-# variables that can be expanded
-
-expandables = [
-    "dit",
-]
 
 # valid values of input parameters
 
@@ -49,67 +43,86 @@ topKey = ["do.catg","mode","properties"]
 propKey = ["dit","ndit","filter_name","catg","tech","type","nObs"]
 
 
-# dictionary of modes and tech
-
-MODESDICT = {
-    "RAVC,LM": "img_lm_ravc",
-    "IMAGE,LM": "img_lm",
-    "IMAGE,N": "img_n",
-    "LSS,LM": "lss_m",
-    "LSS,LM": "lss_l",
-    "LSS,N": "lss_n",
-    "IFU": "ifu",
-    "LMS": "lms",
-}
-
-
-SOURCEMODEDICT = {
-    "DARK": "empty",
-    "DETLIN": "flat",
-    "RSRF": "flat",
-}
-
-
 # some templates for calibration dictionaries. DIT/NDIT/obsdate need to be added
 # for a runnable dictionary.
 # DARK
 # DARK,WCUOFF
 # FLAT,LAMP
 # FLAT,TWILIGHT
+#
+#templates = {}
+#templates['wcudarklm'] = "wcudarklm.yaml"
+#templates['wcudarkn'] = "wcudarklm.yaml"
+#templates['wcudarkifu'] = "wcudarklm.yaml"
+#templates['darklm'] = "darklm.yaml"
+#templates['darkn'] = "darklm.yaml"
+#templates['darkifu'] = "darklm.yaml"
+#
+#templates['lampflatlm'] = "lampflatlm.yaml"
+#templates['lampflatn'] = "lampflatlm.yaml"
+#templates['skyflatlm'] = "skyflatlm.yaml"
+#templates['skyflatn'] = "skyflatlm.yaml"
 
 
 WCUDARKLM = {
-    "do.catg": "LM_WCU_OFF_RAW",
-    "mode": "img_lm",
+    "do.catg": "LM_IMG_WCUOFF_RAW",
+    "mode": "wcu_img_lm",
     "source":{'name': 'empty_sky', 'kwargs': {}},
     "properties": {
         "catg": "CALIB",
         "tech": "IMAGE,LM",
         "type": "DARK,WCUOFF",
-        "filter_name": "closed",
-        "tplname":'METIS_img_lm_det_dark',}}
+        "filter_name": "open",
+        "ndfilter_name": "closed",
+        "tplname":'METIS_img_lm_det_dark',},
+    "wcu": {
+        "current_lamp": "bb",
+        "current_fpmask": "open",
+        "bb_aperture": 0.0,
+        "bb_temp": 300,
+        "is_temp": 300,
+        "wcu_temp": 300}}
+
 
 WCUDARKN = {
-    "do.catg": "N_WCU_OFF_RAW",
-    "mode": "img_n",
+    "do.catg": "N_IMG_WCUOFF_RAW",
+    "mode": "wcu_img_n",
     "source": {'name': 'empty_sky', 'kwargs': {}},
     "properties": {
         "catg": "CALIB",
         "tech": "IMAGE,N",
         "type": "DARK,WCUOFF",
-        "filter_name": "closed",
-        "tplname":'METIS_img_n_det_dark',}}
+        "filter_name": "open",
+        "ndfilter_name": "closed",
+        "tplname":'METIS_img_n_det_dark',},
+    "wcu": {
+        "current_lamp": "bb",
+        "current_fpmask": "open",
+        "bb_aperture": 0.0,
+        "bb_temp": 300,
+        "is_temp": 300,
+        "wcu_temp": 300}}
+
 
 WCUDARKIFU = {
-    "do.catg": "IFU_WCU_OFF_RAW",
-    "mode": "lms",
+    "do.catg": "IFU_WCUOFF_RAW",
+    "mode": "wcu_lms",
     "source": {'name': 'empty_sky', 'kwargs': {}},
     "properties": {
         "catg": "CALIB",
         "tech": "LMS",
         "type": "DARK,WCUOFF",
-        "filter_name": "closed",
-        "tplname":'METIS_lms_det_dark',}}
+        "filter_name": "open",
+        "ndfilter_name": "closed",
+        "tplname":'METIS_lms_det_dark',},
+    "wcu": {
+        "current_lamp": "bb",
+        "current_fpmask": "open",
+        "bb_aperture": 0.0,
+        "bb_temp": 300,
+        "is_temp": 300,
+        "wcu_temp": 300}}
+
 
 DARKLM = {
     "do.catg": "DARK_2RG_RAW",
@@ -120,6 +133,7 @@ DARKLM = {
         "tech": "IMAGE,LM",
         "type": "DARK",
         "filter_name": "closed",
+        "ndfilter_name": "open",
         "tplname":'METIS_img_lm_det_dark',}}
 
 DARKN = {
@@ -142,6 +156,7 @@ DARKIFU = {
         "tech": "LMS",
         "type": "DARK",
         "filter_name": "closed",
+        "ndfilter_name": "open",
         "tplname":'METIS_lms_det_dark',}}
 
 LAMPFLATLM = {
@@ -149,9 +164,12 @@ LAMPFLATLM = {
     "mode": "img_lm",
     "source": {'name': 'flat_field', 'kwargs': {'temperature': 200, 'amplitude': 0, 'filter_curve': 'V', 'extend': 15}},
     "properties": {
+        "dit": 1,
+        "ndit": 1,
         "catg": "CALIB",
         "tech": "IMAGE,LM",
         "type": "FLAT,LAMP",
+        "ndfilter_name": "open",
         "tplname":'METIS_img_lm_det_flat',}}
 
 LAMPFLATN = {
@@ -159,9 +177,12 @@ LAMPFLATN = {
     "mode": "img_n",
     "source": {'name': 'flat_field', 'kwargs': {'temperature': 200, 'amplitude': 0, 'filter_curve': 'V', 'extend': 15}},
     "properties": {
+        "dit": 1,
+        "ndit": 1,
         "catg": "CALIB",
         "tech": "IMAGE,N",
         "type": "FLAT,LAMP",
+        "ndfilter_name": "open",
         "tplname":'METIS_img_n_det_flat',}}
 
     
@@ -170,9 +191,12 @@ SKYFLATLM = {
     "mode": "img_lm",
     "source":{'name': 'empty_sky', 'kwargs': {}},
     "properties": {
+        "dit": 1,
+        "ndit": 1,
         "catg": "CALIB",
         "tech": "IMAGE,LM",
         "type": "FLAT,TWILIGHT",
+        "ndfilter_name": "open",
         "tplname":'METIS_img_lm_det_flat',}}
 
 SKYFLATN = {
@@ -180,8 +204,10 @@ SKYFLATN = {
     "mode": "img_lm",
     "source":{'name': 'empty_sky', 'kwargs': {}},
     "properties": {
+        "dit": 1,
+        "ndit": 1,
         "catg": "CALIB",
         "tech": "IMAGE,N",
         "type": "FLAT,TWILIGHT",
+        "ndfilter_name": "open",
         "tplname":'METIS_img_n_det_flat',}}
-

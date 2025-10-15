@@ -38,7 +38,7 @@ def generateStaticCalibs(outputDir):
     generated (once, or on the fly as appropriate) by dedicated recipes, but 
     protoyping the format is a necessary first step.
     """
-    
+
     #################### REF_STD_CAT ###################
 
     # Generate a FITS file for a calibration spectrum. FITS file contains
@@ -64,7 +64,7 @@ def generateStaticCalibs(outputDir):
 
 
     hdul = fits.HDUList([primaryhdu, hdu])
-    hdul.writeto(f"{outputDir}/REF_STD_CAT_{starName}.fits",overwrite=True)
+    hdul.writeto(f"{outputDir}/REF_STD_CAT.{starName}.fits",overwrite=True)
 
     #################### FLUXSTD_CATALOG ###################
 
@@ -423,7 +423,26 @@ def generateStaticCalibs(outputDir):
     hdul = fits.HDUList([primaryhdu,hdu])
     hdul.writeto(f"{outputDir}/PINHOLE_TABLE.fits",overwrite=True)
 
+    #################### PINHOLE_TABLE ###################
 
+    #PERSISTENCE
+
+    primaryhdu = fits.PrimaryHDU()
+    primaryhdu.header['HIERARCH ESO PRO CATG'] = "PERSISTENCE_MAP"
+    primaryhdu.header['INSTRUME'] = "METIS"
+    primaryhdu.header['HIERARCH ESO DPR TECH'] = "IMAGE,N"
+    primaryhdu.header['HIERARCH ESO DPR TYPE'] = "PERSISTENCE"
+    primaryhdu.header['HIERARCH ESO DPR CATG'] = "CALIB"
+    primaryhdu.header['HIERARCH ESO INS MODE'] = "img_n"
+    primaryhdu.header['HIERARCH ESO DRS FILTER'] = "OPEN"
+    primaryhdu.header['HIERARCH ESO DRS NDFILTER'] = "OPEN"
+
+    data = np.zeros((2048,2048))
+    hdu = fits.ImageHDU(data, name="PERSISTENCE_MAP")
+    hdul = fits.HDUList([primaryhdu,hdu])
+    hdul.writeto(f"{outputDir}/PERSISTENCE_MAP_N.fits",overwrite=True)
+
+    
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()

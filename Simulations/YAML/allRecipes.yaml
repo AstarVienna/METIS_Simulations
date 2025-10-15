@@ -46,22 +46,17 @@ PERSISTENCE_MAP_IFU:
     type: "PERSISTENCE"
     nObs: 1
 
-### CONFIGURATION FOR WCU DATA ###
+###############  Generates a set of images for LM_IMG ##############
 
 
-
-##################### DETLIN - LM, N, IFU #####################
+##########  DETLIN INPUT ############
 
 DETLIN_2RG_RAW:
   do.catg: DETLIN_2RG_RAW
-  mode: "img_lm"
+  mode: "wcu_img_lm"
   source:
-    name: flat_field
-    kwargs:
-      temperature: 200
-      amplitude: 0
-      filter_curve: "V"
-      extend: 15
+    name: empty_sky
+    kwargs: {}
   properties:
     dit:
       - 1.
@@ -72,17 +67,131 @@ DETLIN_2RG_RAW:
     type: "DETLIN"
     tplname: "METIS_img_lm_cal_DetLin"
     nObs: 1
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 0.5
+    bb_temp: 800
+    is_temp: 300
+    wcu_temp: 300
+
+
+##################### DISTORTION (PINHOLE MASK) L, N, IFU ######################3
+
+LM_DISTORTION_RAW:
+  do.catg: LM_DISTORTION_RAW
+  mode: "wcu_img_lm"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 10
+    ndit: 20
+    wavelen: 3.555
+    filter_name: "open"
+    nd_filter_name: "open"
+    catg: "CALIB"
+    tech: "IMAGE,LM"
+    type: "DISTORTION"
+    tplname: "METIS_img_lm_cal_distortion"
+    nObs: 1
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "grid_lm"
+    bb_aperture: 0.5
+    bb_temp: 8000
+    is_temp: 300
+    wcu_temp: 300
+    xshift: 0
+    yshift: 0
+
+##########  SCIENCE SOURCE ############
+
+##################### STAR FIELD (SCIENCE SOURCE, LM/N) ######################3
+### POSITIONS / MAGNITUDES WERE INTIALLY SET RANDOMLY, BUT FIXED FOR THE SET OF SIMULATIONS #####
+
+
+### EACH SOURCE PAIRED WITH SKY ##
+
+LM_IMAGE_SCI_RAW:
+  do.catg: LM_IMAGE_SCI_RAW
+  mode: "img_lm"
+  source:
+    name: star_field
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 4
+    filter_name: "Lp"
+    catg: "SCIENCE"
+    tech: "IMAGE,LM"
+    type: "OBJECT"
+    tplname: "METIS_img_lm_obs_GenericOffset"
+    nObs: 1
+
+LM_IMAGE_SCI_SKY_RAW:
+  do.catg: LM_IMAGE_SKY_RAW
+  mode: "img_lm"
+  source:
+    name: "empty_sky"
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 4
+    filter_name: "Lp"
+    catg: "SCIENCE"
+    tech: "IMAGE,LM"
+    type: "SKY"
+    tplname: "METIS_img_lm_obs_GenericOffset"
+    nObs: 1
+
+##################### STANDARD SOuRCE (POINT SOURCE AT CENTRE) ######################3
+
+
+LM_IMAGE_STD_RAW:
+  do.catg: LM_IMAGE_STD_RAW
+  mode: "img_lm"
+  source:
+    name: calib_star
+    kwargs:
+      amplitude: 12
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "Lp"
+    catg: "CALIB"
+    tech: "IMAGE,LM"
+    type: "STD"
+    tplname: "METIS_img_lm_cal_standard"
+    nObs: 1
+
+LM_IMAGE_STD_SKY_RAW:
+  do.catg: LM_IMAGE_SKY_RAW
+  mode: "img_lm"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "Lp"
+    catg: "CALIB"
+    tech: "IMAGE,LM"
+    type: "SKY"
+    tplname: "METIS_img_lm_cal_standard"
+    nObs: 1
+###############  Generates a set of images for N_IMG ##############
+
+
+
+##########  DETLIN INPUT ############
 
 DETLIN_GEO_RAW:
   do.catg: DETLIN_GEO_RAW
-  mode: "img_n"
+  mode: "wcu_img_n"
   source:
-    name: flat_field
-    kwargs:
-      temperature: 200
-      amplitude: 0
-      filter_curve: "V"
-      extend: 15
+    name: empty_sky
+    kwargs: {}
   properties:
     dit:
       - 1.
@@ -93,49 +202,129 @@ DETLIN_GEO_RAW:
     type: "DETLIN"
     tplname: "METIS_img_n_cal_DetLin"
     nObs: 1
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 0.5
+    bb_temp: 800
+    is_temp: 300
+    wcu_temp: 300
 
-DETLIN_IFU_RAW:
-  do.catg: DETLIN_IFU_RAW
-  mode: "lms"
+
+##################### DISTORTION (PINHOLE MASK)  ######################3
+
+N_DISTORTION_RAW:
+  do.catg: N_DISTORTION_RAW
+  mode: "wcu_img_n"
   source:
-    name: flat_field
-    kwargs:
-      temperature: 200
-      amplitude: 0
-      filter_curve: "V"
-      extend: 15
+    name: empty_sky
+    kwargs: {}
   properties:
-    dit:
-      - 1.
-    ndit: 1
+    dit: 10
+    ndit: 20
     filter_name: "open"
+    nd_filter_name: "open"
     catg: "CALIB"
-    tech: "LMS"
-    type: "DETLIN"
-    tplname: "METIS_ifu_cal_DetLin"
+    tech: "IMAGE,N"
+    type: "DISTORTION"
+    tplname: "METIS_img_n_cal_distortion"
+    nObs: 1
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "grid_n"
+    bb_aperture: 0.5
+    bb_temp: 8000
+    is_temp: 300
+    wcu_temp: 300
+    xshift: 0
+    yshift: 0
+
+
+##########  SCIENCE SOURCE ############
+
+##################### STAR FIELD (SCIENCE SOURCE, LM/N) ######################3
+### POSITIONS / MAGNITUDES WERE INTIALLY SET RANDOMLY, BUT FIXED FOR THE SET OF SIMULATIONS #####
+
+
+### EACH SOURCE PAIRED WITH SKY ##
+
+
+N_IMAGE_SCI_RAW:
+  do.catg: N_IMAGE_SCI_RAW
+  mode: "img_n"
+  source:
+    name: star_field
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 4
+    filter_name: "N1"
+    catg: "SCIENCE"
+    tech: "IMAGE,N"
+    type: "OBJECT"
+    tplname: "METIS_img_n_obs_GenericChopNod"
     nObs: 1
 
-
-##################### FLATS - LM, N ######################
-
-# There are only flats for LM and N, but not for the IFU, because
-#  it is not possible to remove the mirrors from the optical path.
-
-##################### RSRF ######################3
-
-####### TWO TEMPERATURES FOR EACH #########
-
-
-LM_LSS_RSRF_RAW1:
-  do.catg: LM_LSS_RSRF_RAW
-  mode: "lss_l"
+N_IMAGE_SCI_SKY_RAW:
+  do.catg: N_IMAGE_SKY_RAW
+  mode: "img_n"
   source:
-    name: flat_field
+    name: "empty_sky"
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 4
+    filter_name: "N1"
+    catg: "SCIENCE"
+    tech: "IMAGE,N"
+    type: "SKY"
+    tplname: "METIS_img_n_obs_GenericChopNod"
+    nObs: 1
+
+##################### STANDARD SOuRCE (POINT SOURCE AT CENTRE) ######################3
+
+
+N_IMAGE_STD_RAW:
+  do.catg: N_IMAGE_STD_RAW
+  mode: "img_n"
+  source:
+    name: calib_star
     kwargs:
-      temperature: 5000
-      amplitude: 0
-      filter_curve: "V"
-      extend: 15
+      amplitude: 12
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "N1"
+    catg: "CALIB"
+    tech: "IMAGE,N"
+    type: "STD"
+    tplname: "METIS_img_n_cal_standard"
+    nObs: 1
+
+N_IMAGE_STD_SKY_RAW:
+  do.catg: N_IMAGE_SKY_RAW
+  mode: "img_n"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "N1"
+    catg: "CALIB"
+    tech: "IMAGE,N"
+    type: "SKY"
+    tplname: "METIS_img_n_cal_standard"
+    nObs: 1
+###############  Generates a set of images for LM_LSS ##############
+
+
+LM_LSS_RSRF_RAW:
+  do.catg: LM_LSS_RSRF_RAW
+  mode: "wcu_lss_l"
+  source:
+    name: empty_sky
+    kwargs: {}
   properties:
     dit: 0.25
     ndit: 1
@@ -145,62 +334,20 @@ LM_LSS_RSRF_RAW1:
     type: "FLAT,LAMP"
     tplname: "METIS_spec_lm_cal_rsrf"
     nObs: 1
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 0.0001
+    bb_temp: 8000
+    is_temp: 300
+    wcu_temp: 300
 
-
-N_LSS_RSRF_RAW1:
-  do.catg: N_LSS_RSRF_RAW
-  mode: "lss_n"
-  source:
-    name: flat_field
-    kwargs:
-      temperature: 5000
-      amplitude: 0
-      filter_curve: "V"
-      extend: 15
-  properties:
-    dit: 0.01
-    ndit: 1
-    filter_name: "N_spec"
-    catg: "CALIB"
-    tech: "LSS,N"
-    type: "FLAT,LAMP"
-    tplname: "METIS_spec_n_cal_rsrf"
-    nObs: 1
-
-
-
-IFU_RSRF_RAW1:
-  do.catg: IFU_RSRF_RAW
-  mode: "lms"
-  source:
-    name: flat_field
-    kwargs:
-      temperature: 5500
-      amplitude: 0
-      filter_curve: "V"
-      extend: 15
-  properties:
-    dit: 15
-    ndit: 1
-    filter_name: "open"
-    catg: "CALIB"
-    tech: "LMS"
-    type: "RSRF"
-    tplname: "METIS_ifu_cal_rsrf"
-    nObs: 1
-
-
-######## WITH PINHOLE ########
-
-
-LM_LSS_RSRF_PINH_RAW1:
+LM_LSS_RSRF_PINH_RAW:
   do.catg: LM_LSS_RSRF_PINH_RAW
-  mode: "lss_l"
+  mode: "wcu_lss_l"
   source:
-    name: pinhole_mask
-    kwargs:
-      temperature: 5500
-      dx: 5
+    name: empty_sky
+    kwargs: {}
   properties:
     dit: 0.25
     ndit: 1
@@ -210,91 +357,43 @@ LM_LSS_RSRF_PINH_RAW1:
     type: "FLAT,LAMP,PINH"
     tplname: "METIS_spec_lm_cal_rsrfpinh"
     nObs: 1
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "grid_lm"
+    bb_aperture: 0.5
+    bb_temp: 800
+    is_temp: 300
+    wcu_temp: 300
+    xshift: 0
+    yshift: -0.1
+    
+
+##########  DETLIN INPUT ############
 
 
-
-N_LSS_RSRF_PINH_RAW1:
-  do.catg: N_LSS_RSRF_PINH_RAW
-  mode: "lss_n"
+DETLIN_2RG_RAW:
+  do.catg: DETLIN_2RG_RAW
+  mode: "wcu_img_lm"
   source:
-    name: pinhole_mask
-    kwargs:
-      temperature: 5500
-      dx: 5
+    name: empty_sky
+    kwargs: {}
   properties:
-    dit: 0.005
+    dit:
+      - 1.
     ndit: 1
     filter_name: "open"
     catg: "CALIB"
-    tech: "LSS,N"
-    type: "FLAT,LAMP,PINH"
-    tplname: "METIS_spec_n_cal_rsrfpinh"
+    tech: "IMAGE,LM"
+    type: "DETLIN"
+    tplname: "METIS_img_lm_cal_DetLin"
     nObs: 1
-
-
-#
-# IFU_RSRF_PINH_RAW does not exist in the DRLD, should it?
-#
-
-IFU_RSRF_PINH_RAW1:
-  do.catg: IFU_RSRF_PINH_RAW
-  mode: "lms"
-  source:
-    name: pinhole_mask
-    kwargs:
-      temperature: 5500
-  properties:
-    dit: 15
-    ndit: 1
-    filter_name: "open"
-    ndfilter_name: "ND_OD3"
-    catg: "CALIB"
-    tech: "LMS"
-    type: "FLAT,LAMP"
-    nObs: 1
-
-
-################## TECHNICAL IMAGES (not part of normal obs) ####################
-
-##################### SLIT LOSSES (11 positions perpendicular to the slit) ########################
-
-LM_SLITLOSSES_RAW1:
-  do.catg: LM_SLITLOSSES_RAW
-  mode: "lss_l"
-  source:
-    name: simple_star10
-    kwargs:
-      x: 0
-      y: -0.025   
-  properties:
-    dit: 0.25
-    ndit: 1
-    filter_name: "open"
-    catg: "CALIB"
-    tech: "LSS,LM"
-    type: "SLITLOSS"
-    tplname: "METIS_spec_lm_cal_SlitAdc"
-    nObs: 1
-
-
-
-N_LSS_SLITLOSSES_RAW1:
-  do.catg: N_SLITLOSSES_RAW
-  mode: "lss_n"
-  source:
-    name: simple_star10
-    kwargs:
-      x: 0
-      y: -0.025   
-  properties:
-    dit: 0.25
-    ndit: 1
-    filter_name: "open"
-    catg: "CALIB"
-    tech: "LSS,N"
-    type: "SLITLOSS"
-    tplname: "METIS_spec_n_cal_slit"
-    nObs: 1
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 0.0
+    bb_temp: 300
+    is_temp: 300
+    wcu_temp: 300
 
 
 ##################### LASER SPECTRUM CALIBRATIONS ######################
@@ -316,6 +415,163 @@ LM_LSS_WAVE_RAW:
     tplname: "METIS_spec_lm_cal_InternalWave"
     nObs: 1
 
+
+#### EACH IMAGE PAIRED WITH SKY ######
+
+######SCIENCE SOURCE ########
+##################### EXTENDED GALAXY (SCIENCE SOURCE SPECTRA) ######################
+
+
+LM_LSS_SCI_RAW:
+  do.catg: LM_LSS_SCI_RAW
+  mode: "lss_l"
+  source:
+    name: simple_gal
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "L_spec"
+    catg: "SCIENCE"
+    tech: "LSS,LM"
+    type: "OBJECT"
+    tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
+    nObs: 1
+
+LM_LSS_SCI_SKY_RAW:
+  do.catg: LM_LSS_SKY_RAW
+  mode: "lss_l"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "L_spec"
+    catg: "SCIENCE"
+    tech: "LSS,LM"
+    type: "SKY"
+    tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
+    nObs: 1
+
+##################### "STANDARDS" (SINGLE SOURCE AT CENTER) ######################
+
+
+LM_LSS_STD_RAW:
+  do.catg: LM_LSS_STD_RAW
+  mode: "lss_l"
+  source:
+    name: calib_star
+    kwargs:
+      amplitude: 8
+  properties:
+    dit: 0.05
+    ndit: 1
+    filter_name: "L_spec"
+    catg: "CALIB"
+    tech: "LSS,LM"
+    type: "STD"
+    tplname: "METIS_spec_lm_cal_Standard"
+    nObs: 1
+
+
+LM_LSS_STD_SKY_RAW:
+  do.catg: LM_LSS_SKY_RAW
+  mode: "lss_l"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.05
+    ndit: 1
+    filter_name: "L_spec"
+    catg: "CALIB"
+    tech: "LSS,LM"
+    type: "SKY"
+    tplname: "METIS_spec_lm_cal_Standard"
+    nObs: 1
+
+###############  Generates a set of images for LM_LSS ##############
+
+
+N_LSS_RSRF_RAW:
+  do.catg: N_LSS_RSRF_RAW
+  mode: "wcu_lss_n"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "N_spec"
+    catg: "CALIB"
+    tech: "LSS,N"
+    type: "FLAT,LAMP"
+    tplname: "METIS_spec_n_cal_rsrf"
+    nObs: 1
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 0.0001
+    bb_temp: 8000
+    is_temp: 300
+    wcu_temp: 300
+
+N_LSS_RSRF_PINH_RAW:
+  do.catg: N_LSS_RSRF_PINH_RAW
+  mode: "wcu_lss_n"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "open"
+    catg: "CALIB"
+    tech: "LSS,N"
+    type: "FLAT,LAMP,PINH"
+    tplname: "METIS_spec_n_cal_rsrfpinh"
+    nObs: 1
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "grid_lm"
+    bb_aperture: 0.5
+    bb_temp: 800
+    is_temp: 300
+    wcu_temp: 300
+    xshift: 0
+    yshift: -0.1
+    
+##########  DETLIN INPUT ############
+
+DETLIN_GEO_RAW:
+  do.catg: DETLIN_GEO_RAW
+  mode: "wcu_img_n"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit:
+      - 1.
+    ndit: 1
+    filter_name: "open"
+    catg: "CALIB"
+    tech: "IMAGE,N"
+    type: "DETLIN"
+    tplname: "METIS_img_n_cal_DetLin"
+    nObs: 1
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 0.0
+    bb_temp: 300
+    is_temp: 300
+    wcu_temp: 300
+
+
+
+##################### LASER SPECTRUM CALIBRATIONS ######################
+
 N_LSS_WAVE_RAW:
   do.catg: N_LSS_WAVE_RAW
   mode: "lss_n"
@@ -333,6 +589,147 @@ N_LSS_WAVE_RAW:
     tplname: "METIS_spec_n_cal_InternalWave"
     nObs: 1
 
+#### EACH IMAGE PAIRED WITH SKY ######
+
+
+######SCIENCE SOURCE ########
+##################### EXTENDED GALAXY (SCIENCE SOURCE SPECTRA) ######################
+
+
+N_LSS_SCI_RAW:
+  do.catg: N_LSS_SCI_RAW
+  mode: "lss_n"
+  source:
+    name: simple_gal
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "N_spec"
+    catg: "SCIENCE"
+    tech: "LSS,N"
+    type: "OBJECT"
+    tplname: "METIS_spec_n_obs_AutoChopNodOnSlit"
+    nObs: 1
+
+N_LSS_SCI_SKY_RAW:
+  do.catg: N_LSS_SKY_RAW
+  mode: "lss_n"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "N_spec"
+    catg: "SCIENCE"
+    tech: "LSS,N"
+    type: "SKY"
+    tplname: "METIS_spec_n_obs_AutoChopNodOnSlit"
+    nObs: 1
+
+
+
+
+##################### "STANDARDS" (SINGLE SOURCE AT CENTER) ######################
+
+
+N_LSS_STD_RAW:
+  do.catg: N_LSS_STD_RAW
+  mode: "lss_n"
+  source:
+    name: calib_star
+    kwargs:
+      amplitude: 8
+  properties:
+    dit: 0.05
+    ndit: 1
+    filter_name: "N_spec"
+    catg: "CALIB"
+    tech: "LSS,N"
+    type: "STD"
+    tplname: "METIS_spec_n_cal_Standard"
+    nObs: 1
+
+N_LSS_STD_SKY_RAW:
+  do.catg: N_LSS_SKY_RAW
+  mode: "lss_n"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.05
+    ndit: 1
+    filter_name: "N_spec"
+    catg: "CALIB"
+    tech: "LSS,N"
+    type: "SKY"
+    tplname: "METIS_spec_n_cal_Standard"
+    nObs: 1
+###############  Generates a set of images for IFU ##############
+
+######DETLIN INPUT ########
+
+
+
+DETLIN_IFU_RAW:
+  do.catg: DETLIN_IFU_RAW
+  mode: "wcu_lms"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit:
+      - 1.
+    ndit: 1
+    filter_name: "open"
+    catg: "CALIB"
+    tech: "LMS"
+    type: "DETLIN"
+    tplname: "METIS_ifu_cal_DetLin"
+    nObs: 1
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 0.0
+    bb_temp: 300
+    is_temp: 300
+    wcu_temp: 300
+
+
+##################### DISTORTION (PINHOLE MASK)  ######################3
+
+
+IFU_DISTORTION_RAW:
+  do.catg: IFU_DISTORTION_RAW
+  mode: "wcu_lms"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "open"
+    nd_filter_name: "open"
+    catg: "CALIB"
+    tech: "LMS"
+    type: "DISTORTION"
+    tplname: "METIS_ifu_cal_distortion"
+    nObs: 1
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 0.0
+    bb_temp: 300
+    is_temp: 300
+    wcu_temp: 300
+    xshift: 0
+    yshirt: 0
+
+
+
+##################### LASER SPECTRUM CALIBRATIONS ######################
+
 IFU_WAVE_RAW:
   do.catg: IFU_WAVE_RAW
   mode: "lms"
@@ -348,6 +745,408 @@ IFU_WAVE_RAW:
     tech: "LMS"
     type: "WAVE"
     tplname: "METIS_ifu_cal_InternalWave"
+    nObs: 1
+
+
+######SCIENCE SOURCE ########
+
+#### EACH IMAGE PAIRED WITH SKY ######
+
+
+######SCIENCE SOURCE ########
+##################### EXTENDED GALAXY (SCIENCE SOURCE SPECTRA) ######################
+
+
+IFU_SCI_RAW:
+  do.catg: IFU_SCI_RAW
+  mode: "lms"
+  source:
+    name: simple_gal
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "open"
+    catg: "SCIENCE"
+    tech: "LMS"
+    type: "OBJECT"
+    tplname: "METIS_ifu_obs_GenericOffset"
+    nObs: 1
+
+IFU_SCI_SKY_RAW:
+  do.catg: IFU_SKY_RAW
+  mode: "lms"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "open"
+    catg: "CALIB"
+    tech: "LMS"
+    type: "SKY"
+    tplname: "METIS_ifu_obs_GenericOffset"
+    nObs: 1
+
+
+##################### "STANDARDS" (SINGLE SOURCE AT CENTER) ######################
+
+
+IFU_STD_RAW:
+  do.catg: IFU_STD_RAW
+  mode: "lms"
+  source:
+    name: calib_star
+    kwargs:
+      amplitude: 8
+  properties:
+    dit: 100
+    ndit: 3
+    filter_name: "open"
+    wavelen: "3.555"
+    catg: "CALIB"
+    tech: "LMS"
+    type: "STD"
+    tplname: "METIS_ifu_cal_standard"
+    nObs: 1
+
+
+# metis_ifu_reduce does not differentiate between
+# a SKY image for a standard observation and a
+# SKY image for a science observation. They are
+# both IFU_SKY_RAW. Maybe that should be changed?
+
+IFU_STD_SKY_RAW:
+  do.catg: IFU_SKY_RAW
+  mode: "lms"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 100
+    ndit: 3
+    filter_name: "open"
+    wavelen: "3.555"
+    catg: "CALIB"
+    tech: "LMS"
+    type: "SKY"
+    tplname: "METIS_ifu_cal_standard"
+    nObs: 1
+
+
+##################### IFU RSRF #####################
+##PINHOLE TRACES IN VARIOUS TRACES
+IFU_RSRF_RAW1:
+  do.catg: IFU_RSRF_PINH_RAW
+  mode: "wcu_lms"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 10
+    ndit: 20
+    wavelen: 3.555
+    filter_name: "open"
+    ndfilter_name: "open"
+    catg: "CALIB"
+    tech: "LMS"
+    type: "RSRF"
+    tplname: "METIS_ifu_cal_rsrf"
+    nObs: 1
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "grid_lm"
+    bb_aperture: 0.5
+    bb_temp: 800
+    is_temp: 300
+    wcu_temp: 300
+    xshift: 0
+    yshift: -0.1
+
+##WCU flats
+IFU_RSRF_RAW2:
+  do.catg: IFU_RSRF_RAW
+  mode: "wcu_lms"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 10
+    ndit: 20
+    wavelen: 3.555
+    filter_name: "open"
+    ndfilter_name: "open"
+    catg: "CALIB"
+    tech: "LMS"
+    type: "RSRF"
+    tplname: "METIS_ifu_cal_rsrf"
+    nObs: 1
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 0.0001
+    bb_temp: 8000
+    is_temp: 300
+    wcu_temp: 300
+    xshift: 0
+    yshift: 0
+
+
+## WCU_OFF frames
+IFU_WCU_OFF1:
+  do.catg: IFU_WCU_OFF_RAW
+  mode: "wcu_lms"
+  source: 
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 10
+    ndit: 20
+    wavelen: 3.555
+    filter_name: "open"
+    ndfilter_name: "open"
+    catg: "CALIB"
+    tech: "LMS"
+    type: "RSRF"
+    tplname: "METIS_ifu_cal_rsrf"
+    nObs: 1
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 0.0
+    bb_temp: 300
+    is_temp: 300
+    wcu_temp: 300
+
+## SKY image for waveval
+IFU_SKY_RAW1:
+  do.catg: IFU_WAVE_RAW
+  mode: "lms"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 100
+    ndit: 3
+    filter_name: "open"
+    wavelen: "3.555"
+    catg: "CALIB"
+    tech: "LMS"
+    type: "SKY"
+    tplname: "METIS_ifu_cal_standard"
+    nObs: 1
+
+
+
+##################### FOR CORONAGRAPH ################
+
+### KLUDGING THE KEYWORDS A BIT HERE - fixed by updateHeaders() in runRecipes.py ####
+
+##### OFF AXIS PSFs #####
+
+
+LM_OFF_AXIS_PSF_RAW:
+  do.catg: LM_OFF_AXIS_PSF_RAW
+  mode: "img_lm"
+  source:
+    name: calib_star
+    kwargs:
+      amplitude: 12
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "Lp"
+    catg: "CALIB"
+    tech: "IMAGE,LM"
+    type: "PSF,OFFAXIS"
+    tplname: "METIS_img_lm_vc_obs_FixedSkyOffset"
+    nObs: 1
+
+N_OFF_AXIS_PSF_RAW:
+  do.catg: N_OFF_AXIS_PSF_RAW
+  mode: "img_n"
+  source:
+    name: calib_star
+    kwargs:
+      amplitude: 12
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "N1"
+    catg: "CALIB"
+    tech: "IMAGE,N"
+    type: "PSF,OFFAXIS"
+    tplname: "METIS_img_n_cvc_obs_AutoChop"
+    nObs: 1
+
+IFU_OFF_AXIS_PSF_RAW:
+  do.catg: IFU_OFF_AXIS_PSF_RAW
+  mode: "lms"
+  source:
+    name: calib_star
+    kwargs:
+      amplitude: 8
+  properties:
+    dit: 100
+    ndit: 3
+    filter_name: "open"
+    wavelen: "3.555"
+    catg: "CALIB"
+    tech: "LMS"
+    type: "PSF,OFFAXIS"
+    tplname: "METIS_ifu_vc_obs_FixedSkyOffset"
+    nObs: 1
+
+######### SOURCE (+ SKY) ##########
+
+LM_IMAGE_SCI_CORONAGRAPH_RAW1:
+  do.catg: LM_IMAGE_SCI_RAW
+  mode: "img_lm"
+  source:
+    name: calib_star
+    kwargs:
+      amplitude: 12
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "open"
+    catg: "SCIENCE"
+    tech: "RAVC,LM"
+    type: "OBJECT"
+    tplname: "METIS_ifu_vc_obs_FixedSkyOffset"
+    nObs: 1
+
+
+LM_IMAGE_SCI_CORONAGRAPH_RAW2:
+  do.catg: LM_IMAGE_SKY_RAW
+  mode: "img_lm"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "Lp"
+    catg: "SCIENCE"
+    tech: "RAVC,LM"
+    type: "SKY"
+    tplname: "METIS_ifu_vc_obs_FixedSkyOffset"
+    nObs: 1
+
+
+LM_IMAGE_SCI_CORONAGRAPH_RAW3:
+  do.catg: LM_IMAGE_SCI_RAW
+  mode: "img_lm"
+  source:
+    name: calib_star
+    kwargs:
+      amplitude: 12
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "Lp"
+    catg: "SCIENCE"
+    tech: "APP,LM"
+    type: "OBJECT"
+    tplname: "METIS_img_lm_app_obs_FixedOffset"
+    nObs: 1
+
+
+LM_IMAGE_SCI_CORONAGRAPH_RAW4:
+  do.catg: LM_IMAGE_SKY_RAW
+  mode: "img_lm"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "Lp"
+    catg: "SCIENCE"
+    tech: "APP,LM"
+    type: "SKY"
+    tplname: "METIS_img_lm_app_obs_FixedOffset"
+    nObs: 1
+
+IFU_SCI_CORONAGRAPH_RAW1:
+  do.catg: IFU_SCI_RAW
+  mode: "lms"
+  source:
+    name: calib_star
+    kwargs:
+      amplitude: 8
+  properties:
+    dit: 100
+    ndit: 3
+    filter_name: "open"
+    wavelen: "3.555"
+    catg: "SCIENCE"
+    tech: "RAVC,IFU"
+    type: "OBJECT"
+    tplname: "METIS_ifu_vc_obs_FixedSkyOffset"
+    nObs: 1
+
+IFU_SCI_CORONAGRAPH_RAW2:
+  do.catg: IFU_SKY_RAW
+  mode: "lms"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 100
+    ndit: 3
+    filter_name: "open"
+    wavelen: "3.555"
+    catg: "CALIB"
+    tech: "RAVC,IFU"
+    type: "SKY"
+    tplname: "METIS_ifu_vc_obs_FixedSkyOffset"
+    nObs: 1
+
+
+#####################  VARIOUS CALIBRATION DATA ########################
+
+##################### SLIT LOSSES (11 positions perpendicular to the slit) ########################
+
+LM_SLITLOSSES_RAW1:
+  do.catg: LM_SLITLOSSES_RAW
+  mode: "lss_l"
+  source:
+    name: calib_star
+    kwargs:
+      amplitude: 10
+      x: 0
+      y: -0.025   
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "open"
+    catg: "CALIB"
+    tech: "LSS,LM"
+    type: "SLITLOSS"
+    tplname: "METIS_spec_lm_cal_SlitAdc"
+    nObs: 1
+
+
+
+N_LSS_SLITLOSSES_RAW1:
+  do.catg: N_SLITLOSSES_RAW
+  mode: "lss_n"
+  source:
+    name: calib_star
+    kwargs:
+      amplitude: 10
+      x: 0
+      y: -0.025   
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "open"
+    catg: "CALIB"
+    tech: "LSS,N"
+    type: "SLITLOSS"
+    tplname: "METIS_spec_n_cal_slit"
     nObs: 1
 
 
@@ -470,527 +1269,4 @@ IFU_DISTORTION_RAW:
     tplname: "METIS_ifu_cal_distortion"
     nObs: 1
 
-
-##################### "STANDARDS" (SINGLE SOURCE AT CENTER) ######################
-
-#### EACH IMAGE PAIRED WITH SKY ######
-
-
-######### IMAGING ###############
-
-LM_IMAGE_STD_RAW1:
-  do.catg: LM_IMAGE_STD_RAW
-  mode: "img_lm"
-  source:
-    name: simple_star12
-    kwargs: {}
-  properties:
-    dit: 0.25
-    ndit: 1
-    filter_name: "Lp"
-    catg: "CALIB"
-    tech: "IMAGE,LM"
-    type: "STD"
-    tplname: "METIS_img_lm_cal_standard"
-    nObs: 1
-
-LM_IMAGE_STD_RAW2:
-  do.catg: LM_IMAGE_SKY_RAW
-  mode: "img_lm"
-  source:
-    name: empty_sky
-    kwargs: {}
-  properties:
-    dit: 0.25
-    ndit: 1
-    filter_name: "Lp"
-    catg: "CALIB"
-    tech: "IMAGE,LM"
-    type: "SKY"
-    tplname: "METIS_img_lm_cal_standard"
-    nObs: 1
-
-N_IMAGE_STD_RAW1:
-  do.catg: N_IMAGE_STD_RAW
-  mode: "img_n"
-  source:
-    name: simple_star12
-    kwargs: {}
-  properties:
-    dit: 0.25
-    ndit: 1
-    filter_name: "N1"
-    catg: "CALIB"
-    tech: "IMAGE,N"
-    type: "STD"
-    tplname: "METIS_img_n_cal_standard"
-    nObs: 1
-
-N_IMAGE_STD_RAW2:
-  do.catg: N_IMAGE_SKY_RAW
-  mode: "img_n"
-  source:
-    name: empty_sky
-    kwargs: {}
-  properties:
-    dit: 0.25
-    ndit: 1
-    filter_name: "N1"
-    catg: "CALIB"
-    tech: "IMAGE,N"
-    type: "SKY"
-    tplname: "METIS_img_n_cal_standard"
-    nObs: 1
-
-
-##################### STAR FIELD (SCIENCE SOURCE, LM/N) ######################3
-
-### POSITIONS / MAGNITUDES WERE INTIALLY SET RANDOMLY, BUT FIXED FOR THE SET OF SIMULATIONS #####
-
-
-LM_IMAGE_SCI_RAW1:
-  do.catg: LM_IMAGE_SCI_RAW
-  mode: "img_lm"
-  source:
-    name: star_field
-    kwargs: {}
-  properties:
-    dit: 0.25
-    ndit: 4
-    filter_name: "Lp"
-    catg: "SCIENCE"
-    tech: "IMAGE,LM"
-    type: "OBJECT"
-    tplname: "METIS_img_lm_obs_GenericOffset"
-    nObs: 1
-
-LM_IMAGE_SCI_RAW2:
-  do.catg: LM_IMAGE_SKY_RAW
-  mode: "img_lm"
-  source:
-    name: "empty_sky"
-    kwargs: {}
-  properties:
-    dit: 0.25
-    ndit: 4
-    filter_name: "Lp"
-    catg: "SCIENCE"
-    tech: "IMAGE,LM"
-    type: "SKY"
-    tplname: "METIS_img_lm_obs_GenericOffset"
-    nObs: 1
-
-N_IMAGE_SCI_RAW1:
-  do.catg: N_IMAGE_SCI_RAW
-  mode: "img_n"
-  source:
-    name: star_field
-    kwargs: {}
-  properties:
-    dit: 0.25
-    ndit: 4
-    filter_name: "N1"
-    catg: "SCIENCE"
-    tech: "IMAGE,N"
-    type: "OBJECT"
-    tplname: "METIS_img_n_obs_GenericChopNod"
-    nObs: 1
-
-N_IMAGE_SCI_RAW2:
-  do.catg: N_IMAGE_SKY_RAW
-  mode: "img_n"
-  source:
-    name: "empty_sky"
-    kwargs: {}
-  properties:
-    dit: 0.25
-    ndit: 4
-    filter_name: "N1"
-    catg: "SCIENCE"
-    tech: "IMAGE,N"
-    type: "SKY"
-    tplname: "METIS_img_n_obs_GenericChopNod"
-    nObs: 1
-
-
-##################### "STANDARDS" (SINGLE SOURCE AT CENTER) ######################
-
-#### EACH IMAGE PAIRED WITH SKY ######
-
-
-######### SPECTRA ###############
-
-LM_LSS_STD_RAW1:
-  do.catg: LM_LSS_STD_RAW
-  mode: "lss_l"
-  source:
-    name: simple_star8
-    kwargs: {}
-  properties:
-    dit: 0.05
-    ndit: 1
-    filter_name: "L_spec"
-    catg: "CALIB"
-    tech: "LSS,LM"
-    type: "STD"
-    tplname: "METIS_spec_lm_cal_Standard"
-    nObs: 1
-
-
-LM_LSS_STD_RAW2:
-  do.catg: LM_LSS_SKY_RAW
-  mode: "lss_l"
-  source:
-    name: empty_sky
-    kwargs: {}
-  properties:
-    dit: 0.05
-    ndit: 1
-    filter_name: "L_spec"
-    catg: "CALIB"
-    tech: "LSS,LM"
-    type: "SKY"
-    tplname: "METIS_spec_lm_cal_Standard"
-    nObs: 1
-
-
-N_LSS_STD_RAW1:
-  do.catg: N_LSS_STD_RAW
-  mode: "lss_n"
-  source:
-    name: simple_star8
-    kwargs: {}
-  properties:
-    dit: 0.05
-    ndit: 1
-    filter_name: "N_spec"
-    catg: "CALIB"
-    tech: "LSS,N"
-    type: "STD"
-    tplname: "METIS_spec_n_cal_Standard"
-    nObs: 1
-
-N_LSS_STD_RAW2:
-  do.catg: N_LSS_SKY_RAW
-  mode: "lss_n"
-  source:
-    name: empty_sky
-    kwargs: {}
-  properties:
-    dit: 0.05
-    ndit: 1
-    filter_name: "N_spec"
-    catg: "CALIB"
-    tech: "LSS,N"
-    type: "SKY"
-    tplname: "METIS_spec_n_cal_Standard"
-    nObs: 1
-
-##################### EXTENDED GALAXY (SCIENCE SOURCE SPECTRA) ######################
-
-
-N_LSS_SCI_RAW1:
-  do.catg: N_LSS_SCI_RAW
-  mode: "lss_n"
-  source:
-    name: simple_gal
-    kwargs: {}
-  properties:
-    dit: 0.25
-    ndit: 1
-    filter_name: "N_spec"
-    catg: "SCIENCE"
-    tech: "LSS,N"
-    type: "OBJECT"
-    tplname: "METIS_spec_n_obs_AutoChopNodOnSlit"
-    nObs: 1
-
-N_LSS_SCI_RAW2:
-  do.catg: N_LSS_SKY_RAW
-  mode: "lss_n"
-  source:
-    name: empty_sky
-    kwargs: {}
-  properties:
-    dit: 0.25
-    ndit: 1
-    filter_name: "N_spec"
-    catg: "SCIENCE"
-    tech: "LSS,N"
-    type: "SKY"
-    tplname: "METIS_spec_n_obs_AutoChopNodOnSlit"
-    nObs: 1
-
-LM_LSS_SCI_RAW1:
-  do.catg: LM_LSS_SCI_RAW
-  mode: "lss_l"
-  source:
-    name: simple_gal
-    kwargs: {}
-  properties:
-    dit: 0.25
-    ndit: 1
-    filter_name: "L_spec"
-    catg: "SCIENCE"
-    tech: "LSS,LM"
-    type: "OBJECT"
-    tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
-    nObs: 1
-
-LM_LSS_SCI_RAW2:
-  do.catg: LM_LSS_SKY_RAW
-  mode: "lss_l"
-  source:
-    name: empty_sky
-    kwargs: {}
-  properties:
-    dit: 0.25
-    ndit: 1
-    filter_name: "L_spec"
-    catg: "SCIENCE"
-    tech: "LSS,LM"
-    type: "SKY"
-    tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
-    nObs: 1
-
-##################### "STANDARDS" (SINGLE SOURCE AT CENTER) ######################
-
-#### EACH IMAGE PAIRED WITH SKY ######
-
-########## IFU ###############
-
-
-IFU_STD_RAW1:
-  do.catg: IFU_STD_RAW
-  mode: "lms"
-  source:
-    name: simple_star8
-    kwargs: {}
-  properties:
-    dit: 100
-    ndit: 3
-    filter_name: "open"
-    wavelen: "3.555"
-    catg: "CALIB"
-    tech: "LMS"
-    type: "STD"
-    tplname: "METIS_ifu_cal_standard"
-    nObs: 1
-
-
-# metis_ifu_reduce does not differentiate between
-# a SKY image for a standard observation and a
-# SKY image for a science observation. They are
-# both IFU_SKY_RAW. Maybe that should be changed?
-IFU_SKY_RAW2:
-  do.catg: IFU_SKY_RAW
-  mode: "lms"
-  source:
-    name: empty_sky
-    kwargs: {}
-  properties:
-    dit: 100
-    ndit: 3
-    filter_name: "open"
-    wavelen: "3.555"
-    catg: "CALIB"
-    tech: "LMS"
-    type: "SKY"
-    tplname: "METIS_ifu_cal_standard"
-    nObs: 1
-
-
-##################### EXTENDED GALAXY (SCIENCE SOURCE SPECTRA) ######################
-
-
-IFU_SCI_RAW1:
-  do.catg: IFU_SCI_RAW
-  mode: "lms"
-  source:
-    name: simple_gal
-    kwargs: {}
-  properties:
-    dit: 0.25
-    ndit: 1
-    filter_name: "open"
-    catg: "SCIENCE"
-    tech: "LMS"
-    type: "OBJECT"
-    tplname: "METIS_ifu_obs_GenericOffset"
-    nObs: 1
-
-IFU_SCI_RAW2:
-  do.catg: IFU_SKY_RAW
-  mode: "lms"
-  source:
-    name: empty_sky
-    kwargs: {}
-  properties:
-    dit: 0.25
-    ndit: 1
-    filter_name: "open"
-    catg: "CALIB"
-    tech: "LMS"
-    type: "SKY"
-    tplname: "METIS_ifu_obs_GenericOffset"
-    nObs: 1
-
-##################### FOR CORONAGRAPH ################
-
-### KLUDGING THE KEYWORDS A BIT HERE - fixed by updateHeaders() in runRecipes.py ####
-
-##### OFF AXIS PSFs #####
-
-
-LM_OFF_AXIS_PSF_RAW:
-  do.catg: LM_OFF_AXIS_PSF_RAW
-  mode: "img_lm"
-  source:
-    name: simple_star12
-    kwargs: {}
-  properties:
-    dit: 0.25
-    ndit: 1
-    filter_name: "Lp"
-    catg: "CALIB"
-    tech: "IMAGE,LM"
-    type: "PSF,OFFAXIS"
-    tplname: "METIS_img_lm_vc_obs_FixedSkyOffset"
-    nObs: 1
-
-N_OFF_AXIS_PSF_RAW:
-  do.catg: N_OFF_AXIS_PSF_RAW
-  mode: "img_n"
-  source:
-    name: simple_star12
-    kwargs: {}
-  properties:
-    dit: 0.25
-    ndit: 1
-    filter_name: "N1"
-    catg: "CALIB"
-    tech: "IMAGE,N"
-    type: "PSF,OFFAXIS"
-    tplname: "METIS_img_n_cvc_obs_AutoChop"
-    nObs: 1
-
-IFU_OFF_AXIS_PSF_RAW:
-  do.catg: IFU_OFF_AXIS_PSF_RAW
-  mode: "lms"
-  source:
-    name: simple_star8
-    kwargs: {}
-  properties:
-    dit: 100
-    ndit: 3
-    filter_name: "open"
-    wavelen: "3.555"
-    catg: "CALIB"
-    tech: "LMS"
-    type: "PSF,OFFAXIS"
-    tplname: "METIS_ifu_vc_obs_FixedSkyOffset"
-    nObs: 1
-
-######### SOURCE (+ SKY) ##########
-
-LM_IMAGE_SCI_CORONAGRAPH_RAW1:
-  do.catg: LM_IMAGE_SCI_RAW
-  mode: "img_lm"
-  source:
-    name: simple_star12
-    kwargs: {}
-  properties:
-    dit: 0.25
-    ndit: 1
-    filter_name: "open"
-    catg: "SCIENCE"
-    tech: "RAVC,LM"
-    type: "OBJECT"
-    tplname: "METIS_ifu_vc_obs_FixedSkyOffset"
-    nObs: 1
-
-
-LM_IMAGE_SCI_CORONAGRAPH_RAW2:
-  do.catg: LM_IMAGE_SKY_RAW
-  mode: "img_lm"
-  source:
-    name: empty_sky
-    kwargs: {}
-  properties:
-    dit: 0.25
-    ndit: 1
-    filter_name: "Lp"
-    catg: "SCIENCE"
-    tech: "RAVC,LM"
-    type: "SKY"
-    tplname: "METIS_ifu_vc_obs_FixedSkyOffset"
-    nObs: 1
-
-
-LM_IMAGE_SCI_CORONAGRAPH_RAW3:
-  do.catg: LM_IMAGE_SCI_RAW
-  mode: "img_lm"
-  source:
-    name: simple_star12
-    kwargs: {}
-  properties:
-    dit: 0.25
-    ndit: 1
-    filter_name: "Lp"
-    catg: "SCIENCE"
-    tech: "APP,LM"
-    type: "OBJECT"
-    tplname: "METIS_img_lm_app_obs_FixedOffset"
-    nObs: 1
-
-
-LM_IMAGE_SCI_CORONAGRAPH_RAW4:
-  do.catg: LM_IMAGE_SKY_RAW
-  mode: "img_lm"
-  source:
-    name: empty_sky
-    kwargs: {}
-  properties:
-    dit: 0.25
-    ndit: 1
-    filter_name: "Lp"
-    catg: "SCIENCE"
-    tech: "APP,LM"
-    type: "SKY"
-    tplname: "METIS_img_lm_app_obs_FixedOffset"
-    nObs: 1
-
-IFU_SCI_CORONAGRAPH_RAW1:
-  do.catg: IFU_SCI_RAW
-  mode: "lms"
-  source:
-    name: simple_star8
-    kwargs: {}
-  properties:
-    dit: 100
-    ndit: 3
-    filter_name: "open"
-    wavelen: "3.555"
-    catg: "SCIENCE"
-    tech: "RAVC,IFU"
-    type: "OBJECT"
-    tplname: "METIS_ifu_vc_obs_FixedSkyOffset"
-    nObs: 1
-
-IFU_SCI_CORONAGRAPH_RAW2:
-  do.catg: IFU_SKY_RAW
-  mode: "lms"
-  source:
-    name: empty_sky
-    kwargs: {}
-  properties:
-    dit: 100
-    ndit: 3
-    filter_name: "open"
-    wavelen: "3.555"
-    catg: "CALIB"
-    tech: "RAVC,IFU"
-    type: "SKY"
-    tplname: "METIS_ifu_vc_obs_FixedSkyOffset"
-    nObs: 1
 

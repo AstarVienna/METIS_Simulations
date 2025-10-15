@@ -1,0 +1,34 @@
+LM_IMAGE_SCI_RAW:
+  do.catg: LM_IMAGE_SCI_RAW
+  mode: "img_lm"
+  source:
+    name: star_field
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 4
+    filter_name: "Lp"
+    ndfilter_name: "open"
+    catg: "SCIENCE"
+    tech: "IMAGE,LM"
+    type: "OBJECT"
+    tplname: "METIS_img_lm_obs_GenericOffset"
+    nObs: 1
+
+LM_IMAGE_SCI_SKY_RAW:
+  do.catg: LM_IMAGE_SKY_RAW
+  mode: "img_lm"
+  source:
+    name: "empty_sky"
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 4
+    filter_name: "Lp"
+    ndfilter_name: "open"
+    catg: "SCIENCE"
+    tech: "IMAGE,LM"
+    type: "SKY"
+    tplname: "METIS_img_lm_obs_GenericOffset"
+    nObs: 1
+

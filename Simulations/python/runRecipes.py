@@ -115,7 +115,7 @@ class runRecipes():
 
         params['calibFile'] = args.calibFile
 
-        if args.nCores:
+        if(args.nCores):
             params['nCores'] = args.nCores
         else:
             params['nCores'] = 1
@@ -276,13 +276,13 @@ class runRecipes():
     
         if(np.all(["DARK" not in props['type'],"PERSISTENCE" not in props['type']])):
             if(",LM" in props['tech']):
-                df = copy.deepcopy(sd.DARKLM)
+                df = json.loads(json.dumps(sd.DARKLM))
                 df['mode'] = "img_lm"
             elif(",N" in props['tech']):
-                df = copy.deepcopy(sd.DARKN)
+                df = json.loads(json.dumps(sd.DARKN))
                 df['mode'] = "img_n"
             elif(np.any(["LMS" in props['tech'],"IFU" in props['tech']])):
-                df = copy.deepcopy(sd.DARKIFU)
+                df = json.loads(json.dumps(sd.DARKIFU))
                 df['mode'] = "lms"
             else:
                 return{}
@@ -290,6 +290,7 @@ class runRecipes():
             df['properties']['dit'] = props['dit']
             df['properties']['ndit'] = props['ndit']
             df['properties']['nObs'] = self.params['doCalib']
+
 
             return df
         else:
@@ -301,14 +302,14 @@ class runRecipes():
     
         if(np.all(["DARK" not in props['type'],"PERSISTENCE" not in props['type']])):
             if(",LM" in props['tech']):
-                df = copy.deepcopy(sd.WCUDARKLM)
-                df['mode'] = "img_lm"
+                df = json.loads(json.dumps(sd.WCUDARKLM))
+                df['mode'] = "wcu_img_lm"
             elif(",N" in props['tech']):
-                df = copy.deepcopy(sd.WCUDARKN)
-                df['mode'] = "img_n"
+                df = json.loads(json.dumps(sd.WCUDARKN))
+                df['mode'] = "wcu_img_n"
             elif(np.any(["LMS" in props['tech'],"IFU" in props['tech']])):
-                df = copy.deepcopy(sd.WCUDARKIFU)
-                df['mode'] = "lms"
+                df = json.loads(json.dumps(sd.WCUDARKIFU))
+                df['mode'] = "wcu_lms"
             else:
                 return{}
 
@@ -325,10 +326,10 @@ class runRecipes():
     
         if(np.all(["DARK" not in props['type'], "FLAT" not in props['type'],"DETLIN" not in props['type'],"LMS" not in props['type'],"PERSISTENCE" not in props['type']])):
             if(",LM" in props['tech']):
-                df = copy.deepcopy(sd.SKYFLATLM)
+                df = json.loads(json.dumps(sd.SKYFLATLM))
                 df['mode'] = "img_lm"
             elif(",N" in props['tech']):
-                df = copy.deepcopy(sd.SKYFLATN)
+                df = json.loads(json.dumps(sd.SKYFLATN))
                 df['mode'] = "img_n"
             else:
                 return{}
@@ -348,10 +349,10 @@ class runRecipes():
         """determine what sort of lamp flat, if any, is needed for a YAML entry and return a recipe dictionary for it"""
         if(np.all(["DARK" not in props['type'], "FLAT" not in props['type'],"DETLIN" not in props['type'],"LMS" not in props['type'],"PERSISTENCE" not in props['type']])):
             if(",LM" in props['tech']):
-                df = copy.deepcopy(sd.LAMPFLATLM)
+                df = json.loads(json.dumps(sd.LAMPFLATLM))
                 df['mode'] = "img_lm"
             elif(",N" in props['tech']):
-                df = copy.deepcopy(sd.LAMPFLATN)
+                df = json.loads(json.dumps(sd.LAMPFLATN))
                 df['mode'] = "img_n"
             else:
                 return{}
@@ -383,6 +384,9 @@ class runRecipes():
         skyFlats = []
         lampFlats = []
 
+        #list of modes that use WCU OFF
+        wcuModes = ["SLITLOSS","DETLIN","DISTORTION","RSRF","CHOPHOME","PUPIL","WAVE","FLAT,LAMP"]
+
         # assemble a list of the dark / skyflat / lampflat recipe dicionaries
 
         ii=0
@@ -401,7 +405,7 @@ class runRecipes():
                     props["ndfilter_name"] = "open"
 
 
-                if(np.any(["SLITLOSS" in props["type"],"DETLIN" in props["type"], "DISTORTION" in props["type"]])):
+                if(props["type"] in wcuModes):
 
                     wcuDarks.append(self.calcWcuDark(props))
                     
@@ -432,7 +436,7 @@ class runRecipes():
         for rcp in np.unique([json.dumps(i, sort_keys=True) for i in wcuDarks]):
             drcp = json.loads(rcp)
             if bool(drcp):
-                label = f'd{nLab}'
+                label = f'w{nLab}'
                 nLab += 1
                 self.calibSet[label] = drcp
 
@@ -522,6 +526,7 @@ class runRecipes():
                         print(f"Lower case keyword found and removed: {k}")
                         hdu.header.pop(k)
 
+            
             hdul[0].header['MJD-OBS'] = mjd
             
             #if type(hdul[0].header['MJD-OBS']) == str:
@@ -531,34 +536,35 @@ class runRecipes():
            
             tech = hdul[0].header['HIERARCH ESO DPR TECH']
             filt = hdul[0].header['HIERARCH ESO DRS FILTER']
-    
+
+            
             if(tech == "LSS,LM"):
                 hdul[0].header['HIERARCH ESO INS MODE'] = "SPEC_LM"
-                hdul[0].header['HIERARCH ESO INS OPTI9 NAME'] = filt
-                hdul[0].header['HIERARCH ESO INS DRS SLIT'] = "C-38_1"
+                #hdul[0].header['HIERARCH ESO INS OPTI9 NAME'] = filt
+                #hdul[0].header['HIERARCH ESO INS DRS SLIT'] = "C-38_1"
             if(tech == "LSS,N"):
                 hdul[0].header['HIERARCH ESO INS MODE'] = "SPEC_N_LOW"
-                hdul[0].header['HIERARCH ESO INS OPTI12 NAME'] = filt
+                #hdul[0].header['HIERARCH ESO INS OPTI12 NAME'] = filt
                 hdul[0].header['HIERARCH ESO INS DRS SLIT'] = "C-38_1"
             
             #IMAGING
             if(tech == "IMAGE,LM"):
                 hdul[0].header['HIERARCH ESO INS MODE'] = "IMG_LM"
-                hdul[0].header['HIERARCH ESO INS OPTI10 NAME'] = filt
+                #hdul[0].header['HIERARCH ESO INS OPTI10 NAME'] = filt
             if(tech == "IMAGE,N"):
                 hdul[0].header['HIERARCH ESO INS MODE'] = "IMG_N"
-                hdul[0].header['HIERARCH ESO INS OPTI13 NAME'] = filt
+                #hdul[0].header['HIERARCH ESO INS OPTI13 NAME'] = filt
             
             #IFU
             if(tech == "LMS"):
                 hdul[0].header['HIERARCH ESO INS MODE'] = "IFU_nominal"
-                hdul[0].header['HIERARCH ESO INS OPTI6 NAME'] = filt
+                #hdul[0].header['HIERARCH ESO INS OPTI6 NAME'] = filt
                 hdul[0].header['HIERARCH ESO DRS IFU'] = filt
                 hdul[0].header['HIERARCH ESO DPR TECH'] = "IFU"
                 
             #HCI
             if(tech == "RAVC,LM"):
-                hdul[0].header['HIERARCH ESO INS OPTI10 NAME'] = filt
+                #hdul[0].header['HIERARCH ESO INS OPTI10 NAME'] = filt
                 hdul[0].header['HIERARCH ESO INS MODE'] = "IMG_LM_RAVC"
                 hdul[0].header['HIERARCH ESO DRS MASK'] = "VPM-L,RAP-LM,RLS-LMS"
                 hdul[0].header['HIERARCH ESO INS OPTI1 NAME'] = "RAP-LM"
@@ -567,7 +573,7 @@ class runRecipes():
                 hdul[0].header['HIERARCH ESO DPR TECH'] = "IMAGE,LM"
             
             if(tech == "APP,LM"):
-                hdul[0].header['HIERARCH ESO INS OPTI10 NAME'] = filt
+                #hdul[0].header['HIERARCH ESO INS OPTI10 NAME'] = filt
                 hdul[0].header['HIERARCH ESO INS MODE'] = "IMG_LM_APP"
                 hdul[0].header['HIERARCH ESO DPR TECH'] = "IMAGE,LM"
                 hdul[0].header['HIERARCH ESO INS OPTI1 NAME'] = "RAP-LM"
@@ -597,8 +603,6 @@ class runRecipes():
                 hdul[0].header['HIERARCH ESO INS MODE'] = "IMG_N"
                 hdul[0].header['HIERARCH ESO INS OPTI15 NAME'] = "PUPIL2"
     
-            
-            
             hdul.writeto(fName,overwrite=True)
             hdul.close()
 
@@ -614,7 +618,6 @@ class runRecipes():
         """Calls _run for calibration recipes"""
 
         self._run(self.calibSet)
-        
 
     def _run(self,dorcps):
         
@@ -657,6 +660,8 @@ class runRecipes():
                 
                 combodict = dict(zip(expanded, combo))
                 props = recipe["properties"] | combodict
+
+                
                 # a blank value of ndfilter_name if not explicitly given
                 try:
                     nfname = props["ndfilter_name"]
@@ -702,10 +707,10 @@ class runRecipes():
                             print("No appropriate starting time found; exiting")
                             return
     
-    
+
                 # for nObs exposures of each set of parameters
                 for _ in range(nObs):        
-    
+
                     # note that tDelt = 0 if we've explicitly set it above
                     self.tObs = self.tObs + self.tDelt
 
@@ -722,20 +727,26 @@ class runRecipes():
                     print("Starting simulate()")
                     print(f"    fname={fname}")
                     print(f'    source =  {recipe["source"]}')
-    
+
                     # get kwargs for scopeSim
                     kwargs = NestedMapping({"OBS": props})
+
+                    
                     print(f"    dit={props['dit']},ndit={props['ndit']},catg={props['catg']},tech={props['tech']},type={props['type']},filter_name={props['filter_name']}, ndfilter_name={props['ndfilter_name']}")
 
+                    print(fname, recipe.keys())
                     # keep track of the list of arguments
-                    allArgs.append((fname,mode,kwargs,recipe["source"],self.params["small"]))
-    
-        # and run the
+                    if("wcu" not in recipe.keys()):
+                       recipe["wcu"] = None
+                    #simulate(fname, mode, kwargs,recipe["wcu"], source=recipe["source"], small=self.params['small'])
+                    print(f'    wcu =  {recipe["wcu"]}')
 
-
-        if not self.params['testRun']:
+                    allArgs.append((fname,mode,kwargs,recipe["wcu"],recipe["source"],self.params["small"]))
+        
+        if(not self.params['testRun']):
             nCores = self.params['nCores']
-
+        
+            
             with Pool(nCores) as pool:
                 pool.starmap(simulate, allArgs)
                 #simulate(fname, mode, kwargs, source=recipe["source"], small=self.params['small'])

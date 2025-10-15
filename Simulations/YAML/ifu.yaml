@@ -1,17 +1,137 @@
+###############  Generates a set of images for IFU ##############
 
-##################### "STANDARDS" (SINGLE SOURCE AT CENTER) ######################
+######DETLIN INPUT ########
+
+
+
+DETLIN_IFU_RAW:
+  do.catg: DETLIN_IFU_RAW
+  mode: "wcu_lms"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit:
+      - 1.
+    ndit: 1
+    filter_name: "open"
+    catg: "CALIB"
+    tech: "LMS"
+    type: "DETLIN"
+    tplname: "METIS_ifu_cal_DetLin"
+    nObs: 1
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 0.0
+    bb_temp: 300
+    is_temp: 300
+    wcu_temp: 300
+
+
+##################### DISTORTION (PINHOLE MASK)  ######################3
+
+
+IFU_DISTORTION_RAW:
+  do.catg: IFU_DISTORTION_RAW
+  mode: "wcu_lms"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "open"
+    nd_filter_name: "open"
+    catg: "CALIB"
+    tech: "LMS"
+    type: "DISTORTION"
+    tplname: "METIS_ifu_cal_distortion"
+    nObs: 1
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 0.0
+    bb_temp: 300
+    is_temp: 300
+    wcu_temp: 300
+    xshift: 0
+    yshirt: 0
+
+
+
+##################### LASER SPECTRUM CALIBRATIONS ######################
+
+IFU_WAVE_RAW:
+  do.catg: IFU_WAVE_RAW
+  mode: "lms"
+  source:
+    name: "laser_spectrum_lm"
+    kwargs: {}
+  properties:
+    dit: 0.0004
+    ndit: 1
+    filter_name: "open"
+    nd_filter_name: "ND_OD4"
+    catg: "CALIB"
+    tech: "LMS"
+    type: "WAVE"
+    tplname: "METIS_ifu_cal_InternalWave"
+    nObs: 1
+
+
+######SCIENCE SOURCE ########
 
 #### EACH IMAGE PAIRED WITH SKY ######
 
-########## IFU ###############
+
+######SCIENCE SOURCE ########
+##################### EXTENDED GALAXY (SCIENCE SOURCE SPECTRA) ######################
 
 
-IFU_STD_RAW1:
+IFU_SCI_RAW:
+  do.catg: IFU_SCI_RAW
+  mode: "lms"
+  source:
+    name: simple_gal
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "open"
+    catg: "SCIENCE"
+    tech: "LMS"
+    type: "OBJECT"
+    tplname: "METIS_ifu_obs_GenericOffset"
+    nObs: 1
+
+IFU_SCI_SKY_RAW:
+  do.catg: IFU_SKY_RAW
+  mode: "lms"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "open"
+    catg: "CALIB"
+    tech: "LMS"
+    type: "SKY"
+    tplname: "METIS_ifu_obs_GenericOffset"
+    nObs: 1
+
+
+##################### "STANDARDS" (SINGLE SOURCE AT CENTER) ######################
+
+
+IFU_STD_RAW:
   do.catg: IFU_STD_RAW
   mode: "lms"
   source:
-    name: simple_star8
-    kwargs: {}
+    name: calib_star
+    kwargs:
+      amplitude: 8
   properties:
     dit: 100
     ndit: 3
@@ -28,7 +148,8 @@ IFU_STD_RAW1:
 # a SKY image for a standard observation and a
 # SKY image for a science observation. They are
 # both IFU_SKY_RAW. Maybe that should be changed?
-IFU_SKY_RAW2:
+
+IFU_STD_SKY_RAW:
   do.catg: IFU_SKY_RAW
   mode: "lms"
   source:
@@ -46,37 +167,106 @@ IFU_SKY_RAW2:
     nObs: 1
 
 
-##################### EXTENDED GALAXY (SCIENCE SOURCE SPECTRA) ######################
-
-
-IFU_SCI_RAW1:
-  do.catg: IFU_SCI_RAW
-  mode: "lms"
+##################### IFU RSRF #####################
+##PINHOLE TRACES IN VARIOUS TRACES
+IFU_RSRF_RAW1:
+  do.catg: IFU_RSRF_PINH_RAW
+  mode: "wcu_lms"
   source:
-    name: simple_gal
+    name: empty_sky
     kwargs: {}
   properties:
-    dit: 0.25
-    ndit: 1
+    dit: 10
+    ndit: 20
+    wavelen: 3.555
     filter_name: "open"
-    catg: "SCIENCE"
+    ndfilter_name: "open"
+    catg: "CALIB"
     tech: "LMS"
-    type: "OBJECT"
-    tplname: "METIS_ifu_obs_GenericOffset"
+    type: "RSRF"
+    tplname: "METIS_ifu_cal_rsrf"
     nObs: 1
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "grid_lm"
+    bb_aperture: 0.5
+    bb_temp: 800
+    is_temp: 300
+    wcu_temp: 300
+    xshift: 0
+    yshift: -0.1
 
-IFU_SCI_RAW2:
-  do.catg: IFU_SKY_RAW
+##WCU flats
+IFU_RSRF_RAW2:
+  do.catg: IFU_RSRF_RAW
+  mode: "wcu_lms"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 10
+    ndit: 20
+    wavelen: 3.555
+    filter_name: "open"
+    ndfilter_name: "open"
+    catg: "CALIB"
+    tech: "LMS"
+    type: "RSRF"
+    tplname: "METIS_ifu_cal_rsrf"
+    nObs: 1
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 0.0001
+    bb_temp: 8000
+    is_temp: 300
+    wcu_temp: 300
+    xshift: 0
+    yshift: 0
+
+
+## WCU_OFF frames
+IFU_WCU_OFF1:
+  do.catg: IFU_WCU_OFF_RAW
+  mode: "wcu_lms"
+  source: 
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 10
+    ndit: 20
+    wavelen: 3.555
+    filter_name: "open"
+    ndfilter_name: "open"
+    catg: "CALIB"
+    tech: "LMS"
+    type: "RSRF"
+    tplname: "METIS_ifu_cal_rsrf"
+    nObs: 1
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 0.0
+    bb_temp: 300
+    is_temp: 300
+    wcu_temp: 300
+
+## SKY image for waveval
+IFU_SKY_RAW1:
+  do.catg: IFU_WAVE_RAW
   mode: "lms"
   source:
     name: empty_sky
     kwargs: {}
   properties:
-    dit: 0.25
-    ndit: 1
+    dit: 100
+    ndit: 3
     filter_name: "open"
+    wavelen: "3.555"
     catg: "CALIB"
     tech: "LMS"
     type: "SKY"
-    tplname: "METIS_ifu_obs_GenericOffset"
+    tplname: "METIS_ifu_cal_standard"
     nObs: 1
+
+

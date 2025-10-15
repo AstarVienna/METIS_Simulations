@@ -1,0 +1,34 @@
+N_LSS_SCI_RAW:
+  do.catg: N_LSS_SCI_RAW
+  mode: "lss_n"
+  source:
+    name: simple_gal
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "open"
+    ndfilter_name: "open"
+    catg: "SCIENCE"
+    tech: "LSS,N"
+    type: "OBJECT"
+    tplname: "METIS_spec_n_obs_AutoChopNodOnSlit"
+    nObs: 1
+
+N_LSS_SCI_SKY_RAW:
+  do.catg: N_LSS_SKY_RAW
+  mode: "lss_n"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "open"
+    ndfilter_name: "open"
+    catg: "SCIENCE"
+    tech: "LSS,N"
+    type: "SKY"
+    tplname: "METIS_spec_n_obs_AutoChopNodOnSlit"
+    nObs: 1
+

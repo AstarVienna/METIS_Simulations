@@ -20,9 +20,9 @@ jobs:
   run:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.11"
       - name: Install dependencies
@@ -30,11 +30,13 @@ jobs:
           python -m pip install --upgrade pip
           pip install git+https://github.com/AstarVienna/ScopeSim_Data.git
           pip install git+https://github.com/AstarVienna/ScopeSim.git
-          pip install astar-utils numpy more-itertools astropy PyYAML scopesim_templates
+          pip install git+https://github.com/AstarVienna/ScopeSim_Templates.git
+          pip install astar-utils numpy more-itertools astropy PyYAML
       - name: Run recipes
         run: |
           python Simulations/python/downloadPackages.py
-          python Simulations/python/run_recipes.py --small --doCalib=1 --sequence=1
+	  cd Simulations
+          python python/testAll.py
       - name: Store output files
         uses: actions/upload-artifact@v4
         with:

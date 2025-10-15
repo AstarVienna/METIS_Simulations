@@ -1,0 +1,43 @@
+IFU_STD_RAW:
+  do.catg: IFU_STD_RAW
+  mode: "lms"
+  source:
+    name: calib_star
+    kwargs:
+      amplitude: 8
+  properties:
+    dit: 100.
+    ndit: 3
+    filter_name: "open"
+    ndfilter_name: "open"
+    wavelen: "3.555"
+    catg: "CALIB"
+    tech: "LMS"
+    type: "STD"
+    tplname: "METIS_ifu_cal_standard"
+    nObs: 1
+
+
+# metis_ifu_reduce does not differentiate between
+# a SKY image for a standard observation and a
+# SKY image for a science observation. They are
+# both IFU_SKY_RAW. Maybe that should be changed?
+
+IFU_STD_SKY_RAW:
+  do.catg: IFU_SKY_RAW
+  mode: "lms"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 100.
+    ndit: 3
+    filter_name: "open"
+    ndfilter_name: "open"
+    wavelen: "3.555"
+    catg: "CALIB"
+    tech: "LMS"
+    type: "SKY"
+    tplname: "METIS_ifu_cal_standard"
+    nObs: 1
+

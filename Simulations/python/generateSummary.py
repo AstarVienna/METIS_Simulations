@@ -7,18 +7,14 @@ import glob
 import os
 import argparse
 
-def generateSummary(inDir,outFileName):
+def generateSummary(fnames,outFileName):
 
     # get the fits files in the directory
-    fNames = glob.glob(os.path.join(inDir,"METIS*.fits"))
-
-    # sort for tidier output
-    fNames.sort()
     outFile = open(outFileName,"w")
 
     #header line
     
-    line = "File\tDIT\tNDIT\tTech\tCATG\tTYPE\tINS.MODE\tDRS.SLIT\tDRS.FILTER\tDRS.IFU\tDRS.MASK\tINS."
+    line = "\Block\tFile\tDIT\tNDIT\tTech\tCATG\tTYPE\tINS.MODE\tTPL.NAME\tTPL.START\tTPL.EXPNO\tDRS.SLIT\tDRS.FILTER\tDRS.IFU\tDRS.MASK."
     print(line,file=outFile)
 
     
@@ -35,6 +31,10 @@ def generateSummary(inDir,outFileName):
         catg = hdul[0].header['HIERARCH ESO DPR CATG']
         tipe = hdul[0].header['HIERARCH ESO DPR TYPE']
 
+        tpl = hdul[0].header['HIERARCH ESO TPL NAME']
+        tplStart = hdul[0].header['HIERARCH ESO TPL START']
+        tplExpno = hdul[0].header['HIERARCH ESO TPL EXPNO']
+
         # pulling as wildcards reuturns a list of the variable names + values, to handle different cases
 
         slit = hdul[0].header['*DRS SLIT*']
@@ -42,16 +42,18 @@ def generateSummary(inDir,outFileName):
         ifu = hdul[0].header['*DRS IFU*']
         mask = hdul[0].header['*DRS MASK*']
         
-        ins = hdul[0].header['*INS OPTI*']
+        #ins = hdul[0].header['*INS OPTI*']
         mode = hdul[0].header['HIERARCH ESO INS MODE']
 
         #get the fine name w/o pasth
         
-        fShort = os.path.basename(fName)
+        fShort = fName.split("/")[1]
+        block = fName.split("/")[0]
+        
 
         # assemble the output line, tab separated
         
-        line = f'{fShort}\t{dit}\t{ndit}\t{tech}\t{catg}\t{tipe}\t{mode}\t'
+        line = f'{block}\t{fShort}\t{dit}\t{ndit}\t{tech}\t{catg}\t{tipe}\t{mode}\t{tpl}\t{tplStart}\t{tplExpno}'
 
         # single value, or empty
         for elem in slit:
@@ -63,21 +65,21 @@ def generateSummary(inDir,outFileName):
         for elem in ifu:
             line = f'{line}{hdul[0].header[elem]}'
         line=line+"\t"
-        for elem in mask:
-            print(ins)
+        #for elem in mask:
+        #    print(ins)
 
-            line = f'{line}{hdul[0].header[elem]}'
+        #    line = f'{line}{hdul[0].header[elem]}'
         line=line+"\t"
         
-        # multiple values
-        nIns = 0
-        for elem in ins:
-            line = f'{line}{elem}={hdul[0].header[elem]},'
-            nIns += 1
-
-        if(nIns > 0):
-            # remove the trailing comma
-            line=f'{line[:-1]}\t'
+        ## multiple values
+        #nIns = 0
+        #for elem in ins:
+        #    line = f'{line}{elem}={hdul[0].header[elem]},'
+        #    nIns += 1
+        #
+        #if(nIns > 0):
+        #    # remove the trailing comma
+        #    line=f'{line[:-1]}\t'
 
         # dump line to file 
         print(line,file=outFile)
@@ -91,7 +93,7 @@ if __name__ == "__main__":
     parser.add_argument('--outFile', type=str,
                     help='output file')
     parser.add_argument('--inDir', type=str, 
-                    help='directory containing input files')
+                    help='List of input directories, comma separated')
 
     args = parser.parse_args()
     if(args.outFile):
@@ -99,10 +101,20 @@ if __name__ == "__main__":
     else:
         outFile = "summary.csv"
     if(args.inDir):
-        inDir = args.inDir
+        inDir = args.inDir.split(",")
     else:
         inDir = "output"
 
-    generateSummary(inDir,outFile)
+
+    fNames = []
+    for dirName in inDir:
+        temp = glob.glob(os.path.join(dirName,"METIS*.fits"))
+        fNames = fNames + temp
+
+    # sort for tidier output
+    fNames.sort()
+
+    generateSummary(fNames,outFile)
+    
  
 

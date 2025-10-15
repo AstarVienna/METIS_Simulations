@@ -10,8 +10,9 @@ LM_OFF_AXIS_PSF_RAW:
   do.catg: LM_OFF_AXIS_PSF_RAW
   mode: "img_lm"
   source:
-    name: simple_star12
-    kwargs: {}
+    name: calib_star
+    kwargs:
+      amplitude: 12
   properties:
     dit: 0.25
     ndit: 1
@@ -26,8 +27,9 @@ N_OFF_AXIS_PSF_RAW:
   do.catg: N_OFF_AXIS_PSF_RAW
   mode: "img_n"
   source:
-    name: simple_star12
-    kwargs: {}
+    name: calib_star
+    kwargs:
+      amplitude: 12
   properties:
     dit: 0.25
     ndit: 1
@@ -42,8 +44,9 @@ IFU_OFF_AXIS_PSF_RAW:
   do.catg: IFU_OFF_AXIS_PSF_RAW
   mode: "lms"
   source:
-    name: simple_star8
-    kwargs: {}
+    name: calib_star
+    kwargs:
+      amplitude: 8
   properties:
     dit: 100
     ndit: 3
@@ -61,8 +64,9 @@ LM_IMAGE_SCI_CORONAGRAPH_RAW1:
   do.catg: LM_IMAGE_SCI_RAW
   mode: "img_lm"
   source:
-    name: simple_star12
-    kwargs: {}
+    name: calib_star
+    kwargs:
+      amplitude: 12
   properties:
     dit: 0.25
     ndit: 1
@@ -95,8 +99,9 @@ LM_IMAGE_SCI_CORONAGRAPH_RAW3:
   do.catg: LM_IMAGE_SCI_RAW
   mode: "img_lm"
   source:
-    name: simple_star12
-    kwargs: {}
+    name: calib_star
+    kwargs:
+      amplitude: 12
   properties:
     dit: 0.25
     ndit: 1
@@ -128,8 +133,9 @@ IFU_SCI_CORONAGRAPH_RAW1:
   do.catg: IFU_SCI_RAW
   mode: "lms"
   source:
-    name: simple_star8
-    kwargs: {}
+    name: calib_star
+    kwargs:
+      amplitude: 8
   properties:
     dit: 100
     ndit: 3

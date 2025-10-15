@@ -1,0 +1,36 @@
+IFU_SCI_CORONAGRAPH_RAW:
+  do.catg: IFU_SCI_RAW
+  mode: "lms"
+  source:
+    name: calib_star
+    kwargs:
+      amplitude: 8
+  properties:
+    dit: 100.
+    ndit: 3
+    filter_name: "open"
+    ndfilter_name: "open"
+    wavelen: "3.555"
+    catg: "SCIENCE"
+    tech: "RAVC,IFU"
+    type: "OBJECT"
+    tplname: "METIS_ifu_vc_obs_FixedSkyOffset"
+    nObs: 1
+
+IFU_SKY_CORONAGRAPH_RAW:
+  do.catg: IFU_SKY_RAW
+  mode: "lms"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 100.
+    ndit: 3
+    filter_name: "open"
+    ndfilter_name: "open"
+    wavelen: "3.555"
+    catg: "CALIB"
+    tech: "RAVC,IFU"
+    type: "SKY"
+    tplname: "METIS_ifu_vc_obs_FixedSkyOffset"
+    nObs: 1
