@@ -81,12 +81,13 @@ def simulate(fname, mode, kwargs, wcu, source=None, small=False):
 
     #changed the way the simulation is called, because the previous method wasn't
     #producing expeced results
+
     
     #set up the simulation
     if("wavelen" in kwargs["OBS"].keys()):
-        cmd = sim.UserCommands(use_instrument="metis", set_modes=[mode],properties={"!OBS.wavelen": kwargs["OBS"]['wavelen']})
+        cmd = sim.UserCommands(use_instrument="METIS", set_modes=[mode],properties={"!OBS.wavelen": kwargs["OBS"]['wavelen']})
     else:
-        cmd = sim.UserCommands(use_instrument="metis", set_modes=[mode])
+        cmd = sim.UserCommands(use_instrument="METIS", set_modes=[mode])
 
     #copy over the OBS settings directly, then set up the optical train
 
@@ -106,7 +107,7 @@ def simulate(fname, mode, kwargs, wcu, source=None, small=False):
     if("tplname" in kwargs["OBS"].keys()):
         cmd["!OBS.tplname"] = kwargs["OBS"]["tplname"]
 
-     
+
     metis = sim.OpticalTrain(cmd)
 
     
@@ -150,9 +151,12 @@ def simulate(fname, mode, kwargs, wcu, source=None, small=False):
 
     # now observe and readout
     metis.observe(src)
-
-    hdus = metis.readout(str(fname),dit=kwargs["OBS"]['dit'],ndit=kwargs["OBS"]['ndit'])
+    hdus = metis.readout(dit=kwargs["OBS"]['dit'],ndit=kwargs["OBS"]['ndit'])
+    
+    hdus[0][0].header['HIERARCH ESO DPR TECH'] = kwargs["OBS"]["tech"]
+    hdus[0].writeto(fname,overwrite=True)
     return hdus[0]
+
 
 
 def _expand_fnames(fnames, nreq):

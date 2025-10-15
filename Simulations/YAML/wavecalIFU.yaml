@@ -1,0 +1,24 @@
+
+IFU_WAVE_RAW:
+  do.catg: IFU_WAVE_RAW
+  mode: "wcu_lms"
+  source:
+    name: "laser_spectrum_lm"
+    kwargs: {}
+  properties:
+    dit: 0.0004
+    ndit: 1
+    filter_name: "open"
+    ndfilter_name: "ND_OD4"
+    catg: "CALIB"
+    tech: "LMS"
+    type: "WAVE"
+    tplname: "METIS_ifu_cal_InternalWave"
+    nObs: 1
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 1.0
+    bb_temp: 300
+    is_temp: 300
+    wcu_temp: 300

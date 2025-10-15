@@ -1,0 +1,47 @@
+LM_LSS_RSRF_RAW1:
+  do.catg: LM_LSS_RSRF_RAW
+  mode: "wcu_lss_l"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "L_spec"
+    ndfilter_name: "open"
+    catg: "CALIB"
+    tech: "LSS,LM"
+    type: "FLAT,LAMP"
+    tplname: "METIS_spec_lm_cal_rsrf"
+    nObs: 1
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 0.0001
+    bb_temp: 8000
+    is_temp: 300
+    wcu_temp: 300
+
+LM_LSS_RSRF_RAW2:
+  do.catg: LM_LSS_RSRF_RAW
+  mode: "wcu_lss_l"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "L_spec"
+    ndfilter_name: "open"
+    catg: "CALIB"
+    tech: "LSS,LM"
+    type: "FLAT,LAMP"
+    tplname: "METIS_spec_lm_cal_rsrf"
+    nObs: 1
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 0.0001
+    bb_temp: 800
+    is_temp: 300
+    wcu_temp: 300

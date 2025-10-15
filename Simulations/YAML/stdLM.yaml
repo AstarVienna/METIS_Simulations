@@ -1,0 +1,35 @@
+LM_IMAGE_STD_RAW:
+  do.catg: LM_IMAGE_STD_RAW
+  mode: "img_lm"
+  source:
+    name: calib_star
+    kwargs:
+      amplitude: 12
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "Lp"
+    ndfilter_name: "open"
+    catg: "CALIB"
+    tech: "IMAGE,LM"
+    type: "STD"
+    tplname: "METIS_img_lm_cal_standard"
+    nObs: 1
+
+LM_IMAGE_STD_SKY_RAW:
+  do.catg: LM_IMAGE_SKY_RAW
+  mode: "img_lm"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "Lp"
+    ndfilter_name: "open"
+    catg: "CALIB"
+    tech: "IMAGE,LM"
+    type: "SKY"
+    tplname: "METIS_img_lm_cal_standard"
+    nObs: 1
+

@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """
 Definition of sources used in template YAML files. Sources are derived from either
 scopesim, or scopesim templates; you should understand these programs before making your

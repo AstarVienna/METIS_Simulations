@@ -1,0 +1,19 @@
+IFU_OFF_AXIS_PSF_RAW:
+  do.catg: IFU_OFF_AXIS_PSF_RAW
+  mode: "lms"
+  source:
+    name: calib_star
+    kwargs:
+      amplitude: 8
+  properties:
+    dit: 100.
+    ndit: 3
+    filter_name: "open"
+    ndfilter_name: "open"
+    wavelen: "3.555"
+    catg: "CALIB"
+    tech: "LMS"
+    type: "PSF,OFFAXIS"
+    tplname: "METIS_ifu_vc_obs_FixedSkyOffset"
+    nObs: 1
+

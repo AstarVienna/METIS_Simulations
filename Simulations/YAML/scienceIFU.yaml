@@ -1,0 +1,34 @@
+IFU_SCI_RAW:
+  do.catg: IFU_SCI_RAW
+  mode: "lms"
+  source:
+    name: simple_gal
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "open"
+    ndfilter_name: "open"
+    catg: "SCIENCE"
+    tech: "LMS"
+    type: "OBJECT"
+    tplname: "METIS_ifu_obs_GenericOffset"
+    nObs: 1
+
+IFU_SCI_SKY_RAW:
+  do.catg: IFU_SKY_RAW
+  mode: "lms"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "open"
+    ndfilter_name: "open"
+    catg: "CALIB"
+    tech: "LMS"
+    type: "SKY"
+    tplname: "METIS_ifu_obs_GenericOffset"
+    nObs: 1
+    

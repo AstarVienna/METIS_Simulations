@@ -1,0 +1,135 @@
+
+###############  Generates a set of images for LM_IMG ##############
+
+
+##########  DETLIN INPUT ############
+
+DETLIN_2RG_RAW:
+  do.catg: DETLIN_2RG_RAW
+  mode: "wcu_img_lm"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit:
+      - 1.
+    ndit: 1
+    filter_name: "open"
+    catg: "CALIB"
+    tech: "IMAGE,LM"
+    type: "DETLIN"
+    tplname: "METIS_img_lm_cal_DetLin"
+    nObs: 1
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 0.5
+    bb_temp: 800
+    is_temp: 300
+    wcu_temp: 300
+
+
+##################### DISTORTION (PINHOLE MASK) L, N, IFU ######################3
+
+LM_DISTORTION_RAW:
+  do.catg: LM_DISTORTION_RAW
+  mode: "wcu_img_lm"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 10
+    ndit: 20
+    wavelen: 3.555
+    filter_name: "open"
+    nd_filter_name: "open"
+    catg: "CALIB"
+    tech: "IMAGE,LM"
+    type: "DISTORTION"
+    tplname: "METIS_img_lm_cal_distortion"
+    nObs: 1
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "grid_lm"
+    bb_aperture: 0.5
+    bb_temp: 8000
+    is_temp: 300
+    wcu_temp: 300
+    xshift: 0
+    yshift: 0
+
+##########  SCIENCE SOURCE ############
+
+##################### STAR FIELD (SCIENCE SOURCE, LM/N) ######################3
+### POSITIONS / MAGNITUDES WERE INTIALLY SET RANDOMLY, BUT FIXED FOR THE SET OF SIMULATIONS #####
+
+
+### EACH SOURCE PAIRED WITH SKY ##
+
+LM_IMAGE_SCI_RAW:
+  do.catg: LM_IMAGE_SCI_RAW
+  mode: "img_lm"
+  source:
+    name: star_field
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 4
+    filter_name: "Lp"
+    catg: "SCIENCE"
+    tech: "IMAGE,LM"
+    type: "OBJECT"
+    tplname: "METIS_img_lm_obs_GenericOffset"
+    nObs: 1
+
+LM_IMAGE_SCI_SKY_RAW:
+  do.catg: LM_IMAGE_SKY_RAW
+  mode: "img_lm"
+  source:
+    name: "empty_sky"
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 4
+    filter_name: "Lp"
+    catg: "SCIENCE"
+    tech: "IMAGE,LM"
+    type: "SKY"
+    tplname: "METIS_img_lm_obs_GenericOffset"
+    nObs: 1
+
+##################### STANDARD SOuRCE (POINT SOURCE AT CENTRE) ######################3
+
+
+LM_IMAGE_STD_RAW:
+  do.catg: LM_IMAGE_STD_RAW
+  mode: "img_lm"
+  source:
+    name: calib_star
+    kwargs:
+      amplitude: 12
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "Lp"
+    catg: "CALIB"
+    tech: "IMAGE,LM"
+    type: "STD"
+    tplname: "METIS_img_lm_cal_standard"
+    nObs: 1
+
+LM_IMAGE_STD_SKY_RAW:
+  do.catg: LM_IMAGE_SKY_RAW
+  mode: "img_lm"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "Lp"
+    catg: "CALIB"
+    tech: "IMAGE,LM"
+    type: "SKY"
+    tplname: "METIS_img_lm_cal_standard"
+    nObs: 1
