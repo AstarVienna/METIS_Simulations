@@ -1,6 +1,8 @@
 name: Run recipes
 
 on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
   push:
     branches:
       - main
@@ -11,10 +13,6 @@ on:
   #  # Schedule disabled because it uses all of A*V's github data.
   #  - # Run every day at 2:00 UTC
   #  - cron: "0 2 * * *"
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
 
 jobs:
   run:
@@ -34,8 +32,8 @@ jobs:
           pip install astar-utils numpy more-itertools astropy PyYAML
       - name: Run recipes
         run: |
-          python Simulations/python/downloadPackages.py
-	  cd Simulations
+          cd Simulations
+          python python/downloadPackages.py
           python python/testAll.py
       - name: Store output files
         uses: actions/upload-artifact@v4
