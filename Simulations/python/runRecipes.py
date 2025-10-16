@@ -745,14 +745,19 @@ class runRecipes():
         
         if(not self.params['testRun']):
             nCores = self.params['nCores']
-        
-            
-            with Pool(nCores) as pool:
-                pool.starmap(simulate, allArgs)
-                #simulate(fname, mode, kwargs, source=recipe["source"], small=self.params['small'])
-                pool.close()
-                pool.join()
-    
+
+            # Only use multiprocessing when necessary, because debugging
+            # without multiprocessing is easier.
+            if nCores == 1:
+                for oneArgs in allArgs:
+                    simulate(*oneArgs)
+            else:
+                with Pool(nCores) as pool:
+                    pool.starmap(simulate, allArgs)
+                    #simulate(fname, mode, kwargs, source=recipe["source"], small=self.params['small'])
+                    pool.close()
+                    pool.join()
+
                        
 
 
