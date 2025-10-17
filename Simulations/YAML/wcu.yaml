@@ -16,8 +16,7 @@ DETLIN_2RG_RAW:
       filter_curve: "V"
       extend: 15
   properties:
-    dit:
-      - 1.
+    dit: 1.
     ndit: 1
     filter_name: "open"
     catg: "CALIB"
@@ -37,8 +36,7 @@ DETLIN_GEO_RAW:
       filter_curve: "V"
       extend: 15
   properties:
-    dit:
-      - 1.
+    dit: 1.
     ndit: 1
     filter_name: "open"
     catg: "CALIB"
@@ -58,8 +56,7 @@ DETLIN_IFU_RAW:
       filter_curve: "V"
       extend: 15
   properties:
-    dit:
-      - 1.
+    dit: 1.
     ndit: 1
     filter_name: "open"
     catg: "CALIB"
