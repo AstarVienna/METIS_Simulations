@@ -158,7 +158,7 @@ N_DISTORTION_RAW:
     nObs: 1
   wcu:
     current_lamp: "bb"
-    current_fpmask: "grid_n"
+    current_fpmask: "grid_lm" # TODO: Replace with grid_n once available.
     bb_aperture: 0.5
     bb_temp: 8000
     is_temp: 300
