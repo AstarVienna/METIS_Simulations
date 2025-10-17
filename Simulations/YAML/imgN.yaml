@@ -11,8 +11,7 @@ DETLIN_GEO_RAW:
     name: empty_sky
     kwargs: {}
   properties:
-    dit:
-      - 1.
+    dit: 1.
     ndit: 1
     filter_name: "open"
     catg: "CALIB"
