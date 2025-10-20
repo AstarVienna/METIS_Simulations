@@ -22,7 +22,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          sudo ln -sf /usr/bin/python3.12 /usr/bin/python
+          ln -sf /usr/bin/python3.12 $HOME/python
+          echo "export PATH=$HOME:$PATH" >> $GITHUB_ENV
           python3.12 -m pip install --upgrade pip
           pip install git+https://github.com/AstarVienna/ScopeSim_Data.git
           pip install git+https://github.com/AstarVienna/ScopeSim.git
