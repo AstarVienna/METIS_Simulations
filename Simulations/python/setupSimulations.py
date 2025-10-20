@@ -237,6 +237,10 @@ class setupSimulations():
             # now for each iteration
             for i in range(self.params['doCalib']):
 
+                # for IFU: sky flat is optional and lamp flat does not exist
+                if np.any(["LMS" in elem[2],"IFU" in elem[2]]):
+                    continue
+
                 recipe = self.copyRecipe(tpe,elem[2])
                 if("wcu" not in recipe.keys()):
                     recipe["wcu"] = None
@@ -245,13 +249,12 @@ class setupSimulations():
                 recipe["properties"]["filter_name"] = elem[0]
                 recipe["properties"]["ndfilter_name"] = elem[1]
 
- 
                 recipe = self.increment(recipe)
 
                 self.allFileNames.append(self.fname)
                 self.allmjd.append(self.tObs.mjd)
 
-                # append teh arguments to the 
+                # append the arguments to the list
                 allArgs.append((self.fname,recipe,self.params["small"]))
                 simulate(self.fname, recipe, small=self.params['small'])
         # now actually run

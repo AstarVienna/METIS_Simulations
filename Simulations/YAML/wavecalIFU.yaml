@@ -8,6 +8,7 @@ IFU_WAVE_RAW:
   properties:
     dit: 0.0004
     ndit: 1
+    wavelen: 3.555
     filter_name: "open"
     ndfilter_name: "ND_OD4"
     catg: "CALIB"

@@ -8,9 +8,9 @@ IFU_STD_RAW:
   properties:
     dit: 100.
     ndit: 3
+    wavelen: 3.555
     filter_name: "open"
     ndfilter_name: "open"
-    wavelen: "3.555"
     catg: "CALIB"
     tech: "LMS"
     type: "STD"
@@ -32,9 +32,9 @@ IFU_STD_SKY_RAW:
   properties:
     dit: 100.
     ndit: 3
+    wavelen: 3.555
     filter_name: "open"
     ndfilter_name: "open"
-    wavelen: "3.555"
     catg: "CALIB"
     tech: "LMS"
     type: "SKY"
