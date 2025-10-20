@@ -58,8 +58,7 @@ DETLIN_2RG_RAW:
     name: empty_sky
     kwargs: {}
   properties:
-    dit:
-      - 1.
+    dit: 1.
     ndit: 1
     filter_name: "open"
     catg: "CALIB"
@@ -193,8 +192,7 @@ DETLIN_GEO_RAW:
     name: empty_sky
     kwargs: {}
   properties:
-    dit:
-      - 1.
+    dit: 1.
     ndit: 1
     filter_name: "open"
     catg: "CALIB"
@@ -231,7 +229,7 @@ N_DISTORTION_RAW:
     nObs: 1
   wcu:
     current_lamp: "bb"
-    current_fpmask: "grid_n"
+    current_fpmask: "grid_lm" # TODO: Replace with grid_n once available.
     bb_aperture: 0.5
     bb_temp: 8000
     is_temp: 300
@@ -378,8 +376,7 @@ DETLIN_2RG_RAW:
     name: empty_sky
     kwargs: {}
   properties:
-    dit:
-      - 1.
+    dit: 1.
     ndit: 1
     filter_name: "open"
     catg: "CALIB"
@@ -551,8 +548,7 @@ DETLIN_GEO_RAW:
     name: empty_sky
     kwargs: {}
   properties:
-    dit:
-      - 1.
+    dit: 1.
     ndit: 1
     filter_name: "open"
     catg: "CALIB"
@@ -679,8 +675,7 @@ DETLIN_IFU_RAW:
     name: empty_sky
     kwargs: {}
   properties:
-    dit:
-      - 1.
+    dit: 1.
     ndit: 1
     filter_name: "open"
     catg: "CALIB"

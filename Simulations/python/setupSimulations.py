@@ -201,12 +201,17 @@ class setupSimulations():
         """
 
         self.tObs = self.tObs + self.tDelt
-        self.tDelt =  TimeDelta(float(recipe['properties']['dit'])*recipe['properties']['ndit']*1.2+1, format='sec')
+        dit = recipe["properties"]['dit']
+        if isinstance(dit, (list, tuple)):
+            assert len(dit) == 1, f"{dit=} is a list"
+            dit = dit[0]
+
+        self.tDelt =  TimeDelta(float(dit)*recipe['properties']['ndit']*1.2+1, format='sec')
         recipe["properties"]["dateobs"] = self.tObs.tt.datetime
         recipe["properties"]["MJD-OBS"] = self.tObs.mjd
         recipe["properties"]["tplexpno"] = self.tplExpno
 
-        self.fname = self.outDir / self.generateFilename(recipe["properties"]['dateobs'],recipe['mode'],recipe["properties"]['dit'],recipe["do.catg"])
+        self.fname = self.outDir / self.generateFilename(recipe["properties"]['dateobs'],recipe['mode'],dit,recipe["do.catg"])
         self.tplExpno += 1
 
         return recipe

@@ -1,6 +1,8 @@
 name: Run recipes
 
 on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
   push:
     branches:
       - main
@@ -12,17 +14,13 @@ on:
   #  - # Run every day at 2:00 UTC
   #  - cron: "0 2 * * *"
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-
 jobs:
   run:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.11"
       - name: Install dependencies
@@ -35,7 +33,7 @@ jobs:
       - name: Run recipes
         run: |
           cd Simulations
-          python Simulations/python/downloadPackages.py
+          python python/downloadPackages.py
           python python/testAll.py
       - name: Store output files
         uses: actions/upload-artifact@v4
