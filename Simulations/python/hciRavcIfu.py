@@ -17,7 +17,7 @@ if __name__ == '__main__':
 	params['nCores'] = 8
 	params['testRun'] = False
 	
-	yamlFiles = ["YAML/offAxisLM.yaml","YAML/hciRavcIFU.yaml","YAML/distortionIFU.yaml","YAML/detlinIFU.yaml","YAML/distortionIFU.yaml","YAML/rsrfIFU.yaml","YAML/rsrfPinhIFU.yaml","YAML/wavecalIFU.yaml"]
+	yamlFiles = ["YAML/offAxisLM.yaml","YAML/hciRavcIfu.yaml","YAML/distortionIFU.yaml","YAML/detlinIFU.yaml","YAML/distortionIFU.yaml","YAML/rsrfIFU.yaml","YAML/rsrfPinhIFU.yaml","YAML/wavecalIFU.yaml"]
 	
 	rs.runSimulationBlock(yamlFiles,params)
 
