@@ -22,7 +22,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
+          sudo ln -sf /usr/bin/python3.12 /usr/bin/python
+          python3.12 -m pip install --upgrade pip
           pip install git+https://github.com/AstarVienna/ScopeSim_Data.git
           pip install git+https://github.com/AstarVienna/ScopeSim.git
           pip install git+https://github.com/AstarVienna/ScopeSim_Templates.git
@@ -31,7 +32,7 @@ jobs:
       - name: Run recipes
         run: |
           cd Simulations
-          python python/downloadPackages.py
+          python3.12 python/downloadPackages.py
           runESO.sh
 
       - name: Store output files
