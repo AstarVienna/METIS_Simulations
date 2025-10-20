@@ -34,7 +34,7 @@ jobs:
         run: |
           cd Simulations
           python3.12 python/downloadPackages.py
-          runESO.sh
+          ./runESO.sh
 
       - name: Store output files
         uses: actions/upload-artifact@v4
