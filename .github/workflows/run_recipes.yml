@@ -34,8 +34,8 @@ jobs:
           pip install astar-utils numpy more-itertools astropy PyYAML
       - name: Run recipes
         run: |
+          cd Simulations
           python Simulations/python/downloadPackages.py
-	  cd Simulations
           python python/testAll.py
       - name: Store output files
         uses: actions/upload-artifact@v4
