@@ -5,7 +5,7 @@ on:
 
 jobs:
   run:
-    runs-on: self-hosted  # 或改成 ubuntu-latest，如果要用 GitHub 的 runner
+    runs-on: self-hosted  
     steps:
       - uses: actions/checkout@v5
 
