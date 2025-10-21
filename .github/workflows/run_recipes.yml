@@ -26,14 +26,15 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
+          pip install git+https://github.com/AstarVienna/ScopeSim_Templates.git # _Templates moved up as it defines which ScopeSim should be installed (which might be outdated wrt the github dev version)
           pip install git+https://github.com/AstarVienna/ScopeSim_Data.git
           pip install git+https://github.com/AstarVienna/ScopeSim.git
-          pip install git+https://github.com/AstarVienna/ScopeSim_Templates.git
           pip install astar-utils numpy more-itertools astropy PyYAML
+          git clone https://github.com/AstarVienna/irdb.git
       - name: Run recipes
         run: |
           cd Simulations
-          python python/downloadPackages.py
+          ln -s ../irdb inst_pkgs # symbolic link to git-cloned irdb copy to ensure latest irdb version (vs released version in download_packages)
           python python/testAll.py
       - name: Store output files
         uses: actions/upload-artifact@v4
