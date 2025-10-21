@@ -13,6 +13,7 @@ DETLIN_IFU_RAW:
   properties:
     dit: 1.
     ndit: 1
+    wavelen: 3.555
     filter_name: "open"
     catg: "CALIB"
     tech: "LMS"
@@ -40,6 +41,7 @@ IFU_DISTORTION_RAW:
   properties:
     dit: 0.25
     ndit: 1
+    wavelen: 3.555
     filter_name: "open"
     nd_filter_name: "open"
     catg: "CALIB"
@@ -70,6 +72,7 @@ IFU_WAVE_RAW:
   properties:
     dit: 0.0004
     ndit: 1
+    wavelen: 3.555
     filter_name: "open"
     nd_filter_name: "ND_OD4"
     catg: "CALIB"
@@ -97,6 +100,7 @@ IFU_SCI_RAW:
   properties:
     dit: 0.25
     ndit: 1
+    wavelen: 3.555
     filter_name: "open"
     catg: "SCIENCE"
     tech: "LMS"
@@ -113,6 +117,7 @@ IFU_SCI_SKY_RAW:
   properties:
     dit: 0.25
     ndit: 1
+    wavelen: 3.555
     filter_name: "open"
     catg: "CALIB"
     tech: "LMS"
@@ -134,6 +139,7 @@ IFU_STD_RAW:
   properties:
     dit: 100
     ndit: 3
+    wavelen: 3.555
     filter_name: "open"
     wavelen: "3.555"
     catg: "CALIB"
@@ -157,8 +163,8 @@ IFU_STD_SKY_RAW:
   properties:
     dit: 100
     ndit: 3
+    wavelen: 3.555
     filter_name: "open"
-    wavelen: "3.555"
     catg: "CALIB"
     tech: "LMS"
     type: "SKY"
@@ -260,8 +266,8 @@ IFU_SKY_RAW1:
   properties:
     dit: 100
     ndit: 3
+    wavelen: 3.555
     filter_name: "open"
-    wavelen: "3.555"
     catg: "CALIB"
     tech: "LMS"
     type: "SKY"

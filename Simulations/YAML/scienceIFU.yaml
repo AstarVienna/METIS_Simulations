@@ -7,6 +7,7 @@ IFU_SCI_RAW:
   properties:
     dit: 0.25
     ndit: 1
+    wavelen: 3.555
     filter_name: "open"
     ndfilter_name: "open"
     catg: "SCIENCE"
@@ -24,6 +25,7 @@ IFU_SCI_SKY_RAW:
   properties:
     dit: 0.25
     ndit: 1
+    wavelen: 3.555
     filter_name: "open"
     ndfilter_name: "open"
     catg: "CALIB"

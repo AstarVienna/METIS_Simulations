@@ -10,6 +10,7 @@ DETLIN_IFU_RAW1:
   properties:
     dit: 1.
     ndit: 1
+    wavelen: 3.555
     filter_name: "open"
     ndfilter_name: "open"
     catg: "CALIB"
@@ -34,6 +35,7 @@ DETLIN_IFU_RAW2:
   properties:
     dit: 2.
     ndit: 1
+    wavelen: 3.555
     filter_name: "open"
     ndfilter_name: "open"
     catg: "CALIB"
@@ -58,6 +60,7 @@ DETLIN_IFU_RAW3:
   properties:
     dit: 3.
     ndit: 1
+    wavelen: 3.555
     filter_name: "open"
     ndfilter_name: "open"
     catg: "CALIB"
@@ -82,6 +85,7 @@ DETLIN_IFU_RAW4:
   properties:
     dit: 4.
     ndit: 1
+    wavelen: 3.555
     filter_name: "open"
     ndfilter_name: "open"
     catg: "CALIB"

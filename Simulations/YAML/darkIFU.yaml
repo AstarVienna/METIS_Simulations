@@ -10,6 +10,7 @@ DARK_IFU_RAW:
   properties:
     dit: 1.
     ndit: 1
+    wavelen: 3.555
     filter_name: "closed"
     ndfilter_name: "open"
     tech: "LMS"
