@@ -1,7 +1,7 @@
-name: Run dail build recipes manually
+name: Run daily build recipes manually
 
 on:
-  workflow_dispatch:  # Maunal trigger
+  workflow_dispatch:  # Manual trigger
 
 jobs:
   run:
@@ -25,13 +25,14 @@ jobs:
           ln -sf /usr/bin/python3.12 $HOME/python
           echo "export PATH=$HOME:$PATH" >> $GITHUB_ENV
           python3.12 -m pip install --upgrade pip
+          pip install git+https://github.com/AstarVienna/ScopeSim_Templates.git
           pip install git+https://github.com/AstarVienna/ScopeSim_Data.git
           pip install git+https://github.com/AstarVienna/ScopeSim.git
-          pip install git+https://github.com/AstarVienna/ScopeSim_Templates.git
           pip install astar-utils numpy more-itertools astropy PyYAML
+          git clone https://github.com/AstarVienna/irdb.git # get bleeding edge version of irdb
 
       - name: Run recipes
         run: |
           cd Simulations
-          python3.12 python/downloadPackages.py
+          ln -s ../irdb inst_pkgs # link to git-cloned version of irdb
           ./runESO.sh
