@@ -242,6 +242,12 @@ class setupSimulations():
                     continue
 
                 recipe = self.copyRecipe(tpe,elem[2])
+
+                # check if recipe was copied successfully
+                if(recipe is None):
+                    print(f"Warning: no flat recipe defined for template {tpe} and band {elem[2]}")
+                    continue
+
                 if("wcu" not in recipe.keys()):
                     recipe["wcu"] = None
 
@@ -279,6 +285,11 @@ class setupSimulations():
 
             for i in range(self.params['doCalib']):
                 recipe = self.copyRecipe("dark",elem[2])
+                # check if recipe was copied successfully
+                if(recipe is None):
+                    print(f"Warning: no dark recipe defined for band {elem[2]}")
+                    continue
+
                 recipe["wcu"] = None
                 recipe["properties"]["tplstart"] = tplStart
                 recipe["properties"]["dit"] = elem[0]
