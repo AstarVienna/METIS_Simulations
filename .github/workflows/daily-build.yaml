@@ -2,6 +2,8 @@ name: Run daily build recipes manually
 
 on:
   workflow_dispatch:  # Manual trigger
+  schedule:
+    - cron: '0 0 * * *'  # Run on 0:00 UTC 
 
 jobs:
   run:
@@ -39,7 +41,8 @@ jobs:
       
       - name: Move data to /data
         run: |
+          cd Simulations
           TODAY=$(date +%Y-%m-%d)
           echo "Today's date: $TODAY"
-          cp -r output /data/$TODAY
+          sudo cp -rf output /data/$TODAY
           ls -la /data/$TODAY
