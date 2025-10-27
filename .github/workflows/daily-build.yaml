@@ -36,3 +36,10 @@ jobs:
           cd Simulations
           ln -s ../irdb inst_pkgs # link to git-cloned version of irdb
           ./runESO.sh
+      
+      - name: Move data to /data
+        run: |
+          TODAY=$(date +%Y-%m-%d)
+          echo "Today's date: $TODAY"
+          cp -r output /data/$TODAY
+          ls -la /data/$TODAY
