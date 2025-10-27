@@ -44,5 +44,5 @@ jobs:
           cd Simulations
           TODAY=$(date +%Y-%m-%d)
           echo "Today's date: $TODAY"
-          sudo cp -rf output /data/$TODAY
+          cp -rf output /data/$TODAY
           ls -la /data/$TODAY
