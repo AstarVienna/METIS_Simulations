@@ -124,7 +124,7 @@ def generateStaticCalibs(outputDir):
     ld = fits.Column(name='wavelength', array=np.arange(0,100), format='E')
     trans = fits.Column(name='transmission', array=np.ones(100), format='E')
     primaryhdu = fits.PrimaryHDU()
-    primaryhdu.header['HIERARCH ESO PRO CATG'] = " N_SYNTH_TRANS"
+    primaryhdu.header['HIERARCH ESO PRO CATG'] = "N_SYNTH_TRANS"
     primaryhdu.header['INSTRUME'] = "METIS"
 
     hdu = fits.BinTableHDU.from_columns([ld, trans])
