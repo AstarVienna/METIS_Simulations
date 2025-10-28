@@ -7,7 +7,7 @@ on:
 
 jobs:
   run:
-    runs-on: simulation,linux,zeus
+    runs-on: [self-hosted, Linux, simulation, zeus]
     steps:
       - uses: actions/checkout@v5
 
