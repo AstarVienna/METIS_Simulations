@@ -17,7 +17,7 @@ import numpy as np
 from astropy.io import fits
 import astropy
 import copy
-from multiprocessing import Pool,Process,Manager
+from multiprocessing import Pool,Process,Manager,cpu_count
 
 class runRecipes():
 
@@ -744,9 +744,9 @@ class runRecipes():
                     allArgs.append((fname,mode,kwargs,recipe["wcu"],recipe["source"],self.params["small"]))
         
         if(not self.params['testRun']):
-            nCores = self.params['nCores']
-        
-            
+            # Always keep one core free.
+            nCores = min(self.params['nCores'], cpu_count() - 1)
+
             with Pool(nCores) as pool:
                 pool.starmap(simulate, allArgs)
                 #simulate(fname, mode, kwargs, source=recipe["source"], small=self.params['small'])

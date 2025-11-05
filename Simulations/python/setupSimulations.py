@@ -22,7 +22,7 @@ from pathlib import Path
 from astropy.time import Time, TimeDelta
 from itertools import product
 from datetime import datetime
-from multiprocessing import Pool,Process,Manager
+from multiprocessing import Pool,Process,Manager,cpu_count
 from astropy.io import fits
 
 import numpy as np
@@ -307,7 +307,8 @@ class setupSimulations():
         self.endDate = self.tObs.tt.datetime.replace(microsecond=0)
         # now actually run
         if(not self.params['testRun']):
-            nCores = self.params['nCores']
+            # Always keep one core free.
+            nCores = min(self.params['nCores'], cpu_count() - 1)
         
             with Pool(nCores) as pool:
                 pool.starmap(simulate, allArgs)
