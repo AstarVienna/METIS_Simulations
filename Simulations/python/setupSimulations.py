@@ -265,7 +265,7 @@ class setupSimulations():
                 simulate(self.fname, recipe, small=self.params['small'])
         # now actually run
         #if(not self.params['testRun']):
-        #    nCores = self.params['nCores']
+        #    nCores = max(min(self.params['nCores'], cpu_count() - 1), 1)
         #
         #    with Pool(nCores) as pool:
         #        pool.starmap(simulate, allArgs)
@@ -308,7 +308,7 @@ class setupSimulations():
         # now actually run
         if(not self.params['testRun']):
             # Always keep one core free.
-            nCores = min(self.params['nCores'], cpu_count() - 1)
+            nCores = max(min(self.params['nCores'], cpu_count() - 1), 1)
         
             with Pool(nCores) as pool:
                 pool.starmap(simulate, allArgs)
@@ -395,7 +395,8 @@ class setupSimulations():
 
         # now actually run
         if(not self.params['testRun']):
-            nCores = self.params['nCores']
+            # Always keep one core free.
+            nCores = max(min(self.params['nCores'], cpu_count() - 1), 1)
         
             with Pool(nCores) as pool:
                 pool.starmap(simulate, allArgs)
