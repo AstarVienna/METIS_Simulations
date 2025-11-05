@@ -745,7 +745,7 @@ class runRecipes():
         
         if(not self.params['testRun']):
             # Always keep one core free.
-            nCores = min(self.params['nCores'], cpu_count() - 1)
+            nCores = max(min(self.params['nCores'], cpu_count() - 1), 1)
 
             with Pool(nCores) as pool:
                 pool.starmap(simulate, allArgs)
