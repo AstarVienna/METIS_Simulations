@@ -430,17 +430,51 @@ def generateStaticCalibs(outputDir):
     primaryhdu = fits.PrimaryHDU()
     primaryhdu.header['HIERARCH ESO PRO CATG'] = "PERSISTENCE_MAP"
     primaryhdu.header['INSTRUME'] = "METIS"
-    primaryhdu.header['HIERARCH ESO DPR TECH'] = "IMAGE,N"
-    primaryhdu.header['HIERARCH ESO DPR TYPE'] = "PERSISTENCE"
-    primaryhdu.header['HIERARCH ESO DPR CATG'] = "CALIB"
-    primaryhdu.header['HIERARCH ESO INS MODE'] = "img_n"
+    primaryhdu.header['HIERARCH ESO PRO TECH'] = "IMAGE,LM"
+    primaryhdu.header['HIERARCH ESO PRO TYPE'] = "PERSISTENCE"
+    primaryhdu.header['HIERARCH ESO INS MODE'] = "img_lm"
     primaryhdu.header['HIERARCH ESO DRS FILTER'] = "OPEN"
     primaryhdu.header['HIERARCH ESO DRS NDFILTER'] = "OPEN"
 
     data = np.zeros((2048,2048))
     hdu = fits.ImageHDU(data, name="PERSISTENCE_MAP")
     hdul = fits.HDUList([primaryhdu,hdu])
+    hdul.writeto(f"{outputDir}/PERSISTENCE_MAP_LM.fits",overwrite=True)
+
+    primaryhdu = fits.PrimaryHDU()
+    primaryhdu.header['HIERARCH ESO PRO CATG'] = "PERSISTENCE_MAP"
+    primaryhdu.header['INSTRUME'] = "METIS"
+    primaryhdu.header['HIERARCH ESO PRO TECH'] = "IMAGE,N"
+    primaryhdu.header['HIERARCH ESO PRO TYPE'] = "PERSISTENCE"
+    primaryhdu.header['HIERARCH ESO INS MODE'] = "img_n"
+    primaryhdu.header['HIERARCH ESO DRS FILTER'] = "OPEN"
+    primaryhdu.header['HIERARCH ESO DRS NDFILTER'] = "OPEN"
+
+    data = np.zeros((2048,2048))
+    hdu1 = fits.ImageHDU(data, name="PERSISTENCE_MAP")
+    hdu1.header['EXTNAME'] = 'DET1.DATA' 
+    hdu2 = fits.ImageHDU(data, name="PERSISTENCE_MAP")
+    hdu1.header['EXTNAME'] = 'DET2.DATA' 
+    hdu3 = fits.ImageHDU(data, name="PERSISTENCE_MAP")
+    hdu1.header['EXTNAME'] = 'DET3.DATA' 
+    hdu4 = fits.ImageHDU(data, name="PERSISTENCE_MAP")
+    hdu1.header['EXTNAME'] = 'DET4.DATA' 
+    hdul = fits.HDUList([primaryhdu,hdu])
     hdul.writeto(f"{outputDir}/PERSISTENCE_MAP_N.fits",overwrite=True)
+
+    primaryhdu = fits.PrimaryHDU()
+    primaryhdu.header['HIERARCH ESO PRO CATG'] = "PERSISTENCE_MAP"
+    primaryhdu.header['INSTRUME'] = "METIS"
+    primaryhdu.header['HIERARCH ESO PRO TECH'] = "LMS"
+    primaryhdu.header['HIERARCH ESO PRO TYPE'] = "REDUCED"
+    primaryhdu.header['HIERARCH ESO INS MODE'] = "img_n"
+    primaryhdu.header['HIERARCH ESO DRS FILTER'] = "OPEN"
+    primaryhdu.header['HIERARCH ESO DRS NDFILTER'] = "OPEN"
+
+    data = np.zeros((2048,2048))
+    hdu = fits.ImageHDU(data, name="PERSISTENCE_MAP")
+    hdul = fits.HDUList([primaryhdu,hdu,hdu,hdu,hdu])
+    hdul.writeto(f"{outputDir}/PERSISTENCE_MAP_IFU.fits",overwrite=True)
 
     
 if __name__ == "__main__":
