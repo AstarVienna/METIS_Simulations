@@ -1,4 +1,4 @@
-name: Run daily build recipes manually
+name: Run daily build recipes automatically or manually
 
 on:
   workflow_dispatch:  # Manual trigger
@@ -45,4 +45,6 @@ jobs:
           TODAY=$(date +%Y-%m-%d)
           echo "Today's date: $TODAY"
           cp -rf output /data/$TODAY
+          cd /data
+          ln -sfn $TODAY LatestBuild
           ls -la /data/$TODAY
