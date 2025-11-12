@@ -402,7 +402,7 @@ PERSISTENCE_MAP_N:
     dit: 1
     ndit: 1
     filter_name: "closed"
-    ndfilter_name: "closed"
+    ndfilter_name: "open"
     catg: "CALIB"
     tech: "IMAGE,N"
     type: "PERSISTENCE"
@@ -604,7 +604,7 @@ IFU_WCU_OFF_RAW:
     kwargs: {}
   properties:
         filter_name: "open"
-        ndfilter_name: "closed"
+        ndfilter_name: "open"
         catg: "CALIB"
         tech: "LMS"
         type: "DARK,WCU_OFF"
@@ -630,7 +630,7 @@ LM_WCU_OFF_RAW:
     kwargs: {}
   properties:
         filter_name: "open"
-        ndfilter_name: "closed"
+        ndfilter_name: "open"
         catg: "CALIB"
         tech: "IMAGE,LM"
         type: "DARK,WCU_OFF"
@@ -656,7 +656,7 @@ N_WCU_OFF_RAW:
     kwargs: {}
   properties:
         filter_name: "open"
-        ndfilter_name: "closed"
+        ndfilter_name: "open"
         catg: "CALIB"
         tech: "IMAGE,N"
         type: "DARK,WCU_OFF"

@@ -9,7 +9,7 @@ PERSISTENCE_MAP_N:
     dit: 1
     ndit: 1
     filter_name: "closed"
-    ndfilter_name: "closed"
+    ndfilter_name: "open"
     catg: "CALIB"
     tech: "IMAGE,N"
     type: "PERSISTENCE"
