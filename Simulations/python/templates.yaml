@@ -70,7 +70,7 @@ wcuOff:
    
    lm:
      do.catg: LM_IMG_WCUOFF_RAW
-     mode: "wcu_img_n"
+     mode: "wcu_img_lm"
      source: 
        name: empty_sky
        kwargs: {}
