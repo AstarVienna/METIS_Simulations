@@ -458,8 +458,6 @@ def generateStaticCalibs(outputDir):
     primaryhdu.header['HIERARCH ESO PRO TECH'] = "LMS"
     primaryhdu.header['HIERARCH ESO PRO TYPE'] = "REDUCED"
     primaryhdu.header['HIERARCH ESO INS MODE'] = "Nominal"
-    primaryhdu.header['HIERARCH ESO DRS FILTER'] = "OPEN"
-    primaryhdu.header['HIERARCH ESO DRS NDFILTER'] = "OPEN"
 
     data = np.zeros((2048,2048))
     data = np.zeros((2048,2048))
