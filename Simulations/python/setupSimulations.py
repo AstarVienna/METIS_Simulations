@@ -377,9 +377,12 @@ class setupSimulations():
                 if(recipe["wcu"] is not None):
                     recipeDark = self.copyRecipe("wcuOff",recipe['properties']['tech'])
                     if(recipeDark is not None):
-                        recipe["properties"]["tplstart"] = self.tplStart
+                        recipeDark["properties"]["tplstart"] = self.tplStart
+                        recipeDark["properties"]["tplstart"] = recipe["properties"]["tplname"]
                         recipeDark["properties"]["dit"] = recipe["properties"]["dit"] 
                         recipeDark["properties"]["ndit"] = recipe["properties"]["ndit"] 
+                        recipeDark["properties"]["ndfilter_name"] = recipe["properties"]["ndfilter_name"] 
+                        recipeDark["properties"]["filter_name"] = recipe["properties"]["filter_name"] 
                         recipeDark = self.increment(recipeDark)
                         
                         self.allFileNames.append(self.fname)
