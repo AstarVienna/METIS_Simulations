@@ -447,17 +447,9 @@ def generateStaticCalibs(outputDir):
     primaryhdu.header['HIERARCH ESO PRO TECH'] = "IMAGE,N"
     primaryhdu.header['HIERARCH ESO PRO TYPE'] = "PERSISTENCE"
     primaryhdu.header['HIERARCH ESO INS MODE'] = "img_n"
-
-    data = np.zeros((2048,2048))
-    hdu1 = fits.ImageHDU(data, name="PERSISTENCE_MAP")
-    hdu1.header['EXTNAME'] = 'DET1.DATA' 
-    hdu2 = fits.ImageHDU(data, name="PERSISTENCE_MAP")
-    hdu1.header['EXTNAME'] = 'DET2.DATA' 
-    hdu3 = fits.ImageHDU(data, name="PERSISTENCE_MAP")
-    hdu1.header['EXTNAME'] = 'DET3.DATA' 
-    hdu4 = fits.ImageHDU(data, name="PERSISTENCE_MAP")
-    hdu1.header['EXTNAME'] = 'DET4.DATA' 
+    hdu = fits.ImageHDU(data, name="PERSISTENCE_MAP")
     hdul = fits.HDUList([primaryhdu,hdu])
+
     hdul.writeto(f"{outputDir}/PERSISTENCE_MAP_N.fits",overwrite=True)
 
     primaryhdu = fits.PrimaryHDU()
@@ -470,7 +462,15 @@ def generateStaticCalibs(outputDir):
     primaryhdu.header['HIERARCH ESO DRS NDFILTER'] = "OPEN"
 
     data = np.zeros((2048,2048))
-    hdu = fits.ImageHDU(data, name="PERSISTENCE_MAP")
+    data = np.zeros((2048,2048))
+    hdu1 = fits.ImageHDU(data, name="PERSISTENCE_MAP")
+    hdu1.header['EXTNAME'] = 'DET1.DATA' 
+    hdu2 = fits.ImageHDU(data, name="PERSISTENCE_MAP")
+    hdu2.header['EXTNAME'] = 'DET2.DATA' 
+    hdu3 = fits.ImageHDU(data, name="PERSISTENCE_MAP")
+    hdu3.header['EXTNAME'] = 'DET3.DATA' 
+    hdu4 = fits.ImageHDU(data, name="PERSISTENCE_MAP")
+    hdu4.header['EXTNAME'] = 'DET4.DATA' 
     hdul = fits.HDUList([primaryhdu,hdu,hdu,hdu,hdu])
     hdul.writeto(f"{outputDir}/PERSISTENCE_MAP_IFU.fits",overwrite=True)
 
