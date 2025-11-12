@@ -8,7 +8,7 @@ IFU_WCU_OFF_RAW:
     kwargs": {}
     properties:
         filter_name: "open"
-        ndfilter_name: "closed"
+        ndfilter_name: "open"
         catg: "CALIB"
         tech: "LMS"
         type: "DARK,WCU_OFF"
