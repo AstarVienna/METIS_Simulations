@@ -447,8 +447,6 @@ def generateStaticCalibs(outputDir):
     primaryhdu.header['HIERARCH ESO PRO TECH'] = "IMAGE,N"
     primaryhdu.header['HIERARCH ESO PRO TYPE'] = "PERSISTENCE"
     primaryhdu.header['HIERARCH ESO INS MODE'] = "img_n"
-    primaryhdu.header['HIERARCH ESO DRS FILTER'] = "OPEN"
-    primaryhdu.header['HIERARCH ESO DRS NDFILTER'] = "OPEN"
 
     data = np.zeros((2048,2048))
     hdu1 = fits.ImageHDU(data, name="PERSISTENCE_MAP")
