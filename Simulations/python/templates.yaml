@@ -55,7 +55,7 @@ wcuOff:
        kwargs: {}
      properties:
        filter_name: "open"
-       ndfilter_name: "closed"
+       ndfilter_name: "open"
        catg: "CALIB"
        tech: "LMS"
        type: "DARK,WCUOFF"
@@ -76,7 +76,7 @@ wcuOff:
        kwargs: {}
      properties:
        filter_name: "open"
-       ndfilter_name: "closed"
+       ndfilter_name: "open"
        catg: "CALIB"
        tech: "IMAGE,LM"
        type: "DARK,WCUOFF"
@@ -97,7 +97,7 @@ wcuOff:
        kwargs: {}
      properties:
        filter_name: "open"
-       ndfilter_name: "closed"
+       ndfilter_name: "open"
        catg: "CALIB"
        tech: "IMAGE,N"
        type: "DARK,WCUOFF"
@@ -119,7 +119,7 @@ lampFlat:
        kwargs: {}
      properties:
        filter_name: "open"
-       ndfilter_name: "closed"
+       ndfilter_name: "open"
        catg: "CALIB"
        tech: "IMAGE,LM"
        type: "FLAT,LAMP"
@@ -142,7 +142,7 @@ lampFlat:
        kwargs: {}
      properties:
        filter_name: "open"
-       ndfilter_name: "closed"
+       ndfilter_name: "open"
        catg: "CALIB"
        tech: "IMAGE,N"
        type: "FLAT,LAMP"
@@ -166,7 +166,7 @@ skyFlat:
        kwargs: {}
      properties:
        filter_name: "open"
-       ndfilter_name: "closed"
+       ndfilter_name: "open"
        catg: "CALIB"
        tech: "IMAGE,LM"
        type: "FLAT,TWILIGHT"
@@ -182,7 +182,7 @@ skyFlat:
        kwargs: {}
      properties:
        filter_name: "open"
-       ndfilter_name: "closed"
+       ndfilter_name: "open"
        catg: "CALIB"
        tech: "IMAGE,N"
        type: "FLAT,TWILIGHT"

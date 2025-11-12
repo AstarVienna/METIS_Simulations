@@ -83,8 +83,6 @@ def simulate(fname, rcp, small=False):
 
     # keywords we always have
 
-    print(fname)
-    print(props)
     shutter = False
     cmd["!OBS.catg"] = props["catg"]
     cmd["!OBS.type"] = props["type"]
@@ -92,7 +90,8 @@ def simulate(fname, rcp, small=False):
     cmd["!OBS.mjd-obs"] = props["MJD-OBS"]
     cmd["!OBS.dateobs"] = props["dateobs"]
     # TODO: Ensure ndfilter_name is always defined.
-    cmd["!OBS.ndfilter_name"] = props.get("ndfilter_name", "open")
+    cmd["!OBS.nd_filter_name"] = props["ndfilter_name"]
+    
     cmd["!OBS.filter_name"] = props["filter_name"]
     if cmd["!OBS.filter_name"] == "closed":
         cmd["!OBS.filter_name"] = "open"
@@ -108,7 +107,7 @@ def simulate(fname, rcp, small=False):
         cmd["!OBS.tplstart"] = props["tplstart"]
 
     # set up the optical train
-    
+
     metis = sim.OpticalTrain(cmd)
 
     #set the WCU mode arguments
