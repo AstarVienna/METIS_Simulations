@@ -457,7 +457,7 @@ def generateStaticCalibs(outputDir):
     primaryhdu.header['INSTRUME'] = "METIS"
     primaryhdu.header['HIERARCH ESO PRO TECH'] = "LMS"
     primaryhdu.header['HIERARCH ESO PRO TYPE'] = "REDUCED"
-    primaryhdu.header['HIERARCH ESO INS MODE'] = "img_n"
+    primaryhdu.header['HIERARCH ESO INS MODE'] = "Nominal"
     primaryhdu.header['HIERARCH ESO DRS FILTER'] = "OPEN"
     primaryhdu.header['HIERARCH ESO DRS NDFILTER'] = "OPEN"
 
