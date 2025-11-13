@@ -479,7 +479,12 @@ class setupSimulations():
                         print(f"Lower case keyword found and removed: {k}")
                         hdu.header.pop(k)
 
-            
+
+            # fix for the occasional keyword that gets written as boolean not string
+            for elem in hdul[0].header:
+                if("OPTI" in elem and "NAME" in elem):
+                    if isinstance(hdul[0].header[elem], bool):
+                        hdul[0].header[elem] = str(hdul[0].header[elem])
             hdul[0].header['MJD-OBS'] = mjd
             
             #if type(hdul[0].header['MJD-OBS']) == str:
