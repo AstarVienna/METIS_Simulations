@@ -5,7 +5,6 @@ import makeCalibPrototypes as mcp
 
 
 def runSimulationBlock(yamlFiles, params):
-
     """runs a sequence of yaml files with a set of command line parameters"""
 
     allDarks = []

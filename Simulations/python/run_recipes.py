@@ -6,14 +6,14 @@
 #!/usr/bin/env python
 
 
-import setupSimulations as rr
+from simulation import Simulation
 import sys
 import makeCalibPrototypes
 
 
 def runRecipes(argv):
 
-    simulationSet = rr.Simulation()
+    simulationSet = Simulation()
 
     #simulationSet.setParms(inputYAML = None) \TODO - set parameters directly rather than commandline
 

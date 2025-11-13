@@ -25,7 +25,7 @@ if __name__ == '__main__':
         "YAML/distortionLM.yaml",
         "YAML/detlinLM.yaml",
     ]
-    
-    rs.runSimulationBlock(yamlFiles,params)
+
+    rs.runSimulationBlock(yamlFiles, params)
 
 
