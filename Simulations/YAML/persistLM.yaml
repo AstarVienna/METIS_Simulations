@@ -5,7 +5,7 @@ PERSISTENCE_MAP_LM:
   source:
     name: empty_sky
     kwargs: {}
-  properties: 
+  properties:
     dit: 1
     ndit: 1
     filter_name: "closed"

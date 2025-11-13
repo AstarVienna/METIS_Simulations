@@ -61,7 +61,7 @@ IFU_RSRF_RAW2:
 IFU_WCU_OFF1:
   do.catg: IFU_WCU_OFF_RAW
   mode: "wcu_lms"
-  source: 
+  source:
     name: empty_sky
     kwargs: {}
   properties:

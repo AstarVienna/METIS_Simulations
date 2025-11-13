@@ -7,7 +7,7 @@ PERSISTENCE_MAP_LM:
   source:
     name: empty_sky
     kwargs: {}
-  properties: 
+  properties:
     dit: 1
     ndit: 1
     filter_name: "closed"
@@ -22,7 +22,7 @@ PERSISTENCE_MAP_N:
   source:
     name: empty_sky
     kwargs: {}
-  properties: 
+  properties:
     dit: 1
     ndit: 1
     filter_name: "closed"
@@ -37,7 +37,7 @@ PERSISTENCE_MAP_IFU:
   source:
     name: empty_sky
     kwargs: {}
-  properties: 
+  properties:
     dit: 1
     ndit: 1
     filter_name: "closed"
@@ -364,7 +364,7 @@ LM_LSS_RSRF_PINH_RAW:
     wcu_temp: 300
     xshift: 0
     yshift: -0.1
-    
+
 
 ##########  DETLIN INPUT ############
 
@@ -538,7 +538,7 @@ N_LSS_RSRF_PINH_RAW:
     wcu_temp: 300
     xshift: 0
     yshift: -0.1
-    
+
 ##########  DETLIN INPUT ############
 
 DETLIN_GEO_RAW:
@@ -892,7 +892,7 @@ IFU_RSRF_RAW2:
 IFU_WCU_OFF1:
   do.catg: IFU_WCU_OFF_RAW
   mode: "wcu_lms"
-  source: 
+  source:
     name: empty_sky
     kwargs: {}
   properties:
@@ -1112,7 +1112,7 @@ LM_SLITLOSSES_RAW1:
     kwargs:
       amplitude: 10
       x: 0
-      y: -0.025   
+      y: -0.025
   properties:
     dit: 0.25
     ndit: 1
@@ -1133,7 +1133,7 @@ N_LSS_SLITLOSSES_RAW1:
     kwargs:
       amplitude: 10
       x: 0
-      y: -0.025   
+      y: -0.025
   properties:
     dit: 0.25
     ndit: 1

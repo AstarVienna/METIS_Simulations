@@ -12,13 +12,13 @@ import makeCalibPrototypes
 
 
 def runRecipes(argv):
-    
+
     simulationSet = rr.setupSimulations()
 
     #simulationSet.setParms(inputYAML = None) \TODO - set parameters directly rather than commandline
 
     # get the command line arguments
-    
+
     simulationSet.parseCommandLine(argv[1:])
     # read in the YAML
     simulationSet.loadYAML()
@@ -30,7 +30,7 @@ def runRecipes(argv):
 
     # run the simulations
     simulationSet.runSimulations()
-    
+
     # run the calibrations if requested
     if(simulationSet.params['doCalib'] > 0):
         simulationSet.calculateDarks(simulationSet.darkParms)
@@ -39,10 +39,10 @@ def runRecipes(argv):
     # if simulations were done, update the headers
     if(not simulationSet.params['testRun']):
         simulationSet.updateHeaders()
-        
+
     if(simulationSet.params['doStatic']):
         makeCalibPrototypes.generateStaticCalibs(simulationSet.params['outputDir'])
-        
+
 if __name__ == "__main__":
-    
+
     runRecipes(sys.argv)

@@ -14,12 +14,12 @@ dark:
        catg: "CALIB"
        tech: "LMS"
        type: "DARK"
-       
-   
+
+
    lm:
      do.catg: DARK_2RG_RAW
      mode: "img_lm"
-     source: 
+     source:
        name: empty_sky
        kwargs: {}
      properties:
@@ -30,11 +30,11 @@ dark:
        catg: "CALIB"
        tech: "IMAGE,LM"
        type: "DARK"
-   
+
    n:
      do.catg: DARK_GEO_RAW
      mode: "img_n"
-     source: 
+     source:
        name: empty_sky
        kwargs: {}
      properties:
@@ -50,7 +50,7 @@ wcuOff:
    ifu:
      do.catg: IFU_IMG_WCUOFF_RAW
      mode: "wcu_lms"
-     source: 
+     source:
        name: empty_sky
        kwargs: {}
      properties:
@@ -67,11 +67,11 @@ wcuOff:
        bb_temp: 300
        is_temp: 300
        wcu_temp: 300
-   
+
    lm:
      do.catg: LM_IMG_WCUOFF_RAW
      mode: "wcu_img_lm"
-     source: 
+     source:
        name: empty_sky
        kwargs: {}
      properties:
@@ -88,11 +88,11 @@ wcuOff:
        bb_temp: 300
        is_temp: 300
        wcu_temp: 300
-   
+
    n:
      do.catg: N_IMG_WCUOFF_RAW
      mode: "wcu_img_n"
-     source: 
+     source:
        name: empty_sky
        kwargs: {}
      properties:
@@ -114,7 +114,7 @@ lampFlat:
    lm:
      do.catg: LM_FLAT_LAMP_RAW
      mode: "wcu_img_lm"
-     source: 
+     source:
        name: empty_sky
        kwargs: {}
      properties:
@@ -133,11 +133,11 @@ lampFlat:
        bb_temp: 300
        is_temp: 300
        wcu_temp: 300
-   
+
    n:
      do.catg: N_FLAT_LAMP_RAW
      mode: "wcu_img_n"
-     source: 
+     source:
        name: empty_sky
        kwargs: {}
      properties:
@@ -161,7 +161,7 @@ skyFlat:
    lm:
      do.catg: LM_FLAT_TWILIGHT_RAW
      mode: "wcu_img_lm"
-     source: 
+     source:
        name: empty_sky
        kwargs: {}
      properties:
@@ -173,11 +173,11 @@ skyFlat:
        tplname: "METIS_img_lm_det_flat"
        dit: 1
        ndit: 1
-       
+
    n:
      do.catg: N_FLAT_TWILIGHT_RAW
      mode: "wcu_img_n"
-     source: 
+     source:
        name: empty_sky
        kwargs: {}
      properties:

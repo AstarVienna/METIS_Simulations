@@ -68,7 +68,7 @@ def simulate(fname, mode, kwargs, wcu, source=None, small=False):
     # HACK: closed filter is not yet implemented:
     # changed the hack below, because changing kwargs here changes the props dictionary from which
     # kwargs is generated, outside of this subroutine, for reasons I do not understant.
-    
+
     #if kwargs["!OBS.filter_name"] == "closed":
     #    shutter = True
     #    kwargs["!OBS.filter_name"] = "open"
@@ -82,7 +82,7 @@ def simulate(fname, mode, kwargs, wcu, source=None, small=False):
     #changed the way the simulation is called, because the previous method wasn't
     #producing expeced results
 
-    
+
     #set up the simulation
     if("wavelen" in kwargs["OBS"].keys()):
         cmd = sim.UserCommands(use_instrument="METIS", set_modes=[mode],properties={"!OBS.wavelen": kwargs["OBS"]['wavelen']})
@@ -110,7 +110,7 @@ def simulate(fname, mode, kwargs, wcu, source=None, small=False):
 
     metis = sim.OpticalTrain(cmd)
 
-    
+
     #set the WCU mode arguments
     if(wcu is not None):
         allargs = wcu
@@ -126,7 +126,7 @@ def simulate(fname, mode, kwargs, wcu, source=None, small=False):
             metis['wcu_source'].set_bb_aperture(allargs['bb_aperture'])
 
 
-            
+
 
     if small:
         # Hack to make the detectors smaller, so we can run the simulations
@@ -152,7 +152,7 @@ def simulate(fname, mode, kwargs, wcu, source=None, small=False):
     # now observe and readout
     metis.observe(src)
     hdus = metis.readout(dit=kwargs["OBS"]['dit'],ndit=kwargs["OBS"]['ndit'])
-    
+
     hdus[0][0].header['HIERARCH ESO DPR TECH'] = kwargs["OBS"]["tech"]
     hdus[0].writeto(fname,overwrite=True)
     return hdus[0]
@@ -383,8 +383,8 @@ def main():
             "!OBS.catg": kwargs["catg"],
             "!OBS.tech": kwargs["tech"],
             "!OBS.type": kwargs["type"],
-            
-            
+
+
 
         }
 

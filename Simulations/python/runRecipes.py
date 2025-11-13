@@ -22,21 +22,21 @@ from multiprocessing import Pool,Process,Manager,cpu_count
 class runRecipes():
 
     def __init__(self):
-        
+
         self.calibSet = None
         self.tObs = None
         self.firstIt = True
-        self.tDelt = TimeDelta(0, format='sec') 
+        self.tDelt = TimeDelta(0, format='sec')
         self.allFileNames = []
         self.allmjd = []
-        
+
     def parseCommandLine(self,args):
 
         """
         Parse the command line options to get the paramters to run the set of simulations
         Creates a dictionary, params, containing all command line options
         """
-        
+
         parser = argparse.ArgumentParser()
 
         params = {}
@@ -49,7 +49,7 @@ class runRecipes():
                             default=False,
                             help=('use detectors of 32x32 pixels; ' +
                                   'for running in the continuous integration'))
-        
+
         parser.add_argument('-e', '--doStatic', action = "store_true",
                             default=False,
                             help=('Generate prototypes for static/external calibration files'))
@@ -74,7 +74,7 @@ class runRecipes():
                             default = 1,
                             help='number of cores for parallel processing')
 
-        
+
         args = parser.parse_args()
         if args.inputYAML:
             params['inputYAML'] = args.inputYAML
@@ -95,22 +95,22 @@ class runRecipes():
         else:
             params['sequence'] = False
             params['startMJD'] = None
-        
+
         if(args.doCalib):
             params['doCalib'] = args.doCalib
         else:
             params['doCalib'] = 0
-        
+
         if args.catg:
             params['catglist'] = args.catg.split(',')
         else:
             params['catglist'] = None
-        
-            
+
+
         params['small'] = args.small
 
         params['doStatic'] = args.doStatic
-                            
+
         params['testRun'] = args.testRun
 
         params['calibFile'] = args.calibFile
@@ -119,7 +119,7 @@ class runRecipes():
             params['nCores'] = args.nCores
         else:
             params['nCores'] = 1
-        
+
         print(f"Starting Simulations")
         print(f"   input YAML = {params['inputYAML']}, output directory =  {params['outputDir']}")
         if(params['startMJD'] is not None):
@@ -131,7 +131,7 @@ class runRecipes():
         print(f"  Automatically generated darks and flats {params['doCalib']}")
         print(f"  Small output option {params['small']}")
         print(f"  Generate External Calibs {params['doCalib']}")
-    
+
         self.params = params
 
     def loadYAML(self):
@@ -139,13 +139,13 @@ class runRecipes():
         """
         read in a YAML file of recipe templates and filter as specified by command line arguments
         """
-        
+
         allrcps = self._load_yaml(self.params['inputYAML'])
         self.dorcps = self._filter_yaml(allrcps)
 
         print(f"Recipes loaded from {self.params['inputYAML']}")
 
-        
+
     def _load_yaml(self,inputYAML) -> dict:
 
         """load a YAML file of recipes"""
@@ -158,7 +158,7 @@ class runRecipes():
         """filter a dictionary of recipes"""
 
         if self.params['catglist'] is None:
-            
+
             dorcps = allrcps
         else:
             dorcps = {}
@@ -168,12 +168,12 @@ class runRecipes():
                 else:
                     raise ValueError(f"ERROR: {catg} is not a supported product category")
         return dorcps
-    
+
     def validateYAML(self):
 
         """
         Validate the YAML based on acceptable input parameters.
-        Checks for: 
+        Checks for:
             necessary keywords
             valid filters for the mode
             valid nd filter
@@ -185,39 +185,39 @@ class runRecipes():
 
         The lists of valid parameter values can be found/updated in simulationDefintions.py
         """
-        
+
         goodInput = True
-        
+
         # check for existence of needed keywords before checking anything else
-        
-        for name, recipe in self.dorcps.items():    
+
+        for name, recipe in self.dorcps.items():
             for keyword in sd.topKey:
                 if(keyword not in recipe):
                     print(f'Recipe {name} does not contain required field {keyword} for recipe {name}')
                     goodInput = False
-        
+
             for keyword in sd.propKey:
                 if(keyword not in recipe["properties"]):
                     print(f'Recipe {name} does not contain required field {keyword} for recipe {name}')
                     goodInput = False
-                
+
             return goodInput
-    
+
         for name, recipe in self.dorcps.items():
-           
+
             # check for filter values (/TODO check HCI non HCI validity)
             if(recipe['properties']['filter_name'] not in sd.validFilters[recipe['mode']]):
                print(f"Recipe {name} Filter value of {recipe['properties']['filter_name']} not valid for mode {recipe['mode']}")
                goodInput = False
-                
-            # check ND filter values, if any    
+
+            # check ND filter values, if any
             if('ndfilter_name' in recipe['properties']):
                if(recipe['properties']['ndfilter_name'] not in sd.validND[recipe['mode']]):
                   print(f"Recipe {name} ND Filter value of {recipe['properties']['ndfilter_name']} not valid")
                   goodInput = False
 
             # catg, type and tech in list of valid values. update list in simulationDefinitions as needed
- 
+
             if(recipe['properties']['catg'] not in sd.catgVals):
                print(f"Recipe {name} has invalid CATG of {recipe['properties']['catg']})")
                goodInput = False
@@ -230,25 +230,25 @@ class runRecipes():
             if(recipe['mode'] not in sd.modeVals):
                print(f"Recipe {name} has invalid MODE of {recipe['mode']})")
                goodInput = False
-        
-            # nObs, ndit > 0 
-            
+
+            # nObs, ndit > 0
+
             if(not isinstance(recipe["properties"]["nObs"], int)):
                print(f"Recipe {name} has invalid NOBS of {recipe['properties']['nObs']})")
                goodInput = False
             elif(recipe["properties"]["nObs"] <= 0):
                 print(f"Recipe {name} has invalid NOBS of {recipe['properties']['nObs']})")
                 goodInput = False
-        
+
             if(not isinstance(recipe["properties"]["ndit"], int)):
                print(f"Recipe {name} has invalid NDIT of {recipe['properties']['ndit']})")
                goodInput = False
             elif(recipe["properties"]["ndit"] <= 0):
                 print(f"Recipe {name} has invalid NDIT of {recipe['properties']['ndit']})")
                 goodInput = False
-        
+
             # note that dit can be a number or a list
-            
+
             if(type(recipe["properties"]["dit"]) is list):
                 for elem in recipe["properties"]["dit"]:
                     if(not isinstance(elem, (int,float))):
@@ -267,13 +267,13 @@ class runRecipes():
 
         if(goodInput):
             print(f"YAML file {self.params['inputYAML']} validated")
-            
+
         return goodInput
-                      
+
     def calcDark(self,props):
 
         """determine what sort of dark, if any, is needed for a YAML entry and return a recipe dictionary for it"""
-    
+
         if(np.all(["DARK" not in props['type'],"PERSISTENCE" not in props['type']])):
             if(",LM" in props['tech']):
                 df = json.loads(json.dumps(sd.DARKLM))
@@ -286,7 +286,7 @@ class runRecipes():
                 df['mode'] = "lms"
             else:
                 return{}
-    
+
             df['properties']['dit'] = props['dit']
             df['properties']['ndit'] = props['ndit']
             df['properties']['nObs'] = self.params['doCalib']
@@ -299,7 +299,7 @@ class runRecipes():
     def calcWcuDark(self,props):
 
         """determine what sort of dark, if any, is needed for a YAML entry and return a recipe dictionary for it"""
-    
+
         if(np.all(["DARK" not in props['type'],"PERSISTENCE" not in props['type']])):
             if(",LM" in props['tech']):
                 df = json.loads(json.dumps(sd.WCUDARKLM))
@@ -321,9 +321,9 @@ class runRecipes():
            return {}
 
     def calcSkyFlat(self,props):
-    
+
         """determine what sort of sky flat, if any, is needed for a YAML entry and return a recipe dictionary for it"""
-    
+
         if(np.all(["DARK" not in props['type'], "FLAT" not in props['type'],"DETLIN" not in props['type'],"LMS" not in props['type'],"PERSISTENCE" not in props['type']])):
             if(",LM" in props['tech']):
                 df = json.loads(json.dumps(sd.SKYFLATLM))
@@ -333,7 +333,7 @@ class runRecipes():
                 df['mode'] = "img_n"
             else:
                 return{}
-    
+
             df['properties']['filter_name'] = props['filter_name']
             df['properties']['ndfilter_name'] = "open"
             df['properties']['dit'] = 0.25
@@ -343,9 +343,9 @@ class runRecipes():
             return df
         else:
             return {}
-    
+
     def calcLampFlat(self,props):
-    
+
         """determine what sort of lamp flat, if any, is needed for a YAML entry and return a recipe dictionary for it"""
         if(np.all(["DARK" not in props['type'], "FLAT" not in props['type'],"DETLIN" not in props['type'],"LMS" not in props['type'],"PERSISTENCE" not in props['type']])):
             if(",LM" in props['tech']):
@@ -356,7 +356,7 @@ class runRecipes():
                 df['mode'] = "img_n"
             else:
                 return{}
-    
+
             df['properties']['filter_name'] = props['filter_name']
             df['properties']['ndfilter_name'] = "open"
             df['properties']['dit'] = 0.25
@@ -374,9 +374,9 @@ class runRecipes():
         create a dictionary containing the results, in the same form as that for recipes
         read from the YAML file.
 
-        The results are stored in self.calibSet. The labels for each entry are set to 
-        dNNN for darks, lNNN for map flats and sNNN for sky flats, with NNN being an 
-        increasing number. 
+        The results are stored in self.calibSet. The labels for each entry are set to
+        dNNN for darks, lNNN for map flats and sNNN for sky flats, with NNN being an
+        increasing number.
         """
 
         darks = []
@@ -398,7 +398,7 @@ class runRecipes():
             for combo in combos:
                 combodict = dict(zip(expanded, combo))
                 props = recipe["properties"] | combodict
-                
+
                 try:
                     nfname = props["ndfilter_name"]
                 except:
@@ -408,8 +408,8 @@ class runRecipes():
                 if(props["type"] in wcuModes):
 
                     wcuDarks.append(self.calcWcuDark(props))
-                    
-                    
+
+
                 else:
                     darks.append(self.calcDark(props))
                 skyFlats.append(self.calcSkyFlat(props))
@@ -417,7 +417,7 @@ class runRecipes():
 
                 ii+=1
 
-            
+
         nLab = 0
         self.calibSet = {}
 
@@ -425,7 +425,7 @@ class runRecipes():
         # use set on a list of dictionaries
         # assign each dictionary to the master dictionary, with a unique label
 
-                      
+
         for rcp in np.unique([json.dumps(i, sort_keys=True) for i in darks]):
             drcp = json.loads(rcp)
             if bool(drcp):
@@ -455,12 +455,12 @@ class runRecipes():
                 self.calibSet[label] = drcp
 
         print("Calculated calibration set")
-        
+
     def generateFilename(self,dateobs,doCatg,dit,prefix):
-    
+
         """
         Generate a METIS like filename based on the dateobs, DO.CATG and dit
-    
+
          The filenames from the ICS software will probably look like
              METIS.2024-02-29T01:23:45.678.fits
          However, this has two drawbacks:
@@ -471,49 +471,49 @@ class runRecipes():
              METIS.2024-01-02T03_45_00.DETLIN_LM_RAW-dit1.0.fits
          Replace colon so the date can be in Windows filenames.
         """
-        
+
         sdate = dateobs.isoformat(":", 'seconds')
         sdate = sdate.replace(":", "_")
-        
+
         fname = f'METIS.{prefix}.{sdate.replace(":","_")}.fits'
-                
+
         return fname
-                
+
     def dumpCalibsToFile(self):
 
         """
         Dump the calibration yaml recipes to a file, similar to the recipes YAML file
         """
-        
+
         with open(self.params['calibFile'], 'w') as outfile:
             yaml.dump(self.calibSet, outfile, default_flow_style=False)
-    
+
     def updateHeaders(self):
-    
+
         """
-        add keywords to a list of files, fixing anything that isn't handled by ScopeSim. 
-        
-        DPR .TECH, .FILTER and .TYPE are set by ScopeSim, DRS.FILTER .NDFILTER, 
+        add keywords to a list of files, fixing anything that isn't handled by ScopeSim.
+
+        DPR .TECH, .FILTER and .TYPE are set by ScopeSim, DRS.FILTER .NDFILTER,
         and DET.DIT and .NDIT are set in ScopeSim
-    
+
         We use the TECH to get INS.MODE
         Sets the DRS.SLIT to the default value for now (will fix later)\TODO
         Sets INS.OPTI*.NAME to the filter, slit as indicated by the TECH, FILTER and SLIT keyword
-    
-        For HCI / Coronagraph modes, we set the TECH keyword to a non valid value in Scopesim, 
+
+        For HCI / Coronagraph modes, we set the TECH keyword to a non valid value in Scopesim,
         and use that to set the DRS.MASK, correct DPR.TECH, and INS.OPTI*.NAME values. This is kludgy,
         and will be fixed later. \TODO
-    
-        We check the TYPE keyword for LASER Sources. 
-    
+
+        We check the TYPE keyword for LASER Sources.
+
         The correct MJD date is written
 
         Adjusted files **WILL OVERWRITE EXISTING FILES**
 
         The list of files is compiled during the previous running of the simulations
         """
-        
-    
+
+
         for fName,mjd in zip(self.allFileNames,self.allmjd):
             print(f'Processing {fName}')
             # open the file
@@ -526,18 +526,18 @@ class runRecipes():
                         print(f"Lower case keyword found and removed: {k}")
                         hdu.header.pop(k)
 
-            
+
             hdul[0].header['MJD-OBS'] = mjd
-            
+
             #if type(hdul[0].header['MJD-OBS']) == str:
             #    mjdobs = hdul[0].header['MJD-OBS']
             #    hdul[0].header['MJD-OBS'] = astropy.time.Time(mjdobs,format="isot").mjd
             # get the tech and filter keywords
-           
+
             tech = hdul[0].header['HIERARCH ESO DPR TECH']
             filt = hdul[0].header['HIERARCH ESO DRS FILTER']
 
-            
+
             if(tech == "LSS,LM"):
                 hdul[0].header['HIERARCH ESO INS MODE'] = "SPEC_LM"
                 #hdul[0].header['HIERARCH ESO INS OPTI9 NAME'] = filt
@@ -546,7 +546,7 @@ class runRecipes():
                 hdul[0].header['HIERARCH ESO INS MODE'] = "SPEC_N_LOW"
                 #hdul[0].header['HIERARCH ESO INS OPTI12 NAME'] = filt
                 hdul[0].header['HIERARCH ESO INS DRS SLIT'] = "C-38_1"
-            
+
             #IMAGING
             if(tech == "IMAGE,LM"):
                 hdul[0].header['HIERARCH ESO INS MODE'] = "IMG_LM"
@@ -554,14 +554,14 @@ class runRecipes():
             if(tech == "IMAGE,N"):
                 hdul[0].header['HIERARCH ESO INS MODE'] = "IMG_N"
                 #hdul[0].header['HIERARCH ESO INS OPTI13 NAME'] = filt
-            
+
             #IFU
             if(tech == "LMS"):
                 hdul[0].header['HIERARCH ESO INS MODE'] = "IFU_nominal"
                 #hdul[0].header['HIERARCH ESO INS OPTI6 NAME'] = filt
                 hdul[0].header['HIERARCH ESO DRS IFU'] = filt
                 hdul[0].header['HIERARCH ESO DPR TECH'] = "IFU"
-                
+
             #HCI
             if(tech == "RAVC,LM"):
                 #hdul[0].header['HIERARCH ESO INS OPTI10 NAME'] = filt
@@ -571,7 +571,7 @@ class runRecipes():
                 hdul[0].header['HIERARCH ESO INS OPTI3 NAME'] = "VPM-L"
                 hdul[0].header['HIERARCH ESO INS OPTI5 NAME'] = "RLS-LMS"
                 hdul[0].header['HIERARCH ESO DPR TECH'] = "IMAGE,LM"
-            
+
             if(tech == "APP,LM"):
                 #hdul[0].header['HIERARCH ESO INS OPTI10 NAME'] = filt
                 hdul[0].header['HIERARCH ESO INS MODE'] = "IMG_LM_APP"
@@ -580,7 +580,7 @@ class runRecipes():
                 hdul[0].header['HIERARCH ESO INS OPTI3 NAME'] = "VPM-L"
                 hdul[0].header['HIERARCH ESO INS OPTI5 NAME'] = "APP-LMS"
                 hdul[0].header['HIERARCH ESO DRS MASK'] = "VPM-L,RAP-LM,APP-LMS"
-            
+
             if(tech == "RAVC,IFU"):
                 hdul[0].header['HIERARCH ESO INS OPTI6 NAME'] = filt
                 hdul[0].header['HIERARCH ESO INS MODE'] = "IFU_nominal_RAVC"
@@ -590,11 +590,11 @@ class runRecipes():
                 hdul[0].header['HIERARCH ESO INS OPTI3 NAME'] = "VPM-L"
                 hdul[0].header['HIERARCH ESO INS OPTI5 NAME'] = "RLS-LMS"
                 hdul[0].header['HIERARCH ESO DRS MASK'] = "VPM-L,RAP-LM,RLS-LMS"
-    
+
             #OTHER
-            if(hdul[0].header['HIERARCH ESO DPR TYPE'] == "WAVE"):   
+            if(hdul[0].header['HIERARCH ESO DPR TYPE'] == "WAVE"):
                 hdul[0].header['HIERARCH ESO SEQ WCU LASER1 NAME'] = "LASER1"
-    
+
             #OTHER
             if(tech == "PUP,LM"):
                 hdul[0].header['HIERARCH ESO INS MODE'] = "IMG_LM"
@@ -602,17 +602,17 @@ class runRecipes():
             if(tech == "PUP,N"):
                 hdul[0].header['HIERARCH ESO INS MODE'] = "IMG_N"
                 hdul[0].header['HIERARCH ESO INS OPTI15 NAME'] = "PUPIL2"
-    
+
             hdul.writeto(fName,overwrite=True)
             hdul.close()
 
-        
+
     def runSimulations(self):
 
         """Calls _run for main recipes"""
-        
+
         self._run(self.dorcps)
-        
+
     def runCalibrations(self):
 
         """Calls _run for calibration recipes"""
@@ -620,61 +620,61 @@ class runRecipes():
         self._run(self.calibSet)
 
     def _run(self,dorcps):
-        
+
         """
         Run the set of recipes contained in the passed dictionary
-        
-        If testRun is set, everything except the simulation will be done. 
+
+        If testRun is set, everything except the simulation will be done.
 
         Most of the routines handles some bookkeeping/formatting with the dictionaries,
-        and handling the various options for the observation date/time. 
+        and handling the various options for the observation date/time.
         """
-        
+
         # if the output directory doesn't exist, create it
-        
+
         out_dir = Path(self.params['outputDir'])
         out_dir.mkdir(parents=True, exist_ok=True)
 
         allArgs = []
-        
+
         # cycle through all the recipes
         for name, recipe in dorcps.items():
 
-    
+
             # expand the expandables
 
             expanded = [key for key in sd.expandables
                         if isinstance(recipe["properties"][key], list)]
             combos = product(*[recipe["properties"][key] for key in expanded])
-    
+
             # get the mode and the prefix for the title
-            
+
             mode = recipe["mode"]
             prefix = recipe["do.catg"]
             nObs = recipe["properties"]["nObs"]
-    
+
             # cycle through the combos (may only be one)
             for combo in combos:
-    
+
                 # extract the properties and combine with the combo dictionary
-                
+
                 combodict = dict(zip(expanded, combo))
                 props = recipe["properties"] | combodict
 
-                
+
                 # a blank value of ndfilter_name if not explicitly given
                 try:
                     nfname = props["ndfilter_name"]
                 except:
                     props["ndfilter_name"] = "open"
-    
-                    
+
+
                 # first iteration, need to intialize dateobs regardless of method for timestamp
                 if(self.firstIt):
-    
+
                     #if sequence=True, we get this from startMJD if set, or the YAML file
                     if(self.params['sequence']):
-                                
+
                         if(self.params['startMJD'] is not None):
                             self.tObs = Time(datetime.strptime(self.params['startMJD'], '%Y-%m-%d %H:%M:%S'))
                         elif "dateobs" in recipe["properties"]:
@@ -682,9 +682,9 @@ class runRecipes():
                         else:
                             print("No appropriate starting time found; setting to default value")
                             self.tObs = Time(datetime.strptime("2027-01-25 00:00:00", '%Y-%m-%d %H:%M:%S'))
-    
+
                         # tDelt is 0 because we've just set the value
-                        
+
                     #if sequence = False, get from the YAML file
                     else:
                         if "dateobs" in recipe["properties"]:
@@ -693,7 +693,7 @@ class runRecipes():
                             print("No appropriate starting time found; exiting")
                             return
                     self.firstIt = False
-    
+
                 # if this isn't the first iteration, we increment if sequence=True,
                 # otherwise get from the YAML entry. If the YAML  doesn't have an dateobs set
                 # increment as for the seuqence case
@@ -702,14 +702,14 @@ class runRecipes():
                         # set explicitly, and tDelt = 0
                         if "dateobs" in recipe["properties"]:
                             self.tObs = Time(recipe["properties"]["dateobs"])[0]
-                            self.tDelt = TimeDelta(0, format='sec') 
+                            self.tDelt = TimeDelta(0, format='sec')
                         else:
                             print("No appropriate starting time found; exiting")
                             return
-    
+
 
                 # for nObs exposures of each set of parameters
-                for _ in range(nObs):        
+                for _ in range(nObs):
 
                     # note that tDelt = 0 if we've explicitly set it above
                     self.tObs = self.tObs + self.tDelt
@@ -718,7 +718,7 @@ class runRecipes():
                     props["dateobs"] = self.tObs.tt.datetime
                     props["MJD-OBS"] = self.tObs.mjd
                     # update tDelt for the next iteration
-                    self.tDelt = TimeDelta(props['dit']*props['ndit']*1.2+1, format='sec')   
+                    self.tDelt = TimeDelta(props['dit']*props['ndit']*1.2+1, format='sec')
 
                     # get the filename
                     fname = out_dir / self.generateFilename(props['dateobs'],mode,props['dit'],prefix)
@@ -731,7 +731,7 @@ class runRecipes():
                     # get kwargs for scopeSim
                     kwargs = NestedMapping({"OBS": props})
 
-                    
+
                     print(f"    dit={props['dit']},ndit={props['ndit']},catg={props['catg']},tech={props['tech']},type={props['type']},filter_name={props['filter_name']}, ndfilter_name={props['ndfilter_name']}")
 
                     print(fname, recipe.keys())
@@ -742,7 +742,7 @@ class runRecipes():
                     print(f'    wcu =  {recipe["wcu"]}')
 
                     allArgs.append((fname,mode,kwargs,recipe["wcu"],recipe["source"],self.params["small"]))
-        
+
         if(not self.params['testRun']):
             # Always keep one core free.
             nCores = max(min(self.params['nCores'], cpu_count() - 1), 1)
@@ -752,7 +752,7 @@ class runRecipes():
                 #simulate(fname, mode, kwargs, source=recipe["source"], small=self.params['small'])
                 pool.close()
                 pool.join()
-    
-                       
+
+
 
 

@@ -33,17 +33,17 @@ def simulate(fname, rcp, small=False):
 
     """
     Workhorse for an individual simulation.
-    
+
     """
 
     props = rcp["properties"]
     wcu = rcp["wcu"]
     source = rcp["source"]
 
-    
+
     # some massaging of the source object, to get into the right
     # format and units
-    
+
     if isinstance(source, Mapping):
         src_name = source["name"]
     else:
@@ -65,12 +65,12 @@ def simulate(fname, rcp, small=False):
     #logger.info("ScopeSim mode: %s", mode)
 
     # set up the cmd structure to pass to ScopeSim. This is a bit clunky, but it works, so I'm not
-    # going to mess with it for now. 
-    
+    # going to mess with it for now.
+
     #set up the simulation
 
     mode = rcp['mode']
-    
+
     if("wavelen" in rcp['properties']):
         cmd = sim.UserCommands(use_instrument="METIS", set_modes=[mode],properties={"!OBS.wavelen": rcp['properties']['wavelen']})
     else:
@@ -91,14 +91,14 @@ def simulate(fname, rcp, small=False):
     cmd["!OBS.dateobs"] = props["dateobs"]
     # TODO: Ensure ndfilter_name is always defined.
     cmd["!OBS.nd_filter_name"] = props["ndfilter_name"]
-    
+
     cmd["!OBS.filter_name"] = props["filter_name"]
     if cmd["!OBS.filter_name"] == "closed":
         cmd["!OBS.filter_name"] = "open"
         shutter = True
 
     # optional keywords
-    
+
     if("tplname" in props.keys()):
         cmd["!OBS.tplname"] = props["tplname"]
     if("tplexpno" in props.keys()):
@@ -112,7 +112,7 @@ def simulate(fname, rcp, small=False):
 
     #set the WCU mode arguments
     if(rcp['wcu'] is not None):
-        
+
         # set temperatures of black body
         if(np.all(["bb_temp" in wcu,"is_temp" in wcu, "wcu_temp" in wcu])):
             metis['wcu_source'].set_temperature(bb_temp=wcu['bb_temp']*u.K, is_temp=wcu['is_temp']*u.K,wcu_temp=wcu['wcu_temp']*u.K)
@@ -135,15 +135,15 @@ def simulate(fname, rcp, small=False):
         # don't care about the output.
 
         # this is rapidly becoming obsolete with functional recipes, but
-        # we'll leave in. 
-        
+        # we'll leave in.
+
         for key in ['detector_array', 'detector_array_list']:
             if key in metis.effects['name']:
                 metis[key].table['x_size'] = 32
                 metis[key].table['y_size'] = 32
 
     # and a warning for old versions of the IRDB
-    
+
     if "common_fits_keywords" not in metis.effects["name"]:
         logger.error(
             "The 'common_fits_keywords' effect was not found in the optical "

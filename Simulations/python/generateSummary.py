@@ -13,20 +13,20 @@ def generateSummary(fnames,outFileName):
     outFile = open(outFileName,"w")
 
     #header line
-    
+
     line = "\Block\tFile\tDIT\tNDIT\tTech\tCATG\tTYPE\tINS.MODE\tTPL.NAME\tTPL.START\tTPL.EXPNO\tDRS.SLIT\tDRS.FILTER\tDRS.IFU\tDRS.MASK."
     print(line,file=outFile)
 
-    
+
     for fName in fNames:
         print(fName)
         hdul = fits.open(fName)
 
         # pull out the values
-        
+
         dit = hdul[0].header['HIERARCH ESO DET DIT']
         ndit = hdul[0].header['HIERARCH ESO DET NDIT']
-        
+
         tech = hdul[0].header['HIERARCH ESO DPR TECH']
         catg = hdul[0].header['HIERARCH ESO DPR CATG']
         tipe = hdul[0].header['HIERARCH ESO DPR TYPE']
@@ -41,18 +41,18 @@ def generateSummary(fnames,outFileName):
         filt = hdul[0].header['*DRS FILTER*']
         ifu = hdul[0].header['*DRS IFU*']
         mask = hdul[0].header['*DRS MASK*']
-        
+
         #ins = hdul[0].header['*INS OPTI*']
         mode = hdul[0].header['HIERARCH ESO INS MODE']
 
         #get the fine name w/o pasth
-        
+
         fShort = fName.split("/")[1]
         block = fName.split("/")[0]
-        
+
 
         # assemble the output line, tab separated
-        
+
         line = f'{block}\t{fShort}\t{dit}\t{ndit}\t{tech}\t{catg}\t{tipe}\t{mode}\t{tpl}\t{tplStart}\t{tplExpno}'
 
         # single value, or empty
@@ -70,7 +70,7 @@ def generateSummary(fnames,outFileName):
 
         #    line = f'{line}{hdul[0].header[elem]}'
         line=line+"\t"
-        
+
         ## multiple values
         #nIns = 0
         #for elem in ins:
@@ -81,7 +81,7 @@ def generateSummary(fnames,outFileName):
         #    # remove the trailing comma
         #    line=f'{line[:-1]}\t'
 
-        # dump line to file 
+        # dump line to file
         print(line,file=outFile)
         hdul.close()
     outFile.close()
@@ -89,10 +89,10 @@ def generateSummary(fnames,outFileName):
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
-    
+
     parser.add_argument('--outFile', type=str,
                     help='output file')
-    parser.add_argument('--inDir', type=str, 
+    parser.add_argument('--inDir', type=str,
                     help='List of input directories, comma separated')
 
     args = parser.parse_args()
@@ -115,6 +115,6 @@ if __name__ == "__main__":
     fNames.sort()
 
     generateSummary(fNames,outFile)
-    
- 
+
+
 

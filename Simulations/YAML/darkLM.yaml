@@ -4,7 +4,7 @@
 DARK_LM_RAW:
   do.catg: DARK_LM_RAW
   mode: "img_lm"
-  source: 
+  source:
     name: empty_sky
     kwargs: {}
   properties:
@@ -17,4 +17,3 @@ DARK_LM_RAW:
     type: "DARK"
     tplname: "METIS_img_lm_det_dark"
     nObs: 3
-    

@@ -2,7 +2,7 @@
 """
 Definition of sources used in template YAML files. Sources are derived from either
 scopesim, or scopesim templates; you should understand these programs before making your
-own. 
+own.
 """
 
 import astropy.units as u
@@ -149,7 +149,7 @@ SOURCEDICT = {
             "library": "kurucz",
             "spec_type": "k5v"
             }),
-        
+
     "simple_gal": (
         sim_tp.extragalactic.elliptical,
         {

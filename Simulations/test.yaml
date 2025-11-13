@@ -2,7 +2,7 @@
 LM_IMAGE_STD_RAW1:
   do.catg: LM_IMAGE_STD_RAW
   mode: "img_lm"
-  source: 
+  source:
     name: simple_gal
     kwargs: {}
   properties:

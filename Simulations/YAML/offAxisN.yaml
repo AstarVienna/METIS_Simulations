@@ -15,4 +15,3 @@ N_OFF_AXIS_PSF_RAW:
     type: "PSF,OFFAXIS"
     tplname: "METIS_img_n_cvc_obs_AutoChop"
     nObs: 1
-    

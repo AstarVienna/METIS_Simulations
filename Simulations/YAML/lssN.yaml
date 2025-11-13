@@ -48,7 +48,7 @@ N_LSS_RSRF_PINH_RAW:
     wcu_temp: 300
     xshift: 0
     yshift: -0.1
-    
+
 ##########  DETLIN INPUT ############
 
 DETLIN_GEO_RAW:

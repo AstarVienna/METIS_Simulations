@@ -4,7 +4,7 @@
 DARK_IFU_RAW:
   do.catg: DARK_IFU_RAW
   mode: "wcu_lms"
-  source: 
+  source:
     name: empty_sky
     kwargs: {}
   properties:

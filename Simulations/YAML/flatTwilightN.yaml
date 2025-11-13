@@ -12,4 +12,3 @@ N_FLAT_TWILIGHT_RAW:
     tech: IMAGE,N
     type: FLAT,TWILIGHT
     tplname:'METIS_img_n_det_flat
-    

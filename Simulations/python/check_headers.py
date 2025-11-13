@@ -23,16 +23,16 @@ def checkHeaders(argv):
        inDir = argv[1]
     else:
        inDir = "output"
-    
+
     PATH_HERE = Path(__file__).parents[1]
     PATH_OUTPUT = PATH_HERE / inDir
-    
+
     print(PATH_OUTPUT)
-    
+
     ks_toplevel_allowed = {"ESO", "WISE"}
-    
+
     fns_fits = PATH_OUTPUT.glob("*.fits")
-    
+
     for fn_fits in fns_fits:
         print(fn_fits)
         hdus = fits.open(fn_fits)
@@ -47,7 +47,7 @@ def checkHeaders(argv):
                     assert ks[0] in ks_toplevel_allowed, k
                 # Assert all subsystems in HIERARCH keyword are max 8 characters.
                 assert all(len(ki) <= 8 for ki in ks), k
-    
+
         fn_split = fn_fits.name.split(".")
         catg = fn_split[1] if fn_split[0] == "METIS" else fn_split[0]
         if catg in HACK_RAWS_THAT_SHOULD_BE_ADDED_TO_THE_DRLD:
@@ -61,5 +61,5 @@ def checkHeaders(argv):
             assert hdus[0].header["ESO DPR TECH"] == di.dpr_tech
 
 if __name__ == "__main__":
-    
+
     checkHeaders(sys.argv)

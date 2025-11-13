@@ -33,4 +33,3 @@ IFU_SCI_SKY_RAW:
     type: "SKY"
     tplname: "METIS_ifu_obs_GenericOffset"
     nObs: 1
-    

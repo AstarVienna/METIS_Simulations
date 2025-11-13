@@ -12,7 +12,7 @@ LM_CHOPHOME_RAW:
     dit: 10.
     ndit: 1
     filter_name: "open"
-    ndfilter_name: "open"    
+    ndfilter_name: "open"
     catg: "CALIB"
     tech: "IMAGE,LM"
     type: "CHOPHOME"
@@ -26,7 +26,7 @@ LM_CHOPHOME_RAW:
 DARK_LM_RAW:
   do.catg: DARK_LM_RAW
   mode: "img_lm"
-  source: 
+  source:
     name: empty_sky
     kwargs: {}
   properties:
@@ -39,13 +39,13 @@ DARK_LM_RAW:
     type: "DARK"
     tplname: "METIS_img_lm_det_dark"
     nObs: 1
-    
+
 ###############  STANDALONE DARK OBSERVATION ################
 
 DARK_N_RAW:
   do.catg: DARK_N_RAW
   mode: "img_n"
-  source: 
+  source:
     name: empty_sky
     kwargs: {}
   properties:
@@ -58,7 +58,7 @@ DARK_N_RAW:
     type: "DARK"
     tplname: "METIS_img_n_det_dark"
     nObs: 1
-    
+
 ############ DETLIN WITH DIFFERENT EXPOSURE TIMES ##################
 
 ############ DETLIN WITH DIFFERENT EXPOSURE TIMES ##################
@@ -169,7 +169,7 @@ N_DISTORTION_RAW:
 WCU_FLAT_LM_RAW:
   do.catg: LM_FLAT_LAMP_RAW
   mode: "wcu_img_lm"
-  source: 
+  source:
     name: empty_sky
     kwargs: {}
   properties:
@@ -189,11 +189,11 @@ WCU_FLAT_LM_RAW:
     bb_temp: 300
     is_temp: 300
     wcu_temp: 300
-    
+
 WCU_FLAT_N_RAW:
   do.catg: N_FLAT_LAMP_RAW
   mode: "wcu_img_n"
-  source: 
+  source:
     name: empty_sky
     kwargs: {}
   properties:
@@ -285,7 +285,7 @@ LM_IMAGE_SKY_CORONAGRAPH_RAW:
     type: "SKY"
     tplname: "METIS_img_lm_app_obs_FixedOffset"
     nObs: 1
-    
+
 IFU_SCI_CORONAGRAPH_RAW:
   do.catg: IFU_SCI_RAW
   mode: "lms"
@@ -357,7 +357,7 @@ LM_OFF_AXIS_PSF_RAW:
     type: "PSF,OFFAXIS"
     tplname: "METIS_img_lm_vc_obs_FixedSkyOffset"
     nObs: 1
-    
+
 N_OFF_AXIS_PSF_RAW:
   do.catg: N_OFF_AXIS_PSF_RAW
   mode: "img_n"
@@ -382,7 +382,7 @@ PERSISTENCE_MAP_LM:
   source:
     name: empty_sky
     kwargs: {}
-  properties: 
+  properties:
     dit: 1
     ndit: 1
     filter_name: "closed"
@@ -398,7 +398,7 @@ PERSISTENCE_MAP_N:
   source:
     name: empty_sky
     kwargs: {}
-  properties: 
+  properties:
     dit: 1
     ndit: 1
     filter_name: "closed"
@@ -407,7 +407,7 @@ PERSISTENCE_MAP_N:
     tech: "IMAGE,N"
     type: "PERSISTENCE"
     nObs: 1
-    
+
 LM_PUPIL_RAW:
   do.catg: LM_PUPIL_RAW
   mode: "img_lm"
@@ -428,7 +428,7 @@ LM_PUPIL_RAW:
     type: "PUPIL"
     tplname: "METIS_pup_lm"
     nObs: 1
-    
+
 N_PUPIL_RAW:
   do.catg: N_PUPIL_RAW
   mode: "img_n"
@@ -676,7 +676,7 @@ N_WCU_OFF_RAW:
 DARK_IFU_RAW:
   do.catg: DARK_IFU_RAW
   mode: "wcu_lms"
-  source: 
+  source:
     name: empty_sky
     kwargs: {}
   properties:
@@ -779,14 +779,14 @@ IFU_OFF_AXIS_PSF_RAW:
     type: "PSF,OFFAXIS"
     tplname: "METIS_ifu_vc_obs_FixedSkyOffset"
     nObs: 1
-    
+
 PERSISTENCE_MAP_IFU:
   do.catg: "PERSISTENCE_MAP"
   mode: "lms"
   source:
     name: empty_sky
     kwargs: {}
-  properties: 
+  properties:
     dit: 1
     ndit: 1
     filter_name: "closed"
@@ -850,7 +850,7 @@ IFU_RSRF_PINH_RAW1:
     wcu_temp: 300
     xshift: 0
     yshift: -0.1
-    
+
 IFU_SCI_RAW:
   do.catg: IFU_SCI_RAW
   mode: "lms"
@@ -924,7 +924,7 @@ IFU_STD_SKY_RAW:
     tplname: "METIS_ifu_cal_standard"
     nObs: 1
 
-    
+
 IFU_WAVE_RAW:
   do.catg: IFU_WAVE_RAW
   mode: "wcu_lms"
@@ -973,7 +973,7 @@ LM_LSS_RSRF_RAW1:
     bb_temp: 8000
     is_temp: 300
     wcu_temp: 300
-    
+
 LM_LSS_RSRF_RAW1:
   do.catg: LM_LSS_RSRF_RAW
   mode: "wcu_lss_l"
@@ -997,7 +997,7 @@ LM_LSS_RSRF_RAW1:
     bb_temp: 8000
     is_temp: 300
     wcu_temp: 300
-    
+
 N_LSS_RSRF_RAW1:
   do.catg: N_LSS_RSRF_RAW
   mode: "wcu_lss_n"
@@ -1021,7 +1021,7 @@ N_LSS_RSRF_RAW1:
     bb_temp: 8000
     is_temp: 300
     wcu_temp: 300
-        
+
 LM_LSS_RSRF_PINH_RAW1:
   do.catg: LM_LSS_RSRF_PINH_RAW
   mode: "wcu_lss_l"
@@ -1109,7 +1109,7 @@ LM_LSS_SCI_SKY_RAW:
     tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
     nObs: 1
 
-N_LSS_SCI_RAW:    
+N_LSS_SCI_RAW:
   do.catg: N_LSS_SCI_RAW
   mode: "lss_n"
   source:
@@ -1143,7 +1143,7 @@ N_LSS_SCI_SKY_RAW:
     tplname: "METIS_spec_n_obs_AutoChopNodOnSlit"
     nObs: 1
 
-    
+
 LM_SLITLOSSES_RAW1:
   do.catg: LM_SLITLOSSES_RAW
   mode: "lss_l"
@@ -1152,7 +1152,7 @@ LM_SLITLOSSES_RAW1:
     kwargs:
       amplitude: 10
       x: 0
-      y: -0.025   
+      y: -0.025
   properties:
     dit: 0.25
     ndit: 1
@@ -1173,7 +1173,7 @@ N_LSS_SLITLOSSES_RAW1:
     kwargs:
       amplitude: 10
       x: 0
-      y: -0.025   
+      y: -0.025
   properties:
     dit: 0.25
     ndit: 1
@@ -1221,7 +1221,7 @@ LM_LSS_STD_SKY_RAW:
     type: "SKY"
     tplname: "METIS_spec_lm_cal_Standard"
     nObs: 1
-    
+
 N_LSS_STD_RAW:
   do.catg: N_LSS_STD_RAW
   mode: "lss_n"
@@ -1256,7 +1256,7 @@ N_LSS_STD_SKY_RAW:
     type: "SKY"
     tplname: "METIS_spec_n_cal_Standard"
     nObs: 1
-    
+
 
 
 LM_LSS_WAVE_RAW:
@@ -1282,7 +1282,7 @@ LM_LSS_WAVE_RAW:
     bb_temp: 300
     is_temp: 300
     wcu_temp: 300
-    
+
 N_LSS_WAVE_RAW:
   do.catg: N_LSS_WAVE_RAW
   mode: "wcu_lss_n"

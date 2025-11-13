@@ -26,23 +26,23 @@ HACK_RAW_TEMPLATE_COMBINATIONS_THAT_SHOULD_BE_ADDED_TO_THE_DRLD = {
 }
 
 def compareYAML(argv):
-    
+
     PATH_HERE = Path(__file__).parent
-    
+
     if len(sys.argv) == 1:
         filename_yaml = PATH_HERE / 'YAML/recipes.yaml'
     else:
         filename_yaml = argv[1]
-    
+
     with open(filename_yaml) as f:
         recipes = yaml.safe_load(f)
-    
+
     dicts_from_sim_defs = {
         k: v
         for k, v in simulationDefinitions.__dict__.items()
         if k.upper() == k and isinstance(v, dict) and "do.catg" in v
     }
-    
+
     problems = []
     for name, settings in recipes.items():
         do_catg = settings['do.catg']
@@ -66,12 +66,12 @@ def compareYAML(argv):
             problems.append(f"{do_catg} has DPR.TECH {props['tech']} in yaml but {di.dpr_tech} in DRLD")
         if props['type'] != di.dpr_type:
             problems.append(f"{do_catg} has DPR.TYPE {props['type']} in yaml but {di.dpr_type} in DRLD")
-    
+
         tplname = props["tplname"].lower()
         if tplname not in di.templates:
             if (do_catg, tplname) not in HACK_RAW_TEMPLATE_COMBINATIONS_THAT_SHOULD_BE_ADDED_TO_THE_DRLD:
                 problems.append(f"{do_catg} has tplname {tplname} but only {di.templates} create it")
-    
+
     do_catg_used_in_yaml = {
         settings['do.catg']
         for settings in list(recipes.values()) + list(dicts_from_sim_defs.values())
@@ -83,12 +83,12 @@ def compareYAML(argv):
         problems.append(f"DO.CATG values only used in yaml file but not in the DRLD: {do_catg_only_in_yaml}")
     if do_catg_only_in_drld:
         problems.append(f"DO.CATG values only used in drld but not in the yaml file: {do_catg_only_in_drld}")
-    
+
     for problem in problems:
         print(problem)
-    
+
     assert not problems, "Found problems, see output above."
 
 if __name__ == "__main__":
-    
+
     compareYAML(sys.argv)

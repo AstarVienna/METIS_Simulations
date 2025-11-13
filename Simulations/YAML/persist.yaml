@@ -7,7 +7,7 @@ PERSISTENCE_MAP_LM:
   source:
     name: empty_sky
     kwargs: {}
-  properties: 
+  properties:
     dit: 1
     ndit: 1
     filter_name: "closed"
@@ -22,7 +22,7 @@ PERSISTENCE_MAP_N:
   source:
     name: empty_sky
     kwargs: {}
-  properties: 
+  properties:
     dit: 1
     ndit: 1
     filter_name: "closed"
@@ -37,7 +37,7 @@ PERSISTENCE_MAP_IFU:
   source:
     name: empty_sky
     kwargs: {}
-  properties: 
+  properties:
     dit: 1
     ndit: 1
     filter_name: "closed"

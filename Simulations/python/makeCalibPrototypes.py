@@ -1,23 +1,23 @@
 #!/usr/bin/env python
-""" 
+"""
 Script for generating prototypes of internal use structures for external
-calibration files. 
+calibration files.
 
-The exact format of external calibration files is still somewhat uncertain 
+The exact format of external calibration files is still somewhat uncertain
 (FITS files, binary files, databases, text files, etc.). For pipeline
-development, we will define a set of internal formats that can be 
+development, we will define a set of internal formats that can be
 produced from whatever form is provided, but will remain consistent
-for pipeline development. 
+for pipeline development.
 
 This is a first draft of FITS file formats for the external calibration
 files defined in the DRLD, setting up the format (e.g. Table, image) and a
-first draft of the necessary columns, image data etc. 
+first draft of the necessary columns, image data etc.
 
 At the moment, the contents are mostly empty/nonsensical; the goal
 is to provide a set of files that can be found by pyedps and used
 in the pipeline skeleton. The PRO.CATG values have been set for
-all files, and for the most part reasonable units have been attempted. 
-All files follow the primary header / extension format. 
+all files, and for the most part reasonable units have been attempted.
+All files follow the primary header / extension format.
 """
 
 
@@ -32,10 +32,10 @@ def generateStaticCalibs(outputDir):
 
     """
 
-    Generate a set of static calibration FITS files for internal pipeline use. 
+    Generate a set of static calibration FITS files for internal pipeline use.
 
     At the moment this is a very basic script. Eventually, the FITS files will be
-    generated (once, or on the fly as appropriate) by dedicated recipes, but 
+    generated (once, or on the fly as appropriate) by dedicated recipes, but
     protoyping the format is a necessary first step.
     """
 
@@ -46,7 +46,7 @@ def generateStaticCalibs(outputDir):
     # and flux values. There is one file per calibration source
 
     starName = "star1"
-    
+
     ld = fits.Column(name='wavelength', array=np.arange(0,100), format='E')
     star1 = fits.Column(name='flux', array=np.ones(100), format='E')
 
@@ -69,8 +69,8 @@ def generateStaticCalibs(outputDir):
     #################### FLUXSTD_CATALOG ###################
 
     # Generates a FITS file with an extension that contains a list of sources plus fluxes
-    # in multiple METIS filters. There is one file for multiple stars. 
-    
+    # in multiple METIS filters. There is one file for multiple stars.
+
     sources = fits.Column(name='source', array=np.array(['star1','star2','star3']), format='A20')
     lp = fits.Column(name='Lp', array=np.ones(3), format='E')
     mp = fits.Column(name='Lp', array=np.ones(3), format='E')
@@ -93,13 +93,13 @@ def generateStaticCalibs(outputDir):
 
     hdul = fits.HDUList([primaryhdu, hdu])
     hdul.writeto(f"{outputDir}/FLUXSTD_CATALOG.fits",overwrite=True)
-    
+
 
     #################### LM_SYNTH_TRANS ###################
 
     # Creates a synthetic transmission calibration file for LM, consisting of an
-    # extension table with wavelength and transmission fraction. 
-    
+    # extension table with wavelength and transmission fraction.
+
     ld = fits.Column(name='wavelength', array=np.arange(0,100), format='E')
     trans = fits.Column(name='transmission', array=np.ones(100), format='E')
     primaryhdu = fits.PrimaryHDU()
@@ -112,14 +112,14 @@ def generateStaticCalibs(outputDir):
     hdu.header['TTYPE1'] = "wavelength"
     hdu.header['TTYPE2'] = "fraction"
 
-    
+
     hdul = fits.HDUList([primaryhdu, hdu])
     hdul.writeto(f"{outputDir}/LM_SYNTH_TRANS.fits",overwrite=True)
 
     #################### N_SYNTH_TRANS ###################
 
     # Creates a synthetic transmission calibration file for N, consisting of an
-    # extension table with wavelength and transmission fraction. 
+    # extension table with wavelength and transmission fraction.
 
     ld = fits.Column(name='wavelength', array=np.arange(0,100), format='E')
     trans = fits.Column(name='transmission', array=np.ones(100), format='E')
@@ -133,14 +133,14 @@ def generateStaticCalibs(outputDir):
     hdu.header['TTYPE1'] = "wavelength"
     hdu.header['TTYPE2'] = "fraction"
 
-    
+
     hdul = fits.HDUList([primaryhdu, hdu])
     hdul.writeto(f"{outputDir}/N_SYNTH_TRANS.fits",overwrite=True)
-    
+
     #################### AO_PSF_MODEL ###################
 
     # creates a fits file with an image extension containing an AO PSF model
-    
+
     primaryhdu = fits.PrimaryHDU()
     primaryhdu.header['HIERARCH ESO PRO CATG'] = "AO_PSF_MODEL"
     primaryhdu.header['INSTRUME'] = "METIS"
@@ -163,8 +163,8 @@ def generateStaticCalibs(outputDir):
     #################### ATM_LINE_CAT ###################
 
     # creates a catalogue of atmostpheric lines and their parameters. First
-    # approximation of columns taken from HITRANS website. 
-    
+    # approximation of columns taken from HITRANS website.
+
     primaryhdu = fits.PrimaryHDU()
     primaryhdu.header['HIERARCH ESO PRO CATG'] = "ATM_LINE_CAT"
     primaryhdu.header['INSTRUME'] = "METIS"
@@ -199,7 +199,7 @@ def generateStaticCalibs(outputDir):
     # creates a FITS table extension with atmospheric line profiles. Data contents
     # are empty, but columns names and unites are taken from
     # https://eodg.atm.ox.ac.uk/RFM/atm/equ.atm as referenced in the DRLD
-    
+
     cList = []
     cList.append(fits.Column(name='hgt', array=np.array(np.zeros((121))), format='e'))
     cList.append(fits.Column(name='pre', array=np.array(np.zeros((121))), format='e'))
@@ -249,20 +249,20 @@ def generateStaticCalibs(outputDir):
     hdul = fits.HDUList([primaryhdu,hdu])
     hdul.writeto(f"{outputDir}/ATM_PROFILE.fits",overwrite=True)
 
-    
+
     #################### LM_LSS_DIST_SOL ###################
 
     # creates a FITS file with an extension holding the functional parameters for the
     # distortion correction
-    
+
     # at the moment the functional form of the distortion correction is uncertain. For
-    # prototyping purposes the functional form is set to an 2nd order polynomial in x and y. 
+    # prototyping purposes the functional form is set to an 2nd order polynomial in x and y.
 
     xOrder =   [0, 1, 2, 0, 1, 2, 0, 1, 2]
     yOrder =   [0, 0, 0, 1, 1, 1, 2, 2, 2]
     coeff =   [0, 1, 0, 1, 0, 0, 0, 0, 0]
 
-    
+
     c1 = fits.Column(name='x_order', array=np.array(xOrder), format='i')
     c2 = fits.Column(name='y_order', array=np.array(yOrder), format='i')
     c3 = fits.Column(name='coeff', array=np.array(coeff), format='e')
@@ -278,22 +278,22 @@ def generateStaticCalibs(outputDir):
     primaryhdu.header['INSTRUME'] = "METIS"
     hdul = fits.HDUList([primaryhdu,hdu])
     hdul.writeto(f"{outputDir}/LM_LSS_DIST_SOL.fits",overwrite=True)
-    
+
     #################### N_LSS_DIST_SOL ###################
 
     # same as LM_LSS_DIST_SOL but for N band
-    
+
     # creates a FITS file with an extension holding the functional parameters for the
     # distortion correction
-    
+
     # at the moment the functional form of the distortion correction is uncertain. For
-    # prototyping purposes the functional form is set to an 2nd order polynomial in x and y. 
+    # prototyping purposes the functional form is set to an 2nd order polynomial in x and y.
 
     xOrder =   [0, 1, 2, 0, 1, 2, 0, 1, 2]
     yOrder =   [0, 0, 0, 1, 1, 1, 2, 2, 2]
     coeff =   [0, 1, 0, 1, 0, 0, 0, 0, 0]
 
-    
+
     c1 = fits.Column(name='x_order', array=np.array(xOrder), format='i')
     c2 = fits.Column(name='y_order', array=np.array(yOrder), format='i')
     c3 = fits.Column(name='coeff', array=np.array(coeff), format='e')
@@ -314,10 +314,10 @@ def generateStaticCalibs(outputDir):
     #################### LM_LSS_WAVE_GUESS ###################
 
     # creates a FITS file with a table extension giving the first guess
-    # of the LM-band wavelength solution. 
+    # of the LM-band wavelength solution.
 
     # at the moment the functional form of the distortion correction is uncertain. For
-    # prototyping purposes the functional form is set to an 2nd order polynomial in x and y. 
+    # prototyping purposes the functional form is set to an 2nd order polynomial in x and y.
 
     xOrder =   [0, 1, 2, 0, 1, 2, 0, 1, 2]
     yOrder =   [0, 0, 0, 1, 1, 1, 2, 2, 2]
@@ -362,7 +362,7 @@ def generateStaticCalibs(outputDir):
     primaryhdu.header['INSTRUME'] = "METIS"
     hdul = fits.HDUList([primaryhdu,hdu])
     hdul.writeto(f"{outputDir}/LM_LSS_WAVE_GUESS.fits",overwrite=True)
-    
+
     #################### LSF_KERNEL ###################
 
     # creates a FITS file with an extension with the kernel for the line spread function,
@@ -373,7 +373,7 @@ def generateStaticCalibs(outputDir):
     primaryhdu.header['INSTRUME'] = "METIS"
     xPos = np.arange(0,100,0.5)
     yPos = np.arange(0,100,0.5)
-    
+
     c1 = fits.Column(name='pixel', array=xPos, format='e')
     c2 = fits.Column(name='intensity', array=yPos, format='e')
 
@@ -384,16 +384,16 @@ def generateStaticCalibs(outputDir):
     hdul = fits.HDUList([primaryhdu,hdu])
     hdul.writeto(f"{outputDir}/LSF_KERNEL.fits",overwrite=True)
 
-    
+
     #################### LASER_TAB ###################
 
-    # FITS file with an extension containing a table of laser frequencies for the WCU 
+    # FITS file with an extension containing a table of laser frequencies for the WCU
 
     primaryhdu = fits.PrimaryHDU()
     primaryhdu.header['HIERARCH ESO PRO CATG'] = "LASER_TAB"
     primaryhdu.header['INSTRUME'] = "METIS"
     freq = np.zeros((5))
-    
+
     c1 = fits.Column(name='frequency', array=freq, format='e')
 
     hdu = fits.BinTableHDU.from_columns([c1])
@@ -402,7 +402,7 @@ def generateStaticCalibs(outputDir):
     hdul = fits.HDUList([primaryhdu,hdu])
     hdul.writeto(f"{outputDir}/LASER_TAB.fits",overwrite=True)
 
-    
+
     #################### PINHOLE_TABLE ###################
 
     # FITS file with an extension containing a table of X,Y positions for the pinhole masks
@@ -412,7 +412,7 @@ def generateStaticCalibs(outputDir):
     primaryhdu.header['INSTRUME'] = "METIS"
     xPos = np.arange(0,100,0.5)
     yPos = np.arange(0,100,0.5)
-    
+
     c1 = fits.Column(name='x_pos', array=xPos, format='e')
     c2 = fits.Column(name='y_pos', array=yPos, format='e')
 
@@ -462,21 +462,21 @@ def generateStaticCalibs(outputDir):
     data = np.zeros((2048,2048))
     data = np.zeros((2048,2048))
     hdu1 = fits.ImageHDU(data, name="PERSISTENCE_MAP")
-    hdu1.header['EXTNAME'] = 'DET1.DATA' 
+    hdu1.header['EXTNAME'] = 'DET1.DATA'
     hdu2 = fits.ImageHDU(data, name="PERSISTENCE_MAP")
-    hdu2.header['EXTNAME'] = 'DET2.DATA' 
+    hdu2.header['EXTNAME'] = 'DET2.DATA'
     hdu3 = fits.ImageHDU(data, name="PERSISTENCE_MAP")
-    hdu3.header['EXTNAME'] = 'DET3.DATA' 
+    hdu3.header['EXTNAME'] = 'DET3.DATA'
     hdu4 = fits.ImageHDU(data, name="PERSISTENCE_MAP")
-    hdu4.header['EXTNAME'] = 'DET4.DATA' 
+    hdu4.header['EXTNAME'] = 'DET4.DATA'
     hdul = fits.HDUList([primaryhdu,hdu,hdu,hdu,hdu])
     hdul.writeto(f"{outputDir}/PERSISTENCE_MAP_IFU.fits",overwrite=True)
 
-    
+
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
-    
+
     parser.add_argument('--outDir', type=str,
                     help='output directory')
 
@@ -486,5 +486,5 @@ if __name__ == "__main__":
     else:
         outDir = "output"
 
-    
+
     generateStaticCalibs(outDir)

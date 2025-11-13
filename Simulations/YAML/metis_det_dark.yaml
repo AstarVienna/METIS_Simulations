@@ -1,7 +1,7 @@
 DARK_LM_RAW:
   do.catg: DARK_LM_RAW
   mode: "img_lm"
-  source: 
+  source:
     name: empty_sky
     kwargs: {}
   properties:
@@ -16,7 +16,7 @@ DARK_LM_RAW:
 DARK_N_RAW:
   do.catg: DARK_N_RAW
   mode: "img_n"
-  source: 
+  source:
     name: empty_sky
     kwargs: {}
   properties:

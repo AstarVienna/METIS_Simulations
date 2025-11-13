@@ -31,4 +31,3 @@ LM_LSS_SCI_SKY_RAW:
     type: "SKY"
     tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
     nObs: 1
-    

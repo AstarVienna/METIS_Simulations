@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
 
 """
-Script to generate SOF files from the templates, to add 
+Script to generate SOF files from the templates, to add
 the real file names.
 
-Note that as of Nov 15 2024, the Coronagraphic recipes have the same 
+Note that as of Nov 15 2024, the Coronagraphic recipes have the same
 format for input data as standard LM/N/IFU science imaging routines.
-Therefore the LM/N/IFU SCI imaging routines need a quick fix to 
-remove those data. 
+Therefore the LM/N/IFU SCI imaging routines need a quick fix to
+remove those data.
 
 The routine reads in the SOF templates from sofTemplates, and creates
-an identical list of files in sofFiles. 
+an identical list of files in sofFiles.
 
 """
 
@@ -31,7 +31,7 @@ for fNameIn in fList:
         aa = line.split()
         if("*" in aa[0]):
             infList = glob.glob(f"output/{aa[0]}")
-            
+
             for f in infList:
                 print(aa)
                 temp=f.replace("output","$SOF_DATA")
@@ -40,8 +40,8 @@ for fNameIn in fList:
             print(f'$SOF_DATA/{line.strip()}',file=ffOut)
     ffOut.close()
     ffIn.close()
-                
-            
-            
-    
-    
+
+
+
+
+

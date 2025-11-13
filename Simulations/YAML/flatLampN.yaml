@@ -1,7 +1,7 @@
 WCU_FLAT_N_RAW:
   do.catg: N_FLAT_LAMP_RAW
   mode: "wcu_img_n"
-  source: 
+  source:
     name: empty_sky
     kwargs: {}
   properties:

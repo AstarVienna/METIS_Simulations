@@ -32,4 +32,3 @@ N_LSS_STD_SKY_RAW:
     type: "SKY"
     tplname: "METIS_spec_n_cal_Standard"
     nObs: 1
-    

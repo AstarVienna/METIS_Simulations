@@ -31,4 +31,3 @@ N_IMAGE_SCI_SKY_RAW:
     type: "SKY"
     tplname: "METIS_img_n_obs_GenericChopNod"
     nObs: 1
-    

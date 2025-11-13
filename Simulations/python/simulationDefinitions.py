@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-Useful definitions used in the simulations. This file generally does not 
+Useful definitions used in the simulations. This file generally does not
 need to be edited by the user.
 
 """
@@ -37,7 +37,7 @@ validND = ["open","ND_OD1","ND_OD2","ND_OD3","ND_OD4","ND_OD5"]
 hciFilters = ["HCI_M","HCI_L_short","HCI_L_long","open","closed"]
 
 
-# keywords that must exist, either at the top level, or in properties  
+# keywords that must exist, either at the top level, or in properties
 
 topKey = ["do.catg","mode","properties"]
 propKey = ["dit","ndit","filter_name","catg","tech","type","nObs"]
@@ -185,7 +185,7 @@ LAMPFLATN = {
         "ndfilter_name": "open",
         "tplname":'METIS_img_n_det_flat',}}
 
-    
+
 SKYFLATLM = {
     "do.catg": "LM_FLAT_TWILIGHT_RAW",
     "mode": "img_lm",

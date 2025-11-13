@@ -20,7 +20,7 @@ for fName in fNames:
     hdul = fits.open(fName)
     dit = hdul[0].header['HIERARCH ESO DET DIT']
     ndit = hdul[0].header['HIERARCH ESO DET NDIT']
-    
+
     tech = hdul[0].header['HIERARCH ESO DPR TECH']
     catg = hdul[0].header['HIERARCH ESO DPR CATG']
     tipe = hdul[0].header['HIERARCH ESO DPR TYPE']
@@ -31,7 +31,7 @@ for fName in fNames:
     mask = hdul[0].header['*DRS MASK*']
 
     ins = hdul[0].header['*INS OPTI*']
-    
+
     fShort = os.path.basename(fName)
     line = ""
     line = f'{fShort}\t{dit}\t{ndit}\t{tech}\t{catg}\t{tipe}\t'
@@ -50,7 +50,7 @@ for fName in fNames:
     line=line+"\t"
 
 
-        
+
     for elem in ins:
         line = f'{line}{elem}={hdul[0].header[elem]},'
     line=f'{line[:-1]}\t'

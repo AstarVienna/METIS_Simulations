@@ -12,10 +12,9 @@ LM_CHOPHOME_RAW:
     dit: 10.
     ndit: 1
     filter_name: "open"
-    ndfilter_name: "open"    
+    ndfilter_name: "open"
     catg: "CALIB"
     tech: "IMAGE,LM"
     type: "CHOPHOME"
     tplname: "METIS_img_lm_cal_ChopperHome"
     nObs: 3
-    

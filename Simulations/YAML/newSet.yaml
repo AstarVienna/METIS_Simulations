@@ -5,7 +5,7 @@
 DETLIN_2RG_RAW1:
   do.catg: DETLIN_2RG_RAW
   mode: "wcu_img_lm"
-  source: 
+  source:
     name: empty_sky
     kwargs: {}
   properties:
@@ -24,11 +24,11 @@ DETLIN_2RG_RAW1:
     bb_temp: 1000
     is_temp: 320
     wcu_temp: 295
-    
+
 DETLIN_2RG_RAW2:
   do.catg: DETLIN_2RG_RAW
   mode: "wcu_img_lm"
-  source: 
+  source:
     name: empty_sky
     kwargs: {}
   properties:
@@ -51,7 +51,7 @@ DETLIN_2RG_RAW2:
 DETLIN_2RG_RAW3:
   do.catg: DETLIN_2RG_RAW
   mode: "wcu_img_lm"
-  source: 
+  source:
     name: empty_sky
     kwargs: {}
   properties:
@@ -74,7 +74,7 @@ DETLIN_2RG_RAW3:
 DETLIN_2RG_RAW4:
   do.catg: DETLIN_2RG_RAW
   mode: "wcu_img_lm"
-  source: 
+  source:
     name: empty_sky
     kwargs: {}
   properties:
@@ -97,7 +97,7 @@ DETLIN_2RG_RAW4:
 DETLIN_2RG_RAW5:
   do.catg: DETLIN_2RG_RAW
   mode: "wcu_img_lm"
-  source: 
+  source:
     name: empty_sky
     kwargs: {}
   properties:
@@ -248,7 +248,7 @@ LM_CHOPHOME_RAW:
     bb_temp: 1000
     is_temp: 320
     wcu_temp: 295
- 
+
 ##################### LM SCIENCE IMAGE - field of stars + sky ######################
 ##STAR FIELD
 ##TWO sky images, with the same field offset slightly between images, constant background

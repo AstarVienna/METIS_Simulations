@@ -13,12 +13,12 @@ def runSimulationBlock(yamlFiles, params):
         params['inputYAML'] = yamlFile
 
         # instantiate a simulation set and assign the general parameters
-    
+
         simulationSet = ss.setupSimulations()
         simulationSet.params = params
 
         # load the YAML file
-        
+
         simulationSet.loadYAML()
 
         # get the start date
@@ -34,7 +34,7 @@ def runSimulationBlock(yamlFiles, params):
         params['startMJD'] = simulationSet.endDate.strftime('%Y-%m-%d %H:%M:%S')
 
         # and a running tally of the parameters for darks and flats
-        
+
         if(params['doCalib'] > 0):
             simulationSet.calculateCalibs()
             allDarks = allDarks + simulationSet.darkParms

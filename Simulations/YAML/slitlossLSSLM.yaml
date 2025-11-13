@@ -7,7 +7,7 @@ LM_SLITLOSSES_RAW1:
     kwargs:
       amplitude: 10
       x: 0
-      y: -0.025   
+      y: -0.025
   properties:
     dit: 0.25
     ndit: 1

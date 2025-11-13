@@ -18,4 +18,3 @@ N_PUPIL_RAW:
     type: "PUPIL"
     tplname: "METIS_pup_n"
     nObs: 1
-    
