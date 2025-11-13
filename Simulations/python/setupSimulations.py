@@ -372,7 +372,7 @@ class setupSimulations():
                 allArgs.append((self.fname,recipe,self.params["small"]))
 
                 # if the observation is WCU, add a WCU frame to the image, as WCU darks are part of the
-                # same template \TODO set to > 1 if desired
+                # same template # TODO set to > 1 if desired
 
                 if(recipe["wcu"] is not None):
                     recipeDark = self.copyRecipe("wcuOff",recipe['properties']['tech'])
@@ -450,12 +450,12 @@ class setupSimulations():
         and DET.DIT and .NDIT are set in ScopeSim
 
         We use the TECH to get INS.MODE
-        Sets the DRS.SLIT to the default value for now (will fix later)\TODO
+        Sets the DRS.SLIT to the default value for now (will fix later) # TODO
         Sets INS.OPTI*.NAME to the filter, slit as indicated by the TECH, FILTER and SLIT keyword
 
         For HCI / Coronagraph modes, we set the TECH keyword to a non valid value in Scopesim,
         and use that to set the DRS.MASK, correct DPR.TECH, and INS.OPTI*.NAME values. This is kludgy,
-        and will be fixed later. \TODO
+        and will be fixed later. # TODO
 
         We check the TYPE keyword for LASER Sources.
 
