@@ -3,21 +3,23 @@
 
 """Class to run a set of simulations in Scopesim, based on an input YAML file"""
 
-from pathlib import Path
-import yaml
 import argparse
-import simulationDefinitions as sd
 import json
-from raw_script import simulate
-from astropy.time import Time, TimeDelta
-from itertools import product
-from astar_utils import NestedMapping
-from datetime import datetime
+import yaml
 import numpy as np
+
+import simulationDefinitions as sd
+
+from pathlib import Path
+from astropy.time import Time, TimeDelta
 from astropy.io import fits
-import astropy
-import copy
-from multiprocessing import Pool,Process,Manager,cpu_count
+from multiprocessing import Pool, cpu_count
+from itertools import product
+from datetime import datetime
+
+from raw_script import simulate
+from astar_utils import NestedMapping
+
 
 class runRecipes():
 
@@ -41,10 +43,13 @@ class runRecipes():
 
         params = {}
 
-        parser.add_argument('-i', '--inputYAML', type=str,
+        parser.add_argument('-i', '--inputYAML',
+                            type=str,
                             help='input YAML File')
+
         parser.add_argument('-o', '--outputDir', type=str,
                             help='output directory')
+
         parser.add_argument('-s', '--small', action = "store_true",
                             default=False,
                             help=('use detectors of 32x32 pixels; ' +
@@ -52,9 +57,10 @@ class runRecipes():
 
         parser.add_argument('-e', '--doStatic', action = "store_true",
                             default=False,
-                            help=('Generate prototypes for static/external calibration files'))
+                            help='Generate prototypes for static/external calibration files')
 
-        parser.add_argument('-c', '--catg', type=str,
+        parser.add_argument('-c', '--catg',
+                            type=str,
                             help='comma-separated list of selected output file categories')
         parser.add_argument('--doCalib', type=int,
                             default=0, help='automatically generate darks and flats for the dataset. Will generate N of each type')
@@ -122,12 +128,14 @@ class runRecipes():
 
         print(f"Starting Simulations")
         print(f"   input YAML = {params['inputYAML']}, output directory =  {params['outputDir']}")
-        if(params['startMJD'] is not None):
+
+        if params['startMJD'] is not None:
             print(f"  observation sequence starting at {params['startMJD']}")
-        elif(params['sequence']):
+        elif params['sequence']:
             print(f"  Observation sequence will start from first date in YAML file")
         else:
             print(f"  Observation dates will be taken from YAML file if given")
+
         print(f"  Automatically generated darks and flats {params['doCalib']}")
         print(f"  Small output option {params['small']}")
         print(f"  Generate External Calibs {params['doCalib']}")

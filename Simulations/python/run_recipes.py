@@ -13,13 +13,12 @@ import makeCalibPrototypes
 
 def runRecipes(argv):
 
-    simulationSet = rr.setupSimulations()
+    simulationSet = rr.Simulation()
 
     #simulationSet.setParms(inputYAML = None) \TODO - set parameters directly rather than commandline
 
     # get the command line arguments
 
-    simulationSet.parseCommandLine(argv[1:])
     # read in the YAML
     simulationSet.loadYAML()
     simulationSet.getStartDate()

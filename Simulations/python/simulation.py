@@ -17,10 +17,9 @@ separate template.
 This class is generally executed via the command line wrapper
 runTemplates.py
 """
-
+import pprint
 from pathlib import Path
 from astropy.time import Time, TimeDelta
-from itertools import product
 from datetime import datetime
 from multiprocessing import Pool,Process,Manager,cpu_count
 from astropy.io import fits
@@ -29,17 +28,16 @@ import numpy as np
 import yaml
 import argparse
 import json
-import astropy
-import copy
-import sys
 
-import simulationDefinitions as sd
 from scopesimWrapper import simulate
 
-class setupSimulations():
+
+class Simulation:
+    """
+    Wrapper for the entire simulation
+    """
 
     def __init__(self):
-
         self.calibSet = None
         self.tObs = None
         self.firstIt = True
@@ -48,10 +46,62 @@ class setupSimulations():
         self.allmjd = []
 
         with Path("python/templates.yaml").open(encoding="utf-8") as file:
-            self.templates =  yaml.safe_load(file)
+            self.templates = yaml.safe_load(file)
+
+        self.parser = argparse.ArgumentParser(description="Run METIS simulations")
+
+        self.parser.add_argument('-i', '--inputYAML',
+                                 type=str,
+                                 help='input YAML File')
+
+        self.parser.add_argument('-o', '--outputDir',
+                                 type=str,
+                                 default="output/",
+                                 help='output directory')
+
+        self.parser.add_argument('-s', '--small',
+                                 action="store_true",
+                                 default=False,
+                                 help='use detectors of 32×32 pixels; for running in the continuous integration')
+
+        self.parser.add_argument('-e', '--doStatic',
+                                 action="store_true",
+                                 default=False,
+                                 help='Generate prototypes for static/external calibration files')
+
+        self.parser.add_argument('-d', '--doCalib',
+                                 type=int,
+                                 default=0,
+                                 help="automatically generate darks and flats for the dataset. "
+                                      "Will generate N of each type")
+
+        # expects either 1 or a date stamp
+        self.parser.add_argument('-q', '--sequence',
+                                 type=str,
+                                 default=False,
+                                 help="options for generating timestamps. Set to a date in the form "
+                                      "yyyy-mm-dd hh:mm:ss to start from a specific date, "
+                                      "or 1 to use the first dateobs in the YAML file.")
+
+        # if set, option to true
+        self.parser.add_argument('-t', '--testRun',
+                                 action="store_true",
+                                 help='run the script without executing simulate to check input')
+
+        self.parser.add_argument('-f', '--calibFile',
+                                 type=str,
+                                 default=None,
+                                 help='File to dump calibration file YAML to')
+
+        self.parser.add_argument('-n', '--nCores',
+                                 type=int,
+                                 default=1,
+                                 help='number of cores for parallel processing')
+
+        self.parseCommandLine()
 
 
-    def parseCommandLine(self,args):
+    def parseCommandLine(self):
 
         """
         parse the command line
@@ -61,53 +111,13 @@ class setupSimulations():
         Returns a dictionary of command line options
         """
 
-
-        parser = argparse.ArgumentParser()
-
-        parser.add_argument('-i', '--inputYAML', type=str,
-                            help='input YAML File')
-
-        parser.add_argument('-o', '--outputDir', type=str,
-                            default = "output/",
-                            help='output directory')
-
-        parser.add_argument('-s', '--small', action = "store_true",
-                            default=False,
-                            help=('use detectors of 32x32 pixels; ' +
-                                  'for running in the continuous integration'))
-
-        parser.add_argument('-e', '--doStatic', action = "store_true",
-                            default=False,
-                            help=('Generate prototypes for static/external calibration files'))
-
-        parser.add_argument('-d', '--doCalib', type=int,
-                            default=0,
-                            help='automatically generate darks and flats for the dataset. Will generate N of each type')
-
-        # expects either 1 or a date stamp
-        parser.add_argument('-q', '--sequence', type=str,
-                            default=False,
-                            help='options for generating timestamps. Set to a date in the form yyyy-mm-dd hh:mm:ss to start from a specific date, or 1 to use the first dateobs in the YAML file.')
-
-        # if set, option to true
-        parser.add_argument('-t', '--testRun', action="store_true",
-                            help='run the script without executing simulate to check input')
-
-        parser.add_argument('-f', '--calibFile', type=str,
-                            default = None,
-                            help='File to dump calibration file YAML to')
-
-        parser.add_argument('-n', '--nCores', type=int,
-                            default = 1,
-                            help='number of cores for parallel processing')
-
-        inArgs = parser.parse_args(args)
+        inArgs = self.parser.parse_args()
         params = vars(inArgs)
 
-        if(params['sequence'] == "1"):
+        if params['sequence'] == "1":
             params['startMJD'] = None
             params['sequence'] = True
-        elif(params['sequence'] == False):
+        elif params['sequence'] == False:
              params['sequence'] = False
              params['startMJD'] = None
         else:
@@ -115,6 +125,10 @@ class setupSimulations():
              params['sequence'] = True
 
         self.params = params
+
+        self.cores = max(min(self.params['nCores'], cpu_count() - 1), 1)
+
+        print(f"Will run the simulation with {self.cores} cores")
 
     def loadYAML(self):
 
@@ -127,13 +141,13 @@ class setupSimulations():
 
         print(f"Recipes loaded from {self.params['inputYAML']}")
 
-    def loadRecipe(self,fname):
+    def loadRecipe(self, fname: Path):
 
         """
         read in a YAML file of recipe templates for darks/flats
         """
 
-        with Path(fName).open(encoding="utf-8") as file:
+        with Path(fname).open(encoding="utf-8") as file:
             recipe =  yaml.safe_load(file)
 
         return recipe
@@ -206,7 +220,7 @@ class setupSimulations():
             assert len(dit) == 1, f"{dit=} is a list"
             dit = dit[0]
 
-        self.tDelt =  TimeDelta(float(dit)*recipe['properties']['ndit']*1.2+1, format='sec')
+        self.tDelt = TimeDelta(float(dit)*recipe['properties']['ndit']*1.2+1, format='sec')
         recipe["properties"]["dateobs"] = self.tObs.tt.datetime
         recipe["properties"]["MJD-OBS"] = self.tObs.mjd
         recipe["properties"]["tplexpno"] = self.tplExpno
@@ -244,11 +258,11 @@ class setupSimulations():
                 recipe = self.copyRecipe(tpe,elem[2])
 
                 # check if recipe was copied successfully
-                if(recipe is None):
+                if recipe is None:
                     print(f"Warning: no flat recipe defined for template {tpe} and band {elem[2]}")
                     continue
 
-                if("wcu" not in recipe.keys()):
+                if "wcu" not in recipe.keys():
                     recipe["wcu"] = None
 
                 recipe["properties"]["tplstart"] = tplStart
@@ -265,16 +279,15 @@ class setupSimulations():
                 simulate(self.fname, recipe, small=self.params['small'])
         # now actually run
         #if(not self.params['testRun']):
-        #    nCores = max(min(self.params['nCores'], cpu_count() - 1), 1)
         #
-        #    with Pool(nCores) as pool:
+        #    with Pool(self.cores) as pool:
         #        pool.starmap(simulate, allArgs)
         #        #simulate(fname, recipe, small=self.params['small'])
         #        pool.close()
         #        pool.join()
 
 
-    def calculateDarks(self,darkParams):
+    def calculateDarks(self, darkParams):
 
         # do a separate template for each set of parameters
 
@@ -286,7 +299,7 @@ class setupSimulations():
             for i in range(self.params['doCalib']):
                 recipe = self.copyRecipe("dark",elem[2])
                 # check if recipe was copied successfully
-                if(recipe is None):
+                if recipe is None:
                     print(f"Warning: no dark recipe defined for band {elem[2]}")
                     continue
 
@@ -306,11 +319,11 @@ class setupSimulations():
 
         self.endDate = self.tObs.tt.datetime.replace(microsecond=0)
         # now actually run
-        if(not self.params['testRun']):
-            # Always keep one core free.
-            nCores = max(min(self.params['nCores'], cpu_count() - 1), 1)
 
-            with Pool(nCores) as pool:
+        if not self.params['testRun']:
+            # Always keep one core free.
+
+            with Pool(self.cores) as pool:
                 pool.starmap(simulate, allArgs)
                 #simulate(fname, recipe, small=self.params['small'])
                 pool.close()
@@ -339,7 +352,7 @@ class setupSimulations():
         for name, recipe in allrcps.items():
             # get the mode and the prefix for the title
 
-            print(recipe)
+            print(f"Recipe: {pprint.pformat(recipe)}")
             mode = recipe["mode"]
             prefix = recipe["do.catg"]
             nObs = recipe["properties"]["nObs"]
@@ -514,7 +527,7 @@ class setupSimulations():
                 #hdul[0].header['HIERARCH ESO INS OPTI13 NAME'] = filt
 
             #IFU
-            if(tech == "LMS"):
+            if tech == "LMS":
                 hdul[0].header['HIERARCH ESO INS MODE'] = "IFU_nominal"
                 #hdul[0].header['HIERARCH ESO INS OPTI6 NAME'] = filt
                 hdul[0].header['HIERARCH ESO DRS IFU'] = filt

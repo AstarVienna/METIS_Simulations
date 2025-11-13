@@ -4,6 +4,8 @@ An example of running an observation block
 """
 
 import runSimulationBlock as rs
+
+
 if __name__ == '__main__':
 
     params = {}
@@ -17,7 +19,12 @@ if __name__ == '__main__':
     params['nCores'] = 8
     params['testRun'] = False
     
-    yamlFiles = ["YAML/scienceLM.yaml","YAML/stdLM.yaml","YAML/distortionLM.yaml","YAML/detlinLM.yaml"]
+    yamlFiles = [
+        "YAML/scienceLM.yaml",
+        "YAML/stdLM.yaml",
+        "YAML/distortionLM.yaml",
+        "YAML/detlinLM.yaml",
+    ]
     
     rs.runSimulationBlock(yamlFiles,params)
 

@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 
-import setupSimulations as ss
+from simulation import Simulation
 import makeCalibPrototypes as mcp
+
 
 def runSimulationBlock(yamlFiles, params):
 
@@ -14,7 +15,7 @@ def runSimulationBlock(yamlFiles, params):
 
         # instantiate a simulation set and assign the general parameters
 
-        simulationSet = ss.setupSimulations()
+        simulationSet = Simulation()
         simulationSet.params = params
 
         # load the YAML file
