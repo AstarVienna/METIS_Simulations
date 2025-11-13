@@ -377,9 +377,12 @@ class setupSimulations():
                 if(recipe["wcu"] is not None):
                     recipeDark = self.copyRecipe("wcuOff",recipe['properties']['tech'])
                     if(recipeDark is not None):
-                        recipe["properties"]["tplstart"] = self.tplStart
+                        recipeDark["properties"]["tplstart"] = self.tplStart
+                        recipeDark["properties"]["tplstart"] = recipe["properties"]["tplname"]
                         recipeDark["properties"]["dit"] = recipe["properties"]["dit"] 
                         recipeDark["properties"]["ndit"] = recipe["properties"]["ndit"] 
+                        recipeDark["properties"]["ndfilter_name"] = recipe["properties"]["ndfilter_name"] 
+                        recipeDark["properties"]["filter_name"] = recipe["properties"]["filter_name"] 
                         recipeDark = self.increment(recipeDark)
                         
                         self.allFileNames.append(self.fname)
@@ -476,7 +479,12 @@ class setupSimulations():
                         print(f"Lower case keyword found and removed: {k}")
                         hdu.header.pop(k)
 
-            
+
+            # fix for the occasional keyword that gets written as boolean not string
+            for elem in hdul[0].header:
+                if("OPTI" in elem and "NAME" in elem):
+                    if isinstance(hdul[0].header[elem], bool):
+                        hdul[0].header[elem] = str(hdul[0].header[elem])
             hdul[0].header['MJD-OBS'] = mjd
             
             #if type(hdul[0].header['MJD-OBS']) == str:
