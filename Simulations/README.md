@@ -63,7 +63,8 @@ how many of each type to generate. The sequence takes the observation time of th
 
 ## Running a "Simulation Block"
 
-There is a YAML parameter file for each observing template. A "simulation block" is by running a set of individual observing templates.
+There is a YAML parameter file for each observing template. A "simulation block" is created by running a set of individual observing templates, creating a set of data files which can be used to run / test a specific recipe or workflow. There are analogous to an observing block, but are designed to be self contained (i.e., including raw data for all calibrations needed for the recipe, and all static calibration files). 
+
 An example is the file imgLM.py, which generates all files needed to run the LM workflow.
 
 ```
@@ -112,7 +113,7 @@ outputDir = output/
 small = False
 ```
 
-   generate small images with correct headers, useful for skeleton testing
+   generate small images with correct headers, only useful for github CI tests. 
 
 ```
 testRun = False
@@ -124,10 +125,10 @@ testRun = False
 nCores = 8
 ```
 
-Number of cores to use
+Number of cores to use. The code will check and will always use at least one core, and at most 1 core less than the number of cores on the machine. 
 
 ```
-doStatid = True
+doStatic = True
 ```
 Generated static calibration files. 
 
@@ -149,7 +150,7 @@ write output to file outfile.csv, default is summary.csv
 
 # Simulated Data Summary
 
-Running the versions of the command listed at the top of this document generates a minimal set of input test files for skeleton pipeline development, i.e. one each of any file needed for input to a recipes as specified in Chapter 6 of the DRLD.  Each file has the correct dimensions, plus ESO compliant keywords as required for developing the EDPS skeleton, specifically the matched keywords and derived aliases, as well as the standard FITS keywords provided by ScopeSim. 
+Running the versions of the command listed at the top of this document generates a minimal set of input test files for skeleton pipeline development, i.e. one each of any file needed for input to a recipes as specified in Chapter 6 of the DRLD.  Each file has the correct dimensions, plus ESO compliant keywords as required for developing the EDPS skeleton, specifically the matched keywords and derived aliases, as well as the standard FITS keywords provided by ScopeSim. Pixel contents will be gradually improved as needed for development. 
 
 ## Included Keywords
 
