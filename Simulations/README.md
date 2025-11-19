@@ -206,7 +206,7 @@ due to recipes that handle more than one type of input data that is used as inpu
 
 # Output FITS Files
 
-A summary spreadsheet of the files can be found [here].(https://docs.google.com/spreadsheets/d/1WW2CTb9ZTmTsDVCFfH5E_shXY9rRbVToDdXYt0VA-_4/edit?usp=sharing)
+A summary spreadsheet of the files can be found [here].(https://docs.google.com/spreadsheets/d/1c3ZUPNvQABXUE0t7kPDcPpR9DdnWx3Wyi5L9uEWwvAo/edit?gid=3310887#gid=3310887)
 
 The set of simulations is as follows
 
