@@ -8,7 +8,7 @@ WCU_FLAT_LM_RAW:
     filter_name: "open"
     ndfilter_name: "open"
     catg: "CALIB"
-    tech: "LM"
+    tech: "IMAGE,LM"
     type: "FLAT,LAMP"
     tplname: "METIS_img_lm_det_flat"
     dit: 1
