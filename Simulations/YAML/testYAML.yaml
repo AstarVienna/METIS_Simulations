@@ -611,7 +611,7 @@ IFU_WCU_OFF_RAW:
         tplname: "METIS_lms_det_dark"
         nObs: 1
         dit: 1.
-        ndit: 1.
+        ndit: 1
   wcu:
         current_lamp: "bb"
         current_fpmask: "open"
@@ -637,7 +637,7 @@ LM_WCU_OFF_RAW:
         tplname: "METIS_lm_det_dark"
         nObs: 1
         dit: 1.
-        ndit: 1.
+        ndit: 1
   wcu:
         current_lamp: "bb"
         current_fpmask: "open"
@@ -663,7 +663,7 @@ N_WCU_OFF_RAW:
         tplname: "METIS_n_det_dark"
         nObs: 1
         dit: 1.
-        ndit: 1.
+        ndit: 1
   wcu:
         current_lamp: "bb"
         current_fpmask: "open"
