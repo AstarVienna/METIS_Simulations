@@ -9,7 +9,7 @@ jobs:
   run:
     runs-on: [self-hosted, Linux, simulation, zeus]
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Install Python 3.12 on Fedora (if missing)
         run: |
