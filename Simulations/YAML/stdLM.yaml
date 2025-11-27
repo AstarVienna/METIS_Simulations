@@ -4,7 +4,7 @@ LM_IMAGE_STD_RAW:
   source:
     name: calib_star
     kwargs:
-      amplitude: 12
+      amplitude: 10
   properties:
     dit: 0.25
     ndit: 1
@@ -14,7 +14,7 @@ LM_IMAGE_STD_RAW:
     tech: "IMAGE,LM"
     type: "STD"
     tplname: "METIS_img_lm_cal_standard"
-    nObs: 1
+    nObs: 3
 
 LM_IMAGE_STD_SKY_RAW:
   do.catg: LM_IMAGE_SKY_RAW
@@ -31,5 +31,5 @@ LM_IMAGE_STD_SKY_RAW:
     tech: "IMAGE,LM"
     type: "SKY"
     tplname: "METIS_img_lm_cal_standard"
-    nObs: 1
+    nObs: 3
 

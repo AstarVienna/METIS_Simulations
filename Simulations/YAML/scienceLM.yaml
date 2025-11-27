@@ -13,7 +13,7 @@ LM_IMAGE_SCI_RAW:
     tech: "IMAGE,LM"
     type: "OBJECT"
     tplname: "METIS_img_lm_obs_GenericOffset"
-    nObs: 1
+    nObs: 3
 
 LM_IMAGE_SCI_SKY_RAW:
   do.catg: LM_IMAGE_SKY_RAW
@@ -30,5 +30,5 @@ LM_IMAGE_SCI_SKY_RAW:
     tech: "IMAGE,LM"
     type: "SKY"
     tplname: "METIS_img_lm_obs_GenericOffset"
-    nObs: 1
+    nObs: 3
 

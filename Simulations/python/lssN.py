@@ -18,7 +18,7 @@ if __name__ == "__main__":
     params['nCores'] = 8
     params['testRun'] = False
 
-    yamlFiles = ["YAML/scienceLSSN.yaml","YAML/stdLSSN.yaml","YAML/detlinN.yaml","YAML/distortionN.yaml","YAML/rsrfLSSN.yaml","YAML/rsrfPinhLSSN.yaml","YAML/wavecalLSSN.yaml"]
+    yamlFiles = ["YAML/scienceLSSN.yaml","YAML/stdLSSN.yaml","YAML/detlinN.yaml","YAML/distortionN.yaml","YAML/rsrfLSSN.yaml","YAML/rsrfPinhLSSN.yaml","YAML/wavecalLSSN.yaml","YAML/slitlossLSSN.yaml"]
 
     rsb.runSimulationBlock(yamlFiles,params)
 
