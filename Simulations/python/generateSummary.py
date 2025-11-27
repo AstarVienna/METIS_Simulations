@@ -7,14 +7,14 @@ import glob
 import os
 import argparse
 
-def generateSummary(fnames,outFileName):
+def generateSummary(fNames,outFileName):
 
     # get the fits files in the directory
     outFile = open(outFileName,"w")
 
     #header line
     
-    line = "\Block\tFile\tDIT\tNDIT\tTech\tCATG\tTYPE\tINS.MODE\tTPL.NAME\tTPL.START\tTPL.EXPNO\tDRS.SLIT\tDRS.FILTER\tDRS.IFU\tDRS.MASK."
+    line = "Block\tFile\tDIT\tNDIT\tTech\tCATG\tTYPE\tINS.MODE\tTPL.NAME\tTPL.START\tTPL.EXPNO\tDRS.SLIT\tDRS.FILTER\tDRS.IFU\tDRS.MASK."
     print(line,file=outFile)
 
     
@@ -48,12 +48,12 @@ def generateSummary(fnames,outFileName):
         #get the fine name w/o pasth
         
         fShort = fName.split("/")[1]
-        block = fName.split("/")[0]
+        block = fName.split("/")[2]
         
 
         # assemble the output line, tab separated
         
-        line = f'{block}\t{fShort}\t{dit}\t{ndit}\t{tech}\t{catg}\t{tipe}\t{mode}\t{tpl}\t{tplStart}\t{tplExpno}'
+        line = f'{fShort}\t{block}\t{dit}\t{ndit}\t{tech}\t{catg}\t{tipe}\t{mode}\t{tpl}\t{tplStart}\t{tplExpno}'
 
         # single value, or empty
         for elem in slit:
@@ -108,12 +108,12 @@ if __name__ == "__main__":
 
     fNames = []
     for dirName in inDir:
-        temp = glob.glob(os.path.join(dirName,"METIS*.fits"))
+        temp = glob.glob(os.path.join(f"output/{dirName}","METIS*.fits"))
         fNames = fNames + temp
 
     # sort for tidier output
     fNames.sort()
-
+    print("AA",inDir)
     generateSummary(fNames,outFile)
     
  

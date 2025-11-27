@@ -10,7 +10,7 @@ if __name__ == '__main__':
 	params['outputDir'] = "output/imgLM"
 	params['small'] = False
 	params['doStatic'] = True
-	params['doCalib'] = 2
+	params['doCalib'] = 3
 	params['sequence'] = True
 	params['startMJD'] =  "2027-01-25 00:00:00"
 	params['calibFile'] = None

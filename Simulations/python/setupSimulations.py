@@ -436,6 +436,8 @@ class setupSimulations():
             else:
                 darkParms.append((props['dit'],props['ndit'],props['tech']))
             flatParms.append((props['filter_name'],props['ndfilter_name'],props['tech']))
+
+            
                              
         self.darkParms = darkParms
         self.flatParms = flatParms
@@ -485,6 +487,10 @@ class setupSimulations():
                 if("OPTI" in elem and "NAME" in elem):
                     if isinstance(hdul[0].header[elem], bool):
                         hdul[0].header[elem] = str(hdul[0].header[elem])
+                if("CUBE MODE" in elem):
+                    if isinstance(hdul[0].header[elem], bool):
+                        hdul[0].header[elem] = str(hdul[0].header[elem])
+                
             hdul[0].header['MJD-OBS'] = mjd
             
             #if type(hdul[0].header['MJD-OBS']) == str:
