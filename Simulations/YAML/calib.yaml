@@ -58,7 +58,7 @@ LM_CHOPHOME_RAW:
       filter_curve: "V"
       extend: 15
   properties:
-    dit: 10
+    dit: 10.
     ndit: 1
     filter_name: "open"
     catg: "CALIB"
@@ -78,7 +78,7 @@ LM_PUPIL_RAW:
       filter_curve: "V"
       extend: 15
   properties:
-    dit: 10
+    dit: 10.
     ndit: 1
     filter_name: "open"
     catg: "TECHNICAL"
@@ -98,7 +98,7 @@ N_PUPIL_RAW:
       filter_curve: "V"
       extend: 15
   properties:
-    dit: 10
+    dit: 10.
     ndit: 1
     filter_name: "open"
     catg: "TECHNICAL"
