@@ -37,7 +37,7 @@ N_DISTORTION_RAW:
     name: empty_sky
     kwargs: {}
   properties:
-    dit: 10
+    dit: 10.
     ndit: 20
     filter_name: "open"
     nd_filter_name: "open"

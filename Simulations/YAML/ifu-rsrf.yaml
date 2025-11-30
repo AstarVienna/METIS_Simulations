@@ -8,7 +8,7 @@ IFU_RSRF_RAW1:
     name: empty_sky
     kwargs: {}
   properties:
-    dit: 10
+    dit: 10.
     ndit: 20
     wavelen: 3.555
     filter_name: "open"
@@ -36,7 +36,7 @@ IFU_RSRF_RAW2:
     name: empty_sky
     kwargs: {}
   properties:
-    dit: 10
+    dit: 10.
     ndit: 20
     wavelen: 3.555
     filter_name: "open"
@@ -65,7 +65,7 @@ IFU_WCU_OFF1:
     name: empty_sky
     kwargs: {}
   properties:
-    dit: 10
+    dit: 10.
     ndit: 20
     wavelen: 3.555
     filter_name: "open"
@@ -91,7 +91,7 @@ IFU_SKY_RAW1:
     name: empty_sky
     kwargs: {}
   properties:
-    dit: 100
+    dit: 100.
     ndit: 3
     filter_name: "open"
     wavelen: "3.555"

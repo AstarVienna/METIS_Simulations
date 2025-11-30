@@ -11,7 +11,7 @@ WCU_FLAT_N_RAW:
     tech: "IMAGE,N"
     type: "FLAT,LAMP"
     tplname: "METIS_img_n_det_flat"
-    dit: 1
+    dit: 1.
     ndit: 1
   wcu:
     current_lamp: "bb"

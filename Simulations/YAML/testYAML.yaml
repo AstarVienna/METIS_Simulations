@@ -179,7 +179,7 @@ WCU_FLAT_LM_RAW:
     tech: "IMAGE,LM"
     type: "FLAT,LAMP"
     tplname: "METIS_img_lm_det_flat"
-    dit: 1
+    dit: 1.
     ndit: 1
     nObs: 1
   wcu:
@@ -203,7 +203,7 @@ WCU_FLAT_N_RAW:
     tech: "IMAGE,N"
     type: "FLAT,LAMP"
     tplname: "METIS_img_n_det_flat"
-    dit: 1
+    dit: 1.
     ndit: 1
     nObs: 1
   wcu:
@@ -383,7 +383,7 @@ PERSISTENCE_MAP_LM:
     name: empty_sky
     kwargs: {}
   properties: 
-    dit: 1
+    dit: 1.
     ndit: 1
     filter_name: "closed"
     ndfilter_name: "open"
@@ -399,7 +399,7 @@ PERSISTENCE_MAP_N:
     name: empty_sky
     kwargs: {}
   properties: 
-    dit: 1
+    dit: 1.
     ndit: 1
     filter_name: "closed"
     ndfilter_name: "open"
@@ -787,7 +787,7 @@ PERSISTENCE_MAP_IFU:
     name: empty_sky
     kwargs: {}
   properties: 
-    dit: 1
+    dit: 1.
     ndit: 1
     filter_name: "closed"
     ndfilter_name: "open"
@@ -831,7 +831,7 @@ IFU_RSRF_PINH_RAW1:
     name: empty_sky
     kwargs: {}
   properties:
-    dit: 10
+    dit: 10.
     ndit: 20
     wavelen: 3.555
     filter_name: "open"

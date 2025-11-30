@@ -8,7 +8,7 @@ PERSISTENCE_MAP_LM:
     name: empty_sky
     kwargs: {}
   properties: 
-    dit: 1
+    dit: 1.
     ndit: 1
     filter_name: "closed"
     catg: "CALIB"
@@ -23,7 +23,7 @@ PERSISTENCE_MAP_N:
     name: empty_sky
     kwargs: {}
   properties: 
-    dit: 1
+    dit: 1.
     ndit: 1
     filter_name: "closed"
     catg: "CALIB"
@@ -38,7 +38,7 @@ PERSISTENCE_MAP_IFU:
     name: empty_sky
     kwargs: {}
   properties: 
-    dit: 1
+    dit: 1.
     ndit: 1
     filter_name: "closed"
     catg: "CALIB"
@@ -84,7 +84,7 @@ LM_DISTORTION_RAW:
     name: empty_sky
     kwargs: {}
   properties:
-    dit: 10
+    dit: 10.
     ndit: 20
     wavelen: 3.555
     filter_name: "open"
@@ -218,7 +218,7 @@ N_DISTORTION_RAW:
     name: empty_sky
     kwargs: {}
   properties:
-    dit: 10
+    dit: 10.
     ndit: 20
     filter_name: "open"
     nd_filter_name: "open"
@@ -796,7 +796,7 @@ IFU_STD_RAW:
     kwargs:
       amplitude: 8
   properties:
-    dit: 100
+    dit: 100.
     ndit: 3
     filter_name: "open"
     wavelen: "3.555"
@@ -819,7 +819,7 @@ IFU_STD_SKY_RAW:
     name: empty_sky
     kwargs: {}
   properties:
-    dit: 100
+    dit: 100.
     ndit: 3
     filter_name: "open"
     wavelen: "3.555"
@@ -839,7 +839,7 @@ IFU_RSRF_RAW1:
     name: empty_sky
     kwargs: {}
   properties:
-    dit: 10
+    dit: 10.
     ndit: 20
     wavelen: 3.555
     filter_name: "open"
@@ -867,7 +867,7 @@ IFU_RSRF_RAW2:
     name: empty_sky
     kwargs: {}
   properties:
-    dit: 10
+    dit: 10.
     ndit: 20
     wavelen: 3.555
     filter_name: "open"
@@ -896,7 +896,7 @@ IFU_WCU_OFF1:
     name: empty_sky
     kwargs: {}
   properties:
-    dit: 10
+    dit: 10.
     ndit: 20
     wavelen: 3.555
     filter_name: "open"
@@ -922,7 +922,7 @@ IFU_SKY_RAW1:
     name: empty_sky
     kwargs: {}
   properties:
-    dit: 100
+    dit: 100.
     ndit: 3
     filter_name: "open"
     wavelen: "3.555"
@@ -983,7 +983,7 @@ IFU_OFF_AXIS_PSF_RAW:
     kwargs:
       amplitude: 8
   properties:
-    dit: 100
+    dit: 100.
     ndit: 3
     filter_name: "open"
     wavelen: "3.555"
@@ -1072,7 +1072,7 @@ IFU_SCI_CORONAGRAPH_RAW1:
     kwargs:
       amplitude: 8
   properties:
-    dit: 100
+    dit: 100.
     ndit: 3
     filter_name: "open"
     wavelen: "3.555"
@@ -1089,7 +1089,7 @@ IFU_SCI_CORONAGRAPH_RAW2:
     name: empty_sky
     kwargs: {}
   properties:
-    dit: 100
+    dit: 100.
     ndit: 3
     filter_name: "open"
     wavelen: "3.555"
@@ -1159,7 +1159,7 @@ LM_CHOPHOME_RAW:
       filter_curve: "V"
       extend: 15
   properties:
-    dit: 10
+    dit: 10.
     ndit: 1
     filter_name: "open"
     catg: "CALIB"
@@ -1179,7 +1179,7 @@ LM_PUPIL_RAW:
       filter_curve: "V"
       extend: 15
   properties:
-    dit: 10
+    dit: 10.
     ndit: 1
     filter_name: "open"
     catg: "TECHNICAL"
@@ -1199,7 +1199,7 @@ N_PUPIL_RAW:
       filter_curve: "V"
       extend: 15
   properties:
-    dit: 10
+    dit: 10.
     ndit: 1
     filter_name: "open"
     catg: "TECHNICAL"
