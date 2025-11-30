@@ -171,7 +171,7 @@ class setupSimulations():
         recipe =  self.allrcps[list(self.allrcps.keys())[0]]
 
         if(self.params['startMJD'] is not None):
-            self.tObs = Time(datetime.strptime(self.params['startMJD'], '%Y-%m-%d %H:%M:%S'))
+            self.tObs = Time(datetime.strptime(self.params['startMJD'], '%Y-%m-%dT%H:%M:%S'))
             self.startMJD = self.params['startMJD']
         elif "dateobs" in recipe["properties"]:
             self.tObs = Time(recipe["properties"]["dateobs"])[0]
@@ -179,7 +179,7 @@ class setupSimulations():
         else:
             print("No appropriate starting time found; setting to default value")
             self.startMJD = "2027-01-25 00:00:00"
-            self.tObs = Time(datetime.strptime(self.startMJD, '%Y-%m-%d %H:%M:%S'))
+            self.tObs = Time(datetime.strptime(self.startMJD, '%Y-%m-%dT%H:%M:%S'))
         self.tplStart = self.startMJD
         self.tempNExp = 0 # exposure number
         
@@ -262,16 +262,32 @@ class setupSimulations():
 
                 # append the arguments to the list
                 allArgs.append((self.fname,recipe,self.params["small"]))
-                simulate(self.fname, recipe, small=self.params['small'])
+                #simulate(self.fname, recipe, small=self.params['small'])
+
+                # and the dark for the flat
+                recipe = self.copyRecipe("dark",elem[2])
+                recipe["properties"]["tplstart"] = tplStart
+                if("wcu" not in recipe.keys()):
+                    recipe["wcu"] = None
+
+                recipe = self.increment(recipe)
+
+                self.allFileNames.append(self.fname)
+                self.allmjd.append(self.tObs.mjd)
+
+                # append the arguments to the list
+                allArgs.append((self.fname,recipe,self.params["small"]))
+
+                
         # now actually run
-        #if(not self.params['testRun']):
-        #    nCores = max(min(self.params['nCores'], cpu_count() - 1), 1)
-        #
-        #    with Pool(nCores) as pool:
-        #        pool.starmap(simulate, allArgs)
-        #        #simulate(fname, recipe, small=self.params['small'])
-        #        pool.close()
-        #        pool.join()
+        if(not self.params['testRun']):
+            nCores = max(min(self.params['nCores'], cpu_count() - 1), 1)
+        
+            with Pool(nCores) as pool:
+                pool.starmap(simulate, allArgs)
+                #simulate(fname, recipe, small=self.params['small'])
+                pool.close()
+                pool.join()
 
                 
     def calculateDarks(self,darkParams):
@@ -339,7 +355,6 @@ class setupSimulations():
         for name, recipe in allrcps.items():
             # get the mode and the prefix for the title
 
-            print(recipe)
             mode = recipe["mode"]
             prefix = recipe["do.catg"]
             nObs = recipe["properties"]["nObs"]
@@ -437,6 +452,7 @@ class setupSimulations():
                 darkParms.append((props['dit'],props['ndit'],props['tech']))
             flatParms.append((props['filter_name'],props['ndfilter_name'],props['tech']))
 
+            
             
                              
         self.darkParms = darkParms
