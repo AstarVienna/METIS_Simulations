@@ -5,7 +5,7 @@ DARK_LM_RAW:
     name: empty_sky
     kwargs: {}
   properties:
-    dit: 1
+    dit: 1.
     ndit: 1
     filter_name: "closed"
     catg: "CALIB"
@@ -20,7 +20,7 @@ DARK_N_RAW:
     name: empty_sky
     kwargs: {}
   properties:
-    dit: 1
+    dit: 1.
     ndit: 1
     filter_name: "closed"
     catg: "CALIB"
@@ -35,7 +35,7 @@ DARK_IFU_RAW:
     name: empty_sky
     kwargs: {}
   properties:
-    dit: 1
+    dit: 1.
     ndit: 1
     filter_name: "closed"
     catg: "CALIB"
