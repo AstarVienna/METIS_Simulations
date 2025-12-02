@@ -21,15 +21,15 @@ typeVals = ["CHOPHOME","DARK,WCUOFF","DETLIN","DISTORTION","FLAT,LAMP","OBJECT",
 modeVals = ["img_lm","lss_m","img_n","lss_l","lss_m","lss_n","lms"]
 
 
-# filters sorted by mode. extracted from scopesim allowed combinations \TODO check LMS values and HCI values
+# filters sorted by mode. extracted from scopesim allowed combinations # TODO check LMS values and HCI values
 validFilters = {
     "img_lm" : ["Lp","short-L","Mp","Br_alpha","Br_alpha_ref","PAH_3.3","PAH_3.3_ref","CO_1-0_ice","CO_ref","H2O-ice","IB_4.05","open","closed", "HCI_M","HCI_L_short","HCI_L_long"],
     "img_n" : ["N1","N2","N3","PAH_8.6","PAH_8.6_ref","PAH_11.25","PAH_11.25_ref","Ne_II","Ne_II_ref","S_IV","S_IV_ref","open","closed"],
-     "lss_l": ["L_spec"],
-     "lss_m": ["M_spec"],
-     "lss_n": ["N_spec"],
-      "lms": ["Lp","short-L","Mp","Br_alpha","Br_alpha_ref","PAH_3.3","PAH_3.3_ref","CO_1-0_ice","CO_ref","H2O-ice","IB_4.05","open","closed", "HCI_M","HCI_L_short","HCI_L_long"],
-    }
+    "lss_l": ["L_spec"],
+    "lss_m": ["M_spec"],
+    "lss_n": ["N_spec"],
+    "lms": ["Lp","short-L","Mp","Br_alpha","Br_alpha_ref","PAH_3.3","PAH_3.3_ref","CO_1-0_ice","CO_ref","H2O-ice","IB_4.05","open","closed", "HCI_M","HCI_L_short","HCI_L_long"],
+}
 
 
 validND = ["open","ND_OD1","ND_OD2","ND_OD3","ND_OD4","ND_OD5"]

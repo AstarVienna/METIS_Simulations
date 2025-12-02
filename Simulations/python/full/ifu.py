@@ -8,17 +8,17 @@ import runSimulationBlock as rsb
 
 if __name__ == "__main__":
     params = {}
-    params['outputDir'] = "outputSmall/lssN"
-    params['small'] = True
+    params['outputDir'] = "output/ifu"
+    params['small'] = False
     params['doStatic'] = True
     params['doCalib'] = 2
     params['sequence'] = True
     params['startMJD'] =  "2027-01-25 00:00:00"
     params['calibFile'] = None
-    params['nCores'] = 8
+    params['nCores'] = 6
     params['testRun'] = False
 
-    yamlFiles = ["YAML/scienceLSSN.yaml","YAML/stdLSSN.yaml","YAML/detlinN.yaml","YAML/distortionN.yaml","YAML/rsrfLSSN.yaml","YAML/rsrfPinhLSSN.yaml","YAML/wavecalLSSN.yaml"]
+    yamlFiles = ["YAML/wavecalIFU.yaml","YAML/scienceIFU.yaml","YAML/stdIFU.yaml","YAML/detlinIFU.yaml","YAML/distortionIFU.yaml","YAML/rsrfIFU.yaml","YAML/rsrfPinhIFU.yaml"]
 
     rsb.runSimulationBlock(yamlFiles,params)
 

@@ -7,17 +7,17 @@ import runSimulationBlock as rs
 if __name__ == '__main__':    
 
 	params = {}
-	params['outputDir'] = "outputSmall/hciRavcLM"
-	params['small'] = True
+	params['outputDir'] = "output/hciAppLM"
+	params['small'] = False
 	params['doStatic'] = True
 	params['doCalib'] = 2
 	params['sequence'] = True
 	params['startMJD'] =  "2027-01-25 00:00:00"
 	params['calibFile'] = None
-	params['nCores'] = 8
+	params['nCores'] = 6
 	params['testRun'] = False
 	
-	yamlFiles = ["YAML/offAxisLM.yaml","YAML/hciRavcLM.yaml","YAML/distortionLM.yaml","YAML/detlinLM.yaml"]
+	yamlFiles = ["YAML/offAxisLM.yaml","YAML/hciAppLM.yaml","YAML/distortionLM.yaml","YAML/detlinLM.yaml"]
 	
 	rs.runSimulationBlock(yamlFiles,params)
 

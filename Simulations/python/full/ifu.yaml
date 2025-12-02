@@ -1,0 +1,17 @@
+parameters:
+  outputDir: 'ifu'
+  small: False
+  doStatic: True
+  doCalib: 2
+  sequence: True
+  startMJD: '2027-01-25 00:00:00'
+  calibFile: ~
+  testRun: False
+yaml_files:
+  - "YAML/wavecalIFU.yaml"
+  - "YAML/scienceIFU.yaml"
+  - "YAML/stdIFU.yaml"
+  - "YAML/detlinIFU.yaml"
+  - "YAML/distortionIFU.yaml"
+  - "YAML/rsrfIFU.yaml"
+  - "YAML/rsrfPinhIFU.yaml"

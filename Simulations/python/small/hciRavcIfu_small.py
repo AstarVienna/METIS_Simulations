@@ -3,25 +3,22 @@
 An example of running an observation block
 """
 
-
-import scopesimWrapper as rr
 import runSimulationBlock as rs
-
 if __name__ == '__main__':    
 
 	params = {}
-	params['outputDir'] = "output/imgN"
-	params['small'] = False
+	params['outputDir'] = "outputSmall/hciRavcIfu"
+	params['small'] = True
 	params['doStatic'] = True
 	params['doCalib'] = 2
 	params['sequence'] = True
 	params['startMJD'] =  "2027-01-25 00:00:00"
 	params['calibFile'] = None
-	params['nCores'] = 8
+	params['nCores'] = 6
 	params['testRun'] = False
 	
-	yamlFiles = ["YAML/scienceN.yaml","YAML/stdN.yaml","YAML/distortionN.yaml","YAML/detlinN.yaml","YAML/persistN.yaml"]
-
+	yamlFiles = ["YAML/offAxisLM.yaml","YAML/hciRavcIFU.yaml","YAML/distortionIFU.yaml","YAML/detlinIFU.yaml","YAML/distortionIFU.yaml","YAML/rsrfIFU.yaml","YAML/rsrfPinhIFU.yaml","YAML/wavecalIFU.yaml"]
+	
 	rs.runSimulationBlock(yamlFiles,params)
 
         

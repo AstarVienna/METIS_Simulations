@@ -14,16 +14,16 @@ from collections.abc import Mapping
 import numpy as np
 from more_itertools import value_chain
 
-from astar_utils.loggers import get_logger, ColoredFormatter
+from astar_utils.loggers import ColoredFormatter
 import scopesim as sim
 import scopesim_templates as sim_tp
 import astropy.units as u
 
-from simulationDefinitions import *
-from sources import *
+from .simulationDefinitions import *
+from .sources import *
 #sim.rc.__config__["!SIM.file.local_packages_path"] = DEFAULT_IRDB_LOCATION
 
-logger = get_logger(__file__)
+logger = logging.getLogger('root')
 
 # HACK: closed filter is not yet implemented:
 # changed the hack below, because changing kwargs here changes the props dictionary from which
@@ -164,6 +164,7 @@ def simulate(fname, rcp, small=False):
 
 
 def _logger_setup(verbosity: int) -> None:
+    return
     loglevel = max(-10 * verbosity + logging.WARNING, logging.DEBUG)
     handler = logging.StreamHandler()
     handler.setLevel(loglevel)
