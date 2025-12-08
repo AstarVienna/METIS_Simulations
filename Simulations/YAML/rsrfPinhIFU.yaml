@@ -5,7 +5,7 @@ IFU_RSRF_PINH_RAW1:
     name: empty_sky
     kwargs: {}
   properties:
-    dit: 10
+    dit: 10.
     ndit: 20
     wavelen: 3.555
     filter_name: "open"
