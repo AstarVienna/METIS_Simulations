@@ -13,7 +13,7 @@ if __name__ == "__main__":
     params['doStatic'] = True
     params['doCalib'] = 2
     params['sequence'] = True
-    params['startMJD'] =  "2027-01-25 00:00:00"
+    params['startMJD'] =  "2027-02-01 00:00:00"
     params['calibFile'] = None
     params['nCores'] = 8
     params['testRun'] = False
