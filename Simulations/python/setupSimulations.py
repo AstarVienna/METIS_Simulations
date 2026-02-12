@@ -337,8 +337,11 @@ class setupSimulations():
         
         # cycle through all the recipes
         for name, recipe in allrcps.items():
-            # get the mode and the prefix for the title
 
+            # force dit to be a float
+            recipe["properties"]["dit"] = float(recipe["properties"]["dit"])
+            
+            # get the mode and the prefix for the title
             print(recipe)
             mode = recipe["mode"]
             prefix = recipe["do.catg"]
