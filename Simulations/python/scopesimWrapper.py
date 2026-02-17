@@ -104,6 +104,8 @@ def simulate(fname, rcp, small=False):
         cmd["!OBS.tplexpno"] = props["tplexpno"]
     if("tplstart" in props.keys()):
         cmd["!OBS.tplstart"] = props["tplstart"]
+    if "slit_name" in props:
+        cmd["!OBS.slit"] = props["slit_name"]
 
     # set up the optical train
 
