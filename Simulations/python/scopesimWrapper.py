@@ -106,6 +106,10 @@ def simulate(fname, rcp, small=False):
         cmd["!OBS.tplstart"] = props["tplstart"]
     if "slit_name" in props:
         cmd["!OBS.slit"] = props["slit_name"]
+    if "pupil_transmission" in props:
+        cmd["!OBS.pupil_transmission"] = props["pupil_transmission"]
+    if 'detector_readout_mode' in props:
+        cmd["!OBS.detector_readout_mode"] = props['detector_readout_mode']
 
     # set up the optical train
 

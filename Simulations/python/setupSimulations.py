@@ -354,6 +354,12 @@ class setupSimulations():
             if 'slit_name' not in props and 'slit_name' in self.params:
                 props['slit_name'] = self.params['slit_name']
 
+            if 'pupil_transmission' not in props and 'pupil_transmission' in self.params:
+                props['pupil_transmission'] = self.params['pupil_transmission']
+            
+            if 'detector_readout_mode' not in props and 'detector_readout_mode' in self.params:
+                props['detector_readout_mode'] = self.params['detector_readout_mode']
+
             recipe["properties"]["tplstart"] = self.tplStart
 
             # for nObs exposures of each set of parameters
@@ -459,12 +465,12 @@ class setupSimulations():
         and DET.DIT and .NDIT are set in ScopeSim
     
         We use the TECH to get INS.MODE
-        Sets the DRS.SLIT to the default value for now (will fix later)\TODO
+        Sets the DRS.SLIT to the default value for now (will fix later)\\TODO
         Sets INS.OPTI*.NAME to the filter, slit as indicated by the TECH, FILTER and SLIT keyword
     
         For HCI / Coronagraph modes, we set the TECH keyword to a non valid value in Scopesim, 
         and use that to set the DRS.MASK, correct DPR.TECH, and INS.OPTI*.NAME values. This is kludgy,
-        and will be fixed later. \TODO
+        and will be fixed later. \\TODO
     
         We check the TYPE keyword for LASER Sources. 
     
@@ -511,13 +517,10 @@ class setupSimulations():
             
             if(tech == "LSS,LM"):
                 hdul[0].header['HIERARCH ESO INS MODE'] = "SPEC_LM"
-                if 'HIERARCH ESO INS OPTI3 NAME' in hdul[0].header:
-                    hdul[0].header['HIERARCH ESO INS DRS SLIT'] = hdul[0].header['HIERARCH ESO INS OPTI3 NAME']
+
             if(tech == "LSS,N"):
                 hdul[0].header['HIERARCH ESO INS MODE'] = "SPEC_N_LOW"
-                if 'HIERARCH ESO INS OPTI3 NAME' in hdul[0].header:
-                    hdul[0].header['HIERARCH ESO INS DRS SLIT'] = hdul[0].header['HIERARCH ESO INS OPTI3 NAME']
-            
+     
             #IMAGING
             if(tech == "IMAGE,LM"):
                 hdul[0].header['HIERARCH ESO INS MODE'] = "IMG_LM"
