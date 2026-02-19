@@ -89,8 +89,7 @@ def simulate(fname, rcp, small=False):
     cmd["!OBS.tech"] = props["tech"]
     cmd["!OBS.mjd-obs"] = props["MJD-OBS"]
     cmd["!OBS.dateobs"] = props["dateobs"]
-    # TODO: Ensure ndfilter_name is always defined.
-    cmd["!OBS.nd_filter_name"] = props.get("ndfilter_name", "open")
+    cmd["!OBS.nd_filter_name"] = props.get("ndfilter_name") or "open"
     cmd["!OBS.filter_name"] = props["filter_name"]
     if cmd["!OBS.filter_name"] == "closed":
         cmd["!OBS.filter_name"] = "open"
