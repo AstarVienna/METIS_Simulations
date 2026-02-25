@@ -83,27 +83,48 @@ def simulate(fname, rcp, small=False):
 
     # keywords we always have
 
+    reqKeys = ["catg","type","tech","MJD-OBS","dateobs"]
+
+    keyDefaults = {}
+    keyDefaults["ndfilter_name"] = "open"
+    keyDefaults["filter_name"] = "open"
+    
+    
+    
+    # set required keys
     shutter = False
-    cmd["!OBS.catg"] = props["catg"]
-    cmd["!OBS.type"] = props["type"]
-    cmd["!OBS.tech"] = props["tech"]
-    cmd["!OBS.mjd-obs"] = props["MJD-OBS"]
-    cmd["!OBS.dateobs"] = props["dateobs"]
-    # TODO: Ensure ndfilter_name is always defined.
-    cmd["!OBS.nd_filter_name"] = props.get("ndfilter_name", "open")
-    cmd["!OBS.filter_name"] = props["filter_name"]
+    for elem in reqKeys:
+        cmd[f"!OBS.{elem}"] = props[elem]
+
+    # set keys that aren't required in YAML, but have defaults 
+    for elem in keyDefaults:
+        cmd[f"!OBS.{elem}"] = props.get(elem,keyDefaults[elem])
+
+    #cmd["!OBS.catg"] = props["catg"]
+    #cmd["!OBS.type"] = props["type"]
+    #cmd["!OBS.tech"] = props["tech"]
+    #cmd["!OBS.mjd-obs"] = props["MJD-OBS"]
+    #cmd["!OBS.dateobs"] = props["dateobs"]
+    #cmd["!OBS.nd_filter_name"] = props.get("ndfilter_name", "open")
+    #cmd["!OBS.filter_name"] = props["filter_name"]
+
+    # now assigning remaining keys
+    # TODO add checks of valid values
+    for elem in props:
+        if(elem not in reqKeys and elem not in keyDefaults):
+            cmd[f"!OBS.{elem}"] = props[elem]
+
+    # hack for darks
     if cmd["!OBS.filter_name"] == "closed":
         cmd["!OBS.filter_name"] = "open"
         shutter = True
 
-    # optional keywords
-    
-    if("tplname" in props.keys()):
-        cmd["!OBS.tplname"] = props["tplname"]
-    if("tplexpno" in props.keys()):
-        cmd["!OBS.tplexpno"] = props["tplexpno"]
-    if("tplstart" in props.keys()):
-        cmd["!OBS.tplstart"] = props["tplstart"]
+    #if("tplname" in props.keys()):
+    #    cmd["!OBS.tplname"] = props["tplname"]
+    #if("tplexpno" in props.keys()):
+    #    cmd["!OBS.tplexpno"] = props["tplexpno"]
+    #if("tplstart" in props.keys()):
+    #    cmd["!OBS.tplstart"] = props["tplstart"]
 
     # set up the optical train
 

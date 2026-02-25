@@ -13,6 +13,11 @@ LM_LSS_SCI_RAW:
     tech: "LSS,LM"
     type: "OBJECT"
     tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
+    slit: "A-19_0"      
+    pupil_transmission: 1
+    adc: const_90
+    detector_readout_mode: fast
+
     nObs: 1
 
 LM_LSS_SCI_SKY_RAW:
