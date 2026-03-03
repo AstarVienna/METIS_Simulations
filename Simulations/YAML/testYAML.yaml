@@ -607,7 +607,7 @@ IFU_WCU_OFF_RAW:
         ndfilter_name: "open"
         catg: "CALIB"
         tech: "LMS"
-        type: "DARK,WCU_OFF"
+        type: "DARK,WCUOFF"
         tplname: "METIS_lms_det_dark"
         nObs: 1
         dit: 1.
@@ -633,7 +633,7 @@ LM_WCU_OFF_RAW:
         ndfilter_name: "open"
         catg: "CALIB"
         tech: "IMAGE,LM"
-        type: "DARK,WCU_OFF"
+        type: "DARK,WCUOFF"
         tplname: "METIS_lm_det_dark"
         nObs: 1
         dit: 1.
@@ -659,7 +659,7 @@ N_WCU_OFF_RAW:
         ndfilter_name: "open"
         catg: "CALIB"
         tech: "IMAGE,N"
-        type: "DARK,WCU_OFF"
+        type: "DARK,WCUOFF"
         tplname: "METIS_n_det_dark"
         nObs: 1
         dit: 1.
