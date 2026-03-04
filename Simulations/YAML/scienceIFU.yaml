@@ -15,6 +15,7 @@ IFU_SCI_RAW:
     type: "OBJECT"
     tplname: "METIS_ifu_obs_GenericOffset"
     nObs: 1
+    pupil_transmission: 0.0 
 
 IFU_SCI_SKY_RAW:
   do.catg: IFU_SKY_RAW

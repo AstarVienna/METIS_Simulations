@@ -1,0 +1,404 @@
+L_LSS_SCI_SKY_RAW_1:
+  do.catg: LM_LSS_SKY_RAW
+  mode: "wcu_lss_l"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.05
+    ndit: 160
+    filter_name: "L_spec"
+    ndfilter_name: "open"
+    catg: "SCIENCE"
+    tech: "LSS,LM"
+    type: "SKY"
+    tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
+    nObs: 1
+    pupil_transmission: 0.0
+    slit_name: 'A-19_0'
+    detector_readout_mode: fast
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 1.0
+    bb_temp: 800
+    is_temp: 300
+    wcu_temp: 300
+
+L_LSS_SCI_SKY_RAW_2:
+  do.catg: LM_LSS_SKY_RAW
+  mode: "wcu_lss_l"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.05
+    ndit: 160
+    filter_name: "Lp"
+    ndfilter_name: "open"
+    catg: "SCIENCE"
+    tech: "LSS,LM"
+    type: "SKY"
+    tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
+    nObs: 1
+    pupil_transmission: 0.0
+    slit_name: 'A-19_0'
+    detector_readout_mode: fast
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 1.0
+    bb_temp: 800
+    is_temp: 300
+    wcu_temp: 300
+
+L_LSS_SCI_SKY_RAW_3:
+  do.catg: LM_LSS_SKY_RAW
+  mode: "wcu_lss_l"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.05
+    ndit: 160
+    filter_name: "short-L"
+    ndfilter_name: "open"
+    catg: "SCIENCE"
+    tech: "LSS,LM"
+    type: "SKY"
+    tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
+    nObs: 1
+    pupil_transmission: 0.0
+    slit_name: 'A-19_0'
+    detector_readout_mode: fast
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 1.0
+    bb_temp: 800
+    is_temp: 300
+    wcu_temp: 300
+
+L_LSS_SCI_SKY_RAW_4:
+  do.catg: LM_LSS_SKY_RAW
+  mode: "wcu_lss_l"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.05
+    ndit: 160
+    filter_name: "Br_alpha"
+    ndfilter_name: "open"
+    catg: "SCIENCE"
+    tech: "LSS,LM"
+    type: "SKY"
+    tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
+    nObs: 1
+    pupil_transmission: 0.0
+    slit_name: 'A-19_0'
+    detector_readout_mode: fast
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 1.0
+    bb_temp: 800
+    is_temp: 300
+    wcu_temp: 300
+
+L_LSS_SCI_SKY_RAW_5:
+  do.catg: LM_LSS_SKY_RAW
+  mode: "wcu_lss_l"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.05
+    ndit: 160
+    filter_name: "Br_alpha_ref"
+    ndfilter_name: "open"
+    catg: "SCIENCE"
+    tech: "LSS,LM"
+    type: "SKY"
+    tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
+    nObs: 1
+    pupil_transmission: 0.0
+    slit_name: 'A-19_0'
+    detector_readout_mode: fast
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 1.0
+    bb_temp: 800
+    is_temp: 300
+    wcu_temp: 300
+
+L_LSS_SCI_SKY_RAW_6:
+  do.catg: LM_LSS_SKY_RAW
+  mode: "wcu_lss_l"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.05
+    ndit: 160
+    filter_name: "PAH_3.3"
+    ndfilter_name: "open"
+    catg: "SCIENCE"
+    tech: "LSS,LM"
+    type: "SKY"
+    tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
+    nObs: 1
+    pupil_transmission: 0.0
+    slit_name: 'A-19_0'
+    detector_readout_mode: fast
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 1.0
+    bb_temp: 800
+    is_temp: 300
+    wcu_temp: 300
+
+L_LSS_SCI_SKY_RAW_7:
+  do.catg: LM_LSS_SKY_RAW
+  mode: "wcu_lss_l"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.05
+    ndit: 160
+    filter_name: "PAH_3.3_ref"
+    ndfilter_name: "open"
+    catg: "SCIENCE"
+    tech: "LSS,LM"
+    type: "SKY"
+    tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
+    nObs: 1
+    pupil_transmission: 0.0
+    slit_name: 'A-19_0'
+    detector_readout_mode: fast
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 1.0
+    bb_temp: 800
+    is_temp: 300
+    wcu_temp: 300
+
+L_LSS_SCI_SKY_RAW_8:
+  do.catg: LM_LSS_SKY_RAW
+  mode: "wcu_lss_l"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.05
+    ndit: 160
+    filter_name: "H2O-ice"
+    ndfilter_name: "open"
+    catg: "SCIENCE"
+    tech: "LSS,LM"
+    type: "SKY"
+    tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
+    nObs: 1
+    pupil_transmission: 0.0
+    slit_name: 'A-19_0'
+    detector_readout_mode: fast
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 1.0
+    bb_temp: 800
+    is_temp: 300
+    wcu_temp: 300
+
+L_LSS_SCI_SKY_RAW_9:
+  do.catg: LM_LSS_SKY_RAW
+  mode: "wcu_lss_l"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.05
+    ndit: 160
+    filter_name: "IB_4.05"
+    ndfilter_name: "open"
+    catg: "SCIENCE"
+    tech: "LSS,LM"
+    type: "SKY"
+    tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
+    nObs: 1
+    pupil_transmission: 0.0
+    slit_name: 'A-19_0'
+    detector_readout_mode: fast
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 1.0
+    bb_temp: 800
+    is_temp: 300
+    wcu_temp: 300
+
+L_LSS_SCI_SKY_RAW_10:
+  do.catg: LM_LSS_SKY_RAW
+  mode: "wcu_lss_l"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.05
+    ndit: 160
+    filter_name: "HCI_L_short"
+    ndfilter_name: "open"
+    catg: "SCIENCE"
+    tech: "LSS,LM"
+    type: "SKY"
+    tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
+    nObs: 1
+    pupil_transmission: 0.0
+    slit_name: 'A-19_0'
+    detector_readout_mode: fast
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 1.0
+    bb_temp: 800
+    is_temp: 300
+    wcu_temp: 300
+
+L_LSS_SCI_SKY_RAW_11:
+  do.catg: LM_LSS_SKY_RAW
+  mode: "wcu_lss_l"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.05
+    ndit: 160
+    filter_name: "HCI_L_long"
+    ndfilter_name: "open"
+    catg: "SCIENCE"
+    tech: "LSS,LM"
+    type: "SKY"
+    tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
+    nObs: 1
+    pupil_transmission: 0.0
+    slit_name: 'A-19_0'
+    detector_readout_mode: fast
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 1.0
+    bb_temp: 800
+    is_temp: 300
+    wcu_temp: 300
+
+M_LSS_SCI_SKY_RAW_1:
+  do.catg: LM_LSS_SKY_RAW
+  mode: "wcu_lss_m"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.05
+    ndit: 160
+    filter_name: "M_spec"
+    ndfilter_name: "open"
+    catg: "SCIENCE"
+    tech: "LSS,LM"
+    type: "SKY"
+    tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
+    nObs: 1
+    pupil_transmission: 0.0
+    slit_name: 'A-19_0'
+    detector_readout_mode: fast
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 1.0
+    bb_temp: 800
+    is_temp: 300
+    wcu_temp: 300
+
+M_LSS_SCI_SKY_RAW_2:
+  do.catg: LM_LSS_SKY_RAW
+  mode: "wcu_lss_m"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.05
+    ndit: 160
+    filter_name: "Mp"
+    ndfilter_name: "open"
+    catg: "SCIENCE"
+    tech: "LSS,LM"
+    type: "SKY"
+    tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
+    nObs: 1
+    pupil_transmission: 0.0
+    slit_name: 'A-19_0'
+    detector_readout_mode: fast
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 1.0
+    bb_temp: 800
+    is_temp: 300
+    wcu_temp: 300
+
+M_LSS_SCI_SKY_RAW_3:
+  do.catg: LM_LSS_SKY_RAW
+  mode: "wcu_lss_m"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.05
+    ndit: 160
+    filter_name: "CO_1-0_ice"
+    ndfilter_name: "open"
+    catg: "SCIENCE"
+    tech: "LSS,LM"
+    type: "SKY"
+    tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
+    nObs: 1
+    pupil_transmission: 0.0
+    slit_name: 'A-19_0'
+    detector_readout_mode: fast
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 1.0
+    bb_temp: 800
+    is_temp: 300
+    wcu_temp: 300
+
+M_LSS_SCI_SKY_RAW_4:
+  do.catg: LM_LSS_SKY_RAW
+  mode: "wcu_lss_m"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.05
+    ndit: 160
+    filter_name: "CO_ref"
+    ndfilter_name: "open"
+    catg: "SCIENCE"
+    tech: "LSS,LM"
+    type: "SKY"
+    tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
+    nObs: 1
+    pupil_transmission: 0.0
+    slit_name: 'A-19_0'
+    detector_readout_mode: fast
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 1.0
+    bb_temp: 800
+    is_temp: 300
+    wcu_temp: 300

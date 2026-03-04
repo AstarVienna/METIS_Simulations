@@ -41,6 +41,7 @@ hciFilters = ["HCI_M","HCI_L_short","HCI_L_long","open","closed"]
 
 topKey = ["do.catg","mode","properties"]
 propKey = ["dit","ndit","filter_name","catg","tech","type","nObs"]
+expandables = ["filter_name","dit","ndit","ndfilter_name"]
 
 
 # some templates for calibration dictionaries. DIT/NDIT/obsdate need to be added

@@ -1,0 +1,26 @@
+N_LSS_SCI_SKY_RAW_1:
+  do.catg: N_LSS_SKY_RAW
+  mode: "wcu_lss_n"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.2
+    ndit: 400
+    filter_name: ['N_spec', 'PAH_8.6']
+    ndfilter_name: "open"
+    catg: "SCIENCE"
+    tech: "LSS,N"
+    type: "SKY"
+    tplname: "METIS_spec_n_obs_AutoNodOnSlit"
+    nObs: 1
+    pupil_transmission: 1.0
+    slit_name: 'A-19_0'
+    detector_readout_mode: 'high_capacity'
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 1.0
+    bb_temp: 800
+    is_temp: 300
+    wcu_temp: 300

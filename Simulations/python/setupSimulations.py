@@ -338,70 +338,86 @@ class setupSimulations():
         # cycle through all the recipes
         for name, recipe in allrcps.items():
 
-            # force dit to be a float
-            recipe["properties"]["dit"] = float(recipe["properties"]["dit"])
-            
-            # get the mode and the prefix for the title
-            print(recipe)
-            mode = recipe["mode"]
-            prefix = recipe["do.catg"]
-            nObs = recipe["properties"]["nObs"]
-            self.tplExpno = 0
-            
-            props = recipe["properties"]
+            # expand any list-valued properties (e.g. filter_name, dit, ndit, ndfilter_name)
+            expanded = [key for key in sd.expandables
+                        if isinstance(recipe["properties"].get(key), list)]
+            combos = list(product(*[recipe["properties"][key] for key in expanded]))
+            if not combos:
+                combos = [()]
 
-            # Apply global slit_name default if not set per-recipe
-            if 'slit_name' not in props and 'slit_name' in self.params:
-                props['slit_name'] = self.params['slit_name']
+            for combo in combos:
+                recipe = copy.deepcopy(recipe)
+                combodict = dict(zip(expanded, combo))
+                recipe["properties"].update(combodict)
 
-            if 'pupil_transmission' not in props and 'pupil_transmission' in self.params:
-                props['pupil_transmission'] = self.params['pupil_transmission']
-            
-            if 'detector_readout_mode' not in props and 'detector_readout_mode' in self.params:
-                props['detector_readout_mode'] = self.params['detector_readout_mode']
+                # force dit to be a float
+                recipe["properties"]["dit"] = float(recipe["properties"]["dit"])
 
-            recipe["properties"]["tplstart"] = self.tplStart
+                # get the mode and the prefix for the title
+                print(recipe)
+                mode = recipe["mode"]
+                prefix = recipe["do.catg"]
+                nObs = recipe["properties"]["nObs"]
+                self.tplExpno = 0
 
-            # for nObs exposures of each set of parameters
-            # this loop mostly calculates the time variables for each
-            # observation, and saves the arguments for the simulation in
-            # a list. The actually calling occurs afterwards, for parallelization
-            
-            for _ in range(nObs):        
+                props = recipe["properties"]
 
-                # set the time related keywords and increment the observing time.
-                # note that tDelt = 0 on the first iteration
+                # Apply slit_name: YAML 'slit' key takes priority, then 'slit_name',
+                # then fall back to the global param default
+                if 'slit_name' not in props:
+                    if 'slit' in props:
+                        props['slit_name'] = props['slit']
+                    elif 'slit_name' in self.params:
+                        props['slit_name'] = self.params['slit_name']
 
-                recipe = self.increment(recipe)
+                if 'pupil_transmission' not in props and 'pupil_transmission' in self.params:
+                    props['pupil_transmission'] = self.params['pupil_transmission']
 
-                self.allFileNames.append(self.fname)
-                self.allmjd.append(self.tObs.mjd)
+                if 'detector_readout_mode' not in props and 'detector_readout_mode' in self.params:
+                    props['detector_readout_mode'] = self.params['detector_readout_mode']
 
-                # set WCU to None if this isn't WCU data
-                if("wcu" not in recipe.keys()):
-                   recipe["wcu"] = None
+                recipe["properties"]["tplstart"] = self.tplStart
 
-                # add the arguments to the list
-                allArgs.append((self.fname,recipe,self.params["small"]))
+                # for nObs exposures of each set of parameters
+                # this loop mostly calculates the time variables for each
+                # observation, and saves the arguments for the simulation in
+                # a list. The actually calling occurs afterwards, for parallelization
 
-                # if the observation is WCU, add a WCU frame to the image, as WCU darks are part of the
-                # same template \TODO set to > 1 if desired
-            
-                if(recipe["wcu"] is not None):
-                    recipeDark = self.copyRecipe("wcuOff",recipe['properties']['tech'])
-                    if(recipeDark is not None):
-                        recipeDark["properties"]["tplstart"] = self.tplStart
-                        recipeDark["properties"]["tplname"] = recipe["properties"]["tplname"]
-                        recipeDark["properties"]["dit"] = recipe["properties"]["dit"] 
-                        recipeDark["properties"]["ndit"] = recipe["properties"]["ndit"] 
-                        recipeDark["properties"]["ndfilter_name"] = recipe["properties"]["ndfilter_name"] 
-                        recipeDark["properties"]["filter_name"] = recipe["properties"]["filter_name"] 
-                        recipeDark = self.increment(recipeDark)
-                        
-                        self.allFileNames.append(self.fname)
-                        self.allmjd.append(self.tObs.mjd)
-                        
-                        allArgs.append((self.fname, recipeDark, self.params["small"]))
+                for _ in range(nObs):
+
+                    # set the time related keywords and increment the observing time.
+                    # note that tDelt = 0 on the first iteration
+
+                    recipe = self.increment(recipe)
+
+                    self.allFileNames.append(self.fname)
+                    self.allmjd.append(self.tObs.mjd)
+
+                    # set WCU to None if this isn't WCU data
+                    if("wcu" not in recipe.keys()):
+                        recipe["wcu"] = None
+
+                    # add the arguments to the list
+                    allArgs.append((self.fname,recipe,self.params["small"]))
+
+                    # if the observation is WCU, add a WCU frame to the image, as WCU darks are part of the
+                    # same template \TODO set to > 1 if desired
+
+                    if(recipe["wcu"] is not None):
+                        recipeDark = self.copyRecipe("wcuOff",recipe['properties']['tech'])
+                        if(recipeDark is not None):
+                            recipeDark["properties"]["tplstart"] = self.tplStart
+                            recipeDark["properties"]["tplname"] = recipe["properties"]["tplname"]
+                            recipeDark["properties"]["dit"] = recipe["properties"]["dit"]
+                            recipeDark["properties"]["ndit"] = recipe["properties"]["ndit"]
+                            recipeDark["properties"]["ndfilter_name"] = recipe["properties"]["ndfilter_name"]
+                            recipeDark["properties"]["filter_name"] = recipe["properties"]["filter_name"]
+                            recipeDark = self.increment(recipeDark)
+
+                            self.allFileNames.append(self.fname)
+                            self.allmjd.append(self.tObs.mjd)
+
+                            allArgs.append((self.fname, recipeDark, self.params["small"]))
 
         # calculate the observation date for the next observation, for
         # stringing a sequence of templates together
@@ -441,14 +457,21 @@ class setupSimulations():
         # assemble a list of the dark / skyflat / lampflat recipe dicionaries
 
         for name, recipe in self.allrcps.items():
-            props = recipe["properties"]
-                
-            if(props["type"] in wcuModes):
-                pass
-             
-            else:
-                darkParms.append((props['dit'],props['ndit'],props['tech']))
-            flatParms.append((props['filter_name'],props['ndfilter_name'],props['tech']))
+            expanded = [key for key in sd.expandables
+                        if isinstance(recipe["properties"].get(key), list)]
+            combos = list(product(*[recipe["properties"][key] for key in expanded]))
+            if not combos:
+                combos = [()]
+
+            for combo in combos:
+                props = recipe["properties"] | dict(zip(expanded, combo))
+
+                if(props["type"] in wcuModes):
+                    pass
+
+                else:
+                    darkParms.append((props['dit'],props['ndit'],props['tech']))
+                flatParms.append((props['filter_name'],props.get('ndfilter_name','open'),props['tech']))
 
             
                              
