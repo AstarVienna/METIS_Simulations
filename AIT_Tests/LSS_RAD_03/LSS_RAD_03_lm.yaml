@@ -1,0 +1,104 @@
+LM_LSS_SCI_SKY_RAW_L:
+  do.catg: LM_LSS_SKY_RAW
+  mode: "wcu_lss_l"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 100
+    ndit: 120
+    filter_name: "L_spec"
+    ndfilter_name: "open"
+    catg: "SCIENCE"
+    tech: "LSS,LM"
+    type: "SKY"
+    tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
+    nObs: 2
+    pupil_transmission: 0.0
+    slit_name: 'A-19_0'
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 0.0
+    bb_temp: 800
+    is_temp: 300
+    wcu_temp: 300
+
+LM_LSS_SCI_SKY_RAW_M:
+  do.catg: LM_LSS_SKY_RAW
+  mode: "wcu_lss_m"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 100
+    ndit: 120
+    filter_name: "M_spec"
+    ndfilter_name: "open"
+    catg: "SCIENCE"
+    tech: "LSS,LM"
+    type: "SKY"
+    tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
+    nObs: 2
+    pupil_transmission: 0.0
+    slit_name: 'A-19_0'
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 0.0
+    bb_temp: 800
+    is_temp: 300
+    wcu_temp: 300
+
+
+LM_LSS_SCI_SKY_RAW_L_ND:
+  do.catg: LM_LSS_SKY_RAW
+  mode: "wcu_lss_l"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 100
+    ndit: 120
+    filter_name: "L_spec"
+    ndfilter_name: "ND_OD4"
+    catg: "SCIENCE"
+    tech: "LSS,LM"
+    type: "SKY"
+    tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
+    nObs: 2
+    pupil_transmission: 0.0
+    slit_name: 'A-19_0'
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 0.0
+    bb_temp: 800
+    is_temp: 300
+    wcu_temp: 300
+
+LM_LSS_SCI_SKY_RAW_M_ND:
+  do.catg: LM_LSS_SKY_RAW
+  mode: "wcu_lss_m"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 100
+    ndit: 120
+    filter_name: "M_spec"
+    ndfilter_name: "ND_OD4"
+    catg: "SCIENCE"
+    tech: "LSS,LM"
+    type: "SKY"
+    tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
+    nObs: 2
+    pupil_transmission: 0.0
+    slit_name: 'A-19_0'
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 0.0
+    bb_temp: 800
+    is_temp: 300
+    wcu_temp: 300

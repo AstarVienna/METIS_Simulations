@@ -8,7 +8,7 @@ import runSimulationBlock as rsb
 
 if __name__ == "__main__":
     params = {}
-    params['outputDir'] = "output/ifu"
+    params['outputDir'] = "output/ifu_new"
     params['small'] = False
     params['doStatic'] = True
     params['doCalib'] = 2
@@ -18,7 +18,7 @@ if __name__ == "__main__":
     params['nCores'] = 6
     params['testRun'] = False
 
-    yamlFiles = ["YAML/wavecalIFU.yaml","YAML/scienceIFU.yaml","YAML/stdIFU.yaml","YAML/detlinIFU.yaml","YAML/distortionIFU.yaml","YAML/rsrfIFU.yaml","YAML/rsrfPinhIFU.yaml"]
+    yamlFiles = ["YAML/scienceIFU.yaml"]
 
     rsb.runSimulationBlock(yamlFiles,params)
 

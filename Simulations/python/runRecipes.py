@@ -392,13 +392,13 @@ class runRecipes():
         ii=0
         for name, recipe in self.dorcps.items():
             expanded = [key for key in sd.expandables
-                        if isinstance(recipe["properties"][key], list)]
+                        if isinstance(recipe["properties"].get(key), list)]
             combos = product(*[recipe["properties"][key] for key in expanded])
 
             for combo in combos:
                 combodict = dict(zip(expanded, combo))
                 props = recipe["properties"] | combodict
-                
+
                 try:
                     nfname = props["ndfilter_name"]
                 except:
@@ -644,7 +644,7 @@ class runRecipes():
             # expand the expandables
 
             expanded = [key for key in sd.expandables
-                        if isinstance(recipe["properties"][key], list)]
+                        if isinstance(recipe["properties"].get(key), list)]
             combos = product(*[recipe["properties"][key] for key in expanded])
     
             # get the mode and the prefix for the title

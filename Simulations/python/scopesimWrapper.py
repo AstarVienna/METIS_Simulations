@@ -89,8 +89,7 @@ def simulate(fname, rcp, small=False):
     cmd["!OBS.tech"] = props["tech"]
     cmd["!OBS.mjd-obs"] = props["MJD-OBS"]
     cmd["!OBS.dateobs"] = props["dateobs"]
-    # TODO: Ensure ndfilter_name is always defined.
-    cmd["!OBS.nd_filter_name"] = props.get("ndfilter_name", "open")
+    cmd["!OBS.nd_filter_name"] = props.get("ndfilter_name") or "open"
     cmd["!OBS.filter_name"] = props["filter_name"]
     if cmd["!OBS.filter_name"] == "closed":
         cmd["!OBS.filter_name"] = "open"
@@ -104,6 +103,12 @@ def simulate(fname, rcp, small=False):
         cmd["!OBS.tplexpno"] = props["tplexpno"]
     if("tplstart" in props.keys()):
         cmd["!OBS.tplstart"] = props["tplstart"]
+    if "slit_name" in props:
+        cmd["!OBS.slit"] = props["slit_name"]
+    if "pupil_transmission" in props:
+        cmd["!OBS.pupil_transmission"] = props["pupil_transmission"]
+    if 'detector_readout_mode' in props:
+        cmd["!OBS.detector_readout_mode"] = props['detector_readout_mode']
 
     # set up the optical train
 
