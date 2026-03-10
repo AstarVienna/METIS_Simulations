@@ -17,6 +17,7 @@ if __name__ == "__main__":
     params['calibFile'] = None
     params['nCores'] = 8
     params['testRun'] = False
+    params['slit_name'] = "C-38_1"
 
     yamlFiles = ["YAML/scienceLSSLM.yaml","YAML/stdLSSLM.yaml","YAML/detlinLM.yaml","YAML/distortionLM.yaml","YAML/rsrfLSSLM.yaml","YAML/rsrfPinhLSSLM.yaml","YAML/wavecalLSSLM.yaml","YAML/slitlossLSSLM.yaml"]
 

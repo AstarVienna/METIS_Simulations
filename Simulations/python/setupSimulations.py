@@ -349,7 +349,11 @@ class setupSimulations():
             self.tplExpno = 0
             
             props = recipe["properties"]
-            
+
+            # Apply global slit_name default if not set per-recipe
+            if 'slit_name' not in props and 'slit_name' in self.params:
+                props['slit_name'] = self.params['slit_name']
+
             recipe["properties"]["tplstart"] = self.tplStart
 
             # for nObs exposures of each set of parameters
@@ -507,12 +511,12 @@ class setupSimulations():
             
             if(tech == "LSS,LM"):
                 hdul[0].header['HIERARCH ESO INS MODE'] = "SPEC_LM"
-                #hdul[0].header['HIERARCH ESO INS OPTI9 NAME'] = filt
-                #hdul[0].header['HIERARCH ESO INS DRS SLIT'] = "C-38_1"
+                if 'HIERARCH ESO INS OPTI3 NAME' in hdul[0].header:
+                    hdul[0].header['HIERARCH ESO INS DRS SLIT'] = hdul[0].header['HIERARCH ESO INS OPTI3 NAME']
             if(tech == "LSS,N"):
                 hdul[0].header['HIERARCH ESO INS MODE'] = "SPEC_N_LOW"
-                #hdul[0].header['HIERARCH ESO INS OPTI12 NAME'] = filt
-                hdul[0].header['HIERARCH ESO INS DRS SLIT'] = "C-38_1"
+                if 'HIERARCH ESO INS OPTI3 NAME' in hdul[0].header:
+                    hdul[0].header['HIERARCH ESO INS DRS SLIT'] = hdul[0].header['HIERARCH ESO INS OPTI3 NAME']
             
             #IMAGING
             if(tech == "IMAGE,LM"):
