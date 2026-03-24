@@ -10,7 +10,7 @@ IFU_WAVE_RAW:
     ndit: 1
     wavelen: 3.555
     filter_name: "open"
-    ndfilter_name: "ND_OD4"
+    ndfilter_name: "ND-2.8"
     catg: "CALIB"
     tech: "LMS"
     type: "WAVE"
