@@ -1554,14 +1554,14 @@ files = [
 
 [[package]]
 name = "spextra"
-version = "0.43.4"
+version = "0.43.5"
 description = "Tool to manage and manipulate astronomical spectra."
 optional = false
 python-versions = "<3.15,>=3.10"
 groups = ["main"]
 files = [
-    {file = "spextra-0.43.4-py3-none-any.whl", hash = "sha256:c3c15d550f2e8fcc418daec34292a6af13c1f5db6c0d44ab8ee8af5aadb55369"},
-    {file = "spextra-0.43.4.tar.gz", hash = "sha256:d8544d081a82f4e01e0368e8390564abd976926483780ea01ce57af13912fa5f"},
+    {file = "spextra-0.43.5-py3-none-any.whl", hash = "sha256:4601d51b54eb89d4978558fd1e41c8f7c0b2bbc7bf4922a21eb478d9a1720cdd"},
+    {file = "spextra-0.43.5.tar.gz", hash = "sha256:878361d1b96d60d68554b35f2e5a71ea09f706897f8256f74a61c2ef92124fed"},
 ]
 
 [package.dependencies]
