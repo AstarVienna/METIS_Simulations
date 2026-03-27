@@ -11,11 +11,11 @@ LM_SLITLOSSES_RAW1:
     kwargs:
       amplitude: 10
       x: 0
-      y: -0.025   
+      y: -0.025
   properties:
     dit: 0.25
     ndit: 1
-    filter_name: "open"
+    filter_name: "L_spec"
     catg: "CALIB"
     tech: "LSS,LM"
     type: "SLITLOSS"
@@ -32,11 +32,11 @@ N_LSS_SLITLOSSES_RAW1:
     kwargs:
       amplitude: 10
       x: 0
-      y: -0.025   
+      y: -0.025
   properties:
     dit: 0.25
     ndit: 1
-    filter_name: "open"
+    filter_name: "N_spec"
     catg: "CALIB"
     tech: "LSS,N"
     type: "SLITLOSS"
@@ -155,12 +155,10 @@ IFU_DISTORTION_RAW:
   properties:
     dit: 0.25
     ndit: 1
-    filter_name: "Lp"
-    nd_filter_name: "ND_OD3"
+    #filter_name: "Lp"
+    nd_filter_name: "ND-2.8"
     catg: "CALIB"
     tech: "LMS"
     type: "DISTORTION"
     tplname: "METIS_ifu_cal_distortion"
     nObs: 1
-
-
