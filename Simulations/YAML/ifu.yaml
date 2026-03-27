@@ -74,7 +74,7 @@ IFU_WAVE_RAW:
     ndit: 1
     wavelen: 3.555
     filter_name: "open"
-    nd_filter_name: "ND_OD4"
+    nd_filter_name: "ND-2.8"
     catg: "CALIB"
     tech: "LMS"
     type: "WAVE"
@@ -234,7 +234,7 @@ IFU_RSRF_RAW2:
 IFU_WCU_OFF1:
   do.catg: IFU_WCU_OFF_RAW
   mode: "wcu_lms"
-  source: 
+  source:
     name: empty_sky
     kwargs: {}
   properties:
@@ -273,5 +273,3 @@ IFU_SKY_RAW1:
     type: "SKY"
     tplname: "METIS_ifu_cal_standard"
     nObs: 1
-
-
