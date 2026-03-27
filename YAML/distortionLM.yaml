@@ -1,0 +1,26 @@
+LM_DISTORTION_RAW:
+  do.catg: LM_DISTORTION_RAW
+  mode: "wcu_img_lm"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 10.
+    ndit: 20
+    filter_name: "open"
+    ndfilter_name: "open"
+    catg: "CALIB"
+    tech: "IMAGE,LM"
+    type: "DISTORTION"
+    tplname: "METIS_img_lm_cal_distortion"
+    nObs: 1
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "grid_lm"
+    bb_aperture: 0.5
+    bb_temp: 8000
+    is_temp: 300
+    wcu_temp: 300
+    xshift: 0
+    yshift: 0
+    

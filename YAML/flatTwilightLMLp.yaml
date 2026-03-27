@@ -1,0 +1,17 @@
+
+LM_FLAT_TWILIGHT_RAW:
+  do.catg: LM_FLAT_TWILIGHT_RAW
+  mode: img_lm
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    filter_name: "Lp"
+    ndfilter_name: "open"
+    dit: 0.25
+    ndit: 1
+    catg: "CALIB"
+    tech: "IMAGE,LM"
+    type: "FLAT,TWILIGHT"
+    tplname: "METIS_img_lm_det_flat"
+    nObs: 3

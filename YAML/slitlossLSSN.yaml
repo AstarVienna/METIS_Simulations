@@ -1,0 +1,21 @@
+
+N_LSS_SLITLOSSES_RAW1:
+  do.catg: N_SLITLOSSES_RAW
+  mode: "lss_n"
+  source:
+    name: calib_star
+    kwargs:
+      amplitude: 10
+      x: 0
+      y: -0.025   
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "open"
+    ndfilter_name: "open"
+    catg: "CALIB"
+    tech: "LSS,N"
+    type: "SLITLOSS"
+    tplname: "METIS_spec_n_cal_slit"
+    nObs: 1
+

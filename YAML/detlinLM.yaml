@@ -1,0 +1,99 @@
+############ DETLIN WITH DIFFERENT EXPOSURE TIMES ##################
+
+
+DETLIN_2RG_RAW1:
+  do.catg: DETLIN_2RG_RAW
+  mode: "wcu_img_lm"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 1.
+    ndit: 1
+    filter_name: "open"
+    ndfilter_name: "open"
+    catg: "CALIB"
+    tech: "IMAGE,LM"
+    type: "DETLIN"
+    tplname: "METIS_img_lm_cal_DetLin"
+    nObs: 1
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 0.5
+    bb_temp: 800
+    is_temp: 300
+    wcu_temp: 300
+
+DETLIN_2RG_RAW2:
+  do.catg: DETLIN_2RG_RAW
+  mode: "wcu_img_lm"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 2.
+    ndit: 1
+    filter_name: "open"
+    ndfilter_name: "open"
+    catg: "CALIB"
+    tech: "IMAGE,LM"
+    type: "DETLIN"
+    tplname: "METIS_img_lm_cal_DetLin"
+    nObs: 1
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 0.5
+    bb_temp: 800
+    is_temp: 300
+    wcu_temp: 300
+
+DETLIN_2RG_RAW3:
+  do.catg: DETLIN_2RG_RAW
+  mode: "wcu_img_lm"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 3.
+    ndit: 1
+    filter_name: "open"
+    ndfilter_name: "open"
+    catg: "CALIB"
+    tech: "IMAGE,LM"
+    type: "DETLIN"
+    tplname: "METIS_img_lm_cal_DetLin"
+    nObs: 1
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 0.5
+    bb_temp: 800
+    is_temp: 300
+    wcu_temp: 300
+
+DETLIN_2RG_RAW4:
+  do.catg: DETLIN_2RG_RAW
+  mode: "wcu_img_lm"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 4.
+    ndit: 1
+    filter_name: "open"
+    ndfilter_name: "open"
+    catg: "CALIB"
+    tech: "IMAGE,LM"
+    type: "DETLIN"
+    tplname: "METIS_img_lm_cal_DetLin"
+    nObs: 1
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 0.5
+    bb_temp: 800
+    is_temp: 300
+    wcu_temp: 300
+

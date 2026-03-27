@@ -1,0 +1,18 @@
+N_OFF_AXIS_PSF_RAW:
+  do.catg: N_OFF_AXIS_PSF_RAW
+  mode: "img_n"
+  source:
+    name: calib_star
+    kwargs:
+      amplitude: 12
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "N1"
+    ndfilter_name: "open"
+    catg: "CALIB"
+    tech: "IMAGE,N"
+    type: "PSF,OFFAXIS"
+    tplname: "METIS_img_n_cvc_obs_AutoChop"
+    nObs: 1
+    
