@@ -13,5 +13,5 @@ python simulationBlocks/hciRavcLM.py --small
 python simulationBlocks/hciAppLm.py --small
 python simulationBlocks/hciRavcIfu.py --small
 
-export METIS_ODIR="Temp/"
+export METIS_ODIR=$temp
 
