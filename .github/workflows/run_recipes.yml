@@ -35,5 +35,5 @@ jobs:
           export DEFAULT_IRDB_LOCATION="inst_pkgs"
           export MSIM_OUTDIR="."
   
-          ln -s ../irdb inst_pkgs # symbolic link to git-cloned irdb copy to ensure latest irdb version (vs released version in download_packages)
+          ln -s irdb inst_pkgs # symbolic link to git-cloned irdb copy to ensure latest irdb version (vs released version in download_packages)
           sh runESO_small.sh
