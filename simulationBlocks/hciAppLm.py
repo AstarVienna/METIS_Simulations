@@ -30,7 +30,7 @@ if __name__ == '__main__':
         for y in yamls:
             yamlFiles.append(os.path.join(yamlDir,y))
         
-        rs.runSimulationBlock(yamls,params,sys.argv[1:])
+        rs.runSimulationBlock(yamlFiles,params,sys.argv[1:])
 
 
 
