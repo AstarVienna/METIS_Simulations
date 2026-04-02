@@ -18,18 +18,15 @@ classifiers = [
     "Topic :: Scientific/Engineering :: Astronomy",
 ]
 packages = [
-    { include = "Simulations" }
+    { include = "metis_simulations" }
 ]
-[tool.poetry.dependencies]
-python = ">=3.12,<3.14"
-numpy = ">=1.26.3"
-astropy = ">=6.0.0"
-matplotlib = "^3.7.2"
 
-ScopeSim = ">=0.11.1"
-ScopeSim_Templates = "^0.5.2"
-astar-utils = ">=0.2.2"
+
+ScopeSim = ">= 0.11.2"
+ScopeSim_Templates = ">=0.8.1"
+python = ">=3.12,<3.15" 
 
 [build-system]
-requires = ["poetry-core"]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
+

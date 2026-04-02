@@ -1,20 +1,504 @@
-# METIS_Simulations
-This repository contains Scripts for simulating METIS data with ScopeSim.
 
-In particular, simulations for
-* The METIS-PIP delivery to ESO.
-* To develop/test/validate the pipeline.
-* Science case simulations (future work). 
+# IMPORTANT NOTICE
 
-These can overlap, but don't necessarily have too.
-
-The idea is to store the (Python) scripts to create the simulations in this repository, not the simulated data itself.
-
-You can find [instructions on running the Simulations scripts here](https://github.com/AstarVienna/METIS_Simulations/tree/karr/updateREADME/Simulations)
-
-[There are some scripts for manipulating files into ESO compliant files here](https://github.com/AstarVienna/METIS_Simulations/tree/karr/updateREADME/fitsWrangler), these have been mostly superceded by the pervious simulation scripts, and are kept for reference. 
+<span style="color: red">This repository contains code that is a work in progress.  The current
+set of simulations are designed for METIS pipeline development, at
+this point including correct FITS headers and file format.  The
+resultant files **DO NOT** contain instrumentally or scientifically
+accurate data, and under no circumstances should be used to evaluate
+potential performance of the METIS instrument.</span>
 
 
-- None of these cases have been simulated with SimMETIS, input data are heterogeneous some come obviously from simulations some are observations from other instruments given only as example but are not simulated METIS observations. It is unclear how suitable they are as input for ScopeSim for our purpose.
+# METIS Simulations
 
+This respository contains scripts and packages which can be used as a wrapper for ScopeSim to generate a set of simulated METIS data for pipeline development. 
+
+ - [Installing the Code](#installing-the-code)
+ - [Simulated Data Summary](#simulated-data-summary)
+ - [List of Output Fits Files](#output-fits-files)
+ - [Running the Code](#running-the-code)
+ - [Custom Simulations](#custom-simulations)
+
+
+# Installing the Code
+
+First create a clean Python environment with a recent Python version and poetry, for example through conda:
+```
+> conda create -n metissim python==3.12 poetry
+> conda activate metissim
+```
+
+The following sequence of commands will
+download and install the software with the correct dependencies. 
+
+
+```
+> git clone git@github.com:AstarVienna/METIS_Simulations.git
+
+> cd METIS_Simulations/metis_simulations
+> pip install .
+```
+
+Next, you need to define a couple of system variables, and make sure
+that you have the METIS related data from the IRDB.  The system variables
+can be set in e.g. your .bash_profile
+
+There are four system variables used by the code.  MSIM_YAML_DIR
+points to the location of the YAML template files. To use the default provided
+files, set (e.g. in bash, if you have METIS_Simulations in the home directory
+
+> export MSIM_YAML_DIR="/home/me/METIS_Simulations/metis_simulations/YAML/"
+
+MSIM_NCORES set the default number of cores to be used to run the code; set it to at least one less than your maximum number, e.g.
+
+> export MSIM_NCORES=5
+
+MSIM_OUTPUT_PREFIX sets the prefix for the output directories. This
+will be added to the value in the simulation blocks.
+
+> export MSIM_OUTPUT_PREFIX="/home/me/simOut/"
+
+DEFAULT_IRDB_LOCATION is the location of IRDB data. If you have an
+existing copy, you can point there. To download just the needed packages,
+run the provided downloadPackages.py script from the directory where you
+want to store them, and set the variable to point to inst_pkgs/
+
+> cd ~
+> /home/me/METIS_Simulations/scripts/downloadPackages.py
+> export DEFAULT_IRDB_LOCATION="/home/me/inst_pkgs/"
+
+
+# Running the Code
+
+The simulations are set up using yaml templates, which define the
+simulation needed for a single recipe, and simulation blocks, which
+define a set of templates and various run-time parameter. A simulation
+block is a python executable file that typically generates all the
+files needed to test a complete workflow. These are analoguous but not identical
+to the templates and observation blocks used in the instrument.
+A set of YAML files (at least one per recipe) are provided in the directory YAML,
+a set of simulation blocks (at least one for each instrument workflow) are
+provided in simulationBlocks. 
+
+To reproduce an ESO delivery set, run the provided script 
+
+```
+> /runESO.sh
+```
+
+This will produce a complete set of files needed to test the current
+release of the pipeline software. You can also run any of the commands
+separately, e.g.
+
+> simulationBlocks/imgLM.py
+
+will run a set of data for the LM imager.
+
+# YAML templates
+
+A yaml template contains the parameters needed to set up a sequence of
+ScopeSim calls for a single set of observations (e.g., science target,
+distortion, flat fields).
+
+```
+LM_IMAGE_SCI_RAW1:
+  do.catg: LM_IMAGE_SCI_RAW
+  mode: "img_lm"
+  source: 
+    name: star_field
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 4
+    filter_name: "Lp"
+    catg: "SCIENCE"
+    tech: "IMAGE,LM"
+    type: "OBJECT"
+    nObs: 5
+```
+
+A complete description is found later in the README (??).
+
+# Simulation Blocks
+
+There is a YAML parameter file for each observing template. A "simulation block" is created by running a sequence of individual observing templates, creating a set of data files which can be used to run / test a specific recipe or workflow. There are analogous to an observing block, but are designed to be self contained (i.e., including raw data for all calibrations needed for the recipe, and all static calibration files). 
+
+An example is the file imgLM.py, which generates all files needed to run the LM workflow.
+
+```
+from metis_simulations import runSimulationBlock as rs
+
+if __name__ == '__main__':    
+
+	params = {}
+	params['outputDir'] = "output/imgLM"
+	params['small'] = False
+	params['doStatic'] = True
+	params['doCalib'] = 2
+	params['sequence'] = True
+	params['startMJD'] =  "2027-01-25 00:00:00"
+	params['calibFile'] = None
+	params['nCores'] = 8
+	params['testRun'] = False
+	
+	yamlFiles = ["YAML/scienceLM.yaml","YAML/stdLM.yaml","YAML/distortionLM.yaml","YAML/detlinLM.yaml"]
+	
+	rs.runSimulationBlock(yamlFiles,params)
+
+```
+
+with a common set of input paramters, defined here??
+
+
+Any of the parameters can be overwritten as a command line option when running, e.g.
+
+> simulationBlock/imgLM.py --outputDir="mydir" --small --doStatic --doCalib=2 --sequence--startMJD="2027-01-25 00:00:00" --nCores=6
+
+
+
+
+
+
+
+
+# Simulation Block Options
+
+```
+doCalib = n
+```
+automatically determine and generate the required flats and darks, n is the number of each type to generate. Default is turned off.
+
+```
+startMJD = "2027-01-25 00:00:00"
+```
+
+Starting date for the observation sequence, in the above format. 
+
+```
+outputDir = output/
+```
+
+   set output directory. Can be nested. 
+
+
+```
+small = False
+```
+
+   generate small images with correct headers, only useful for github CI tests. 
+
+```
+testRun = False
+```
+
+   do everything except the actual file generation, useful for checking input YAML templates. Default is off
+
+```
+nCores = 8
+```
+
+Number of cores to use. The code will check and will always use at least one core, and at most 1 core less than the number of cores on the machine. 
+
+```
+doStatic = True
+```
+Generated static calibration files. 
+
+
+## Generating a summary
+
+./python/generateSummary.py output/imgN,output/imgLM
+
+generates a CSV file containing a list of files and a summary of the important keywords for files in a
+comma separated list of directories. 
+
+
+```
+--outFile=outfile.csv
+```
+
+write output to file outfile.csv, default is summary.csv
+
+
+# YAML file definitions
+
+
+
+# Simulated Data Summary
+
+Running the versions of the command listed at the top of this document generates a minimal set of input test files for skeleton pipeline development, i.e. one each of any file needed for input to a recipes as specified in Chapter 6 of the DRLD.  Each file has the correct dimensions, plus ESO compliant keywords as required for developing the EDPS skeleton, specifically the matched keywords and derived aliases, as well as the standard FITS keywords provided by ScopeSim. Pixel contents will be gradually improved as needed for development. 
+
+## Included Keywords
+
+ - DET.DIT
+ - DET.NDIT
+ - DPR.CATG
+ - DPR.TECH
+ - DPR.TYPE
+ - INS.MODE
+ - INS.OPTI*.NAME (depends on instrument)
+ - SEQ.WCU.LASERn
+
+ - DRS.FILTER
+ - DRS.SLIT
+ - DRS.IFU
+ - DRS.MASK
+ - DRS.PUPIL
+
+## FITS file contents
+
+All of the FITS files were generated by ScopeSim using the provided
+script. In most cases, they contain data which is a first
+approximation of real data; further work is needed in many cases to
+set DIT/NDIT/Filters for reasonable flux levels, and to refine the
+choice of science targets and standard stars for more accurate (and
+science-case appropriate) choices. We have generated data and
+calibrations for one set of filters for each mode as a base set; this
+can easily be extended to multiple sets as needed. One of each type of
+image has been generated; this is sufficient for pipeline skeleton development. 
+
+The coronagraph, pupil imaging and chopper home images currently
+contain placeholder data as these are not modes sximulated by
+ScopeSim; by the next release these will be updated to include input
+simulated images.
+
+This release contains placeholder files for the internal pipeline
+representation of the of the external calibration files (such as
+source catalogues). The EDPS relevant header keywords are set, and
+there is a first draft of the internal format.
+
+FITS keywords needed by the recipes themselves (but not by the EDPS skeleton) may not
+be complete. 
+
+## SOF Files
+
+A set of SOF files to match the simulated data is provided in sofFiles/. There is one SOF file for
+each recipe, with the exception of
+
+ - SOF files for both lamp and twilight flats
+ - recipes for both sci/std  processing in the metis_det_img_basic_reduce recipes
  
+due to recipes that handle more than one type of input data that is used as input for another recipe.
+
+# Output FITS Files
+
+A summary spreadsheet of the files can be found [here].(https://docs.google.com/spreadsheets/d/1WW2CTb9ZTmTsDVCFfH5E_shXY9rRbVToDdXYt0VA-_4/edit?usp=sharing)
+
+The set of simulations is as follows
+
+## Science + Calibrations
+
+- LM/N Science Source: a star field 
+- LSS/IFU Science Source: extended galaxy
+
+  - sky fields for each science exposure
+  - standard star (centred point source) for each filter/instrument combination
+  - sky fields for each standard star
+
+- Coronagraphic RAW Files for
+
+   - RAVC,LM, APP,LM, RAVC,IFU
+       - sky fields for each mode
+       - off axis PSF
+
+- Flat field / RSRF as appropriate for each  instrument / filter combination.
+- RSRF images are generated for two lamp temperatures. 
+
+- Dark Frames for each exposure time / instrument combination
+   
+## Technical and Calibrations
+
+- Set of images for detector linearity and gain calculationes
+- Distortion images with the pinhole mask
+- RSRF images with the pinhole mask for order tracing
+- set of images for slitloss determination
+- set of laser spectrum images for wavelength calibration
+- chopperhome images
+- pupil images
+- dark frames to match the exposure times for the above
+
+## External Calibration Files
+
+ - PINHOLE_TABLE
+ - LASER_TAB
+ - LSF_KERNEL
+ - LM_LSS_WAVE_GUESS
+ - N_LSS_WAVE_GUESS
+ - N_LSS_DIST_SOL
+ - LM_DIST_SOL
+ - ATM_PROFILE
+ - AO_PSF_MODEL
+ - N_SYNTH_TRANS
+ - LM_SYNTH_TRANS
+ - FLUXSTD_CATALOG
+ - REF_STD_CAT_star1
+ - PERSISTANCE_MAP
+
+The list of  RAW files and external calibration files was compiled from the DRLD recipe listings
+in Chapter 6, specifically the "Input Data" entry. FITS keywords and file types were
+cross-checked against
+
+    - INS.mode values of Table 2 of the DRLD.
+    - List of needed calibrations / mode from Table 4
+    - Alias keywords (needed for the EDPS skeleton)  given in Table 5
+    - Matched keywords (needed for the EDPS skeleton)  given in Table 6.
+    - The DPR.CATG, TECH, TYPE etc. given in Table 20.
+
+# Generating Custom Simulations
+
+If you want to run the scripts for your own models, there are two files you will need to edit, in addition to the command line options given above.
+
+## YAML file definitions
+
+This file consists of a sequence of templates in the form
+
+```
+LM_IMAGE_SCI_RAW1:
+  do.catg: LM_IMAGE_SCI_RAW
+  mode: "img_lm"
+  source: 
+    name: star_field
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 4
+    filter_name: "Lp"
+    catg: "SCIENCE"
+    tech: "IMAGE,LM"
+    type: "OBJECT"
+    nObs: 5
+```
+
+The first line is a unique label for the template.
+
+mode: one of
+
+|mode  |description    |
+|------|---------------|
+|img_lm|imaging LM band|
+|img_n |imaging N band |
+|lss_l |LSS L band     |
+|lss_m |LSS M band     |
+|lss_n |LSS N band     |
+|lms   |IFU            |
+
+
+source:  details on the source to be used. Sources are given in sources.py
+  A source consists of a name, as in sources.py, and a (possibly empty)
+  list of kwargs (key word arguments). See file sources.py for details.
+
+current sources
+
+|source           |description                    |
+|-----------------|-------------------------------|
+|empty_sky        |blank sky                      |
+|flat_field       |lamp flat                      |
+|star_field       |fixed set of stellar sources   |
+|simple_star12    |12th mag point source at centre|
+|simple_star18    |18th mag point source at centre|
+|simple_gal       |elliptical galaxy              |
+|pinhole_mask     |pinhole mask on WCU            |
+|laser_spectrum_lm|laser spectrum (LM) on WCU     |
+|laser_spectrum_n |laser spectrum (N) on WCU      |
+
+properties:
+
+dit:  DIT value (float)
+
+ndit: NDIT value (integer)
+
+filter_name: one of
+
+|filter_name  |band|
+|-------------|----|
+|open         |any |
+|closed       |any |
+|Lp           |LM  |
+|short-L      |LM  |
+|L_spec       |LM  |
+|Mp           |LM  |
+|M_spec       |LM  |
+|Br_alpha     |LM  |
+|Br_alpha_ref |LM  |
+|PAH_3.3      |LM  |
+|PAH_3.3_ref  |LM  |
+|CO_1-0_ice   |LM  |
+|CO_ref       |LM  |
+|H2O-ice      |LM  |
+|IB_4.05      |LM  |
+|HCI_L_short  |LM  |
+|HCI_L_long   |LM  |
+|HCI_M        |LM  |
+|N1           |N   |
+|N2           |N   |
+|N3           |N   |
+|N_spec       |N   |
+|PAH_8.6      |N   |
+|PAH_8.6_ref  |N   |
+|PAH_11.25    |N   |
+|PAH_11.25_ref|N   |
+|Ne_II        |N   |
+|Ne_II_ref    |N   |
+|S_IV         |N   |
+|S_IV_ref     |N   |
+
+ndfilter_name: optional, one of
+
+|ndfilter_name|
+|-------------|
+|open         |
+|ND_OD1       |
+|ND_OD2       |
+|ND_OD3       |
+|ND_OD4       |
+|ND_OD5       |
+
+catg: one of
+
+|catg     |
+|---------|
+|CALIB    |
+|SCIENCE  |
+|TECHNICAL|
+|---------|
+
+tech:  one of
+
+|tech    |description              |
+|--------|-------------------------|
+|IMAGE,LM|imaging                  |
+|IMAGE,N |imaging                  |
+|LMS     |ifu                      |
+|LSS,LM  |longslit spectroscopy    |
+|LSS,N   |longslit spectroscopy    |
+|PUP,M   |pupil imaging            |
+|PUP,N   |pupil imaging            |
+|APP,LM  |APP coronagraph, imaging |
+|RAVC,IFU|RAVC coronagraph, IFU    |
+|RAVC,LM |RAVC coronagraph, imaging|
+
+
+ type: one of
+
+|TYPE         |description                   |
+|-------------|------------------------------|
+|DARK         |   dark frame                 |
+|CHOPHOME     |chopper home                  |
+|DARK,WCUOFF  |dark (WCU)                    |
+|FLAT,TWILIGHT|   skyflat                    |
+|FLAT,LAMP    |lamp flat                     |
+|DETLIN       |linearity determination       |
+|OBJECT       |science object                |
+|SKY          |sky frame                     |
+|STD          |standard source               |
+|DISTORTION   |distortion (WCU, pinhole mask)|
+|WAVE         |wavelength calibration        |
+|PSF,OFFAXIS  |off axis PSF (coronagraph)    |
+|PUPIL        |pupil imaging                 |
+
+
+ nObs: number of each observation to execute
+
+ dateobs: date in the form  yyyy-mm-dd hh:mm:ss.s
+
+TODO further options

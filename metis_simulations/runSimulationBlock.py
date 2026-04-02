@@ -1,0 +1,72 @@
+#!/usr/bin/env python
+
+from . import setupSimulations as ss
+from . import makeCalibPrototypes as mcp
+
+def runSimulationBlock(yamlFiles, params, args):
+
+    """runs a sequence of yaml files with a set of command line parameters"""
+
+    allDarks = []
+    allFlats = []
+    # parse any command line overrides
+    
+    for yamlFile in yamlFiles:
+        params['inputYAML'] = yamlFile
+
+        # instantiate a simulation set and assign the general parameters
+    
+        simulationSet = ss.setupSimulations()
+        extraParams = simulationSet.parseCommandLine(args)
+        simulationSet.params = params
+
+        # override parameters with input
+        for elem in extraParams:
+            if(extraParams[elem] is not None):
+                simulationSet.params[elem] = extraParams[elem]
+
+        simulationSet.params['nCores'] = int(simulationSet.params['nCores'])
+
+        # load the YAML file
+        
+        simulationSet.loadYAML()
+
+        # get the start date
+        simulationSet.getStartDate()
+
+        # run the simulations
+        simulationSet.runSimulations()
+
+        if not params['testRun']:
+            simulationSet.updateHeaders()
+
+        # keep track of the date for the next template
+        params['startMJD'] = simulationSet.endDate.strftime('%Y-%m-%d %H:%M:%S')
+
+        # and a running tally of the parameters for darks and flats
+        
+        if(params['doCalib'] > 0):
+            simulationSet.calculateCalibs()
+            allDarks = allDarks + simulationSet.darkParms
+            allFlats = allFlats + simulationSet.flatParms
+
+    # now do all the calibrations
+
+    allDarks = list(set(allDarks))
+    allFlats = list(set(allFlats))
+
+    simulationSet.allFileNames = []
+    simulationSet.allmjd = []
+
+    simulationSet.calculateDarks(allDarks)
+    print(allFlats)
+    simulationSet.calculateFlats(allFlats,"skyFlat")
+    simulationSet.calculateFlats(allFlats,"lampFlat")
+
+    if(params['doStatic'] == True):
+        mcp.generateStaticCalibs(params['outputDir'])
+    if not params['testRun']:
+        simulationSet.updateHeaders()
+
+if __name__ == "__main__":
+    pass
