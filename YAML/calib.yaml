@@ -158,7 +158,7 @@ IFU_DISTORTION_RAW:
     #filter_name: "Lp"
     nd_filter_name: "ND-2.8"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "DISTORTION"
     tplname: "METIS_ifu_cal_distortion"
     nObs: 1

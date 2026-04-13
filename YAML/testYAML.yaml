@@ -606,7 +606,7 @@ IFU_WCU_OFF_RAW:
         filter_name: "open"
         ndfilter_name: "open"
         catg: "CALIB"
-        tech: "LMS"
+        tech: "IFU"
         type: "DARK,WCU_OFF"
         tplname: "METIS_lms_det_dark"
         nObs: 1
@@ -684,7 +684,7 @@ DARK_IFU_RAW:
     ndit: 1
     filter_name: "closed"
     ndfilter_name: "open"
-    tech: "LMS"
+    tech: "IFU"
     type: "DARK"
     catg: "CALIB"
     tplname: "METIS_img_lms_det_dark"
@@ -702,7 +702,7 @@ DETLIN_IFU_RAW1:
     filter_name: "open"
     ndfilter_name: "open"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "DETLIN"
     tplname: "METIS_ifu_cal_DetLin"
     nObs: 1
@@ -727,7 +727,7 @@ IFU_DISTORTION_RAW:
     filter_name: "open"
     ndfilter_name: "open"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "DISTORTION"
     tplname: "METIS_ifu_cal_distortion"
     nObs: 1
@@ -775,7 +775,7 @@ IFU_OFF_AXIS_PSF_RAW:
     ndfilter_name: "open"
     wavelen: "3.555"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "PSF,OFFAXIS"
     tplname: "METIS_ifu_vc_obs_FixedSkyOffset"
     nObs: 1
@@ -792,7 +792,7 @@ PERSISTENCE_MAP_IFU:
     filter_name: "closed"
     ndfilter_name: "open"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "PERSISTENCE"
     nObs: 1
 
@@ -809,7 +809,7 @@ IFU_RSRF_RAW1:
     filter_name: "open"
     ndfilter_name: "open"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "RSRF"
     tplname: "METIS_ifu_cal_rsrf"
     nObs: 1
@@ -837,7 +837,7 @@ IFU_RSRF_PINH_RAW1:
     filter_name: "open"
     ndfilter_name: "open"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "RSRF"
     tplname: "METIS_ifu_cal_rsrf"
     nObs: 1
@@ -863,7 +863,7 @@ IFU_SCI_RAW:
     filter_name: "open"
     ndfilter_name: "open"
     catg: "SCIENCE"
-    tech: "LMS"
+    tech: "IFU"
     type: "OBJECT"
     tplname: "METIS_ifu_obs_GenericOffset"
     nObs: 1
@@ -880,7 +880,7 @@ IFU_SCI_SKY_RAW:
     filter_name: "open"
     ndfilter_name: "open"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "SKY"
     tplname: "METIS_ifu_obs_GenericOffset"
     nObs: 1
@@ -900,7 +900,7 @@ IFU_STD_RAW:
     ndfilter_name: "open"
     wavelen: "3.555"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "STD"
     tplname: "METIS_ifu_cal_standard"
     nObs: 1
@@ -919,7 +919,7 @@ IFU_STD_SKY_RAW:
     ndfilter_name: "open"
     wavelen: "3.555"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "SKY"
     tplname: "METIS_ifu_cal_standard"
     nObs: 1
@@ -937,7 +937,7 @@ IFU_WAVE_RAW:
     filter_name: "open"
     ndfilter_name: "ND-2.8"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "WAVE"
     tplname: "METIS_ifu_cal_InternalWave"
     nObs: 1

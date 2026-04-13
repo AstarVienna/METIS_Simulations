@@ -11,7 +11,7 @@ IFU_DISTORTION_RAW:
     filter_name: "open"
     ndfilter_name: "open"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "DISTORTION"
     tplname: "METIS_ifu_cal_distortion"
     nObs: 1

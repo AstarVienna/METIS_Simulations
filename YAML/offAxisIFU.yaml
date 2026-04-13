@@ -12,7 +12,7 @@ IFU_OFF_AXIS_PSF_RAW:
     ndfilter_name: "open"
     wavelen: "3.555"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "PSF,OFFAXIS"
     tplname: "METIS_ifu_vc_obs_FixedSkyOffset"
     nObs: 1

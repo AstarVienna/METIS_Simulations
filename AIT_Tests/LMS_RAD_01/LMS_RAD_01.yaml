@@ -1,0 +1,91 @@
+
+###############  STANDALONE DARK OBSERVATION ################
+
+LMS_RAD_01_DARK_IFU_RAW_01:
+  do.catg: DARK_IFU_RAW
+  mode: "wcu_lms"
+  source: 
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 1.
+    ndit: 300
+    wavelen: 3.555
+    filter_name: "open"
+    ndfilter_name: "open"
+    tech: "IFU"
+    type: "DARK"
+    catg: "CALIB"
+    tplname: "METIS_img_lms_det_dark"
+    nObs: 2
+    detector_readout_mode: "fast"
+
+
+
+
+###############  STANDALONE DARK OBSERVATION ################
+
+LMS_RAD_01_DARK_IFU_RAW_02:
+  do.catg: DARK_IFU_RAW
+  mode: "wcu_lms"
+  source: 
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 40
+    ndit: 4
+    wavelen: 3.555
+    filter_name: "open"
+    ndfilter_name: "open"
+    tech: "IFU"
+    type: "DARK"
+    catg: "CALIB"
+    tplname: "METIS_img_lms_det_dark"
+    nObs: 5
+    detector_readout_mode: "fast"
+
+
+
+###############  STANDALONE DARK OBSERVATION ################
+
+LMS_RAD_01_DARK_IFU_RAW_03:
+  do.catg: DARK_IFU_RAW
+  mode: "wcu_lms"
+  source: 
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 40
+    ndit: 3
+    wavelen: 3.555
+    filter_name: "open"
+    ndfilter_name: "open"
+    tech: "IFU"
+    type: "DARK"
+    catg: "CALIB"
+    tplname: "METIS_img_lms_det_dark"
+    nObs: 2
+    detector_readout_mode: "slow"
+
+
+
+###############  STANDALONE DARK OBSERVATION ################
+
+LMS_RAD_01_DARK_IFU_RAW_04:
+  do.catg: DARK_IFU_RAW
+  mode: "wcu_lms"
+  source: 
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 100
+    ndit: 2
+    wavelen: 3.555
+    filter_name: "open"
+    ndfilter_name: "open"
+    tech: "IFU"
+    type: "DARK"
+    catg: "CALIB"
+    tplname: "METIS_img_lms_det_dark"
+    nObs: 2
+    detector_readout_mode: "fast"

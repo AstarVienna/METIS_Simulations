@@ -39,6 +39,6 @@ DARK_IFU_RAW:
     ndit: 1
     filter_name: "closed"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "DARK"
     nObs: 5
