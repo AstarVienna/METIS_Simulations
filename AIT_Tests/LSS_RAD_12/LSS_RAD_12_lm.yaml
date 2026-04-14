@@ -1,5 +1,7 @@
-L_LSS_SCI_SKY_RAW_1:
-  do.catg: LM_LSS_SKY_RAW
+# Filter Transmission
+
+L_LSS_SCI_RAW_1:
+  do.catg: LM_LSS_SCI_RAW
   mode: "wcu_lss_l"
   source:
     name: empty_sky
@@ -11,11 +13,11 @@ L_LSS_SCI_SKY_RAW_1:
     ndfilter_name: "open"
     catg: "SCIENCE"
     tech: "LSS,LM"
-    type: "SKY"
+    type: "OBJECT"
     tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
     nObs: 1
     slit_name: 'A-19_0'
-    detector_readout_mode: fast
+    detector_readout_mode: 'fast'
   wcu:
     current_lamp: "bb"
     current_fpmask: "open"
@@ -24,8 +26,8 @@ L_LSS_SCI_SKY_RAW_1:
     is_temp: 300
     wcu_temp: 300
 
-L_LSS_SCI_SKY_RAW_2:
-  do.catg: LM_LSS_SKY_RAW
+L_LSS_SCI_RAW_2:
+  do.catg: LM_LSS_SCI_RAW
   mode: "wcu_lss_l"
   source:
     name: empty_sky
@@ -37,11 +39,11 @@ L_LSS_SCI_SKY_RAW_2:
     ndfilter_name: "open"
     catg: "SCIENCE"
     tech: "LSS,LM"
-    type: "SKY"
+    type: "OBJECT"
     tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
     nObs: 1
     slit_name: 'A-19_0'
-    detector_readout_mode: fast
+    detector_readout_mode: 'fast'
   wcu:
     current_lamp: "bb"
     current_fpmask: "open"
@@ -50,8 +52,8 @@ L_LSS_SCI_SKY_RAW_2:
     is_temp: 300
     wcu_temp: 300
 
-L_LSS_SCI_SKY_RAW_3:
-  do.catg: LM_LSS_SKY_RAW
+L_LSS_SCI_RAW_3:
+  do.catg: LM_LSS_SCI_RAW
   mode: "wcu_lss_l"
   source:
     name: empty_sky
@@ -63,11 +65,11 @@ L_LSS_SCI_SKY_RAW_3:
     ndfilter_name: "open"
     catg: "SCIENCE"
     tech: "LSS,LM"
-    type: "SKY"
+    type: "OBJECT"
     tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
     nObs: 1
     slit_name: 'A-19_0'
-    detector_readout_mode: fast
+    detector_readout_mode: 'fast'
   wcu:
     current_lamp: "bb"
     current_fpmask: "open"
@@ -76,8 +78,8 @@ L_LSS_SCI_SKY_RAW_3:
     is_temp: 300
     wcu_temp: 300
 
-L_LSS_SCI_SKY_RAW_4:
-  do.catg: LM_LSS_SKY_RAW
+L_LSS_SCI_RAW_4:
+  do.catg: LM_LSS_SCI_RAW
   mode: "wcu_lss_l"
   source:
     name: empty_sky
@@ -89,11 +91,11 @@ L_LSS_SCI_SKY_RAW_4:
     ndfilter_name: "open"
     catg: "SCIENCE"
     tech: "LSS,LM"
-    type: "SKY"
+    type: "OBJECT"
     tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
     nObs: 1
     slit_name: 'A-19_0'
-    detector_readout_mode: fast
+    detector_readout_mode: 'fast'
   wcu:
     current_lamp: "bb"
     current_fpmask: "open"
@@ -102,8 +104,8 @@ L_LSS_SCI_SKY_RAW_4:
     is_temp: 300
     wcu_temp: 300
 
-L_LSS_SCI_SKY_RAW_5:
-  do.catg: LM_LSS_SKY_RAW
+L_LSS_SCI_RAW_5:
+  do.catg: LM_LSS_SCI_RAW
   mode: "wcu_lss_l"
   source:
     name: empty_sky
@@ -115,11 +117,11 @@ L_LSS_SCI_SKY_RAW_5:
     ndfilter_name: "open"
     catg: "SCIENCE"
     tech: "LSS,LM"
-    type: "SKY"
+    type: "OBJECT"
     tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
     nObs: 1
     slit_name: 'A-19_0'
-    detector_readout_mode: fast
+    detector_readout_mode: 'fast'
   wcu:
     current_lamp: "bb"
     current_fpmask: "open"
@@ -128,8 +130,8 @@ L_LSS_SCI_SKY_RAW_5:
     is_temp: 300
     wcu_temp: 300
 
-L_LSS_SCI_SKY_RAW_6:
-  do.catg: LM_LSS_SKY_RAW
+L_LSS_SCI_RAW_6:
+  do.catg: LM_LSS_SCI_RAW
   mode: "wcu_lss_l"
   source:
     name: empty_sky
@@ -141,11 +143,11 @@ L_LSS_SCI_SKY_RAW_6:
     ndfilter_name: "open"
     catg: "SCIENCE"
     tech: "LSS,LM"
-    type: "SKY"
+    type: "OBJECT"
     tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
     nObs: 1
     slit_name: 'A-19_0'
-    detector_readout_mode: fast
+    detector_readout_mode: "fast"
   wcu:
     current_lamp: "bb"
     current_fpmask: "open"
@@ -154,8 +156,8 @@ L_LSS_SCI_SKY_RAW_6:
     is_temp: 300
     wcu_temp: 300
 
-L_LSS_SCI_SKY_RAW_7:
-  do.catg: LM_LSS_SKY_RAW
+L_LSS_SCI_RAW_7:
+  do.catg: LM_LSS_SCI_RAW
   mode: "wcu_lss_l"
   source:
     name: empty_sky
@@ -167,11 +169,11 @@ L_LSS_SCI_SKY_RAW_7:
     ndfilter_name: "open"
     catg: "SCIENCE"
     tech: "LSS,LM"
-    type: "SKY"
+    type: "OBJECT"
     tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
     nObs: 1
     slit_name: 'A-19_0'
-    detector_readout_mode: fast
+    detector_readout_mode: "fast"
   wcu:
     current_lamp: "bb"
     current_fpmask: "open"
@@ -180,8 +182,8 @@ L_LSS_SCI_SKY_RAW_7:
     is_temp: 300
     wcu_temp: 300
 
-L_LSS_SCI_SKY_RAW_8:
-  do.catg: LM_LSS_SKY_RAW
+L_LSS_SCI_RAW_8:
+  do.catg: LM_LSS_SCI_RAW
   mode: "wcu_lss_l"
   source:
     name: empty_sky
@@ -193,11 +195,11 @@ L_LSS_SCI_SKY_RAW_8:
     ndfilter_name: "open"
     catg: "SCIENCE"
     tech: "LSS,LM"
-    type: "SKY"
+    type: "OBJECT"
     tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
     nObs: 1
     slit_name: 'A-19_0'
-    detector_readout_mode: fast
+    detector_readout_mode: "fast"
   wcu:
     current_lamp: "bb"
     current_fpmask: "open"
@@ -206,8 +208,8 @@ L_LSS_SCI_SKY_RAW_8:
     is_temp: 300
     wcu_temp: 300
 
-L_LSS_SCI_SKY_RAW_9:
-  do.catg: LM_LSS_SKY_RAW
+L_LSS_SCI_RAW_9:
+  do.catg: LM_LSS_SCI_RAW
   mode: "wcu_lss_l"
   source:
     name: empty_sky
@@ -219,11 +221,11 @@ L_LSS_SCI_SKY_RAW_9:
     ndfilter_name: "open"
     catg: "SCIENCE"
     tech: "LSS,LM"
-    type: "SKY"
+    type: "OBJECT"
     tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
     nObs: 1
     slit_name: 'A-19_0'
-    detector_readout_mode: fast
+    detector_readout_mode: "fast"
   wcu:
     current_lamp: "bb"
     current_fpmask: "open"
@@ -232,8 +234,8 @@ L_LSS_SCI_SKY_RAW_9:
     is_temp: 300
     wcu_temp: 300
 
-L_LSS_SCI_SKY_RAW_10:
-  do.catg: LM_LSS_SKY_RAW
+L_LSS_SCI_RAW_10:
+  do.catg: LM_LSS_SCI_RAW
   mode: "wcu_lss_l"
   source:
     name: empty_sky
@@ -245,11 +247,11 @@ L_LSS_SCI_SKY_RAW_10:
     ndfilter_name: "open"
     catg: "SCIENCE"
     tech: "LSS,LM"
-    type: "SKY"
+    type: "OBJECT"
     tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
     nObs: 1
     slit_name: 'A-19_0'
-    detector_readout_mode: fast
+    detector_readout_mode: "fast"
   wcu:
     current_lamp: "bb"
     current_fpmask: "open"
@@ -258,8 +260,8 @@ L_LSS_SCI_SKY_RAW_10:
     is_temp: 300
     wcu_temp: 300
 
-L_LSS_SCI_SKY_RAW_11:
-  do.catg: LM_LSS_SKY_RAW
+L_LSS_SCI_RAW_11:
+  do.catg: LM_LSS_SCI_RAW
   mode: "wcu_lss_l"
   source:
     name: empty_sky
@@ -271,11 +273,11 @@ L_LSS_SCI_SKY_RAW_11:
     ndfilter_name: "open"
     catg: "SCIENCE"
     tech: "LSS,LM"
-    type: "SKY"
+    type: "OBJECT"
     tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
     nObs: 1
     slit_name: 'A-19_0'
-    detector_readout_mode: fast
+    detector_readout_mode: "fast"
   wcu:
     current_lamp: "bb"
     current_fpmask: "open"
@@ -284,8 +286,8 @@ L_LSS_SCI_SKY_RAW_11:
     is_temp: 300
     wcu_temp: 300
 
-M_LSS_SCI_SKY_RAW_1:
-  do.catg: LM_LSS_SKY_RAW
+M_LSS_SCI_RAW_1:
+  do.catg: LM_LSS_SCI_RAW
   mode: "wcu_lss_m"
   source:
     name: empty_sky
@@ -297,11 +299,11 @@ M_LSS_SCI_SKY_RAW_1:
     ndfilter_name: "open"
     catg: "SCIENCE"
     tech: "LSS,LM"
-    type: "SKY"
+    type: "OBJECT"
     tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
     nObs: 1
     slit_name: 'A-19_0'
-    detector_readout_mode: fast
+    detector_readout_mode: "fast"
   wcu:
     current_lamp: "bb"
     current_fpmask: "open"
@@ -310,8 +312,8 @@ M_LSS_SCI_SKY_RAW_1:
     is_temp: 300
     wcu_temp: 300
 
-M_LSS_SCI_SKY_RAW_2:
-  do.catg: LM_LSS_SKY_RAW
+M_LSS_SCI_RAW_2:
+  do.catg: LM_LSS_SCI_RAW
   mode: "wcu_lss_m"
   source:
     name: empty_sky
@@ -323,11 +325,11 @@ M_LSS_SCI_SKY_RAW_2:
     ndfilter_name: "open"
     catg: "SCIENCE"
     tech: "LSS,LM"
-    type: "SKY"
+    type: "OBJECT"
     tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
     nObs: 1
     slit_name: 'A-19_0'
-    detector_readout_mode: fast
+    detector_readout_mode: "fast"
   wcu:
     current_lamp: "bb"
     current_fpmask: "open"
@@ -336,8 +338,8 @@ M_LSS_SCI_SKY_RAW_2:
     is_temp: 300
     wcu_temp: 300
 
-M_LSS_SCI_SKY_RAW_3:
-  do.catg: LM_LSS_SKY_RAW
+M_LSS_SCI_RAW_3:
+  do.catg: LM_LSS_SCI_RAW
   mode: "wcu_lss_m"
   source:
     name: empty_sky
@@ -349,11 +351,11 @@ M_LSS_SCI_SKY_RAW_3:
     ndfilter_name: "open"
     catg: "SCIENCE"
     tech: "LSS,LM"
-    type: "SKY"
+    type: "OBJECT"
     tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
     nObs: 1
     slit_name: 'A-19_0'
-    detector_readout_mode: fast
+    detector_readout_mode: "fast"
   wcu:
     current_lamp: "bb"
     current_fpmask: "open"
@@ -362,8 +364,8 @@ M_LSS_SCI_SKY_RAW_3:
     is_temp: 300
     wcu_temp: 300
 
-M_LSS_SCI_SKY_RAW_4:
-  do.catg: LM_LSS_SKY_RAW
+M_LSS_SCI_RAW_4:
+  do.catg: LM_LSS_SCI_RAW
   mode: "wcu_lss_m"
   source:
     name: empty_sky
@@ -375,11 +377,11 @@ M_LSS_SCI_SKY_RAW_4:
     ndfilter_name: "open"
     catg: "SCIENCE"
     tech: "LSS,LM"
-    type: "SKY"
+    type: "OBJECT"
     tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
     nObs: 1
     slit_name: 'A-19_0'
-    detector_readout_mode: fast
+    detector_readout_mode: "fast"
   wcu:
     current_lamp: "bb"
     current_fpmask: "open"

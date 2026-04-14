@@ -1,5 +1,5 @@
-LM_LSS_SCI_SKY_RAW_N:
-  do.catg: N_LSS_SKY_RAW
+LM_LSS_SCI_RAW_N:
+  do.catg: N_LSS_SCI_RAW
   mode: "wcu_lss_n"
   source:
     name: empty_sky
@@ -11,7 +11,7 @@ LM_LSS_SCI_SKY_RAW_N:
     ndfilter_name: "open"
     catg: "SCIENCE"
     tech: "LSS,N"
-    type: "SKY"
+    type: "OBJECT"
     tplname: "METIS_spec_n_obs_AutoNodOnSlit"
     nObs: 1
     pupil_transmission: 0.0
@@ -24,8 +24,8 @@ LM_LSS_SCI_SKY_RAW_N:
     is_temp: 300
     wcu_temp: 300
 
-LM_LSS_SCI_SKY_RAW_N:
-  do.catg: N_LSS_SKY_RAW
+LM_LSS_SCI_RAW_N:
+  do.catg: N_LSS_SCI_RAW
   mode: "wcu_lss_n"
   source:
     name: empty_sky
@@ -37,7 +37,7 @@ LM_LSS_SCI_SKY_RAW_N:
     ndfilter_name: "ND_OD3"
     catg: "SCIENCE"
     tech: "LSS,N"
-    type: "SKY"
+    type: "OBJECT"
     tplname: "METIS_spec_n_obs_AutoNodOnSlit"
     nObs: 1
     pupil_transmission: 0.0

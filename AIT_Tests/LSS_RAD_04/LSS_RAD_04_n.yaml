@@ -1,5 +1,5 @@
-N_LSS_SCI_SKY_RAW:
-  do.catg: N_LSS_SKY_RAW
+N_LSS_SCI_RAW:
+  do.catg: N_LSS_SCI_RAW
   mode: "wcu_lss_n"
   source:
     name: empty_sky
@@ -7,16 +7,16 @@ N_LSS_SCI_SKY_RAW:
   properties:
     dit: 0.1
     ndit: 800
-    filter_name: "N-spec"
+    filter_name: "N_spec"
     ndfilter_name: "open"
     catg: "SCIENCE"
     tech: "LSS,N"
-    type: "SKY"
+    type: "OBJECT"
     tplname: "METIS_spec_n_obs_AutoNodOnSlit"
     nObs: 2
     pupil_transmission: 1.0
     slit_name: 'A-19_0'
-    detector_readout_mode: high_capacaty
+    detector_readout_mode: "high_capacity"
   wcu:
     current_lamp: "bb"
     current_fpmask: "open"

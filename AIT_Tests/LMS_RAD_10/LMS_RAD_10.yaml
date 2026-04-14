@@ -1,6 +1,6 @@
 ############ Nominal Background Behaviour ##################
 
-# WCU OFF with grid mask - background measurement
+# WCU OFF with grid mask - background measurement 
 LMS_RAD_10_bg_02:
   do.catg: IFU_SCI_RAW
   mode: "wcu_lms"
