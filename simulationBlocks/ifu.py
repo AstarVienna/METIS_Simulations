@@ -23,7 +23,7 @@ if __name__ == "__main__":
     params['nCores'] = nCores
     params['testRun'] = False
 
-    yamls = ["wavecalIFU.yaml","scienceIFU.yaml","stdIFU.yaml","detlinIFU.yaml","distortionIFU.yaml","rsrfIFU.yaml","rsrfPinhIFU.yaml"]
+    yamls = ["./ESO/wavecalIFU.yaml","./ESO/scienceIFU.yaml","./ESO/stdIFU.yaml","./ESO/detlinIFU.yaml","./ESO/distortionIFU.yaml","./ESO/rsrfIFU.yaml","./ESO/rsrfPinhIFU.yaml"]
 
 
     yamlFiles = []

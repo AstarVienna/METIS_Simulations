@@ -17,7 +17,7 @@ if __name__ == '__main__':
 	params['nCores'] = 8
 	params['testRun'] = False
 	
-	yamls = ["scienceLM.yaml","stdLM.yaml","distortionLM.yaml","detlinLM.yaml"]
+	yamls = ["./ESO/scienceLM.yaml","./ESO/stdLM.yaml","./ESO/distortionLM.yaml","./ESO/detlinLM.yaml"]
 	
 	rs.runSimulationBlock(yamlFiles,params)
 
