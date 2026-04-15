@@ -11,6 +11,6 @@ PERSISTENCE_MAP_IFU:
     filter_name: "closed"
     ndfilter_name: "open"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "PERSISTENCE"
     nObs: 1

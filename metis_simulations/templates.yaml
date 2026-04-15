@@ -12,7 +12,7 @@ dark:
        filter_name: "closed"
        ndfilter_name: "open"
        catg: "CALIB"
-       tech: "LMS"
+       tech: "IFU"
        type: "DARK"
        
    
@@ -57,7 +57,7 @@ wcuOff:
        filter_name: "open"
        ndfilter_name: "open"
        catg: "CALIB"
-       tech: "LMS"
+       tech: "IFU"
        type: "DARK,WCUOFF"
        tplname: "METIS_img_lms_det_dark"
      wcu:

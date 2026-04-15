@@ -11,7 +11,7 @@ IFU_RSRF_PINH_RAW1:
     filter_name: "open"
     ndfilter_name: "open"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "RSRF"
     tplname: "METIS_ifu_cal_rsrf"
     nObs: 1
@@ -38,7 +38,7 @@ IFU_RSRF_PINH_RAW2:
     filter_name: "open"
     ndfilter_name: "open"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "RSRF"
     tplname: "METIS_ifu_cal_rsrf"
     nObs: 1

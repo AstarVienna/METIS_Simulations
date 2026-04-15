@@ -13,7 +13,7 @@ DARK_IFU_RAW:
     wavelen: 3.555
     filter_name: "closed"
     ndfilter_name: "open"
-    tech: "LMS"
+    tech: "IFU"
     type: "DARK"
     catg: "CALIB"
     tplname: "METIS_img_lms_det_dark"

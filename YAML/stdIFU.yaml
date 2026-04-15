@@ -12,7 +12,7 @@ IFU_STD_RAW:
     filter_name: "open"
     ndfilter_name: "open"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "STD"
     tplname: "METIS_ifu_cal_standard"
     nObs: 1
@@ -36,7 +36,7 @@ IFU_STD_SKY_RAW:
     filter_name: "open"
     ndfilter_name: "open"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "SKY"
     tplname: "METIS_ifu_cal_standard"
     nObs: 1

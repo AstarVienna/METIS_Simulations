@@ -12,7 +12,7 @@ IFU_WAVE_RAW:
     filter_name: "open"
     ndfilter_name: "ND-2.8"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "WAVE"
     tplname: "METIS_ifu_cal_InternalWave"
     nObs: 1

@@ -11,7 +11,7 @@ IFU_SCI_RAW:
     filter_name: "open"
     ndfilter_name: "open"
     catg: "SCIENCE"
-    tech: "LMS"
+    tech: "IFU"
     type: "OBJECT"
     tplname: "METIS_ifu_obs_GenericOffset"
     nObs: 1
@@ -29,7 +29,7 @@ IFU_SCI_SKY_RAW:
     filter_name: "open"
     ndfilter_name: "open"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "SKY"
     tplname: "METIS_ifu_obs_GenericOffset"
     nObs: 1

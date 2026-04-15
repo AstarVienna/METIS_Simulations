@@ -10,7 +10,7 @@ IFU_WCU_OFF_RAW:
         filter_name: "open"
         ndfilter_name: "open"
         catg: "CALIB"
-        tech: "LMS"
+        tech: "IFU"
         type: "DARK,WCU_OFF"
         tplname: "METIS_lms_det_dark"
     wcu:
