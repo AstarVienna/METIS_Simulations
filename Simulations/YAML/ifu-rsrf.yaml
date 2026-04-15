@@ -14,19 +14,19 @@ IFU_RSRF_RAW1:
     filter_name: "open"
     ndfilter_name: "open"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "RSRF"
     tplname: "METIS_ifu_cal_rsrf"
     nObs: 1
   wcu:
     current_lamp: "bb"
-    current_fpmask: "grid_lm"
+    current_fpmask: "grid_lms"
     bb_aperture: 0.5
     bb_temp: 800
     is_temp: 300
     wcu_temp: 300
     xshift: 0
-    yshift: -0.1
+    yshift: 0
 
 ##WCU flats
 IFU_RSRF_RAW2:
@@ -42,15 +42,15 @@ IFU_RSRF_RAW2:
     filter_name: "open"
     ndfilter_name: "open"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "RSRF"
     tplname: "METIS_ifu_cal_rsrf"
     nObs: 1
   wcu:
     current_lamp: "bb"
     current_fpmask: "open"
-    bb_aperture: 0.0001
-    bb_temp: 8000
+    bb_aperture: 0.1
+    bb_temp: 800
     is_temp: 300
     wcu_temp: 300
     xshift: 0
@@ -71,7 +71,7 @@ IFU_WCU_OFF1:
     filter_name: "open"
     ndfilter_name: "open"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "RSRF"
     tplname: "METIS_ifu_cal_rsrf"
     nObs: 1
@@ -83,7 +83,7 @@ IFU_WCU_OFF1:
     is_temp: 300
     wcu_temp: 300
 
-## SKY image for waveval
+# ## SKY image for waveval
 IFU_SKY_RAW1:
   do.catg: IFU_WAVE_RAW
   mode: "lms"
@@ -91,12 +91,12 @@ IFU_SKY_RAW1:
     name: empty_sky
     kwargs: {}
   properties:
-    dit: 100
+    dit: 1000
     ndit: 3
     filter_name: "open"
     wavelen: "3.555"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "SKY"
     tplname: "METIS_ifu_cal_standard"
     nObs: 1
