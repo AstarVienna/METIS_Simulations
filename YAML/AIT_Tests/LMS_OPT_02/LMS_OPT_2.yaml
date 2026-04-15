@@ -1,0 +1,59 @@
+########################################################################
+# LMS_OPT_02: Geometric Distortion
+#
+# Goal: Measure geometric distortion using the grid_lms focal plane
+# mask (25-point grid with 7.5 arcsec spacing). -> doesnt exist yet, so we use the grid_lm mask (same grid but with 5 arcsec spacing) as a placeholder.
+# A WCU_OFF frame (bb_aperture=0) is taken for background subtraction,
+# followed by a WCU_ON frame (bb_aperture=1) with grid mask.
+# DIT=30s, NDIT=120 throughout.
+########################################################################
+
+# WCU OFF - background frame for subtraction
+LMS_OPT_02_IFU_WCU_OFF_RAW:
+  do.catg: IFU_SCI_RAW
+  mode: "wcu_lms"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 30.0
+    ndit: 120
+    filter_name: "Lp"
+    ndfilter_name: "open"
+    catg: "SCIENCE"
+    tech: "LMS"
+    type: "OBJECT"
+    tplname: "METIS_img_lm_obs_GenericOffset"
+    nObs: 1
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "grid_lm"
+    bb_aperture: 0.0
+    bb_temp: 1000
+    is_temp: 300
+    wcu_temp: 300
+
+# WCU ON with grid mask - distortion measurement
+LMS_OPT_02_IFU_DISTORTION_RAW:
+  do.catg: IFU_SCI_RAW
+  mode: "wcu_lms"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 30.0
+    ndit: 120
+    filter_name: "open"
+    ndfilter_name: "open"
+    catg: "SCIENCE"
+    tech: "LMS"
+    type: "OBJECT"
+    tplname: "METIS_img_lm_obs_GenericOffset"
+    nObs: 1
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "grid_lm"
+    bb_aperture: 1.0
+    bb_temp: 1000
+    is_temp: 300
+    wcu_temp: 300

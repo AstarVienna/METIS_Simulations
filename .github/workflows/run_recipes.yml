@@ -30,7 +30,7 @@ jobs:
           git clone https://github.com/AstarVienna/irdb.git
       - name: Run recipes
         run: |
-          export MSIM_YAML_DIR="YAML"
+          export MSIM_YAML_DIR="YAML/ESO"
           export MSIM_NCORES=4
           export DEFAULT_IRDB_LOCATION="inst_pkgs"
           export MSIM_OUTDIR="."

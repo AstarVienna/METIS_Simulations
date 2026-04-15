@@ -1,0 +1,53 @@
+############ Nominal Background Behaviour ##################
+
+# WCU OFF with grid mask - background measurement 
+LMS_RAD_10_bg_02:
+  do.catg: IFU_SCI_RAW
+  mode: "wcu_lms"
+  source: 
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 30
+    ndit: 120
+    wavelen: 3.555
+    filter_name: "open"
+    ndfilter_name: "open"
+    tech: "IFU"
+    type: "OBJECT"
+    catg: "SCIENCE"
+    tplname: "METIS_ifu_obs_GenericOffset"
+    nObs: 3
+  wcu: 
+    current_lamp: "bb"
+    current_fpmask: "grid_lms"
+    bb_aperture: 0.0
+    bb_temp: 700
+    is_temp: 300
+    wcu_temp: 300
+
+# WCU OFF with filter open - background measurement
+LMS_RAD_10_bg_02:
+  do.catg: IFU_SCI_RAW
+  mode: "wcu_lms"
+  source: 
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 30
+    ndit: 120
+    wavelen: 3.555
+    filter_name: "open"
+    ndfilter_name: "open"
+    tech: "IFU"
+    type: "OBJECT"
+    catg: "SCIENCE"
+    tplname: "METIS_ifu_obs_GenericOffset"
+    nObs: 3
+  wcu: 
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 0.0
+    bb_temp: 700
+    is_temp: 300
+    wcu_temp: 300
