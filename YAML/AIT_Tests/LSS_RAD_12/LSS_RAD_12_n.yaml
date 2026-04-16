@@ -17,7 +17,7 @@ N_LSS_SCI_RAW_1:
     tplname: "METIS_spec_n_obs_AutoNodOnSlit"
     nObs: 1
     pupil_transmission: 1.0
-    slit_name: 'A-19_0'
+    slit: 'A-19_0'
     detector_readout_mode: "high_capacity"
   wcu:
     current_lamp: "bb"
@@ -44,7 +44,7 @@ N_LSS_SCI_RAW_2:
     tplname: "METIS_spec_n_obs_AutoNodOnSlit"
     nObs: 1
     pupil_transmission: 1.0
-    slit_name: 'A-19_0'
+    slit: 'A-19_0'
     detector_readout_mode: "high_capacity"
   wcu:
     current_lamp: "bb"
@@ -71,7 +71,7 @@ N_LSS_SCI_RAW_3:
     tplname: "METIS_spec_n_obs_AutoNodOnSlit"
     nObs: 1
     pupil_transmission: 1.0
-    slit_name: 'A-19_0'
+    slit: 'A-19_0'
     detector_readout_mode: "high_capacity"
   wcu:
     current_lamp: "bb"
@@ -98,7 +98,7 @@ N_LSS_SCI_RAW_4:
     tplname: "METIS_spec_n_obs_AutoNodOnSlit"
     nObs: 1
     pupil_transmission: 1.0
-    slit_name: 'A-19_0'
+    slit: 'A-19_0'
     detector_readout_mode: "high_capacity"
   wcu:
     current_lamp: "bb"
@@ -125,7 +125,7 @@ N_LSS_SCI_RAW_5:
     tplname: "METIS_spec_n_obs_AutoNodOnSlit"
     nObs: 1
     pupil_transmission: 1.0
-    slit_name: 'A-19_0'
+    slit: 'A-19_0'
     detector_readout_mode: "high_capacity"
   wcu:
     current_lamp: "bb"
@@ -152,7 +152,7 @@ N_LSS_SCI_RAW_6:
     tplname: "METIS_spec_n_obs_AutoNodOnSlit"
     nObs: 1
     pupil_transmission: 1.0
-    slit_name: 'A-19_0'
+    slit: 'A-19_0'
     detector_readout_mode: "high_capacity"
   wcu:
     current_lamp: "bb"
@@ -179,7 +179,7 @@ N_LSS_SCI_RAW_7:
     tplname: "METIS_spec_n_obs_AutoNodOnSlit"
     nObs: 1
     pupil_transmission: 1.0
-    slit_name: 'A-19_0'
+    slit: 'A-19_0'
     detector_readout_mode: "high_capacity"
   wcu:
     current_lamp: "bb"
@@ -206,7 +206,7 @@ N_LSS_SCI_RAW_8:
     tplname: "METIS_spec_n_obs_AutoNodOnSlit"
     nObs: 1
     pupil_transmission: 1.0
-    slit_name: 'A-19_0'
+    slit: 'A-19_0'
     detector_readout_mode: "high_capacity"
   wcu:
     current_lamp: "bb"
@@ -233,7 +233,7 @@ N_LSS_SCI_RAW_9:
     tplname: "METIS_spec_n_obs_AutoNodOnSlit"
     nObs: 1
     pupil_transmission: 1.0
-    slit_name: 'A-19_0'
+    slit: 'A-19_0'
     detector_readout_mode: "high_capacity"
   wcu:
     current_lamp: "bb"
@@ -260,7 +260,7 @@ N_LSS_SCI_RAW_10:
     tplname: "METIS_spec_n_obs_AutoNodOnSlit"
     nObs: 1
     pupil_transmission: 1.0
-    slit_name: 'A-19_0'
+    slit: 'A-19_0'
     detector_readout_mode: "high_capacity"
   wcu:
     current_lamp: "bb"
@@ -287,7 +287,7 @@ N_LSS_SCI_RAW_11:
     tplname: "METIS_spec_n_obs_AutoNodOnSlit"
     nObs: 1
     pupil_transmission: 1.0
-    slit_name: 'A-19_0'
+    slit: 'A-19_0'
     detector_readout_mode: "high_capacity"
   wcu:
     current_lamp: "bb"
@@ -314,7 +314,7 @@ N_LSS_SCI_RAW_12:
     tplname: "METIS_spec_n_obs_AutoNodOnSlit"
     nObs: 1
     pupil_transmission: 1.0
-    slit_name: 'A-19_0'
+    slit: 'A-19_0'
     detector_readout_mode: "high_capacity"
   wcu:
     current_lamp: "bb"

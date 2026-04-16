@@ -9,6 +9,7 @@ LM_LSS_SCI_RAW:
   properties:
     dit: 20
     ndit: 4
+    wavelen: 2.703
     filter_name: "L_spec"
     ndfilter_name: "open"
     catg: "SCIENCE"
@@ -17,7 +18,8 @@ LM_LSS_SCI_RAW:
     tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
     nObs: 2
     pupil_transmission: 1.0
-    slit_name: 'A-19_0'
+    slit: 'A-19_0'
+    adc: False
     detector_readout_mode: "fast"
   wcu:
     current_lamp: "bb"

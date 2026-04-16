@@ -15,7 +15,7 @@ LM_LSS_SCI_RAW_N:
     tplname: "METIS_spec_n_obs_AutoNodOnSlit"
     nObs: 1
     pupil_transmission: 0.0
-    slit_name: 'A-19_0'
+    slit: 'A-19_0'
   wcu:
     current_lamp: "bb"
     current_fpmask: "open"
@@ -41,7 +41,7 @@ LM_LSS_SCI_RAW_N:
     tplname: "METIS_spec_n_obs_AutoNodOnSlit"
     nObs: 1
     pupil_transmission: 0.0
-    slit_name: 'A-19_0'
+    slit: 'A-19_0'
   wcu:
     current_lamp: "bb"
     current_fpmask: "open"

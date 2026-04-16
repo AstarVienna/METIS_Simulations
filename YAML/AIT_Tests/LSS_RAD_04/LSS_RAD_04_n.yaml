@@ -15,7 +15,7 @@ N_LSS_SCI_RAW:
     tplname: "METIS_spec_n_obs_AutoNodOnSlit"
     nObs: 2
     pupil_transmission: 1.0
-    slit_name: 'A-19_0'
+    slit: 'A-19_0'
     detector_readout_mode: "high_capacity"
   wcu:
     current_lamp: "bb"
