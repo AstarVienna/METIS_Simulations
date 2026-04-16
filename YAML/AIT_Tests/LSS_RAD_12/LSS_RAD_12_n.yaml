@@ -18,7 +18,7 @@ N_LSS_SCI_RAW_1:
     nObs: 1
     pupil_transmission: 1.0
     slit_name: 'A-19_0'
-    detector_readout_mode: "hight_capacity"
+    detector_readout_mode: "high_capacity"
   wcu:
     current_lamp: "bb"
     current_fpmask: "open"
@@ -45,7 +45,7 @@ N_LSS_SCI_RAW_2:
     nObs: 1
     pupil_transmission: 1.0
     slit_name: 'A-19_0'
-    detector_readout_mode: "hight_capacity"
+    detector_readout_mode: "high_capacity"
   wcu:
     current_lamp: "bb"
     current_fpmask: "open"
@@ -72,7 +72,7 @@ N_LSS_SCI_RAW_3:
     nObs: 1
     pupil_transmission: 1.0
     slit_name: 'A-19_0'
-    detector_readout_mode: "hight_capacity"
+    detector_readout_mode: "high_capacity"
   wcu:
     current_lamp: "bb"
     current_fpmask: "open"
@@ -99,7 +99,7 @@ N_LSS_SCI_RAW_4:
     nObs: 1
     pupil_transmission: 1.0
     slit_name: 'A-19_0'
-    detector_readout_mode: "hight_capacity"
+    detector_readout_mode: "high_capacity"
   wcu:
     current_lamp: "bb"
     current_fpmask: "open"
@@ -126,7 +126,7 @@ N_LSS_SCI_RAW_5:
     nObs: 1
     pupil_transmission: 1.0
     slit_name: 'A-19_0'
-    detector_readout_mode: "hight_capacity"
+    detector_readout_mode: "high_capacity"
   wcu:
     current_lamp: "bb"
     current_fpmask: "open"
@@ -153,7 +153,7 @@ N_LSS_SCI_RAW_6:
     nObs: 1
     pupil_transmission: 1.0
     slit_name: 'A-19_0'
-    detector_readout_mode: "hight_capacity"
+    detector_readout_mode: "high_capacity"
   wcu:
     current_lamp: "bb"
     current_fpmask: "open"
@@ -180,7 +180,7 @@ N_LSS_SCI_RAW_7:
     nObs: 1
     pupil_transmission: 1.0
     slit_name: 'A-19_0'
-    detector_readout_mode: "hight_capacity"
+    detector_readout_mode: "high_capacity"
   wcu:
     current_lamp: "bb"
     current_fpmask: "open"
@@ -207,7 +207,7 @@ N_LSS_SCI_RAW_8:
     nObs: 1
     pupil_transmission: 1.0
     slit_name: 'A-19_0'
-    detector_readout_mode: "hight_capacity"
+    detector_readout_mode: "high_capacity"
   wcu:
     current_lamp: "bb"
     current_fpmask: "open"
@@ -234,7 +234,7 @@ N_LSS_SCI_RAW_9:
     nObs: 1
     pupil_transmission: 1.0
     slit_name: 'A-19_0'
-    detector_readout_mode: "hight_capacity"
+    detector_readout_mode: "high_capacity"
   wcu:
     current_lamp: "bb"
     current_fpmask: "open"
@@ -261,7 +261,7 @@ N_LSS_SCI_RAW_10:
     nObs: 1
     pupil_transmission: 1.0
     slit_name: 'A-19_0'
-    detector_readout_mode: "hight_capacity"
+    detector_readout_mode: "high_capacity"
   wcu:
     current_lamp: "bb"
     current_fpmask: "open"
@@ -288,7 +288,7 @@ N_LSS_SCI_RAW_11:
     nObs: 1
     pupil_transmission: 1.0
     slit_name: 'A-19_0'
-    detector_readout_mode: "hight_capacity"
+    detector_readout_mode: "high_capacity"
   wcu:
     current_lamp: "bb"
     current_fpmask: "open"
@@ -315,7 +315,7 @@ N_LSS_SCI_RAW_12:
     nObs: 1
     pupil_transmission: 1.0
     slit_name: 'A-19_0'
-    detector_readout_mode: "hight_capacity"
+    detector_readout_mode: "high_capacity"
   wcu:
     current_lamp: "bb"
     current_fpmask: "open"
