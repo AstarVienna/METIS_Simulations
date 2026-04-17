@@ -65,34 +65,34 @@ class setupSimulations():
         
         parser = argparse.ArgumentParser()
 
-        parser.add_argument('-i', '--inputYAML', type=str,
+        parser.add_argument('-i', '--inputYAML', type=str, default=None,
                             help='input YAML File')
         
-        parser.add_argument('-o', '--outputDir', type=str,
+        parser.add_argument('-o', '--outputDir', type=str, default=None,
                             help='output directory')
         
-        parser.add_argument('-s', '--small', action = "store_true",
+        parser.add_argument('-s', '--small', action = "store_true", default=None,
                             help=('use detectors of 32x32 pixels; ' +
                                   'for running in the continuous integration'))
         
-        parser.add_argument('-e', '--doStatic', action = "store_true",
+        parser.add_argument('-e', '--doStatic', action = "store_true", default=None,
                             help=('Generate prototypes for static/external calibration files'))
         
-        parser.add_argument('-d', '--doCalib', type=int,
+        parser.add_argument('-d', '--doCalib', type=int, default=None,
                             help='automatically generate darks and flats for the dataset. Will generate N of each type')
 
         # expects either 1 or a date stamp
-        parser.add_argument('-q', '--sequence', type=str,
+        parser.add_argument('-q', '--sequence', type=str, default=None,
                             help='options for generating timestamps. Set to a date in the form yyyy-mm-dd hh:mm:ss to start from a specific date, or 1 to use the first dateobs in the YAML file.')
 
         # if set, option to true
-        parser.add_argument('-t', '--testRun', action="store_true",
+        parser.add_argument('-t', '--testRun', action="store_true", default=None,
                             help='run the script without executing simulate to check input')
 
-        parser.add_argument('-f', '--calibFile', type=str,
+        parser.add_argument('-f', '--calibFile', type=str, default=None,
                             help='File to dump calibration file YAML to')
         
-        parser.add_argument('-n', '--nCores', type=int,
+        parser.add_argument('-n', '--nCores', type=int, default=None,
                             help='number of cores for parallel processing')
 
         inArgs = parser.parse_args(args)
@@ -219,7 +219,7 @@ class setupSimulations():
             recipe = json.loads(json.dumps(self.templates[tpe]["lm"]))
         elif(",N" in band):
             recipe = json.loads(json.dumps(self.templates[tpe]["n"]))
-        elif(np.any(["LMS" in band,"IFU" in band])):
+        elif(np.any(["IFU" in band])):
             recipe = json.loads(json.dumps(self.templates[tpe]["ifu"]))
         return recipe
 
@@ -234,7 +234,7 @@ class setupSimulations():
             for i in range(self.params['doCalib']):
 
                 # for IFU: sky flat is optional and lamp flat does not exist
-                if np.any(["LMS" in elem[2],"IFU" in elem[2]]):
+                if np.any(["IFU" in elem[2]]):
                     continue
 
                 recipe = self.copyRecipe(tpe,elem[2])
@@ -521,7 +521,7 @@ class setupSimulations():
                 #hdul[0].header['HIERARCH ESO INS OPTI13 NAME'] = filt
             
             #IFU
-            if(tech == "LMS"):
+            if(tech == "IFU"):
                 hdul[0].header['HIERARCH ESO INS MODE'] = "IFU_nominal"
                 #hdul[0].header['HIERARCH ESO INS OPTI6 NAME'] = filt
                 hdul[0].header['HIERARCH ESO DRS IFU'] = filt

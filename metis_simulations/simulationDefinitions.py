@@ -16,7 +16,7 @@ sim.rc.__config__["!SIM.file.local_packages_path"] = DEFAULT_IRDB_LOCATION
 # valid values of input parameters
 
 catgVals = ["CALIB","SCIENCE","TECHNICAL"]
-techVals = ["APP,LM","IMAGE,LM","IMAGE,N","LMS","LSS,LM","LSS,N","PUP,M","PUP,N","RAVC,IFU","RAVC,LM"]
+techVals = ["APP,LM","IMAGE,LM","IMAGE,N","IFU","LSS,LM","LSS,N","PUP,M","PUP,N","RAVC,IFU","RAVC,LM"]
 typeVals = ["CHOPHOME","DARK,WCUOFF","DETLIN","DISTORTION","FLAT,LAMP","OBJECT","PSF,OFFAXIS","PUPIL","SKY","STD","WAVE","SLITLOSS"]
 modeVals = ["img_lm","lss_m","img_n","lss_l","lss_m","lss_n","lms"]
 
@@ -110,7 +110,7 @@ WCUDARKIFU = {
     "source": {'name': 'empty_sky', 'kwargs': {}},
     "properties": {
         "catg": "CALIB",
-        "tech": "LMS",
+        "tech": "IFU",
         "type": "DARK,WCUOFF",
         "filter_name": "open",
         "ndfilter_name": "closed",
@@ -153,7 +153,7 @@ DARKIFU = {
     "source": {'name': 'empty_sky', 'kwargs': {}},
     "properties": {
         "catg": "CALIB",
-        "tech": "LMS",
+        "tech": "IFU",
         "type": "DARK",
         "filter_name": "closed",
         "ndfilter_name": "open",

@@ -455,7 +455,7 @@ def generateStaticCalibs(outputDir):
     primaryhdu = fits.PrimaryHDU()
     primaryhdu.header['HIERARCH ESO PRO CATG'] = "PERSISTENCE_MAP"
     primaryhdu.header['INSTRUME'] = "METIS"
-    primaryhdu.header['HIERARCH ESO PRO TECH'] = "LMS"
+    primaryhdu.header['HIERARCH ESO PRO TECH'] = "IFU"
     primaryhdu.header['HIERARCH ESO PRO TYPE'] = "REDUCED"
     primaryhdu.header['HIERARCH ESO INS MODE'] = "Nominal"
 

@@ -21,6 +21,7 @@ def runSimulationBlock(yamlFiles, params, args):
         simulationSet.params = params
 
         # override parameters with input
+        print("DD",extraParams)
         for elem in extraParams:
             if(extraParams[elem] is not None):
                 simulationSet.params[elem] = extraParams[elem]
@@ -63,6 +64,8 @@ def runSimulationBlock(yamlFiles, params, args):
     simulationSet.calculateFlats(allFlats,"skyFlat")
     simulationSet.calculateFlats(allFlats,"lampFlat")
 
+    print("CC",params['doStatic'])
+    
     if(params['doStatic'] == True):
         mcp.generateStaticCalibs(params['outputDir'])
     if not params['testRun']:
