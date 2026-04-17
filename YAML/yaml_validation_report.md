@@ -3,9 +3,9 @@
 - YAML root: `D:\Repos\METIS_Simulations\YAML`
 - Files scanned: **81**
 - PyYAML parse failures: **2**
-- Static validation failures: **7**
-- runSimulationBlock acceptance failures: **15**
-- Passed: **64**
+- Static validation failures: **5**
+- runSimulationBlock acceptance failures: **13**
+- Passed: **66**
 
 A file counts as passing only when it clears all three checks.
 
@@ -41,25 +41,23 @@ From `metis_simulations.runRecipes.validate_recipes` — checks required keys, f
 
 - Top-level YAML is not a mapping (got NoneType); expected a dict of named recipes.
 
-### `ESO\flatLampLM.yaml`
-
-- Recipe WCU_FLAT_LM_RAW does not contain required field nObs for recipe WCU_FLAT_LM_RAW
-
-### `ESO\flatLampN.yaml`
-
-- Recipe WCU_FLAT_N_RAW does not contain required field nObs for recipe WCU_FLAT_N_RAW
-
 ### `ESO\wcuOffIFU.yaml`
 
-- Recipe IFU_WCU_OFF_RAW does not contain required field properties for recipe IFU_WCU_OFF_RAW
+- Recipe IFU_WCU_OFF_RAW does not contain required field dit for recipe IFU_WCU_OFF_RAW
+- Recipe IFU_WCU_OFF_RAW does not contain required field ndit for recipe IFU_WCU_OFF_RAW
+- Recipe IFU_WCU_OFF_RAW does not contain required field nObs for recipe IFU_WCU_OFF_RAW
 
 ### `ESO\wcuOffLM.yaml`
 
-- Recipe LM_WCU_OFF_RAW does not contain required field properties for recipe LM_WCU_OFF_RAW
+- Recipe LM_WCU_OFF_RAW does not contain required field dit for recipe LM_WCU_OFF_RAW
+- Recipe LM_WCU_OFF_RAW does not contain required field ndit for recipe LM_WCU_OFF_RAW
+- Recipe LM_WCU_OFF_RAW does not contain required field nObs for recipe LM_WCU_OFF_RAW
 
 ### `ESO\wcuOffN.yaml`
 
-- Recipe N_WCU_OFF_RAW does not contain required field properties for recipe N_WCU_OFF_RAW
+- Recipe N_WCU_OFF_RAW does not contain required field dit for recipe N_WCU_OFF_RAW
+- Recipe N_WCU_OFF_RAW does not contain required field ndit for recipe N_WCU_OFF_RAW
+- Recipe N_WCU_OFF_RAW does not contain required field nObs for recipe N_WCU_OFF_RAW
 
 ## runSimulationBlock acceptance failures
 
@@ -491,60 +489,6 @@ AttributeError: 'NoneType' object has no attribute 'keys'
   AttributeError: 'NoneType' object has no attribute 'keys'
   ```
 
-### `ESO\flatLampLM.yaml`
-
-**Top-level error:**
-
-```text
-KeyError: 'nObs'
-Traceback (most recent call last):
-  File "D:\Repos\METIS_Simulations\YAML\validate_yamls.py", line 103, in _try_run
-    rs.runSimulationBlock([str(yaml_path)], params, ["-t"])
-  File "D:\Repos\METIS_Simulations\metis_simulations\runSimulationBlock.py", line 38, in runSimulationBlock
-    simulationSet.runSimulations()
-  File "D:\Repos\METIS_Simulations\metis_simulations\setupSimulations.py", line 184, in runSimulations
-    self._run(self.allrcps)
-  File "D:\Repos\METIS_Simulations\metis_simulations\setupSimulations.py", line 344, in _run
-    nObs = recipe["properties"]["nObs"]
-           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^
-KeyError: 'nObs'
-```
-
-**Failing YAML entries:**
-
-- `WCU_FLAT_LM_RAW`
-
-  ```text
-  KeyError: 'nObs'
-  ```
-
-### `ESO\flatLampN.yaml`
-
-**Top-level error:**
-
-```text
-KeyError: 'nObs'
-Traceback (most recent call last):
-  File "D:\Repos\METIS_Simulations\YAML\validate_yamls.py", line 103, in _try_run
-    rs.runSimulationBlock([str(yaml_path)], params, ["-t"])
-  File "D:\Repos\METIS_Simulations\metis_simulations\runSimulationBlock.py", line 38, in runSimulationBlock
-    simulationSet.runSimulations()
-  File "D:\Repos\METIS_Simulations\metis_simulations\setupSimulations.py", line 184, in runSimulations
-    self._run(self.allrcps)
-  File "D:\Repos\METIS_Simulations\metis_simulations\setupSimulations.py", line 344, in _run
-    nObs = recipe["properties"]["nObs"]
-           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^
-KeyError: 'nObs'
-```
-
-**Failing YAML entries:**
-
-- `WCU_FLAT_N_RAW`
-
-  ```text
-  KeyError: 'nObs'
-  ```
-
 ### `ESO\ifu-rsrf.yaml`
 
 **Top-level error:**
@@ -933,7 +877,7 @@ KeyError: 'ndfilter_name'
 **Top-level error:**
 
 ```text
-KeyError: 'properties'
+KeyError: 'dit'
 Traceback (most recent call last):
   File "D:\Repos\METIS_Simulations\YAML\validate_yamls.py", line 103, in _try_run
     rs.runSimulationBlock([str(yaml_path)], params, ["-t"])
@@ -943,8 +887,8 @@ Traceback (most recent call last):
     self._run(self.allrcps)
   File "D:\Repos\METIS_Simulations\metis_simulations\setupSimulations.py", line 338, in _run
     recipe["properties"]["dit"] = float(recipe["properties"]["dit"])
-                                        ~~~~~~^^^^^^^^^^^^^^
-KeyError: 'properties'
+                                        ~~~~~~~~~~~~~~~~~~~~^^^^^^^
+KeyError: 'dit'
 ```
 
 **Failing YAML entries:**
@@ -952,7 +896,7 @@ KeyError: 'properties'
 - `IFU_WCU_OFF_RAW`
 
   ```text
-  KeyError: 'properties'
+  KeyError: 'dit'
   ```
 
 ### `ESO\wcuOffLM.yaml`
@@ -960,7 +904,7 @@ KeyError: 'properties'
 **Top-level error:**
 
 ```text
-KeyError: 'properties'
+KeyError: 'dit'
 Traceback (most recent call last):
   File "D:\Repos\METIS_Simulations\YAML\validate_yamls.py", line 103, in _try_run
     rs.runSimulationBlock([str(yaml_path)], params, ["-t"])
@@ -970,8 +914,8 @@ Traceback (most recent call last):
     self._run(self.allrcps)
   File "D:\Repos\METIS_Simulations\metis_simulations\setupSimulations.py", line 338, in _run
     recipe["properties"]["dit"] = float(recipe["properties"]["dit"])
-                                        ~~~~~~^^^^^^^^^^^^^^
-KeyError: 'properties'
+                                        ~~~~~~~~~~~~~~~~~~~~^^^^^^^
+KeyError: 'dit'
 ```
 
 **Failing YAML entries:**
@@ -979,7 +923,7 @@ KeyError: 'properties'
 - `LM_WCU_OFF_RAW`
 
   ```text
-  KeyError: 'properties'
+  KeyError: 'dit'
   ```
 
 ### `ESO\wcuOffN.yaml`
@@ -987,7 +931,7 @@ KeyError: 'properties'
 **Top-level error:**
 
 ```text
-KeyError: 'properties'
+KeyError: 'dit'
 Traceback (most recent call last):
   File "D:\Repos\METIS_Simulations\YAML\validate_yamls.py", line 103, in _try_run
     rs.runSimulationBlock([str(yaml_path)], params, ["-t"])
@@ -997,8 +941,8 @@ Traceback (most recent call last):
     self._run(self.allrcps)
   File "D:\Repos\METIS_Simulations\metis_simulations\setupSimulations.py", line 338, in _run
     recipe["properties"]["dit"] = float(recipe["properties"]["dit"])
-                                        ~~~~~~^^^^^^^^^^^^^^
-KeyError: 'properties'
+                                        ~~~~~~~~~~~~~~~~~~~~^^^^^^^
+KeyError: 'dit'
 ```
 
 **Failing YAML entries:**
@@ -1006,7 +950,7 @@ KeyError: 'properties'
 - `N_WCU_OFF_RAW`
 
   ```text
-  KeyError: 'properties'
+  KeyError: 'dit'
   ```
 
 ## Passing files
@@ -1038,7 +982,9 @@ KeyError: 'properties'
 - `ESO\distortionIFU.yaml`
 - `ESO\distortionLM.yaml`
 - `ESO\distortionN.yaml`
+- `ESO\flatLampLM.yaml`
 - `ESO\flatLampLMLp.yaml`
+- `ESO\flatLampN.yaml`
 - `ESO\flatTwilightLMLp.yaml`
 - `ESO\hciAppLM.yaml`
 - `ESO\hciRavcIfu.yaml`
