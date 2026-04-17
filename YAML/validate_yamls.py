@@ -3,7 +3,9 @@
 Validate that every YAML file under the YAML/ tree
 
     1. Can be parsed by PyYAML (``yaml.safe_load``).
-    2. Is accepted by ``metis_simulations.runSimulationBlock.runSimulationBlock``.
+    2. Passes static/schema validation via
+       ``metis_simulations.runRecipes.validate_recipes``.
+    3. Is accepted by ``metis_simulations.runSimulationBlock.runSimulationBlock``.
 
 Results are written as a markdown report. For each failing file the report
 lists the underlying error and, where possible, identifies the top-level YAML
@@ -45,14 +47,14 @@ os.environ.setdefault("DEFAULT_IRDB_LOCATION", str(REPO_ROOT))
 
 
 def _install_stubs() -> None:
-    """Inject a fake ``metis_simulations.scopesimWrapper`` before anything
-    else imports it.
+    """Inject fake ScopeSim-backed modules before anything else imports them.
 
-    The real wrapper pulls in ``scopesim`` and ``metis_simulations.sources``,
-    and the latter builds full ScopeSim OpticalTrain objects at import time.
-    That is far too heavy (and too fragile — it needs an IRDB install) for a
-    YAML validation pass. ``setupSimulations`` only uses ``simulate`` from
-    the wrapper, so a fake module exposing a no-op ``simulate`` is enough.
+    Two siblings of ``setupSimulations`` / ``runRecipes`` pull in ``scopesim``
+    and ``metis_simulations.sources`` at import time, and the latter builds
+    full ScopeSim OpticalTrain objects at module load. That is far too heavy
+    (and too fragile — it needs an IRDB install) for a YAML validation pass.
+    Both modules are only used here for their ``simulate`` symbol, so fakes
+    exposing a no-op ``simulate`` are sufficient.
 
     runSimulationBlock calls ``simulate`` unconditionally from inside the
     recipe loop (testRun only gates the parallel Pool dispatch and the
@@ -60,12 +62,16 @@ def _install_stubs() -> None:
     """
     import types
 
-    def _noop_simulate(fname, recipe, small=False):
+    def _noop_simulate(*args, **kwargs):
         return None
 
-    fake = types.ModuleType("metis_simulations.scopesimWrapper")
-    fake.simulate = _noop_simulate
-    sys.modules["metis_simulations.scopesimWrapper"] = fake
+    for mod_name in (
+        "metis_simulations.scopesimWrapper",  # used by setupSimulations
+        "metis_simulations.raw_script",        # used by runRecipes
+    ):
+        fake = types.ModuleType(mod_name)
+        fake.simulate = _noop_simulate
+        sys.modules[mod_name] = fake
 
 
 def _base_params(out_dir: str, do_calib: int = 1) -> dict:
@@ -153,10 +159,13 @@ def _identify_failing_entries(parsed, outer_error: str) -> list[tuple[str, str]]
 
 def validate_file(yaml_path: Path) -> dict:
     """Return a result dict describing the validation outcome for one file."""
+    from metis_simulations.runRecipes import validate_recipes
+
     result: dict = {
         "path": yaml_path,
         "yaml_ok": False,
         "yaml_error": None,
+        "static_errors": [],
         "run_ok": False,
         "run_error": None,
         "failing_entries": [],
@@ -174,7 +183,26 @@ def validate_file(yaml_path: Path) -> dict:
         result["yaml_error"] = f"OSError: {exc}"
         return result
 
-    # Step 2: runSimulationBlock acceptance (whole file).
+    # Step 2: static/schema validation via runRecipes.validate_recipes.
+    # validate_recipes requires a dict of named recipes; anything else is
+    # reported as a single structural message (the dynamic pass below
+    # reports the same problem more specifically).
+    if isinstance(parsed, dict) and parsed:
+        try:
+            result["static_errors"] = list(validate_recipes(parsed))
+        except Exception as exc:
+            # validate_recipes shouldn't raise on normal recipe dicts, but
+            # if it does, surface it rather than letting it abort the run.
+            result["static_errors"] = [f"validate_recipes raised {type(exc).__name__}: {exc}"]
+    elif not isinstance(parsed, dict):
+        result["static_errors"] = [
+            f"Top-level YAML is not a mapping (got {type(parsed).__name__}); "
+            f"expected a dict of named recipes."
+        ]
+    else:
+        result["static_errors"] = ["YAML contains no recipes."]
+
+    # Step 3: runSimulationBlock acceptance (whole file).
     ok, err = _try_run(yaml_path)
     if ok:
         result["run_ok"] = True
@@ -200,11 +228,20 @@ def _fmt_err(err: str | None, *, indent: int = 0) -> str:
     return "\n".join(lead + line for line in err.rstrip().splitlines())
 
 
+def _is_passing(r: dict) -> bool:
+    return r["yaml_ok"] and not r["static_errors"] and r["run_ok"]
+
+
+def _rel(path: Path, root: Path) -> Path:
+    return path.relative_to(root) if path.is_relative_to(root) else path
+
+
 def write_report(results: list[dict], out_path: Path, yaml_root: Path) -> None:
     total = len(results)
     yaml_fail = [r for r in results if not r["yaml_ok"]]
+    static_fail = [r for r in results if r["yaml_ok"] and r["static_errors"]]
     run_fail = [r for r in results if r["yaml_ok"] and not r["run_ok"]]
-    passed = [r for r in results if r["yaml_ok"] and r["run_ok"]]
+    passed = [r for r in results if _is_passing(r)]
 
     lines: list[str] = []
     lines.append("# YAML validation report")
@@ -212,28 +249,45 @@ def write_report(results: list[dict], out_path: Path, yaml_root: Path) -> None:
     lines.append(f"- YAML root: `{yaml_root}`")
     lines.append(f"- Files scanned: **{total}**")
     lines.append(f"- PyYAML parse failures: **{len(yaml_fail)}**")
+    lines.append(f"- Static validation failures: **{len(static_fail)}**")
     lines.append(f"- runSimulationBlock acceptance failures: **{len(run_fail)}**")
     lines.append(f"- Passed: **{len(passed)}**")
+    lines.append("")
+    lines.append("A file counts as passing only when it clears all three checks.")
     lines.append("")
 
     if yaml_fail:
         lines.append("## PyYAML parse failures")
         lines.append("")
         for r in yaml_fail:
-            rel = r["path"].relative_to(yaml_root) if r["path"].is_relative_to(yaml_root) else r["path"]
-            lines.append(f"### `{rel}`")
+            lines.append(f"### `{_rel(r['path'], yaml_root)}`")
             lines.append("")
             lines.append("```text")
             lines.append(_fmt_err(r["yaml_error"]))
             lines.append("```")
             lines.append("")
 
+    if static_fail:
+        lines.append("## Static validation issues")
+        lines.append("")
+        lines.append(
+            "From `metis_simulations.runRecipes.validate_recipes` — checks "
+            "required keys, filter/ND/catg/tech/type/mode allow-lists, and "
+            "positive `nObs`/`ndit`/`dit`."
+        )
+        lines.append("")
+        for r in static_fail:
+            lines.append(f"### `{_rel(r['path'], yaml_root)}`")
+            lines.append("")
+            for msg in r["static_errors"]:
+                lines.append(f"- {msg}")
+            lines.append("")
+
     if run_fail:
         lines.append("## runSimulationBlock acceptance failures")
         lines.append("")
         for r in run_fail:
-            rel = r["path"].relative_to(yaml_root) if r["path"].is_relative_to(yaml_root) else r["path"]
-            lines.append(f"### `{rel}`")
+            lines.append(f"### `{_rel(r['path'], yaml_root)}`")
             lines.append("")
             lines.append("**Top-level error:**")
             lines.append("")
@@ -260,8 +314,7 @@ def write_report(results: list[dict], out_path: Path, yaml_root: Path) -> None:
         lines.append("## Passing files")
         lines.append("")
         for r in passed:
-            rel = r["path"].relative_to(yaml_root) if r["path"].is_relative_to(yaml_root) else r["path"]
-            lines.append(f"- `{rel}`")
+            lines.append(f"- `{_rel(r['path'], yaml_root)}`")
         lines.append("")
 
     out_path.write_text("\n".join(lines), encoding="utf-8")
@@ -304,7 +357,7 @@ def main() -> int:
 
     write_report(results, args.output, args.yaml_dir.resolve())
 
-    n_fail = sum(1 for r in results if not (r["yaml_ok"] and r["run_ok"]))
+    n_fail = sum(1 for r in results if not _is_passing(r))
     print(f"Scanned {len(results)} YAML file(s); {n_fail} failure(s).")
     print(f"Report written to: {args.output}")
     return 1 if n_fail else 0

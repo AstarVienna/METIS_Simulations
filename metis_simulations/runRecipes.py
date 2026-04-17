@@ -19,6 +19,91 @@ import astropy
 import copy
 from multiprocessing import Pool,Process,Manager,cpu_count
 
+def validate_recipes(rcps):
+
+    """
+    Static/schema validation for a loaded recipes dictionary.
+
+    Returns a list of diagnostic messages (empty list = valid). Value checks
+    are skipped per-recipe when required keys are missing, to avoid raising
+    KeyError on top of the actual diagnostic.
+
+    The allow-lists used here are defined in ``simulationDefinitions.py``.
+    """
+
+    messages = []
+
+    for name, recipe in rcps.items():
+
+        # Required keys: check first and skip value checks for this recipe
+        # if any are missing. Otherwise the later dict lookups would KeyError
+        # on top of the real diagnostic.
+
+        missing_top = [k for k in sd.topKey if k not in recipe]
+        for keyword in missing_top:
+            messages.append(
+                f"Recipe {name} does not contain required field {keyword} for recipe {name}"
+            )
+
+        if "properties" not in recipe or not isinstance(recipe["properties"], dict):
+            continue
+
+        missing_prop = [k for k in sd.propKey if k not in recipe["properties"]]
+        for keyword in missing_prop:
+            messages.append(
+                f"Recipe {name} does not contain required field {keyword} for recipe {name}"
+            )
+
+        if missing_top or missing_prop:
+            continue
+
+        props = recipe["properties"]
+        mode = recipe["mode"]
+
+        # filter_name must be valid for the mode
+        if mode in sd.validFilters:
+            if props["filter_name"] not in sd.validFilters[mode]:
+                messages.append(
+                    f"Recipe {name} Filter value of {props['filter_name']} not valid for mode {mode}"
+                )
+
+        # ND filter, if given, must be in the flat allow-list
+        if "ndfilter_name" in props:
+            if props["ndfilter_name"] not in sd.validND:
+                messages.append(
+                    f"Recipe {name} ND Filter value of {props['ndfilter_name']} not valid"
+                )
+
+        if props["catg"] not in sd.catgVals:
+            messages.append(f"Recipe {name} has invalid CATG of {props['catg']})")
+        if props["tech"] not in sd.techVals:
+            messages.append(f"Recipe {name} has invalid TECH of {props['tech']})")
+        if props["type"] not in sd.typeVals:
+            messages.append(f"Recipe {name} has invalid TYPE of {props['type']})")
+        if mode not in sd.modeVals:
+            messages.append(f"Recipe {name} has invalid MODE of {mode})")
+
+        # nObs, ndit positive ints
+        if not isinstance(props["nObs"], int) or props["nObs"] <= 0:
+            messages.append(f"Recipe {name} has invalid NOBS of {props['nObs']})")
+
+        if not isinstance(props["ndit"], int) or props["ndit"] <= 0:
+            messages.append(f"Recipe {name} has invalid NDIT of {props['ndit']})")
+
+        # dit may be a positive number or a list of positive numbers
+        dit = props["dit"]
+        if isinstance(dit, list):
+            for elem in dit:
+                if not isinstance(elem, (int, float)) or elem <= 0:
+                    messages.append(f"Recipe {name} has invalid DIT of {dit})")
+                    break
+        else:
+            if not isinstance(dit, (int, float)) or dit <= 0:
+                messages.append(f"Recipe {name} has invalid DIT of {dit})")
+
+    return messages
+
+
 class runRecipes():
 
     def __init__(self):
@@ -173,7 +258,7 @@ class runRecipes():
 
         """
         Validate the YAML based on acceptable input parameters.
-        Checks for: 
+        Checks for:
             necessary keywords
             valid filters for the mode
             valid nd filter
@@ -185,89 +270,14 @@ class runRecipes():
 
         The lists of valid parameter values can be found/updated in simulationDefintions.py
         """
-        
-        goodInput = True
-        
-        # check for existence of needed keywords before checking anything else
-        
-        for name, recipe in self.dorcps.items():    
-            for keyword in sd.topKey:
-                if(keyword not in recipe):
-                    print(f'Recipe {name} does not contain required field {keyword} for recipe {name}')
-                    goodInput = False
-        
-            for keyword in sd.propKey:
-                if(keyword not in recipe["properties"]):
-                    print(f'Recipe {name} does not contain required field {keyword} for recipe {name}')
-                    goodInput = False
-                
-            return goodInput
-    
-        for name, recipe in self.dorcps.items():
-           
-            # check for filter values (/TODO check HCI non HCI validity)
-            if(recipe['properties']['filter_name'] not in sd.validFilters[recipe['mode']]):
-               print(f"Recipe {name} Filter value of {recipe['properties']['filter_name']} not valid for mode {recipe['mode']}")
-               goodInput = False
-                
-            # check ND filter values, if any    
-            if('ndfilter_name' in recipe['properties']):
-               if(recipe['properties']['ndfilter_name'] not in sd.validND[recipe['mode']]):
-                  print(f"Recipe {name} ND Filter value of {recipe['properties']['ndfilter_name']} not valid")
-                  goodInput = False
 
-            # catg, type and tech in list of valid values. update list in simulationDefinitions as needed
- 
-            if(recipe['properties']['catg'] not in sd.catgVals):
-               print(f"Recipe {name} has invalid CATG of {recipe['properties']['catg']})")
-               goodInput = False
-            if(recipe['properties']['tech'] not in sd.techVals):
-               print(f"Recipe {name} has invalid TECH of {recipe['properties']['tech']})")
-               goodInput = False
-            if(recipe['properties']['type'] not in sd.typeVals):
-               print(f"Recipe {name} has invalid TYPE of {recipe['properties']['type']})")
-               goodInput = False
-            if(recipe['mode'] not in sd.modeVals):
-               print(f"Recipe {name} has invalid MODE of {recipe['mode']})")
-               goodInput = False
-        
-            # nObs, ndit > 0 
-            
-            if(not isinstance(recipe["properties"]["nObs"], int)):
-               print(f"Recipe {name} has invalid NOBS of {recipe['properties']['nObs']})")
-               goodInput = False
-            elif(recipe["properties"]["nObs"] <= 0):
-                print(f"Recipe {name} has invalid NOBS of {recipe['properties']['nObs']})")
-                goodInput = False
-        
-            if(not isinstance(recipe["properties"]["ndit"], int)):
-               print(f"Recipe {name} has invalid NDIT of {recipe['properties']['ndit']})")
-               goodInput = False
-            elif(recipe["properties"]["ndit"] <= 0):
-                print(f"Recipe {name} has invalid NDIT of {recipe['properties']['ndit']})")
-                goodInput = False
-        
-            # note that dit can be a number or a list
-            
-            if(type(recipe["properties"]["dit"]) is list):
-                for elem in recipe["properties"]["dit"]:
-                    if(not isinstance(elem, (int,float))):
-                        print(f"Recipe {name} has invalid DIT of {recipe['properties']['dit']})")
-                        goodInput = False
-                    elif(elem <= 0):
-                        print(f"Recipe {name} has invalid DIT of {recipe['properties']['dit']})")
-                        goodInput = False
-            else:
-                if(not isinstance(recipe["properties"]["dit"], (int,float))):
-                    print(f"Recipe {name} has invalid DIT of {recipe['properties']['dit']})")
-                    goodInput = False
-                elif(recipe["properties"]["dit"] <= 0):
-                    print(f"Recipe {name} has invalid DIT of {recipe['properties']['dit']})")
-                    goodInput = False
+        messages = validate_recipes(self.dorcps)
+        for msg in messages:
+            print(msg)
 
-        if(goodInput):
+        goodInput = not messages
+        if goodInput:
             print(f"YAML file {self.params['inputYAML']} validated")
-            
         return goodInput
                       
     def calcDark(self,props):
