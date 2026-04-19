@@ -31,7 +31,11 @@ jobs:
           pip install git+https://github.com/AstarVienna/ScopeSim_Data.git
           pip install git+https://github.com/AstarVienna/ScopeSim.git
           pip install astar-utils numpy more-itertools astropy PyYAML
-          git clone https://github.com/AstarVienna/irdb.git # get bleeding edge version of irdb
+          if [ -d irdb/.git ]; then
+            git -C irdb pull --ff-only
+          else
+            git clone https://github.com/AstarVienna/irdb.git # get bleeding edge version of irdb
+          fi
 
       - name: Debug workspace
         run: |
@@ -39,6 +43,8 @@ jobs:
           pwd
           ls -la
           ls -la "$GITHUB_WORKSPACE"
+          test -f "$GITHUB_WORKSPACE/runESO.sh"
+          test -d "$GITHUB_WORKSPACE/simulationBlocks"
           ls -la "$GITHUB_WORKSPACE/inst_pkgs" || true
 
       - name: Run recipes
@@ -46,6 +52,7 @@ jobs:
           cd "$GITHUB_WORKSPACE"
           export DEFAULT_IRDB_LOCATION="inst_pkgs"
           ln -sfn "$GITHUB_WORKSPACE/irdb" "$GITHUB_WORKSPACE/inst_pkgs" # link to git-cloned version of irdb
+          ls -la "$GITHUB_WORKSPACE/inst_pkgs"
           ./runESO.sh
       
       - name: Move data to /data
@@ -53,6 +60,7 @@ jobs:
           cd "$GITHUB_WORKSPACE"
           TODAY=$(date +%Y-%m-%d)
           echo "Today's date: $TODAY"
+          test -d output
           cp -rf output /data/$TODAY
           cd /data
           ln -sfn $TODAY LatestBuild
