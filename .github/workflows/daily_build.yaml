@@ -39,12 +39,13 @@ jobs:
           pwd
           ls -la
           ls -la "$GITHUB_WORKSPACE"
-          ls -la "$GITHUB_WORKSPACE/Simulations" || true
+          ls -la "$GITHUB_WORKSPACE/inst_pkgs" || true
 
       - name: Run recipes
         run: |
-          ln -sfn "$GITHUB_WORKSPACE/irdb" "$GITHUB_WORKSPACE/Simulations/inst_pkgs" # link to git-cloned version of irdb
           cd "$GITHUB_WORKSPACE"
+          export DEFAULT_IRDB_LOCATION="inst_pkgs"
+          ln -sfn "$GITHUB_WORKSPACE/irdb" "$GITHUB_WORKSPACE/inst_pkgs" # link to git-cloned version of irdb
           ./runESO.sh
       
       - name: Move data to /data
