@@ -49,16 +49,18 @@ jobs:
           export MSIM_YAML_DIR="YAML/ESO"
           export MSIM_NCORES=4
           export DEFAULT_IRDB_LOCATION="inst_pkgs"
-          export MSIM_OUTDIR="."
+          export MSIM_OUTDIR="output"
 
-          ./runESO.sh
+          python simulationBlocks/imgLM.py
+          #./runESO.sh
       
       - name: Move data to /data
         run: |
           cd "$GITHUB_WORKSPACE/"
           TODAY=$(date +%Y-%m-%d)
           echo "Today's date: $TODAY"
-          cp -rf output /data/$TODAY
+          mkdir -p /data/$TODAY
+          cp -a output/. /data/$TODAY/
           cd /data
           ln -sfn $TODAY LatestBuild
           ls -la /data/$TODAY
