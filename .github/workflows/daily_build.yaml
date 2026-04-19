@@ -26,45 +26,32 @@ jobs:
         run: |
           ln -sf /usr/bin/python3.12 $HOME/python
           echo "export PATH=$HOME:$PATH" >> $GITHUB_ENV
-          echo "PYTHONPATH=$GITHUB_WORKSPACE:$PYTHONPATH" >> $GITHUB_ENV
           python3.12 -m pip install --upgrade pip
           python3.12 -m pip install -e .
           python3.12 -m pip install git+https://github.com/AstarVienna/ScopeSim_Templates.git
           python3.12 -m pip install git+https://github.com/AstarVienna/ScopeSim_Data.git
           python3.12 -m pip install git+https://github.com/AstarVienna/ScopeSim.git
           python3.12 -m pip install astar-utils numpy more-itertools astropy PyYAML
-          if [ -d irdb/.git ]; then
-            git -C irdb pull --ff-only
-          else
-            git clone https://github.com/AstarVienna/irdb.git # get bleeding edge version of irdb
-          fi
 
-      - name: Debug workspace
-        run: |
-          echo "GITHUB_WORKSPACE=$GITHUB_WORKSPACE"
-          pwd
-          ls -la
-          ls -la "$GITHUB_WORKSPACE"
-          python3.12 -c "import sys; print(sys.executable)"
+          SCOPE_SIM_SITE=$(python3.12 -c "import sysconfig; print(sysconfig.get_paths()['purelib'])")
+          echo "PYTHONPATH=$SCOPE_SIM_SITE:$GITHUB_WORKSPACE:${PYTHONPATH:-}" >> $GITHUB_ENV
+          python3.12 -c "import scopesim; print(scopesim.__file__)"
           python3.12 -c "import metis_simulations; print(metis_simulations.__file__)"
-          test -f "$GITHUB_WORKSPACE/runESO.sh"
-          test -d "$GITHUB_WORKSPACE/simulationBlocks"
-          ls -la "$GITHUB_WORKSPACE/inst_pkgs" || true
+
+          git clone https://github.com/AstarVienna/irdb.git # get bleeding edge version of irdb
 
       - name: Run recipes
         run: |
           cd "$GITHUB_WORKSPACE"
           export DEFAULT_IRDB_LOCATION="inst_pkgs"
           ln -sfn "$GITHUB_WORKSPACE/irdb" "$GITHUB_WORKSPACE/inst_pkgs" # link to git-cloned version of irdb
-          ls -la "$GITHUB_WORKSPACE/inst_pkgs"
           ./runESO.sh
       
       - name: Move data to /data
         run: |
-          cd "$GITHUB_WORKSPACE"
+          cd "$GITHUB_WORKSPACE/"
           TODAY=$(date +%Y-%m-%d)
           echo "Today's date: $TODAY"
-          test -d output
           cp -rf output /data/$TODAY
           cd /data
           ln -sfn $TODAY LatestBuild
