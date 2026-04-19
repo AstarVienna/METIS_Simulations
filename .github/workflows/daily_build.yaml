@@ -52,7 +52,7 @@ jobs:
           export MSIM_OUTDIR="output"
 
           python simulationBlocks/imgLM.py
-          #./runESO.sh
+          ./runESO.sh
       
       - name: Move data to /data
         run: |
