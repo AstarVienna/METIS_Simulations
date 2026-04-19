@@ -26,11 +26,13 @@ jobs:
         run: |
           ln -sf /usr/bin/python3.12 $HOME/python
           echo "export PATH=$HOME:$PATH" >> $GITHUB_ENV
+          echo "PYTHONPATH=$GITHUB_WORKSPACE:$PYTHONPATH" >> $GITHUB_ENV
           python3.12 -m pip install --upgrade pip
-          pip install git+https://github.com/AstarVienna/ScopeSim_Templates.git
-          pip install git+https://github.com/AstarVienna/ScopeSim_Data.git
-          pip install git+https://github.com/AstarVienna/ScopeSim.git
-          pip install astar-utils numpy more-itertools astropy PyYAML
+          python3.12 -m pip install -e .
+          python3.12 -m pip install git+https://github.com/AstarVienna/ScopeSim_Templates.git
+          python3.12 -m pip install git+https://github.com/AstarVienna/ScopeSim_Data.git
+          python3.12 -m pip install git+https://github.com/AstarVienna/ScopeSim.git
+          python3.12 -m pip install astar-utils numpy more-itertools astropy PyYAML
           if [ -d irdb/.git ]; then
             git -C irdb pull --ff-only
           else
@@ -43,6 +45,8 @@ jobs:
           pwd
           ls -la
           ls -la "$GITHUB_WORKSPACE"
+          python3.12 -c "import sys; print(sys.executable)"
+          python3.12 -c "import metis_simulations; print(metis_simulations.__file__)"
           test -f "$GITHUB_WORKSPACE/runESO.sh"
           test -d "$GITHUB_WORKSPACE/simulationBlocks"
           ls -la "$GITHUB_WORKSPACE/inst_pkgs" || true
