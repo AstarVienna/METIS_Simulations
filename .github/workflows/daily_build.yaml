@@ -33,15 +33,23 @@ jobs:
           pip install astar-utils numpy more-itertools astropy PyYAML
           git clone https://github.com/AstarVienna/irdb.git # get bleeding edge version of irdb
 
+      - name: Debug workspace
+        run: |
+          echo "GITHUB_WORKSPACE=$GITHUB_WORKSPACE"
+          pwd
+          ls -la
+          ls -la "$GITHUB_WORKSPACE"
+          ls -la "$GITHUB_WORKSPACE/Simulations" || true
+
       - name: Run recipes
         run: |
-          cd Simulations
-          ln -s ../irdb inst_pkgs # link to git-cloned version of irdb
+          ln -sfn "$GITHUB_WORKSPACE/irdb" "$GITHUB_WORKSPACE/Simulations/inst_pkgs" # link to git-cloned version of irdb
+          cd "$GITHUB_WORKSPACE"
           ./runESO.sh
       
       - name: Move data to /data
         run: |
-          cd Simulations
+          cd "$GITHUB_WORKSPACE"
           TODAY=$(date +%Y-%m-%d)
           echo "Today's date: $TODAY"
           cp -rf output /data/$TODAY
