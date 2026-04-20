@@ -8,7 +8,7 @@ N_IMAGE_SCI_RAW:
     dit: 0.25
     ndit: 4
     filter_name: "open"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     catg: "SCIENCE"
     tech: "IMAGE,N"
     type: "OBJECT"
@@ -25,7 +25,7 @@ N_IMAGE_SCI_SKY_RAW:
     dit: 0.25
     ndit: 4
     filter_name: "open"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     catg: "SCIENCE"
     tech: "IMAGE,N"
     type: "SKY"

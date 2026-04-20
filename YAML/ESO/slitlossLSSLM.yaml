@@ -12,7 +12,7 @@ LM_SLITLOSSES_RAW1:
     dit: 0.25
     ndit: 1
     filter_name: "open"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     catg: "CALIB"
     tech: "LSS,LM"
     type: "SLITLOSS"

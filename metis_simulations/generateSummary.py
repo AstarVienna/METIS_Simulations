@@ -113,7 +113,6 @@ if __name__ == "__main__":
 
     # sort for tidier output
     fNames.sort()
-    print("AA",inDir)
     generateSummary(fNames,outFile)
     
  

@@ -23,14 +23,13 @@ if __name__ == '__main__':
         params['calibFile'] = None
         params['nCores'] = nCores
         params['testRun'] = False
-        
-        yamls = ["LSS_RAD_12/LSS_RAD_12_lm.yaml"]
-        
-
+                
+        yamls= ["LSS_RAD_12/LSS_RAD_12_lm_lspec.yaml","LSS_RAD_12/LSS_RAD_12_lm_lp.yaml","LSS_RAD_12/LSS_RAD_12_lm_shortl.yaml","LSS_RAD_12/LSS_RAD_12_lm_bralpha.yaml","LSS_RAD_12/LSS_RAD_12_lm_bralpha_ref.yaml","LSS_RAD_12/LSS_RAD_12_lm_pah33.yaml","LSS_RAD_12/LSS_RAD_12_lm_pah33_ref.yaml","LSS_RAD_12/LSS_RAD_12_lm_h2oice.yaml","LSS_RAD_12/LSS_RAD_12_lm_h2oice_ref.yaml","LSS_RAD_12/LSS_RAD_12_lm_ib405.yaml","LSS_RAD_12/LSS_RAD_12_lm_hcilshort.yaml","LSS_RAD_12/LSS_RAD_12_lm_hcillong.yaml","LSS_RAD_12/LSS_RAD_12_lm_co10ice.yaml","LSS_RAD_12/LSS_RAD_12_lm_co_ref.yaml","LSS_RAD_12/LSS_RAD_12_lm_mspec.yaml","LSS_RAD_12/LSS_RAD_12_lm_mp.yaml"]
         yamlFiles = []
         for y in yamls:
             yamlFiles.append(os.path.join(yamlDir,y))
         
         rs.runSimulationBlock(yamlFiles,params,sys.argv[1:])
         
+
 

@@ -9,7 +9,7 @@ LM_IMAGE_STD_RAW:
     dit: 0.25
     ndit: 1
     filter_name: "Lp"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     catg: "CALIB"
     tech: "IMAGE,LM"
     type: "STD"
@@ -26,7 +26,7 @@ LM_IMAGE_STD_SKY_RAW:
     dit: 0.25
     ndit: 1
     filter_name: "Lp"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     catg: "CALIB"
     tech: "IMAGE,LM"
     type: "SKY"

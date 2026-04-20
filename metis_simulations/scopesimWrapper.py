@@ -87,7 +87,7 @@ def simulate(fname, rcp, small=False):
     reqKeys = ["catg","type","tech","MJD-OBS","dateobs"]
 
     keyDefaults = {}
-    keyDefaults["ndfilter_name"] = "open"
+    keyDefaults["nd_filter_name"] = "open"
     keyDefaults["filter_name"] = "open"
     
     
@@ -106,7 +106,7 @@ def simulate(fname, rcp, small=False):
     #cmd["!OBS.tech"] = props["tech"]
     #cmd["!OBS.mjd-obs"] = props["MJD-OBS"]
     #cmd["!OBS.dateobs"] = props["dateobs"]
-    #cmd["!OBS.nd_filter_name"] = props.get("ndfilter_name", "open")
+    #cmd["!OBS.nd_filter_name"] = props.get("nd_filter_name", "open")
     #cmd["!OBS.filter_name"] = props["filter_name"]
 
     # now assigning remaining keys
@@ -129,7 +129,6 @@ def simulate(fname, rcp, small=False):
 
     # set up the optical train
 
-    print("GGG",props["MJD-OBS"])
     cmd["!SIM.random.seed"] = int((props["MJD-OBS"]-60000)*100000)
     metis = sim.OpticalTrain(cmd)
 

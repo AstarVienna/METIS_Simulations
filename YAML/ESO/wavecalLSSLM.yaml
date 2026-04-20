@@ -8,7 +8,7 @@ LM_LSS_WAVE_RAW:
     dit: 0.004
     ndit: 1
     filter_name: "open"
-    ndfilter_name: "ND_OD4"
+    nd_filter_name: "ND_OD4"
     catg: "CALIB"
     tech: "LSS,LM"
     type: "WAVE"

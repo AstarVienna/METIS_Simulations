@@ -24,7 +24,7 @@ if __name__ == '__main__':
         params['nCores'] = nCores
         params['testRun'] = False
         
-        yamls = ["LMS_OPT_01/LMS_OPT_1.yaml"]
+        yamls = ["LMS_OPT_01/LMS_OPT_1_grid.yaml","LMS_OPT_01/LMS_OPT_1_open.yaml"]
         
 
         yamlFiles = []

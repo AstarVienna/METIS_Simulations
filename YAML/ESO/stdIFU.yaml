@@ -10,7 +10,7 @@ IFU_STD_RAW:
     ndit: 3
     wavelen: 3.555
     filter_name: "open"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     catg: "CALIB"
     tech: "IFU"
     type: "STD"
@@ -34,7 +34,7 @@ IFU_STD_SKY_RAW:
     ndit: 3
     wavelen: 3.555
     filter_name: "open"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     catg: "CALIB"
     tech: "IFU"
     type: "SKY"

@@ -12,8 +12,8 @@ LMS_RAD_01_DARK_IFU_RAW_01:
     ndit: 300
     wavelen: 3.555
     filter_name: "open"
-    ndfilter_name: "open"
-    tech: "LMS"
+    nd_filter_name: "open"
+    tech: "IFU"
     type: "DARK"
     catg: "CALIB"
     tplname: "METIS_img_lms_det_dark"
@@ -36,8 +36,8 @@ LMS_RAD_01_DARK_IFU_RAW_02:
     ndit: 4
     wavelen: 3.555
     filter_name: "open"
-    ndfilter_name: "open"
-    tech: "LMS"
+    nd_filter_name: "open"
+    tech: "IFU"
     type: "DARK"
     catg: "CALIB"
     tplname: "METIS_img_lms_det_dark"
@@ -59,8 +59,8 @@ LMS_RAD_01_DARK_IFU_RAW_03:
     ndit: 3
     wavelen: 3.555
     filter_name: "open"
-    ndfilter_name: "open"
-    tech: "LMS"
+    nd_filter_name: "open"
+    tech: "IFU"
     type: "DARK"
     catg: "CALIB"
     tplname: "METIS_img_lms_det_dark"
@@ -82,8 +82,8 @@ LMS_RAD_01_DARK_IFU_RAW_04:
     ndit: 2
     wavelen: 3.555
     filter_name: "open"
-    ndfilter_name: "open"
-    tech: "LMS"
+    nd_filter_name: "open"
+    tech: "IFU"
     type: "DARK"
     catg: "CALIB"
     tplname: "METIS_img_lms_det_dark"

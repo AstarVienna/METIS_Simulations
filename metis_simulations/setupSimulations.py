@@ -249,7 +249,7 @@ class setupSimulations():
 
                 recipe["properties"]["tplstart"] = tplStart
                 recipe["properties"]["filter_name"] = elem[0]
-                recipe["properties"]["ndfilter_name"] = elem[1]
+                recipe["properties"]["nd_filter_name"] = elem[1]
 
                 recipe = self.increment(recipe)
 
@@ -298,7 +298,6 @@ class setupSimulations():
 
                 # append teh arguments to the 
                 allArgs.append((self.fname,recipe,self.params["small"]))
-                print("LLL",self.tObs.mjd)
 
         self.endDate = self.tObs.tt.datetime.replace(microsecond=0)
         # now actually run
@@ -381,7 +380,7 @@ class setupSimulations():
                         recipeDark["properties"]["tplname"] = recipe["properties"]["tplname"]
                         recipeDark["properties"]["dit"] = recipe["properties"]["dit"] 
                         recipeDark["properties"]["ndit"] = recipe["properties"]["ndit"] 
-                        recipeDark["properties"]["ndfilter_name"] = recipe["properties"]["ndfilter_name"] 
+                        recipeDark["properties"]["nd_filter_name"] = recipe["properties"]["nd_filter_name"] 
                         recipeDark["properties"]["filter_name"] = recipe["properties"]["filter_name"] 
                         recipeDark = self.increment(recipeDark)
                         
@@ -436,7 +435,7 @@ class setupSimulations():
              
             else:
                 darkParms.append((props['dit'],props['ndit'],props['tech']))
-            flatParms.append((props['filter_name'],props['ndfilter_name'],props['tech']))
+            flatParms.append((props['filter_name'],props['nd_filter_name'],props['tech']))
 
             
                              
@@ -449,7 +448,7 @@ class setupSimulations():
         """
         add keywords to a list of files, fixing anything that isn't handled by ScopeSim. 
         
-        DPR .TECH, .FILTER and .TYPE are set by ScopeSim, DRS.FILTER .NDFILTER, 
+        DPR .TECH, .FILTER and .TYPE are set by ScopeSim, DRS.FILTER .ND_FILTER, 
         and DET.DIT and .NDIT are set in ScopeSim
     
         We use the TECH to get INS.MODE

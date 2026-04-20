@@ -73,7 +73,7 @@ WCUDARKLM = {
         "tech": "IMAGE,LM",
         "type": "DARK,WCUOFF",
         "filter_name": "open",
-        "ndfilter_name": "closed",
+        "nd_filter_name": "closed",
         "tplname":'METIS_img_lm_det_dark',},
     "wcu": {
         "current_lamp": "bb",
@@ -93,7 +93,7 @@ WCUDARKN = {
         "tech": "IMAGE,N",
         "type": "DARK,WCUOFF",
         "filter_name": "open",
-        "ndfilter_name": "closed",
+        "nd_filter_name": "closed",
         "tplname":'METIS_img_n_det_dark',},
     "wcu": {
         "current_lamp": "bb",
@@ -113,7 +113,7 @@ WCUDARKIFU = {
         "tech": "IFU",
         "type": "DARK,WCUOFF",
         "filter_name": "open",
-        "ndfilter_name": "closed",
+        "nd_filter_name": "closed",
         "tplname":'METIS_lms_det_dark',},
     "wcu": {
         "current_lamp": "bb",
@@ -133,7 +133,7 @@ DARKLM = {
         "tech": "IMAGE,LM",
         "type": "DARK",
         "filter_name": "closed",
-        "ndfilter_name": "open",
+        "nd_filter_name": "open",
         "tplname":'METIS_img_lm_det_dark',}}
 
 DARKN = {
@@ -156,7 +156,7 @@ DARKIFU = {
         "tech": "IFU",
         "type": "DARK",
         "filter_name": "closed",
-        "ndfilter_name": "open",
+        "nd_filter_name": "open",
         "tplname":'METIS_lms_det_dark',}}
 
 LAMPFLATLM = {
@@ -169,7 +169,7 @@ LAMPFLATLM = {
         "catg": "CALIB",
         "tech": "IMAGE,LM",
         "type": "FLAT,LAMP",
-        "ndfilter_name": "open",
+        "nd_filter_name": "open",
         "tplname":'METIS_img_lm_det_flat',}}
 
 LAMPFLATN = {
@@ -182,7 +182,7 @@ LAMPFLATN = {
         "catg": "CALIB",
         "tech": "IMAGE,N",
         "type": "FLAT,LAMP",
-        "ndfilter_name": "open",
+        "nd_filter_name": "open",
         "tplname":'METIS_img_n_det_flat',}}
 
     
@@ -196,7 +196,7 @@ SKYFLATLM = {
         "catg": "CALIB",
         "tech": "IMAGE,LM",
         "type": "FLAT,TWILIGHT",
-        "ndfilter_name": "open",
+        "nd_filter_name": "open",
         "tplname":'METIS_img_lm_det_flat',}}
 
 SKYFLATN = {
@@ -209,5 +209,5 @@ SKYFLATN = {
         "catg": "CALIB",
         "tech": "IMAGE,N",
         "type": "FLAT,TWILIGHT",
-        "ndfilter_name": "open",
+        "nd_filter_name": "open",
         "tplname":'METIS_img_n_det_flat',}}
