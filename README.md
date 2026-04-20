@@ -47,7 +47,7 @@ There are four system variables used by the code.  MSIM_YAML_DIR
 points to the location of the YAML template files. To use the default provided
 files, set (e.g. in bash, if you have METIS_Simulations in the home directory
 
-> export MSIM_YAML_DIR="/home/me/METIS_Simulations/metis_simulations/YAML/"
+> export MSIM_YAML_DIR="/home/me/METIS_Simulations/YAML/AIT_Tests"
 
 MSIM_NCORES set the default number of cores to be used to run the code; set it to at least one less than your maximum number, e.g.
 
@@ -56,7 +56,7 @@ MSIM_NCORES set the default number of cores to be used to run the code; set it t
 MSIM_OUTPUT_PREFIX sets the prefix for the output directories. This
 will be added to the value in the simulation blocks.
 
-> export MSIM_OUTPUT_PREFIX="/home/me/simOut/"
+> export MSIM_OUTDIR="/home/me/simOut/"
 
 DEFAULT_IRDB_LOCATION is the location of IRDB data. If you have an
 existing copy, you can point there. To download just the needed packages,
