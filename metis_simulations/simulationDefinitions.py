@@ -13,26 +13,68 @@ import os
 DEFAULT_IRDB_LOCATION = os.environ["DEFAULT_IRDB_LOCATION"]
 sim.rc.__config__["!SIM.file.local_packages_path"] = DEFAULT_IRDB_LOCATION
 
-# valid values of input parameters
+# valid values of input parameters.
+#
+# DPR.CATG / .TYPE / .TECH values below follow the pipeline classification
+# rules in METIS_Pipeline/metisp/workflows/metis/metis_classification.py,
+# which is the authoritative source. A few extensions are kept for YAML
+# inputs that don't map 1:1 onto a classification rule:
+#   - TECHNICAL (catg): used for engineering/AIT frames like pupil imaging.
+#   - APP,LM / RAVC,LM / RAVC,IFU / PUP,LM / PUP,N (tech): coronagraph /
+#     pupil tech modes outside the core pipeline's classification scope.
+#   - LMS (tech): ScopeSim-side form of IFU; updateHeaders() rewrites it
+#     to IFU on output.
+#   - CHOPHOME / PSF,OFFAXIS / PUPIL / PERSISTENCE (type): simulation-only
+#     types without a matching pipeline classification rule.
 
-catgVals = ["CALIB","SCIENCE","TECHNICAL"]
-techVals = ["APP,LM","IMAGE,LM","IMAGE,N","LMS","LSS,LM","LSS,N","PUP,M","PUP,N","RAVC,IFU","RAVC,LM"]
-typeVals = ["CHOPHOME","DARK,WCUOFF","DETLIN","DISTORTION","FLAT,LAMP","OBJECT","PSF,OFFAXIS","PUPIL","SKY","STD","WAVE","SLITLOSS"]
-modeVals = ["img_lm","lss_m","img_n","lss_l","lss_m","lss_n","lms"]
+catgVals = ["CALIB", "SCIENCE", "TECHNICAL"]
+techVals = ["APP,LM", "IFU", "IMAGE,LM", "IMAGE,N", "LMS",
+            "LSS,LM", "LSS,N", "PUP,LM", "PUP,N", "RAVC,IFU", "RAVC,LM"]
+typeVals = ["CHOPHOME", "DARK", "DARK,WCUOFF", "DETLIN", "DISTORTION",
+            "FLAT,LAMP", "FLAT,LAMP,PINH", "FLAT,TWILIGHT", "OBJECT",
+            "PERSISTENCE", "PSF,OFFAXIS", "PUPIL", "RSRF", "SKY", "STD",
+            "SLITLOSS", "WAVE"]
+modeVals = ["img_lm", "img_n", "lms", "lss_l", "lss_m", "lss_n",
+            "wcu_img_lm", "wcu_img_n", "wcu_lms",
+            "wcu_lss_l", "wcu_lss_m", "wcu_lss_n"]
 
 
-# filters sorted by mode. extracted from scopesim allowed combinations \TODO check LMS values and HCI values
+# filters sorted by mode. extracted from scopesim allowed combinations
+# \TODO check LMS values and HCI values
+_IMG_LM_FILTERS = ["Lp", "short-L", "Mp", "Br_alpha", "Br_alpha_ref",
+                   "PAH_3.3", "PAH_3.3_ref", "CO_1-0_ice", "CO_ref",
+                   "H2O-ice", "IB_4.05", "open", "closed",
+                   "HCI_M", "HCI_L_short", "HCI_L_long"]
+_IMG_N_FILTERS = ["N1", "N2", "N3", "PAH_8.6", "PAH_8.6_ref",
+                  "PAH_11.25", "PAH_11.25_ref", "Ne_II", "Ne_II_ref",
+                  "S_IV", "S_IV_ref", "open", "closed"]
+
+# LSS and IMG share the same filter wheel, so any LM-band or N-band
+# imaging filter is reachable in the matching LSS mode (AIT transmission
+# sweeps rely on this). Hence LSS lists = spec filter + imaging filters
+# of the same band.
+_LSS_L_FILTERS = ["L_spec"] + _IMG_LM_FILTERS
+_LSS_M_FILTERS = ["M_spec"] + _IMG_LM_FILTERS
+_LSS_N_FILTERS = ["N_spec"] + _IMG_N_FILTERS
+
 validFilters = {
-    "img_lm" : ["Lp","short-L","Mp","Br_alpha","Br_alpha_ref","PAH_3.3","PAH_3.3_ref","CO_1-0_ice","CO_ref","H2O-ice","IB_4.05","open","closed", "HCI_M","HCI_L_short","HCI_L_long"],
-    "img_n" : ["N1","N2","N3","PAH_8.6","PAH_8.6_ref","PAH_11.25","PAH_11.25_ref","Ne_II","Ne_II_ref","S_IV","S_IV_ref","open","closed"],
-     "lss_l": ["L_spec"],
-     "lss_m": ["M_spec"],
-     "lss_n": ["N_spec"],
-      "lms": ["Lp","short-L","Mp","Br_alpha","Br_alpha_ref","PAH_3.3","PAH_3.3_ref","CO_1-0_ice","CO_ref","H2O-ice","IB_4.05","open","closed", "HCI_M","HCI_L_short","HCI_L_long"],
-    }
+    "img_lm": _IMG_LM_FILTERS,
+    "img_n": _IMG_N_FILTERS,
+    "lss_l": _LSS_L_FILTERS,
+    "lss_m": _LSS_M_FILTERS,
+    "lss_n": _LSS_N_FILTERS,
+    "lms": _IMG_LM_FILTERS,
+    # WCU-lamp variants share the filter set of their non-WCU equivalent.
+    "wcu_img_lm": _IMG_LM_FILTERS,
+    "wcu_img_n": _IMG_N_FILTERS,
+    "wcu_lss_l": _LSS_L_FILTERS,
+    "wcu_lss_m": _LSS_M_FILTERS,
+    "wcu_lss_n": _LSS_N_FILTERS,
+    "wcu_lms": _IMG_LM_FILTERS,
+}
 
 
-validND = ["open","ND_OD1","ND_OD2","ND_OD3","ND_OD4","ND_OD5"]
+validND = ["open", "ND-2.8", "ND_OD1", "ND_OD2", "ND_OD3", "ND_OD4", "ND_OD5"]
 
 hciFilters = ["HCI_M","HCI_L_short","HCI_L_long","open","closed"]
 
