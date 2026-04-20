@@ -442,16 +442,16 @@ filter_name: one of
 |S_IV         |N   |
 |S_IV_ref     |N   |
 
-ndfilter_name: optional, one of
+nd_filter_name: optional, one of
 
-|ndfilter_name|
-|-------------|
-|open         |
-|ND_OD1       |
-|ND_OD2       |
-|ND_OD3       |
-|ND_OD4       |
-|ND_OD5       |
+|nd_filter_name|
+|--------------|
+|open          |
+|ND_OD1        |
+|ND_OD2        |
+|ND_OD3        |
+|ND_OD4        |
+|ND_OD5        |
 
 catg: one of
 
@@ -468,7 +468,7 @@ tech:  one of
 |--------|-------------------------|
 |IMAGE,LM|imaging                  |
 |IMAGE,N |imaging                  |
-|LMS     |ifu                      |
+|IFU     |ifu                      |
 |LSS,LM  |longslit spectroscopy    |
 |LSS,N   |longslit spectroscopy    |
 |PUP,M   |pupil imaging            |
