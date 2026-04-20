@@ -26,13 +26,11 @@ if __name__ == '__main__':
         
         yamls = ["scienceLM.yaml","stdLM.yaml","distortionLM.yaml","detlinLM.yaml"]
         
-        print("CC1",params['doStatic'])
 
         yamlFiles = []
         for y in yamls:
             yamlFiles.append(os.path.join(yamlDir,y))
 
-        print("CC1",params['doStatic'])
         rs.runSimulationBlock(yamlFiles,params,sys.argv[1:])
         
 
