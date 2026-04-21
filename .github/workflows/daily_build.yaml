@@ -22,29 +22,109 @@ jobs:
         run: |
           python3.12 -m pip install --upgrade pip
 
+      - name: Check LatestBuild freshness and completeness
+        id: build_check
+        run: |
+          SHOULD_BUILD=1
+          BUILD_REASON="No previous build found"
+          TARGET=""
+          REQUIRED_DIRS="Calib hciAppLM hciRavcIfu hciRavcLM ifu imgLM imgN lssLM lssN"
+
+          if [ -L /data/LatestBuild ] || [ -d /data/LatestBuild ]; then
+            TARGET=$(readlink -f /data/LatestBuild || true)
+            if [ -z "$TARGET" ]; then
+              TARGET="/data/LatestBuild"
+            fi
+
+            if [ -d "$TARGET" ]; then
+              MISSING=0
+              for d in $REQUIRED_DIRS; do
+                if [ ! -d "$TARGET/$d" ]; then
+                  echo "Missing required directory: $TARGET/$d"
+                  MISSING=1
+                fi
+              done
+
+              if [ "$MISSING" -eq 0 ]; then
+                NOW_TS=$(date +%s)
+                TARGET_TS=$(stat -c %Y "$TARGET")
+                AGE_DAYS=$(( (NOW_TS - TARGET_TS) / 86400 ))
+                echo "Latest complete build age: ${AGE_DAYS} days"
+
+                if [ "$AGE_DAYS" -lt 7 ]; then
+                  SHOULD_BUILD=0
+                  BUILD_REASON="Latest complete build is newer than 7 days"
+                else
+                  BUILD_REASON="Latest complete build is 7+ days old"
+                fi
+              else
+                BUILD_REASON="LatestBuild is incomplete"
+              fi
+            else
+              BUILD_REASON="LatestBuild link target is missing"
+            fi
+          fi
+
+          echo "SHOULD_BUILD=$SHOULD_BUILD" >> $GITHUB_ENV
+          echo "BUILD_REASON=$BUILD_REASON" >> $GITHUB_ENV
+          echo "LATEST_TARGET=$TARGET" >> $GITHUB_ENV
+          echo "should_build=$SHOULD_BUILD" >> $GITHUB_OUTPUT
+          echo "build_reason=$BUILD_REASON" >> $GITHUB_OUTPUT
+          echo "latest_target=$TARGET" >> $GITHUB_OUTPUT
+          echo "Decision: SHOULD_BUILD=$SHOULD_BUILD ($BUILD_REASON)"
+
+      - name: Skip rebuild (fresh complete data exists)
+        if: steps.build_check.outputs.should_build != '1'
+        run: |
+          echo "Skipping simulation run. Reason: ${{ steps.build_check.outputs.build_reason }}"
+          echo "Current LatestBuild target: ${{ steps.build_check.outputs.latest_target }}"
+
       - name: Install dependencies
+        if: steps.build_check.outputs.should_build == '1'
         run: |
           ln -sf /usr/bin/python3.12 $HOME/python
           echo "export PATH=$HOME:$PATH" >> $GITHUB_ENV
           python3.12 -m pip install --upgrade pip
-          pip install git+https://github.com/AstarVienna/ScopeSim_Templates.git
-          pip install git+https://github.com/AstarVienna/ScopeSim_Data.git
-          pip install git+https://github.com/AstarVienna/ScopeSim.git
-          pip install astar-utils numpy more-itertools astropy PyYAML
-          git clone https://github.com/AstarVienna/irdb.git # get bleeding edge version of irdb
+          python3.12 -m pip install -e .
+          python3.12 -m pip install git+https://github.com/AstarVienna/ScopeSim_Templates.git
+          python3.12 -m pip install git+https://github.com/AstarVienna/ScopeSim_Data.git
+          python3.12 -m pip install git+https://github.com/AstarVienna/ScopeSim.git
+          python3.12 -m pip install astar-utils numpy more-itertools astropy PyYAML
+
+          SCOPE_SIM_SITE=$(python3.12 -c "import sysconfig; print(sysconfig.get_paths()['purelib'])")
+          echo "PYTHONPATH=$SCOPE_SIM_SITE:$GITHUB_WORKSPACE:${PYTHONPATH:-}" >> $GITHUB_ENV
+          python3.12 -c "import scopesim; print(scopesim.__file__)"
+          python3.12 -c "import metis_simulations; print(metis_simulations.__file__)"
+
+          if [ -d irdb/.git ]; then
+            git -C irdb pull --ff-only
+          else
+            git clone https://github.com/AstarVienna/irdb.git # get bleeding edge version of irdb
+          fi
 
       - name: Run recipes
+        if: steps.build_check.outputs.should_build == '1'
         run: |
-          cd Simulations
-          ln -s ../irdb inst_pkgs # link to git-cloned version of irdb
+          cd "$GITHUB_WORKSPACE"
+          export DEFAULT_IRDB_LOCATION="inst_pkgs"
+          ln -sfn "$GITHUB_WORKSPACE/irdb" "$GITHUB_WORKSPACE/inst_pkgs" # link to git-cloned version of irdb
+          
+          export MSIM_YAML_DIR="YAML/ESO"
+          export MSIM_NCORES=4
+          export DEFAULT_IRDB_LOCATION="inst_pkgs"
+          export MSIM_OUTDIR="output"
+
+          python simulationBlocks/imgLM.py
           ./runESO.sh
       
       - name: Move data to /data
+        if: steps.build_check.outputs.should_build == '1'
         run: |
-          cd Simulations
+          cd "$GITHUB_WORKSPACE/"
           TODAY=$(date +%Y-%m-%d)
           echo "Today's date: $TODAY"
-          cp -rf output /data/$TODAY
+          mkdir -p /data/$TODAY
+          cp -a output/. /data/$TODAY/
           cd /data
           ln -sfn $TODAY LatestBuild
           ls -la /data/$TODAY

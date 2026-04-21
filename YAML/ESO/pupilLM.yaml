@@ -12,7 +12,7 @@ LM_PUPIL_RAW:
     dit: 10.
     ndit: 1
     filter_name: "open"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     catg: "TECHNICAL"
     tech: "PUP,LM"
     type: "PUPIL"

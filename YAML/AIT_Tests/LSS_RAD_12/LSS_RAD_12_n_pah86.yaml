@@ -1,0 +1,28 @@
+# Imaging filter transmission
+
+N_LSS_SCI_RAW_5:
+  do.catg: N_LSS_SCI_RAW
+  mode: "wcu_lss_n"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.2
+    ndit: 400
+    filter_name: "PAH_8.6"
+    nd_filter_name: "open"
+    catg: "SCIENCE"
+    tech: "LSS,N"
+    type: "OBJECT"
+    tplname: "METIS_spec_n_obs_AutoNodOnSlit"
+    nObs: 1
+    pupil_transmission: 1.0
+    slit_name: 'A-19_0'
+    detector_readout_mode: "hight_capacity"
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 1.0
+    bb_temp: 800
+    is_temp: 300
+    wcu_temp: 300

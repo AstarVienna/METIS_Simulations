@@ -9,7 +9,7 @@ LM_LSS_STD_RAW:
     dit: 0.05
     ndit: 1
     filter_name: "L_spec"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     catg: "CALIB"
     tech: "LSS,LM"
     type: "STD"
@@ -27,7 +27,7 @@ LM_LSS_STD_SKY_RAW:
     dit: 0.05
     ndit: 1
     filter_name: "L_spec"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     catg: "CALIB"
     tech: "LSS,LM"
     type: "SKY"

@@ -8,7 +8,7 @@ N_LSS_SCI_RAW:
     dit: 0.1
     ndit: 800
     filter_name: "N_spec"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     catg: "SCIENCE"
     tech: "LSS,N"
     type: "OBJECT"

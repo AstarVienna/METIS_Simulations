@@ -59,10 +59,10 @@ def runSimulationBlock(yamlFiles, params, args):
     simulationSet.allmjd = []
 
     simulationSet.calculateDarks(allDarks)
-    print(allFlats)
     simulationSet.calculateFlats(allFlats,"skyFlat")
     simulationSet.calculateFlats(allFlats,"lampFlat")
 
+    
     if(params['doStatic'] == True):
         mcp.generateStaticCalibs(params['outputDir'])
     if not params['testRun']:

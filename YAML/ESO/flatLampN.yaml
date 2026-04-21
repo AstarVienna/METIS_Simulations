@@ -6,14 +6,14 @@ WCU_FLAT_N_RAW:
     kwargs: {}
   properties:
     filter_name: "open"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     catg: "CALIB"
     tech: "IMAGE,N"
     type: "FLAT,LAMP"
     tplname: "METIS_img_n_det_flat"
     dit: 1
     ndit: 1
-    nObs: 1
+    nObs: 3
   wcu:
     current_lamp: "bb"
     current_fpmask: "open"

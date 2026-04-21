@@ -19,9 +19,9 @@ LMS_OPT_02_IFU_WCU_OFF_RAW:
     dit: 30.0
     ndit: 120
     filter_name: "Lp"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     catg: "SCIENCE"
-    tech: "LMS"
+    tech: "IFU"
     type: "OBJECT"
     tplname: "METIS_img_lm_obs_GenericOffset"
     nObs: 1
@@ -44,9 +44,9 @@ LMS_OPT_02_IFU_DISTORTION_RAW:
     dit: 30.0
     ndit: 120
     filter_name: "open"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     catg: "SCIENCE"
-    tech: "LMS"
+    tech: "IFU"
     type: "OBJECT"
     tplname: "METIS_img_lm_obs_GenericOffset"
     nObs: 1

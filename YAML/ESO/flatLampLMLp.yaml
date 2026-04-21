@@ -6,7 +6,7 @@ WCU_FLAT_LM_RAW1:
     kwargs: {}
   properties:
     filter_name: "Lp"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     catg: "CALIB"
     tech: "IMAGE,LM"
     type: "FLAT,LAMP"

@@ -9,7 +9,7 @@ IFU_OFF_AXIS_PSF_RAW:
     dit: 100.
     ndit: 3
     filter_name: "open"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     wavelen: "3.555"
     catg: "CALIB"
     tech: "IFU"

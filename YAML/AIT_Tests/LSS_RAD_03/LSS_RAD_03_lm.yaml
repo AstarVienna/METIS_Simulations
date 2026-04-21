@@ -8,7 +8,7 @@ LM_LSS_SCI_RAW_L:
     dit: 100
     ndit: 120
     filter_name: "L_spec"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     catg: "SCIENCE"
     tech: "LSS,LM"
     type: "OBJECT"
@@ -34,7 +34,7 @@ LM_LSS_SCI_RAW_M:
     dit: 100
     ndit: 120
     filter_name: "M_spec"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     catg: "SCIENCE"
     tech: "LSS,LM"
     type: "OBJECT"
@@ -61,7 +61,7 @@ LM_LSS_SCI_RAW_L_ND:
     dit: 100
     ndit: 120
     filter_name: "L_spec"
-    ndfilter_name: "ND_OD4"
+    nd_filter_name: "ND_OD4"
     catg: "SCIENCE"
     tech: "LSS,LM"
     type: "OBJECT"
@@ -87,7 +87,7 @@ LM_LSS_SCI_RAW_M_ND:
     dit: 100
     ndit: 120
     filter_name: "M_spec"
-    ndfilter_name: "ND_OD4"
+    nd_filter_name: "ND_OD4"
     catg: "SCIENCE"
     tech: "LSS,LM"
     type: "OBJECT"

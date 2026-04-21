@@ -10,7 +10,7 @@ LM_IMAGE_SCI_CORONAGRAPH_RAW1:
     dit: 0.25
     ndit: 1
     filter_name: "open"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     catg: "SCIENCE"
     tech: "RAVC,LM"
     type: "OBJECT"
@@ -27,7 +27,7 @@ LM_IMAGE_SKY_CORONAGRAPH_RAW2:
     dit: 0.25
     ndit: 1
     filter_name: "Lp"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     catg: "SCIENCE"
     tech: "RAVC,LM"
     type: "SKY"

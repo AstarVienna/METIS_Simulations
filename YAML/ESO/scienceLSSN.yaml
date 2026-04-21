@@ -8,7 +8,7 @@ N_LSS_SCI_RAW:
     dit: 0.25
     ndit: 1
     filter_name: "open"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     catg: "SCIENCE"
     tech: "LSS,N"
     type: "OBJECT"
@@ -25,7 +25,7 @@ N_LSS_SCI_SKY_RAW:
     dit: 0.25
     ndit: 1
     filter_name: "open"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     catg: "SCIENCE"
     tech: "LSS,N"
     type: "SKY"

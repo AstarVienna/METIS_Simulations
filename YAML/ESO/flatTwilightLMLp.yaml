@@ -7,7 +7,7 @@ LM_FLAT_TWILIGHT_RAW:
     kwargs: {}
   properties:
     filter_name: "Lp"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     dit: 0.25
     ndit: 1
     catg: "CALIB"

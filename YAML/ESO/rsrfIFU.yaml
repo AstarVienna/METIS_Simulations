@@ -10,7 +10,7 @@ IFU_RSRF_RAW1:
     ndit: 20
     wavelen: 3.555
     filter_name: "open"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     catg: "CALIB"
     tech: "IFU"
     type: "RSRF"
@@ -38,7 +38,7 @@ IFU_RSRF_RAW2:
     ndit: 20
     wavelen: 3.555
     filter_name: "open"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     catg: "CALIB"
     tech: "IFU"
     type: "RSRF"

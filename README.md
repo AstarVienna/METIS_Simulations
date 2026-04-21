@@ -24,8 +24,8 @@ This respository contains scripts and packages which can be used as a wrapper fo
 
 First create a clean Python environment with a recent Python version and poetry, for example through conda:
 ```
-> conda create -n metissim python==3.12 poetry
-> conda activate metissim
+conda create -n metissim python==3.12 poetry
+conda activate metissim
 ```
 
 The following sequence of commands will
@@ -33,10 +33,10 @@ download and install the software with the correct dependencies.
 
 
 ```
-> git clone git@github.com:AstarVienna/METIS_Simulations.git
+git clone git@github.com:AstarVienna/METIS_Simulations.git
 
-> cd METIS_Simulations/metis_simulations
-> pip install .
+cd METIS_Simulations/metis_simulations
+pip install .
 ```
 
 Next, you need to define a couple of system variables, and make sure
@@ -47,26 +47,33 @@ There are four system variables used by the code.  MSIM_YAML_DIR
 points to the location of the YAML template files. To use the default provided
 files, set (e.g. in bash, if you have METIS_Simulations in the home directory
 
-> export MSIM_YAML_DIR="/home/me/METIS_Simulations/YAML/AIT_Tests"
+```
+export MSIM_YAML_DIR="/home/me/METIS_Simulations/YAML/AIT_Tests"
+```
 
 MSIM_NCORES set the default number of cores to be used to run the code; set it to at least one less than your maximum number, e.g.
 
-> export MSIM_NCORES=5
+```
+export MSIM_NCORES=5
+```
 
 MSIM_OUTPUT_PREFIX sets the prefix for the output directories. This
 will be added to the value in the simulation blocks.
 
-> export MSIM_OUTDIR="/home/me/simOut/"
+```
+export MSIM_OUTDIR="/home/me/simOut/"
+```
 
 DEFAULT_IRDB_LOCATION is the location of IRDB data. If you have an
 existing copy, you can point there. To download just the needed packages,
 run the provided downloadPackages.py script from the directory where you
 want to store them, and set the variable to point to inst_pkgs/
 
-> cd ~
-> /home/me/METIS_Simulations/scripts/downloadPackages.py
-> export DEFAULT_IRDB_LOCATION="/home/me/inst_pkgs/"
-
+```
+cd ~
+/home/me/METIS_Simulations/metis_simulations/downloadPackages.py
+export DEFAULT_IRDB_LOCATION="/home/me/inst_pkgs/"
+```
 
 # Running the Code
 
@@ -83,14 +90,23 @@ provided in simulationBlocks.
 To reproduce an ESO delivery set, run the provided script 
 
 ```
-> /runESO.sh
+./runESO.sh
 ```
+after updating the `MSIM_YAML_DIR` to point at the `./YAML/ESO` folder, and changing the working directory to `METIS_Simulations`
+
+```
+export MSIM_YAML_DIR="/home/me/METIS_Simulations/YAML/ESO"
+
+```
+
 
 This will produce a complete set of files needed to test the current
 release of the pipeline software. You can also run any of the commands
 separately, e.g.
 
-> simulationBlocks/imgLM.py
+```
+./simulationBlocks/imgLM.py
+```
 
 will run a set of data for the LM imager.
 
@@ -152,8 +168,9 @@ with a common set of input paramters, defined here??
 
 Any of the parameters can be overwritten as a command line option when running, e.g.
 
-> simulationBlock/imgLM.py --outputDir="mydir" --small --doStatic --doCalib=2 --sequence--startMJD="2027-01-25 00:00:00" --nCores=6
-
+```
+./simulationBlock/imgLM.py --outputDir="mydir" --small --doStatic --doCalib=2 --sequence--startMJD="2027-01-25 00:00:00" --nCores=6
+```
 
 
 
@@ -206,8 +223,9 @@ Generated static calibration files.
 
 
 ## Generating a summary
-
-./python/generateSummary.py output/imgN,output/imgLM
+```
+./metis_simulations/generateSummary.py output/imgN,output/imgLM
+```
 
 generates a CSV file containing a list of files and a summary of the important keywords for files in a
 comma separated list of directories. 
@@ -442,16 +460,16 @@ filter_name: one of
 |S_IV         |N   |
 |S_IV_ref     |N   |
 
-ndfilter_name: optional, one of
+nd_filter_name: optional, one of
 
-|ndfilter_name|
-|-------------|
-|open         |
-|ND_OD1       |
-|ND_OD2       |
-|ND_OD3       |
-|ND_OD4       |
-|ND_OD5       |
+|nd_filter_name|
+|--------------|
+|open          |
+|ND_OD1        |
+|ND_OD2        |
+|ND_OD3        |
+|ND_OD4        |
+|ND_OD5        |
 
 catg: one of
 
@@ -468,7 +486,7 @@ tech:  one of
 |--------|-------------------------|
 |IMAGE,LM|imaging                  |
 |IMAGE,N |imaging                  |
-|LMS     |ifu                      |
+|IFU     |ifu                      |
 |LSS,LM  |longslit spectroscopy    |
 |LSS,N   |longslit spectroscopy    |
 |PUP,M   |pupil imaging            |

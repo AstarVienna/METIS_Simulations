@@ -9,7 +9,7 @@ IFU_SCI_RAW:
     ndit: 1
     wavelen: 3.555
     filter_name: "open"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     catg: "SCIENCE"
     tech: "IFU"
     type: "OBJECT"
@@ -27,7 +27,7 @@ IFU_SCI_SKY_RAW:
     ndit: 1
     wavelen: 3.555
     filter_name: "open"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     catg: "CALIB"
     tech: "IFU"
     type: "SKY"
