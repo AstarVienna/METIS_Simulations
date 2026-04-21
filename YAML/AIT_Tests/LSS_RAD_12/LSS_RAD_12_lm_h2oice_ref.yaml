@@ -16,7 +16,7 @@ L_LSS_SCI_RAW_9:
     type: "OBJECT"
     tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
     nObs: 1
-    slit_name: 'A-19_0'
+    slit: 'A-19_0'
     detector_readout_mode: "fast"
   wcu:
     current_lamp: "bb"
@@ -42,7 +42,7 @@ L_LSS_SCI_RAW_10:
     type: "OBJECT"
     tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
     nObs: 1
-    slit_name: 'A-19_0'
+    slit: 'A-19_0'
     detector_readout_mode: "fast"
   wcu:
     current_lamp: "bb"
@@ -68,7 +68,7 @@ L_LSS_SCI_RAW_11:
     type: "OBJECT"
     tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
     nObs: 1
-    slit_name: 'A-19_0'
+    slit: 'A-19_0'
     detector_readout_mode: "fast"
   wcu:
     current_lamp: "bb"
@@ -94,7 +94,7 @@ M_LSS_SCI_RAW_1:
     type: "OBJECT"
     tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
     nObs: 1
-    slit_name: 'A-19_0'
+    slit: 'A-19_0'
     detector_readout_mode: "fast"
   wcu:
     current_lamp: "bb"
@@ -120,7 +120,7 @@ M_LSS_SCI_RAW_2:
     type: "OBJECT"
     tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
     nObs: 1
-    slit_name: 'A-19_0'
+    slit: 'A-19_0'
     detector_readout_mode: "fast"
   wcu:
     current_lamp: "bb"
@@ -146,7 +146,7 @@ M_LSS_SCI_RAW_3:
     type: "OBJECT"
     tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
     nObs: 1
-    slit_name: 'A-19_0'
+    slit: 'A-19_0'
     detector_readout_mode: "fast"
   wcu:
     current_lamp: "bb"
@@ -172,7 +172,7 @@ M_LSS_SCI_RAW_4:
     type: "OBJECT"
     tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
     nObs: 1
-    slit_name: 'A-19_0'
+    slit: 'A-19_0'
     detector_readout_mode: "fast"
   wcu:
     current_lamp: "bb"
