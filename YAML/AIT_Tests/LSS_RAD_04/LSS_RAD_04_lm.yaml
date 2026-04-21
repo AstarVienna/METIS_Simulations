@@ -17,7 +17,8 @@ LM_LSS_SCI_RAW:
     tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
     nObs: 2
     pupil_transmission: 1.0
-    slit_name: 'A-19_0'
+    slit: 'A-19_0'
+    adc: False
     detector_readout_mode: "fast"
   wcu:
     current_lamp: "bb"

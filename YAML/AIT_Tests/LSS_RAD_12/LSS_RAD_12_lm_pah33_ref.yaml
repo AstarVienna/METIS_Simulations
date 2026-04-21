@@ -16,7 +16,7 @@ L_LSS_SCI_RAW_7:
     type: "OBJECT"
     tplname: "METIS_spec_lm_obs_AutoNodOnSlit"
     nObs: 1
-    slit_name: 'A-19_0'
+    slit: 'A-19_0'
     detector_readout_mode: "fast"
   wcu:
     current_lamp: "bb"
