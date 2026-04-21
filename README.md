@@ -92,7 +92,7 @@ To reproduce an ESO delivery set, run the provided script
 ```
 ./runESO.sh
 ```
-after updating the `MSIM_YAML_DIR` to point at the `./YAML/ESO` folder
+after updating the `MSIM_YAML_DIR` to point at the `./YAML/ESO` folder, and changing the working directory to `METIS_Simulations`
 
 ```
 export MSIM_YAML_DIR="/home/me/METIS_Simulations/YAML/ESO"
@@ -105,7 +105,7 @@ release of the pipeline software. You can also run any of the commands
 separately, e.g.
 
 ```
-simulationBlocks/imgLM.py
+./simulationBlocks/imgLM.py
 ```
 
 will run a set of data for the LM imager.
@@ -169,7 +169,7 @@ with a common set of input paramters, defined here??
 Any of the parameters can be overwritten as a command line option when running, e.g.
 
 ```
-simulationBlock/imgLM.py --outputDir="mydir" --small --doStatic --doCalib=2 --sequence--startMJD="2027-01-25 00:00:00" --nCores=6
+./simulationBlock/imgLM.py --outputDir="mydir" --small --doStatic --doCalib=2 --sequence--startMJD="2027-01-25 00:00:00" --nCores=6
 ```
 
 
@@ -224,7 +224,7 @@ Generated static calibration files.
 
 ## Generating a summary
 ```
-./python/generateSummary.py output/imgN,output/imgLM
+./metis_simulations/generateSummary.py output/imgN,output/imgLM
 ```
 
 generates a CSV file containing a list of files and a summary of the important keywords for files in a
