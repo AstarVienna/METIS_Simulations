@@ -10,7 +10,7 @@ N_LSS_SCI_RAW_1:
     dit: 0.2
     ndit: 400
     filter_name: "N_spec"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     catg: "SCIENCE"
     tech: "LSS,N"
     type: "OBJECT"
@@ -37,7 +37,7 @@ N_LSS_SCI_RAW_2:
     dit: 0.2
     ndit: 400
     filter_name: "N1"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     catg: "SCIENCE"
     tech: "LSS,N"
     type: "OBJECT"
@@ -64,7 +64,7 @@ N_LSS_SCI_RAW_3:
     dit: 0.2
     ndit: 400
     filter_name: "N2"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     catg: "SCIENCE"
     tech: "LSS,N"
     type: "OBJECT"
@@ -91,7 +91,7 @@ N_LSS_SCI_RAW_4:
     dit: 0.2
     ndit: 400
     filter_name: "N3"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     catg: "SCIENCE"
     tech: "LSS,N"
     type: "OBJECT"
@@ -118,7 +118,7 @@ N_LSS_SCI_RAW_5:
     dit: 0.2
     ndit: 400
     filter_name: "PAH_8.6"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     catg: "SCIENCE"
     tech: "LSS,N"
     type: "OBJECT"
@@ -145,7 +145,7 @@ N_LSS_SCI_RAW_6:
     dit: 0.2
     ndit: 400
     filter_name: "PAH_8.6_ref"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     catg: "SCIENCE"
     tech: "LSS,N"
     type: "OBJECT"
@@ -172,7 +172,7 @@ N_LSS_SCI_RAW_7:
     dit: 0.2
     ndit: 400
     filter_name: "PAH_11.25"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     catg: "SCIENCE"
     tech: "LSS,N"
     type: "OBJECT"
@@ -199,7 +199,7 @@ N_LSS_SCI_RAW_8:
     dit: 0.2
     ndit: 400
     filter_name: "PAH_11.25_ref"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     catg: "SCIENCE"
     tech: "LSS,N"
     type: "OBJECT"
@@ -226,7 +226,7 @@ N_LSS_SCI_RAW_9:
     dit: 0.2
     ndit: 400
     filter_name: "Ne_II"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     catg: "SCIENCE"
     tech: "LSS,N"
     type: "OBJECT"
@@ -253,7 +253,7 @@ N_LSS_SCI_RAW_10:
     dit: 0.2
     ndit: 400
     filter_name: "Ne_II_ref"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     catg: "SCIENCE"
     tech: "LSS,N"
     type: "OBJECT"
@@ -280,7 +280,7 @@ N_LSS_SCI_RAW_11:
     dit: 0.2
     ndit: 400
     filter_name: "S_IV"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     catg: "SCIENCE"
     tech: "LSS,N"
     type: "OBJECT"
@@ -307,7 +307,7 @@ N_LSS_SCI_RAW_12:
     dit: 0.2
     ndit: 400
     filter_name: "S_IV_ref"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     catg: "SCIENCE"
     tech: "LSS,N"
     type: "OBJECT"

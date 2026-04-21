@@ -14,9 +14,9 @@ LMS_OPT_1_WCU_OFF:
     ndit: 120
     wavelen: 3.555
     filter_name: "open"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     catg: "SCIENCE"
-    tech: "LMS"
+    tech: "IFU"
     type: "OBJECT"
     tplname: "METIS_img_lm_obs_GenericOffset"
     nObs: 1
@@ -39,9 +39,9 @@ LMS_OPT_1_grid_WCU_OFF:
     ndit: 120
     wavelen: 3.555
     filter_name: "open"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     catg: "SCIENCE"
-    tech: "LMS"
+    tech: "IFU"
     type: "OBJECT"
     tplname: "METIS_img_lm_obs_GenericOffset"
     nObs: 1
@@ -68,9 +68,9 @@ LMS_OPT_1_WCU_ON:
     ndit: 120
     wavelen: 3.555
     filter_name: "open"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     catg: "SCIENCE"
-    tech: "LMS"
+    tech: "IFU"
     type: "OBJECT"
     tplname: "METIS_img_lm_obs_GenericOffset"
     nObs: 1
@@ -94,9 +94,9 @@ LMS_OPT_1_grid_WCU_ON:
     ndit: 120
     wavelen: 3.555
     filter_name: "open"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     catg: "SCIENCE"
-    tech: "LMS"
+    tech: "IFU"
     type: "OBJECT"
     tplname: "METIS_img_lm_obs_GenericOffset"
     nObs: 1

@@ -9,7 +9,7 @@ LM_OFF_AXIS_PSF_RAW:
     dit: 0.25
     ndit: 1
     filter_name: "Lp"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     catg: "CALIB"
     tech: "IMAGE,LM"
     type: "PSF,OFFAXIS"

@@ -8,7 +8,7 @@ LM_DISTORTION_RAW:
     dit: 10.
     ndit: 20
     filter_name: "open"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     catg: "CALIB"
     tech: "IMAGE,LM"
     type: "DISTORTION"

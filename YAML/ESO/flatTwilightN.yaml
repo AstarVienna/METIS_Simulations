@@ -8,8 +8,9 @@ N_FLAT_TWILIGHT_RAW:
   properties:
     dit: 0.25
     ndit: 1
+    filter_name: open
     catg: CALIB
     tech: IMAGE,N
     type: FLAT,TWILIGHT
     tplname:'METIS_img_n_det_flat
-    
+    nObs: 3

@@ -13,10 +13,10 @@ DETLIN_IFU_RAW1:
     ndit: 4
     wavelen: 2.7031
     filter_name: "open"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     detector_readout_mode: "slow"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "DETLIN"
     tplname: "METIS_ifu_cal_DetLin"
     nObs: 2
@@ -39,10 +39,10 @@ DETLIN_IFU_RAW2:
     ndit: 4
     wavelen: 2.7031
     filter_name: "open"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     detector_readout_mode: "slow"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "DETLIN"
     tplname: "METIS_ifu_cal_DetLin"
     nObs: 2
@@ -65,10 +65,10 @@ DETLIN_IFU_RAW3:
     ndit: 4
     wavelen: 2.7031
     filter_name: "open"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     detector_readout_mode: "slow"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "DETLIN"
     tplname: "METIS_ifu_cal_DetLin"
     nObs: 2
@@ -91,10 +91,10 @@ DETLIN_IFU_RAW4:
     ndit: 4
     wavelen: 2.7031
     filter_name: "open"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     detector_readout_mode: "slow"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "DETLIN"
     tplname: "METIS_ifu_cal_DetLin"
     nObs: 2
@@ -117,10 +117,10 @@ DETLIN_IFU_RAW5:
     ndit: 4
     wavelen: 2.7031
     filter_name: "open"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     detector_readout_mode: "slow"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "DETLIN"
     tplname: "METIS_ifu_cal_DetLin"
     nObs: 2
@@ -143,10 +143,10 @@ DETLIN_IFU_RAW6:
     ndit: 4
     wavelen: 2.7031
     filter_name: "open"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     detector_readout_mode: "slow"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "DETLIN"
     tplname: "METIS_ifu_cal_DetLin"
     nObs: 2
@@ -169,10 +169,10 @@ DETLIN_IFU_RAW7:
     ndit: 4
     wavelen: 2.7031
     filter_name: "open"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     detector_readout_mode: "slow"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "DETLIN"
     tplname: "METIS_ifu_cal_DetLin"
     nObs: 2
@@ -195,10 +195,10 @@ DETLIN_IFU_RAW8:
     ndit: 4
     wavelen: 2.7031
     filter_name: "open"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     detector_readout_mode: "slow"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "DETLIN"
     tplname: "METIS_ifu_cal_DetLin"
     nObs: 2
@@ -221,10 +221,10 @@ DETLIN_IFU_RAW9:
     ndit: 4
     wavelen: 2.7031
     filter_name: "open"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     detector_readout_mode: "slow"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "DETLIN"
     tplname: "METIS_ifu_cal_DetLin"
     nObs: 2
@@ -247,10 +247,10 @@ DETLIN_IFU_RAW10:
     ndit: 4
     wavelen: 2.7031
     filter_name: "open"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     detector_readout_mode: "slow"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "DETLIN"
     tplname: "METIS_ifu_cal_DetLin"
     nObs: 2
@@ -273,10 +273,10 @@ DETLIN_IFU_RAW11:
     ndit: 4
     wavelen: 2.7031
     filter_name: "open"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     detector_readout_mode: "slow"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "DETLIN"
     tplname: "METIS_ifu_cal_DetLin"
     nObs: 2
@@ -299,10 +299,10 @@ DETLIN_IFU_RAW12:
     ndit: 4
     wavelen: 2.7031
     filter_name: "open"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     detector_readout_mode: "slow"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "DETLIN"
     tplname: "METIS_ifu_cal_DetLin"
     nObs: 2
@@ -325,10 +325,10 @@ DETLIN_IFU_RAW13:
     ndit: 4
     wavelen: 2.7031
     filter_name: "open"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     detector_readout_mode: "slow"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "DETLIN"
     tplname: "METIS_ifu_cal_DetLin"
     nObs: 2
@@ -351,10 +351,10 @@ DETLIN_IFU_RAW14:
     ndit: 4
     wavelen: 2.7031
     filter_name: "open"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     detector_readout_mode: "slow"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "DETLIN"
     tplname: "METIS_ifu_cal_DetLin"
     nObs: 2
@@ -377,10 +377,10 @@ DETLIN_IFU_RAW15:
     ndit: 4
     wavelen: 2.7031
     filter_name: "open"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     detector_readout_mode: "slow"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "DETLIN"
     tplname: "METIS_ifu_cal_DetLin"
     nObs: 2
@@ -403,10 +403,10 @@ DETLIN_IFU_RAW16:
     ndit: 4
     wavelen: 2.7031
     filter_name: "open"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     detector_readout_mode: "slow"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "DETLIN"
     tplname: "METIS_ifu_cal_DetLin"
     nObs: 2
@@ -429,10 +429,10 @@ DETLIN_IFU_RAW17:
     ndit: 4
     wavelen: 2.7031
     filter_name: "open"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     detector_readout_mode: "slow"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "DETLIN"
     tplname: "METIS_ifu_cal_DetLin"
     nObs: 2
@@ -455,10 +455,10 @@ DETLIN_IFU_RAW18:
     ndit: 4
     wavelen: 2.7031
     filter_name: "open"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     detector_readout_mode: "slow"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "DETLIN"
     tplname: "METIS_ifu_cal_DetLin"
     nObs: 2
@@ -481,10 +481,10 @@ DETLIN_IFU_RAW19:
     ndit: 4
     wavelen: 2.7031
     filter_name: "open"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     detector_readout_mode: "slow"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "DETLIN"
     tplname: "METIS_ifu_cal_DetLin"
     nObs: 2
@@ -507,10 +507,10 @@ DETLIN_IFU_RAW20:
     ndit: 4
     wavelen: 2.7031
     filter_name: "open"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     detector_readout_mode: "slow"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "DETLIN"
     tplname: "METIS_ifu_cal_DetLin"
     nObs: 2

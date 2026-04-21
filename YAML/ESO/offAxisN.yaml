@@ -9,7 +9,7 @@ N_OFF_AXIS_PSF_RAW:
     dit: 0.25
     ndit: 1
     filter_name: "N1"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     catg: "CALIB"
     tech: "IMAGE,N"
     type: "PSF,OFFAXIS"

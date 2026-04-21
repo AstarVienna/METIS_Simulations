@@ -24,7 +24,7 @@ if __name__ == '__main__':
         params['nCores'] = nCores
         params['testRun'] = False
         
-        yamls = ["LSS_RAD_03/LSS_RAD_03_lm.yaml"]
+        yamls = ["LSS_RAD_03/LSS_RAD_03_lm_lspec.yaml","LSS_RAD_03/LSS_RAD_03_lm_mspec.yaml"]
         
 
         yamlFiles = []

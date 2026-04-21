@@ -108,12 +108,11 @@ if __name__ == "__main__":
 
     fNames = []
     for dirName in inDir:
-        temp = glob.glob(os.path.join(f"output/{dirName}","METIS*.fits"))
+        temp = glob.glob(os.path.join(f"{dirName}","METIS*.fits"))
         fNames = fNames + temp
 
     # sort for tidier output
     fNames.sort()
-    print("AA",inDir)
     generateSummary(fNames,outFile)
     
  

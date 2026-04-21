@@ -12,7 +12,7 @@ DARK_IFU_RAW:
     ndit: 1
     wavelen: 3.555
     filter_name: "closed"
-    ndfilter_name: "open"
+    nd_filter_name: "open"
     tech: "IFU"
     type: "DARK"
     catg: "CALIB"

@@ -99,7 +99,7 @@ def simulate(fname, mode, kwargs, wcu, source=None, small=False):
     cmd["!OBS.tech"] = kwargs["OBS"]["tech"]
     cmd["!OBS.mjd-obs"] = kwargs["OBS"]["MJD-OBS"]
     cmd["!OBS.dateobs"] = kwargs["OBS"]["dateobs"]
-    cmd["!OBS.ndfilter_name"] = kwargs["OBS"]["ndfilter_name"]
+    cmd["!OBS.nd_filter_name"] = kwargs["OBS"]["nd_filter_name"]
     cmd["!OBS.filter_name"] = kwargs["OBS"]["filter_name"]
     if kwargs["!OBS.filter_name"] == "closed":
         cmd["!OBS.filter_name"] = "open"

@@ -211,9 +211,9 @@ class runRecipes():
                goodInput = False
                 
             # check ND filter values, if any    
-            if('ndfilter_name' in recipe['properties']):
-               if(recipe['properties']['ndfilter_name'] not in sd.validND[recipe['mode']]):
-                  print(f"Recipe {name} ND Filter value of {recipe['properties']['ndfilter_name']} not valid")
+            if('nd_filter_name' in recipe['properties']):
+               if(recipe['properties']['nd_filter_name'] not in sd.validND[recipe['mode']]):
+                  print(f"Recipe {name} ND Filter value of {recipe['properties']['nd_filter_name']} not valid")
                   goodInput = False
 
             # catg, type and tech in list of valid values. update list in simulationDefinitions as needed
@@ -281,7 +281,7 @@ class runRecipes():
             elif(",N" in props['tech']):
                 df = json.loads(json.dumps(sd.DARKN))
                 df['mode'] = "img_n"
-            elif(np.any(["LMS" in props['tech'],"IFU" in props['tech']])):
+            elif("IFU" in props['tech']])):
                 df = json.loads(json.dumps(sd.DARKIFU))
                 df['mode'] = "lms"
             else:
@@ -307,7 +307,7 @@ class runRecipes():
             elif(",N" in props['tech']):
                 df = json.loads(json.dumps(sd.WCUDARKN))
                 df['mode'] = "wcu_img_n"
-            elif(np.any(["LMS" in props['tech'],"IFU" in props['tech']])):
+            elif(np.any(["IFU" in props['tech']])):
                 df = json.loads(json.dumps(sd.WCUDARKIFU))
                 df['mode'] = "wcu_lms"
             else:
@@ -324,7 +324,7 @@ class runRecipes():
     
         """determine what sort of sky flat, if any, is needed for a YAML entry and return a recipe dictionary for it"""
     
-        if(np.all(["DARK" not in props['type'], "FLAT" not in props['type'],"DETLIN" not in props['type'],"LMS" not in props['type'],"PERSISTENCE" not in props['type']])):
+        if(np.all(["DARK" not in props['type'], "FLAT" not in props['type'],"DETLIN" not in props['type'],"PERSISTENCE" not in props['type']])):
             if(",LM" in props['tech']):
                 df = json.loads(json.dumps(sd.SKYFLATLM))
                 df['mode'] = "img_lm"
@@ -335,7 +335,7 @@ class runRecipes():
                 return{}
     
             df['properties']['filter_name'] = props['filter_name']
-            df['properties']['ndfilter_name'] = "open"
+            df['properties']['nd_filter_name'] = "open"
             df['properties']['dit'] = 0.25
             df['properties']['ndit'] = 1
             df['properties']['nObs'] = self.params['doCalib']
@@ -347,7 +347,7 @@ class runRecipes():
     def calcLampFlat(self,props):
     
         """determine what sort of lamp flat, if any, is needed for a YAML entry and return a recipe dictionary for it"""
-        if(np.all(["DARK" not in props['type'], "FLAT" not in props['type'],"DETLIN" not in props['type'],"LMS" not in props['type'],"PERSISTENCE" not in props['type']])):
+        if(np.all(["DARK" not in props['type'], "FLAT" not in props['type'],"DETLIN" not in props['type'],"PERSISTENCE" not in props['type']])):
             if(",LM" in props['tech']):
                 df = json.loads(json.dumps(sd.LAMPFLATLM))
                 df['mode'] = "img_lm"
@@ -358,7 +358,7 @@ class runRecipes():
                 return{}
     
             df['properties']['filter_name'] = props['filter_name']
-            df['properties']['ndfilter_name'] = "open"
+            df['properties']['nd_filter_name'] = "open"
             df['properties']['dit'] = 0.25
             df['properties']['ndit'] = 1
             df['properties']['nObs'] = self.params['doCalib']
@@ -400,9 +400,9 @@ class runRecipes():
                 props = recipe["properties"] | combodict
                 
                 try:
-                    nfname = props["ndfilter_name"]
+                    nfname = props["nd_filter_name"]
                 except:
-                    props["ndfilter_name"] = "open"
+                    props["nd_filter_name"] = "open"
 
 
                 if(props["type"] in wcuModes):
@@ -493,7 +493,7 @@ class runRecipes():
         """
         add keywords to a list of files, fixing anything that isn't handled by ScopeSim. 
         
-        DPR .TECH, .FILTER and .TYPE are set by ScopeSim, DRS.FILTER .NDFILTER, 
+        DPR .TECH, .FILTER and .TYPE are set by ScopeSim, DRS.FILTER .ND_FILTER, 
         and DET.DIT and .NDIT are set in ScopeSim
     
         We use the TECH to get INS.MODE
@@ -556,7 +556,7 @@ class runRecipes():
                 #hdul[0].header['HIERARCH ESO INS OPTI13 NAME'] = filt
             
             #IFU
-            if(tech == "LMS"):
+            if(tech == "IFU"):
                 hdul[0].header['HIERARCH ESO INS MODE'] = "IFU_nominal"
                 #hdul[0].header['HIERARCH ESO INS OPTI6 NAME'] = filt
                 hdul[0].header['HIERARCH ESO DRS IFU'] = filt
@@ -662,11 +662,11 @@ class runRecipes():
                 props = recipe["properties"] | combodict
 
                 
-                # a blank value of ndfilter_name if not explicitly given
+                # a blank value of nd_filter_name if not explicitly given
                 try:
-                    nfname = props["ndfilter_name"]
+                    nfname = props["nd_filter_name"]
                 except:
-                    props["ndfilter_name"] = "open"
+                    props["nd_filter_name"] = "open"
     
                     
                 # first iteration, need to intialize dateobs regardless of method for timestamp
@@ -732,7 +732,7 @@ class runRecipes():
                     kwargs = NestedMapping({"OBS": props})
 
                     
-                    print(f"    dit={props['dit']},ndit={props['ndit']},catg={props['catg']},tech={props['tech']},type={props['type']},filter_name={props['filter_name']}, ndfilter_name={props['ndfilter_name']}")
+                    print(f"    dit={props['dit']},ndit={props['ndit']},catg={props['catg']},tech={props['tech']},type={props['type']},filter_name={props['filter_name']}, nd_filter_name={props['nd_filter_name']}")
 
                     print(fname, recipe.keys())
                     # keep track of the list of arguments
