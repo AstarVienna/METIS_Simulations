@@ -6,21 +6,14 @@ on:
     - cron: '0 0 * * *'  # Run on 0:00 UTC 
 
 jobs:
-  run:
+  # Setup job: check if build is needed and prepare environment
+  setup:
     runs-on: [self-hosted, Linux, simulation, zeus]
+    outputs:
+      should_build: ${{ steps.build_check.outputs.should_build }}
+      build_reason: ${{ steps.build_check.outputs.build_reason }}
     steps:
       - uses: actions/checkout@v6
-
-      - name: Install Python 3.12 on Fedora (if missing)
-        run: |
-          if ! command -v python3.12 &> /dev/null; then
-            sudo dnf install -y python3.12 python3.12-pip
-          fi
-          python3.12 --version
-
-      - name: Use Python 3.12
-        run: |
-          python3.12 -m pip install --upgrade pip
 
       - name: Check LatestBuild freshness and completeness
         id: build_check
@@ -65,22 +58,36 @@ jobs:
             fi
           fi
 
-          echo "SHOULD_BUILD=$SHOULD_BUILD" >> $GITHUB_ENV
-          echo "BUILD_REASON=$BUILD_REASON" >> $GITHUB_ENV
-          echo "LATEST_TARGET=$TARGET" >> $GITHUB_ENV
           echo "should_build=$SHOULD_BUILD" >> $GITHUB_OUTPUT
           echo "build_reason=$BUILD_REASON" >> $GITHUB_OUTPUT
-          echo "latest_target=$TARGET" >> $GITHUB_OUTPUT
           echo "Decision: SHOULD_BUILD=$SHOULD_BUILD ($BUILD_REASON)"
 
-      - name: Skip rebuild (fresh complete data exists)
-        if: steps.build_check.outputs.should_build != '1'
+  # Main job: run simulation blocks in parallel using matrix strategy
+  simulate:
+    needs: setup
+    if: needs.setup.outputs.should_build == '1'
+    runs-on: [self-hosted, Linux, simulation, zeus]
+    strategy:
+      matrix:
+        # Define all simulation blocks to run in parallel
+        block: [imgLM, imgN, lssLM, lssN, ifu, calib, hciRavcLM, hciAppLm, hciRavcIfu]
+      # Continue running other blocks even if one fails, for better debugging
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Install Python 3.12 on Fedora (if missing)
         run: |
-          echo "Skipping simulation run. Reason: ${{ steps.build_check.outputs.build_reason }}"
-          echo "Current LatestBuild target: ${{ steps.build_check.outputs.latest_target }}"
+          if ! command -v python3.12 &> /dev/null; then
+            sudo dnf install -y python3.12 python3.12-pip
+          fi
+          python3.12 --version
+
+      - name: Use Python 3.12
+        run: |
+          python3.12 -m pip install --upgrade pip
 
       - name: Install dependencies
-        if: steps.build_check.outputs.should_build == '1'
         run: |
           ln -sf /usr/bin/python3.12 $HOME/python
           echo "export PATH=$HOME:$PATH" >> $GITHUB_ENV
@@ -102,23 +109,40 @@ jobs:
             git clone https://github.com/AstarVienna/irdb.git # get bleeding edge version of irdb
           fi
 
-      - name: Run recipes
-        if: steps.build_check.outputs.should_build == '1'
+      - name: Run simulation block [${{ matrix.block }}]
         run: |
           cd "$GITHUB_WORKSPACE"
           export DEFAULT_IRDB_LOCATION="inst_pkgs"
-          ln -sfn "$GITHUB_WORKSPACE/irdb" "$GITHUB_WORKSPACE/inst_pkgs" # link to git-cloned version of irdb
+          ln -sfn "$GITHUB_WORKSPACE/irdb" "$GITHUB_WORKSPACE/inst_pkgs"
           
           export MSIM_YAML_DIR="YAML/ESO"
           export MSIM_NCORES=4
           export DEFAULT_IRDB_LOCATION="inst_pkgs"
           export MSIM_OUTDIR="output"
 
-          python simulationBlocks/imgLM.py
-          ./runESO.sh
-      
+          # Run only the specific block assigned to this matrix job
+          ./runESO.sh --only ${{ matrix.block }}
+
+  # Finalize job: aggregate results and move data after all blocks complete
+  finalize:
+    needs: simulate
+    if: always() && needs.setup.outputs.should_build == '1'
+    runs-on: [self-hosted, Linux, simulation, zeus]
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Check simulation results
+        run: |
+          echo "Simulation blocks completed"
+          echo "Checking for output data..."
+          if [ -d output ]; then
+            echo "Output directory exists"
+            ls -la output/ | head -20
+          else
+            echo "Warning: output directory not found"
+          fi
+
       - name: Move data to /data
-        if: steps.build_check.outputs.should_build == '1'
         run: |
           cd "$GITHUB_WORKSPACE/"
           TODAY=$(date +%Y-%m-%d)
@@ -126,5 +150,16 @@ jobs:
           mkdir -p /data/$TODAY
           cp -a output/. /data/$TODAY/
           cd /data
+          chcon -R -t container_file_t -l s0 $TODAY
           ln -sfn $TODAY LatestBuild
           ls -la /data/$TODAY
+
+  # Fallback job: skip message when build is not needed
+  skip-build:
+    needs: setup
+    if: needs.setup.outputs.should_build != '1'
+    runs-on: [self-hosted, Linux, simulation, zeus]
+    steps:
+      - name: Skip rebuild (fresh complete data exists)
+        run: |
+          echo "Skipping simulation run. Reason: ${{ needs.setup.outputs.build_reason }}"
