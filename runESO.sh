@@ -5,6 +5,11 @@ set -Eeuo pipefail
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 BLOCK_DIR="${SCRIPT_DIR}/simulationBlocks"
 
+export MSIM_YAML_DIR="${MSIM_YAML_DIR:-YAML/ESO}"
+export MSIM_NCORES="${MSIM_NCORES:-4}"
+export DEFAULT_IRDB_LOCATION="${DEFAULT_IRDB_LOCATION:-inst_pkgs}"
+export MSIM_OUTDIR="${MSIM_OUTDIR:-output}"
+
 DEFAULT_BLOCKS=(
 	imgLM
 	imgN
