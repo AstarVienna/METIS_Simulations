@@ -90,7 +90,7 @@ jobs:
       - name: Install dependencies
         run: |
           ln -sf /usr/bin/python3.12 $HOME/python
-          echo "export PATH=$HOME:$PATH" >> $GITHUB_ENV
+          echo "$HOME" >> $GITHUB_PATH
           python3.12 -m pip install --upgrade pip
           python3.12 -m pip install -e .
           python3.12 -m pip install git+https://github.com/AstarVienna/ScopeSim_Templates.git
@@ -123,23 +123,45 @@ jobs:
           # Run only the specific block assigned to this matrix job
           ./runESO.sh --only ${{ matrix.block }}
 
+      - name: Upload simulation output
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: output-${{ matrix.block }}
+          path: output/
+          retention-days: 1
+
   # Finalize job: aggregate results and move data after all blocks complete
   finalize:
-    needs: simulate
-    if: always() && needs.setup.outputs.should_build == '1'
+    needs: [setup, simulate]
+    if: needs.setup.outputs.should_build == '1' && !failure()
     runs-on: [self-hosted, Linux, simulation, zeus]
     steps:
       - uses: actions/checkout@v6
 
-      - name: Check simulation results
+      - name: Download all simulation outputs
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts/
+          pattern: output-*
+
+      - name: Consolidate simulation results
         run: |
-          echo "Simulation blocks completed"
+          echo "Consolidating simulation blocks..."
+          mkdir -p output
+          for dir in artifacts/output-*/; do
+            if [ -d "$dir" ]; then
+              echo "Merging $dir"
+              cp -r "$dir"* output/ 2>/dev/null || true
+            fi
+          done
           echo "Checking for output data..."
-          if [ -d output ]; then
-            echo "Output directory exists"
+          if [ -d output ] && [ "$(ls -A output)" ]; then
+            echo "Output directory populated with $(find output -type d | wc -l) directories"
             ls -la output/ | head -20
           else
-            echo "Warning: output directory not found"
+            echo "Warning: output directory is empty"
+            exit 1
           fi
 
       - name: Move data to /data
