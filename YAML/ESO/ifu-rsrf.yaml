@@ -57,31 +57,31 @@ IFU_RSRF_RAW2:
     yshift: 0
 
 
-## Explicit WCU_OFF frame
-IFU_WCU_OFF1:
-  do.catg: IFU_WCU_OFF_RAW
-  mode: "wcu_lms"
-  source: 
-    name: empty_sky
-    kwargs: {}
-  properties:
-    dit: 10
-    ndit: 20
-    wavelen: 3.555
-    filter_name: "open"
-    nd_filter_name: "open"
-    catg: "CALIB"
-    tech: "IFU"
-    type: "RSRF"
-    tplname: "METIS_ifu_cal_rsrf"
-    nObs: 1
-  wcu:
-    current_lamp: "bb"
-    current_fpmask: "grid_lm"
-    bb_aperture: 0.0
-    bb_temp: 800
-    is_temp: 300
-    wcu_temp: 300
+# ## Explicit WCU_OFF frame
+# IFU_WCU_OFF1:
+#   do.catg: IFU_WCU_OFF_RAW
+#   mode: "wcu_lms"
+#   source: 
+#     name: empty_sky
+#     kwargs: {}
+#   properties:
+#     dit: 10
+#     ndit: 20
+#     wavelen: 3.555
+#     filter_name: "open"
+#     nd_filter_name: "open"
+#     catg: "CALIB"
+#     tech: "IFU"
+#     type: "RSRF"
+#     tplname: "METIS_ifu_cal_rsrf"
+#     nObs: 1
+#   wcu:
+#     current_lamp: "bb"
+#     current_fpmask: "grid_lm"
+#     bb_aperture: 0.0
+#     bb_temp: 800
+#     is_temp: 300
+#     wcu_temp: 300
 
 ## SKY image for waveval
 IFU_SKY_RAW1:
