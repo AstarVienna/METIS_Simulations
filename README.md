@@ -77,12 +77,17 @@ export DEFAULT_IRDB_LOCATION="/home/me/inst_pkgs/"
 
 # Running the Code
 
-The simulations are set up using yaml templates, which define the
+The simulations are set up using input templates, which define the
 simulation needed for a single recipe, and simulation blocks, which
 define a set of templates and various run-time parameter. A simulation
 block is a python executable file that typically generates all the
 files needed to test a complete workflow. These are analoguous but not identical
 to the templates and observation blocks used in the instrument.
+
+Input templates can be provided in two formats:
+- **YAML files** — one or more observing blocks per file (see [YAML templates](#yaml-templates))
+- **CSV files** — AIT Performance Test Sequence format, where each row defines an observing block step (see [CSV input](#csv-input))
+
 A set of YAML files (at least one per recipe) are provided in the directory YAML,
 a set of simulation blocks (at least one for each instrument workflow) are
 provided in simulationBlocks. 
@@ -134,6 +139,29 @@ LM_IMAGE_SCI_RAW1:
 ```
 
 A complete description is found later in the README (??).
+
+# CSV Input
+
+As an alternative to YAML, input can be provided as a CSV file in the
+METIS AIT Performance Test Sequence format. The CSV parser reads the file,
+maps the ICS instrument parameters to ScopeSim-compatible values, and
+produces the same internal recipe structure as the YAML loader.
+
+## Programmatic usage
+
+The CSV parser can also be used directly:
+
+```python
+from metis_simulations.csvParser import loadCSV
+
+recipes = loadCSV("test_sequence.csv")
+
+# Optionally write a YAML file alongside the CSV for inspection:
+recipes = loadCSV("test_sequence.csv", write_yaml=True)
+```
+
+The `write_yaml=True` flag writes the parsed recipes to a `.yaml` file
+next to the input CSV, useful for debugging or reviewing the mapping output.
 
 # Simulation Blocks
 

@@ -35,6 +35,7 @@ import sys
 
 from . import simulationDefinitions as sd
 from .scopesimWrapper import simulate
+from .csvParser import loadCSV
 import importlib.resources as resources
 
 class setupSimulations():
@@ -110,16 +111,30 @@ class setupSimulations():
 
         return params
 
+    def loadInput(self):
+
+        """
+        Read in a file of recipe templates. Supports YAML and CSV formats,
+        dispatching based on file extension.
+        """
+
+        input_path = Path(self.params['inputYAML'])
+        ext = input_path.suffix.lower()
+
+        if ext in ('.yaml', '.yml'):
+            with input_path.open(encoding="utf-8") as file:
+                self.allrcps = yaml.safe_load(file)
+            print(f"Recipes loaded from {input_path}")
+        elif ext == '.csv':
+            self.allrcps = loadCSV(input_path)
+        else:
+            raise ValueError(f"Unsupported input format: {ext}. Use .yaml, .yml, or .csv")
+
     def loadYAML(self):
 
-        """
-        read in a YAML file of recipe templates and filter as specified by command line arguments
-        """
-        
-        with Path(self.params['inputYAML']).open(encoding="utf-8") as file:
-            self.allrcps =  yaml.safe_load(file)
+        """Backward-compatible alias for loadInput"""
 
-        print(f"Recipes loaded from {self.params['inputYAML']}")
+        self.loadInput()
         
     def loadRecipe(self,fname):
 
