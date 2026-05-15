@@ -31,7 +31,7 @@ jobs:
       - name: Run recipes
         run: |
           export MSIM_YAML_DIR="YAML/Tests"
-          export MSIM_NCORES=1
+          export MSIM_NCORES=6
           export DEFAULT_IRDB_LOCATION="irdb"
           export MSIM_OUTDIR="."
   
