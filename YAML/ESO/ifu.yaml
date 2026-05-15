@@ -15,6 +15,7 @@ DETLIN_IFU_RAW:
     ndit: 1
     wavelen: 3.555
     filter_name: "open"
+    nd_filter_name: "open"
     catg: "CALIB"
     tech: "IFU"
     type: "DETLIN"
@@ -57,7 +58,7 @@ IFU_DISTORTION_RAW:
     is_temp: 300
     wcu_temp: 300
     xshift: 0
-    yshirt: 0
+    yshift: 0
 
 
 
@@ -102,6 +103,7 @@ IFU_SCI_RAW:
     ndit: 1
     wavelen: 3.555
     filter_name: "open"
+    nd_filter_name: "open"
     catg: "SCIENCE"
     tech: "IFU"
     type: "OBJECT"
@@ -119,6 +121,7 @@ IFU_SCI_SKY_RAW:
     ndit: 1
     wavelen: 3.555
     filter_name: "open"
+    nd_filter_name: "open"
     catg: "CALIB"
     tech: "IFU"
     type: "SKY"
@@ -141,6 +144,7 @@ IFU_STD_RAW:
     ndit: 3
     wavelen: 3.555
     filter_name: "open"
+    nd_filter_name: "open"
     wavelen: "3.555"
     catg: "CALIB"
     tech: "IFU"
@@ -165,6 +169,7 @@ IFU_STD_SKY_RAW:
     ndit: 3
     wavelen: 3.555
     filter_name: "open"
+    nd_filter_name: "open"
     catg: "CALIB"
     tech: "IFU"
     type: "SKY"
@@ -230,31 +235,31 @@ IFU_RSRF_RAW2:
     yshift: 0
 
 
-## WCU_OFF frames
-IFU_WCU_OFF1:
-  do.catg: IFU_WCU_OFF_RAW
-  mode: "wcu_lms"
-  source:
-    name: empty_sky
-    kwargs: {}
-  properties:
-    dit: 10
-    ndit: 20
-    wavelen: 3.555
-    filter_name: "open"
-    nd_filter_name: "open"
-    catg: "CALIB"
-    tech: "IFU"
-    type: "RSRF"
-    tplname: "METIS_ifu_cal_rsrf"
-    nObs: 1
-  wcu:
-    current_lamp: "bb"
-    current_fpmask: "open"
-    bb_aperture: 0.0
-    bb_temp: 300
-    is_temp: 300
-    wcu_temp: 300
+# ## WCU_OFF frames - auto-generated
+# IFU_WCU_OFF1:
+#   do.catg: IFU_WCU_OFF_RAW
+#   mode: "wcu_lms"
+#   source:
+#     name: empty_sky
+#     kwargs: {}
+#   properties:
+#     dit: 10
+#     ndit: 20
+#     wavelen: 3.555
+#     filter_name: "open"
+#     nd_filter_name: "open"
+#     catg: "CALIB"
+#     tech: "IFU"
+#     type: "RSRF"
+#     tplname: "METIS_ifu_cal_rsrf"
+#     nObs: 1
+#   wcu:
+#     current_lamp: "bb"
+#     current_fpmask: "open"
+#     bb_aperture: 0.0
+#     bb_temp: 300
+#     is_temp: 300
+#     wcu_temp: 300
 
 ## SKY image for waveval
 IFU_SKY_RAW1:
@@ -268,6 +273,7 @@ IFU_SKY_RAW1:
     ndit: 3
     wavelen: 3.555
     filter_name: "open"
+    nd_filter_name: "open"
     catg: "CALIB"
     tech: "IFU"
     type: "SKY"
