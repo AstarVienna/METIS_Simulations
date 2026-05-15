@@ -14,7 +14,7 @@ DETLIN_IFU_RAW_ON1:
     filter_name: "open"
     nd_filter_name: "open"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "DETLIN"
     tplname: "METIS_ifu_cal_DetLin"
     nObs: 1
@@ -39,7 +39,7 @@ DETLIN_IFU_RAW_ON2:
     filter_name: "open"
     nd_filter_name: "open"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "DETLIN"
     tplname: "METIS_ifu_cal_DetLin"
     nObs: 1
@@ -65,7 +65,7 @@ DETLIN_IFU_RAW_ON3:
     filter_name: "open"
     nd_filter_name: "open"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "DETLIN"
     tplname: "METIS_ifu_cal_DetLin"
     nObs: 1
@@ -90,7 +90,7 @@ DETLIN_IFU_RAW_ON4:
     filter_name: "open"
     nd_filter_name: "open"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "DETLIN"
     tplname: "METIS_ifu_cal_DetLin"
     nObs: 1
@@ -116,7 +116,7 @@ DETLIN_IFU_RAW_ON5:
     filter_name: "open"
     nd_filter_name: "open"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "DETLIN"
     tplname: "METIS_ifu_cal_DetLin"
     nObs: 1
@@ -141,7 +141,7 @@ DETLIN_IFU_RAW_ON6:
     filter_name: "open"
     nd_filter_name: "open"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "DETLIN"
     tplname: "METIS_ifu_cal_DetLin"
     nObs: 1
@@ -167,7 +167,7 @@ DETLIN_IFU_RAW_ON7:
     filter_name: "open"
     nd_filter_name: "open"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "DETLIN"
     tplname: "METIS_ifu_cal_DetLin"
     nObs: 1
@@ -192,7 +192,7 @@ DETLIN_IFU_RAW_ON8:
     filter_name: "open"
     nd_filter_name: "open"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "DETLIN"
     tplname: "METIS_ifu_cal_DetLin"
     nObs: 1
@@ -217,7 +217,7 @@ DETLIN_IFU_RAW_ON9:
     filter_name: "open"
     nd_filter_name: "open"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "DETLIN"
     tplname: "METIS_ifu_cal_DetLin"
     nObs: 1
@@ -242,7 +242,7 @@ DETLIN_IFU_RAW_ON10:
     filter_name: "open"
     nd_filter_name: "open"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "DETLIN"
     tplname: "METIS_ifu_cal_DetLin"
     nObs: 1
@@ -268,7 +268,7 @@ DETLIN_IFU_RAW_ON11:
     filter_name: "open"
     nd_filter_name: "open"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "DETLIN"
     tplname: "METIS_ifu_cal_DetLin"
     nObs: 1
@@ -293,7 +293,7 @@ DETLIN_IFU_RAW_ON12:
     filter_name: "open"
     nd_filter_name: "open"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "DETLIN"
     tplname: "METIS_ifu_cal_DetLin"
     nObs: 1
@@ -319,7 +319,7 @@ DETLIN_IFU_RAW_ON13:
     filter_name: "open"
     nd_filter_name: "open"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "DETLIN"
     tplname: "METIS_ifu_cal_DetLin"
     nObs: 1
@@ -344,7 +344,7 @@ DETLIN_IFU_RAW_ON14:
     filter_name: "open"
     nd_filter_name: "open"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "DETLIN"
     tplname: "METIS_ifu_cal_DetLin"
     nObs: 1
@@ -370,7 +370,7 @@ DETLIN_IFU_RAW_ON15:
     filter_name: "open"
     nd_filter_name: "open"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "DETLIN"
     tplname: "METIS_ifu_cal_DetLin"
     nObs: 1
@@ -395,7 +395,7 @@ DETLIN_IFU_RAW_ON16:
     filter_name: "open"
     nd_filter_name: "open"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "DETLIN"
     tplname: "METIS_ifu_cal_DetLin"
     nObs: 1
@@ -421,7 +421,7 @@ DETLIN_IFU_RAW_OFF1:
     filter_name: "closed"
     nd_filter_name: "open"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "DETLIN"
     tplname: "METIS_ifu_cal_DetLin"
     nObs: 1
@@ -446,7 +446,7 @@ DETLIN_IFU_RAW_OFF2:
     filter_name: "closed"
     nd_filter_name: "open"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "DETLIN"
     tplname: "METIS_ifu_cal_DetLin"
     nObs: 1
@@ -472,7 +472,7 @@ DETLIN_IFU_RAW_OFF3:
     filter_name: "closed"
     nd_filter_name: "open"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "DETLIN"
     tplname: "METIS_ifu_cal_DetLin"
     nObs: 1
@@ -497,7 +497,7 @@ DETLIN_IFU_RAW_OFF4:
     filter_name: "closed"
     nd_filter_name: "open"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "DETLIN"
     tplname: "METIS_ifu_cal_DetLin"
     nObs: 1
@@ -523,7 +523,7 @@ DETLIN_IFU_RAW_OFF5:
     filter_name: "closed"
     nd_filter_name: "open"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "DETLIN"
     tplname: "METIS_ifu_cal_DetLin"
     nObs: 1
@@ -548,7 +548,7 @@ DETLIN_IFU_RAW_OFF6:
     filter_name: "closed"
     nd_filter_name: "open"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "DETLIN"
     tplname: "METIS_ifu_cal_DetLin"
     nObs: 1
@@ -574,7 +574,7 @@ DETLIN_IFU_RAW_OFF7:
     filter_name: "closed"
     nd_filter_name: "open"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "DETLIN"
     tplname: "METIS_ifu_cal_DetLin"
     nObs: 1
@@ -599,7 +599,7 @@ DETLIN_IFU_RAW_OFF8:
     filter_name: "closed"
     nd_filter_name: "open"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "DETLIN"
     tplname: "METIS_ifu_cal_DetLin"
     nObs: 1
@@ -624,7 +624,7 @@ DETLIN_IFU_RAW_OFF9:
     filter_name: "closed"
     nd_filter_name: "open"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "DETLIN"
     tplname: "METIS_ifu_cal_DetLin"
     nObs: 1
@@ -649,7 +649,7 @@ DETLIN_IFU_RAW_OFF10:
     filter_name: "closed"
     nd_filter_name: "open"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "DETLIN"
     tplname: "METIS_ifu_cal_DetLin"
     nObs: 1
@@ -675,7 +675,7 @@ DETLIN_IFU_RAW_OFF11:
     filter_name: "closed"
     nd_filter_name: "open"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "DETLIN"
     tplname: "METIS_ifu_cal_DetLin"
     nObs: 1
@@ -700,7 +700,7 @@ DETLIN_IFU_RAW_OFF12:
     filter_name: "closed"
     nd_filter_name: "open"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "DETLIN"
     tplname: "METIS_ifu_cal_DetLin"
     nObs: 1
@@ -726,7 +726,7 @@ DETLIN_IFU_RAW_OFF13:
     filter_name: "closed"
     nd_filter_name: "open"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "DETLIN"
     tplname: "METIS_ifu_cal_DetLin"
     nObs: 1
@@ -751,7 +751,7 @@ DETLIN_IFU_RAW_OFF14:
     filter_name: "closed"
     nd_filter_name: "open"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "DETLIN"
     tplname: "METIS_ifu_cal_DetLin"
     nObs: 1
@@ -777,7 +777,7 @@ DETLIN_IFU_RAW_OFF15:
     filter_name: "closed"
     nd_filter_name: "open"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "DETLIN"
     tplname: "METIS_ifu_cal_DetLin"
     nObs: 1
@@ -802,7 +802,7 @@ DETLIN_IFU_RAW_OFF16:
     filter_name: "closed"
     nd_filter_name: "open"
     catg: "CALIB"
-    tech: "LMS"
+    tech: "IFU"
     type: "DETLIN"
     tplname: "METIS_ifu_cal_DetLin"
     nObs: 1
