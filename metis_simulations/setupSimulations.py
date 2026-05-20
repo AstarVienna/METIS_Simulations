@@ -66,8 +66,8 @@ class setupSimulations():
         
         parser = argparse.ArgumentParser()
 
-        parser.add_argument('-i', '--inputYAML', type=str, default=None,
-                            help='input YAML File')
+        parser.add_argument('-i', '--inputFile', type=str, default=None,
+                            help='input file (YAML or CSV)')
         
         parser.add_argument('-o', '--outputDir', type=str, default=None,
                             help='output directory')
@@ -118,7 +118,7 @@ class setupSimulations():
         dispatching based on file extension.
         """
 
-        input_path = Path(self.params['inputYAML'])
+        input_path = Path(self.params['inputFile'])
         ext = input_path.suffix.lower()
 
         if ext in ('.yaml', '.yml'):

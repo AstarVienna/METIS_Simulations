@@ -12,7 +12,7 @@ def runSimulationBlock(yamlFiles, params, args):
     # parse any command line overrides
     
     for yamlFile in yamlFiles:
-        params['inputYAML'] = yamlFile
+        params['inputFile'] = yamlFile
 
         # instantiate a simulation set and assign the general parameters
     

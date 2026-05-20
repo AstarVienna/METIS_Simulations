@@ -147,6 +147,19 @@ METIS AIT Performance Test Sequence format. The CSV parser reads the file,
 maps the ICS instrument parameters to ScopeSim-compatible values, and
 produces the same internal recipe structure as the YAML loader.
 
+## CLI usage
+
+Any simulation-block script that takes input via the `-i` / `--inputFile`
+flag accepts either a YAML or a CSV file — the format is selected by the
+file extension (`.yaml`/`.yml` or `.csv`). For example:
+
+```
+./simulationBlocks/imgLM.py -i path/to/test_sequence.csv -o output/
+```
+
+All other flags (`-o`, `-s`, `-d`, `-q`, `-t`, `-f`, `-n`) behave the same
+regardless of input format.
+
 ## Programmatic usage
 
 The CSV parser can also be used directly:
