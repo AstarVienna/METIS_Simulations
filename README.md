@@ -149,16 +149,22 @@ produces the same internal recipe structure as the YAML loader.
 
 ## CLI usage
 
-Any simulation-block script that takes input via the `-i` / `--inputFile`
-flag accepts either a YAML or a CSV file — the format is selected by the
-file extension (`.yaml`/`.yml` or `.csv`). For example:
+A CSV already encodes a complete test sequence, so it does **not** need a
+per-test simulation-block wrapper script. Run it directly via the
+`runSimulationBlock` module:
 
 ```
-./simulationBlocks/imgLM.py -i path/to/test_sequence.csv -o output/
+python -m metis_simulations.runSimulationBlock -i path/to/test_sequence.csv -o out/
 ```
 
-All other flags (`-o`, `-s`, `-d`, `-q`, `-t`, `-f`, `-n`) behave the same
-regardless of input format.
+The format is selected by the file extension (`.yaml`/`.yml` or `.csv`),
+so the same command also works with a YAML file. All other flags from
+`setupSimulations.parseCommandLine` apply (`-o`, `-s`, `-d`, `-q`, `-t`,
+`-f`, `-n`) regardless of input format.
+
+The simulation-block scripts under `simulationBlocks/` are still useful
+when you want to chain *several* YAML files into one observation block with
+shared timing — that pattern isn't needed for CSV input.
 
 ## Programmatic usage
 
