@@ -246,7 +246,7 @@ def _map_filter(mode, row):
     validFilters configuration in simulationDefinitions.py. The imaging
     filter wheel value from the CSV is NOT used for LSS modes.
 
-    NOTE: If ScopeSim adds support for imaging filters in LSS modes in
+    TODO: If ScopeSim adds support for imaging filters in LSS modes in
     the future, update this function to map INS.OPTI10/13.NAME through
     the filter mapping tables instead of forcing the _spec filters.
     """

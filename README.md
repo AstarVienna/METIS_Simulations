@@ -77,7 +77,7 @@ export DEFAULT_IRDB_LOCATION="/home/me/inst_pkgs/"
 
 # Running the Code
 
-The simulations are set up using input templates, which define the
+The simulations are set up using YAML or CSV input templates, which define the
 simulation needed for a single recipe, and simulation blocks, which
 define a set of templates and various run-time parameter. A simulation
 block is a python executable file that typically generates all the
@@ -161,10 +161,6 @@ The format is selected by the file extension (`.yaml`/`.yml` or `.csv`),
 so the same command also works with a YAML file. All other flags from
 `setupSimulations.parseCommandLine` apply (`-o`, `-s`, `-d`, `-q`, `-t`,
 `-f`, `-n`) regardless of input format.
-
-The simulation-block scripts under `simulationBlocks/` are still useful
-when you want to chain *several* YAML files into one observation block with
-shared timing — that pattern isn't needed for CSV input.
 
 ## Programmatic usage
 
