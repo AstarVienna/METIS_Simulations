@@ -12,7 +12,7 @@ def runSimulationBlock(yamlFiles, params, args):
     # parse any command line overrides
     
     for yamlFile in yamlFiles:
-        params['inputYAML'] = yamlFile
+        params['inputFile'] = yamlFile
 
         # instantiate a simulation set and assign the general parameters
     
@@ -69,4 +69,19 @@ def runSimulationBlock(yamlFiles, params, args):
         simulationSet.updateHeaders()
 
 if __name__ == "__main__":
-    pass
+    import sys
+
+    simulationSet = ss.setupSimulations()
+    params = simulationSet.parseCommandLine(sys.argv[1:])
+
+    if params['inputFile'] is None:
+        sys.exit("error: -i/--inputFile is required")
+    if params['outputDir'] is None:
+        sys.exit("error: -o/--outputDir is required")
+
+    for key, default in (('small', False), ('doStatic', False),
+                         ('doCalib', 0), ('testRun', False), ('nCores', 1)):
+        if params[key] is None:
+            params[key] = default
+
+    runSimulationBlock([params['inputFile']], params, sys.argv[1:])
