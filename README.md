@@ -162,6 +162,20 @@ so the same command also works with a YAML file. All other flags from
 `setupSimulations.parseCommandLine` apply (`-o`, `-s`, `-d`, `-q`, `-t`,
 `-f`, `-n`) regardless of input format.
 
+### Inspecting the CSV → YAML mapping
+
+To review what the CSV parser produced without running any simulations,
+combine `--testRun` with `--writeYaml`:
+
+```
+python -m metis_simulations.runSimulationBlock -i path/to/test_sequence.csv -o out/ -t -w
+```
+
+This writes a `.yaml` file next to the input CSV containing the parsed
+recipes and exits before any ScopeSim call. `-w` on its own also writes
+the YAML but then continues into the normal simulation run; `-w` is
+ignored for YAML input.
+
 ## Programmatic usage
 
 The CSV parser can also be used directly:

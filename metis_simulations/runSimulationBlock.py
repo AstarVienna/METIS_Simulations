@@ -28,8 +28,14 @@ def runSimulationBlock(yamlFiles, params, args):
         simulationSet.params['nCores'] = int(simulationSet.params['nCores'])
 
         # load the YAML file
-        
+
         simulationSet.loadYAML()
+
+        # if both --testRun and --writeYaml are set, the user only wants the
+        # parsed-recipes YAML next to each CSV input — skip the rest of the
+        # per-file pipeline (simulations, header updates, calib bookkeeping)
+        if simulationSet.params.get('testRun') and simulationSet.params.get('writeYaml'):
+            continue
 
         # get the start date
         simulationSet.getStartDate()
@@ -49,6 +55,12 @@ def runSimulationBlock(yamlFiles, params, args):
             simulationSet.calculateCalibs()
             allDarks = allDarks + simulationSet.darkParms
             allFlats = allFlats + simulationSet.flatParms
+
+    # if --testRun + --writeYaml were set, every input was short-circuited
+    # above; nothing was simulated and self.tObs was never initialised, so the
+    # calib bookkeeping below would crash. Done.
+    if params.get('testRun') and params.get('writeYaml'):
+        return
 
     # now do all the calibrations
 
@@ -80,7 +92,8 @@ if __name__ == "__main__":
         sys.exit("error: -o/--outputDir is required")
 
     for key, default in (('small', False), ('doStatic', False),
-                         ('doCalib', 0), ('testRun', False), ('nCores', 1)):
+                         ('doCalib', 0), ('testRun', False), ('nCores', 1),
+                         ('writeYaml', False)):
         if params[key] is None:
             params[key] = default
 

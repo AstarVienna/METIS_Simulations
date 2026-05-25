@@ -96,6 +96,9 @@ class setupSimulations():
         parser.add_argument('-n', '--nCores', type=int, default=None,
                             help='number of cores for parallel processing')
 
+        parser.add_argument('-w', '--writeYaml', action="store_true", default=None,
+                            help='write a YAML file with the parsed recipes next to the input CSV (only meaningful with .csv input). Combine with --testRun to skip simulation entirely.')
+
         inArgs = parser.parse_args(args)
         params = vars(inArgs)
 
@@ -126,7 +129,7 @@ class setupSimulations():
                 self.allrcps = yaml.safe_load(file)
             print(f"Recipes loaded from {input_path}")
         elif ext == '.csv':
-            self.allrcps = loadCSV(input_path)
+            self.allrcps = loadCSV(input_path, write_yaml=bool(self.params.get('writeYaml')))
         else:
             raise ValueError(f"Unsupported input format: {ext}. Use .yaml, .yml, or .csv")
 
