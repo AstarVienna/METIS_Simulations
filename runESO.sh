@@ -1,4 +1,3 @@
-
 #!/usr/bin/env bash
 # Main orchestration script for running METIS simulation blocks
 # Provides flexible execution modes: full run, partial run, single block, or small dataset
