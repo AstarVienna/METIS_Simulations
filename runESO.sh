@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 # Main orchestration script for running METIS simulation blocks
 # Provides flexible execution modes: full run, partial run, single block, or small dataset
 set -Eeuo pipefail # Exit on error, undefined vars, and pipe failures
