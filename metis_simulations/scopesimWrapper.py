@@ -26,10 +26,6 @@ sim.rc.__config__["!SIM.file.local_packages_path"] = DEFAULT_IRDB_LOCATION
 
 logger = get_logger(__file__)
 
-# HACK: closed filter is not yet implemented:
-# changed the hack below, because changing kwargs here changes the props dictionary from which
-# kwargs is generated, outside of this subroutine, for reasons I do not understant.
-
 def simulate(fname, rcp, small=False):
 
     """
@@ -77,10 +73,7 @@ def simulate(fname, rcp, small=False):
     else:
         cmd = sim.UserCommands(use_instrument="METIS", set_modes=[mode])
 
-    #copy over the OBS settings directly, then set up the optical train
-
-    # the shutter stuff is a hack to deal with the fact that closed shutter is not
-    # implemented in ScopeSim yet
+    # copy over the OBS settings directly, then set up the optical train
 
     # keywords we always have
 
@@ -89,8 +82,6 @@ def simulate(fname, rcp, small=False):
     keyDefaults = {}
     keyDefaults["nd_filter_name"] = "open"
     keyDefaults["filter_name"] = "open"
-    
-    
     
     # set required keys
     shutter = False
@@ -114,11 +105,6 @@ def simulate(fname, rcp, small=False):
     for elem in props:
         if(elem not in reqKeys and elem not in keyDefaults):
             cmd[f"!OBS.{elem}"] = props[elem]
-
-    # hack for darks
-    if cmd["!OBS.filter_name"] == "closed":
-        cmd["!OBS.filter_name"] = "open"
-        shutter = True
 
     #if("tplname" in props.keys()):
     #    cmd["!OBS.tplname"] = props["tplname"]
