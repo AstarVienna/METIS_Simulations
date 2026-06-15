@@ -67,16 +67,6 @@ def simulate(fname, mode, kwargs, wcu, source=None, small=False):
     logger.info("Source function: %s", src_fct.__name__)
     logger.debug("Source kwargs: %s", src_kwargs)
 
-    # HACK: closed filter is not yet implemented:
-    # changed the hack below, because changing kwargs here changes the props dictionary from which
-    # kwargs is generated, outside of this subroutine, for reasons I do not understant.
-    
-    #if kwargs["!OBS.filter_name"] == "closed":
-    #    shutter = True
-    #    kwargs["!OBS.filter_name"] = "open"
-    #else:
-    #    shutter = False
-
     #mode = MODESDICT[kwargs["!OBS.tech"]]
     logger.info("ScopeSim mode: %s", mode)
     # return None
@@ -101,11 +91,7 @@ def simulate(fname, mode, kwargs, wcu, source=None, small=False):
     cmd["!OBS.dateobs"] = kwargs["OBS"]["dateobs"]
     cmd["!OBS.nd_filter_name"] = kwargs["OBS"]["nd_filter_name"]
     cmd["!OBS.filter_name"] = kwargs["OBS"]["filter_name"]
-    if kwargs["!OBS.filter_name"] == "closed":
-        cmd["!OBS.filter_name"] = "open"
-        shutter = True
-
-
+    
     if("tplname" in kwargs["OBS"].keys()):
         cmd["!OBS.tplname"] = kwargs["OBS"]["tplname"]
 
