@@ -13,7 +13,7 @@ jobs:
       should_build: ${{ steps.build_check.outputs.should_build }}
       build_reason: ${{ steps.build_check.outputs.build_reason }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - name: Check LatestBuild freshness and completeness
         id: build_check
@@ -74,7 +74,7 @@ jobs:
       # Continue running other blocks even if one fails, for better debugging
       fail-fast: false
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - name: Install Python 3.12 on Fedora (if missing)
         run: |
@@ -137,7 +137,7 @@ jobs:
     if: needs.setup.outputs.should_build == '1' && !failure()
     runs-on: [self-hosted, Linux, simulation, zeus]
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - name: Download all simulation outputs
         uses: actions/download-artifact@v4
