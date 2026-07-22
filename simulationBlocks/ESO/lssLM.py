@@ -24,7 +24,7 @@ if __name__ == "__main__":
     params['nCores'] = nCores
     params['testRun'] = False
 
-    yamls = ["scienceLSSLM.yaml","stdLSSLM.yaml","detlinLM.yaml","distortionLM.yaml","rsrfLSSLM.yaml","rsrfPinhLSSLM.yaml","wavecalLSSLM.yaml","slitlossLSSLM.yaml"]
+    yamls = ["scienceLSSLM.yaml","stdLSSLM.yaml","distortionLM.yaml","rsrfLSSLM.yaml","rsrfPinhLSSLM.yaml","wavecalLSSLM.yaml","slitlossLSSLM.yaml"]
 
 
     yamlFiles = []

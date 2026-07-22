@@ -16,8 +16,8 @@ repository = "https://github.com/AstarVienna/METIS_Simulations"
 documentation = "https://scopesim.readthedocs.io/en/latest/"
 requires-python = ">=3.12,<3.15"
 dependencies = [
-    "scopesim @ git+https://github.com/astarVienna/scopesim",
-    "scopesim_templates >=0.8.1"
+    "scopesim",
+    "scopesim_templates",
 ]
 [tool.poetry]
 packages = [{include = "metis_simulations"}]

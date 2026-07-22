@@ -14,20 +14,22 @@ outputDir = os.environ['MSIM_OUTDIR']
 if __name__ == '__main__':    
 
         params = {}
-        params['outputDir'] = os.path.join(outputDir,"hciRavcLM")
+        params['outputDir'] = os.path.join(outputDir,"detlin")
         params['small'] = False
         params['doStatic'] = True
-        params['doCalib'] = 2
+        params['doCalib'] = 3
         params['sequence'] = True
-        params['startMJD'] =  "2027-01-31 00:00:00"
+        params['startMJD'] =  "2027-02-01 00:00:00"
         params['calibFile'] = None
         params['nCores'] = nCores
         params['testRun'] = False
         
-        yamls = ["offAxisLM.yaml","hciRavcLM.yaml","distortionLM.yaml","stdLM.yaml"]
-        
+        yamls = ["detlinLM.yaml","detlinN.yaml","detlinIFU.yaml"]
+
         yamlFiles = []
         for y in yamls:
             yamlFiles.append(os.path.join(yamlDir,y))
-        
+
         rs.runSimulationBlock(yamlFiles,params,sys.argv[1:])
+        
+
