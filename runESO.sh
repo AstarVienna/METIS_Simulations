@@ -27,6 +27,7 @@ DEFAULT_BLOCKS=(
 	hciRavcLM   # High-contrast imaging with RAVC - L band
 	hciAppLm    # High-contrast imaging with app - L band
 	hciRavcIfu  # High-contrast imaging with RAVC - IFU
+	detlin  # High-contrast imaging with RAVC - IFU
 )
 
 # Initialize variables for command-line options

@@ -24,7 +24,7 @@ if __name__ == '__main__':
         params['nCores'] = nCores
         params['testRun'] = False
         
-        yamls = ["offAxisLM.yaml","hciAppLM.yaml","distortionLM.yaml","detlinLM.yaml"]
+        yamls = ["offAxisLM.yaml","hciAppLM.yaml","distortionLM.yaml"]
 
         yamlFiles = []
         for y in yamls:

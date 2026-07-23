@@ -40,8 +40,8 @@ def runSimulationBlock(yamlFiles, params, args):
         # run the simulations
         simulationSet.runSimulations()
 
-        if not params['testRun']:
-            simulationSet.updateHeaders()
+        #if not params['testRun']:
+        #    simulationSet.updateHeaders()
 
         # keep track of the date for the next template
         params['startMJD'] = simulationSet.endDate.strftime('%Y-%m-%d %H:%M:%S')
@@ -71,8 +71,8 @@ def runSimulationBlock(yamlFiles, params, args):
     
     if(params['doStatic'] == True):
         mcp.generateStaticCalibs(params['outputDir'])
-    if not params['testRun']:
-        simulationSet.updateHeaders()
+    #if not params['testRun']:
+    #    simulationSet.updateHeaders()
 
 if __name__ == "__main__":
     import sys

@@ -25,7 +25,7 @@ if __name__ == '__main__':
         params['nCores'] = nCores
         params['testRun'] = False
         
-        yamls = ["scienceN.yaml","stdN.yaml","distortionN.yaml","detlinN.yaml"]
+        yamls = ["scienceN.yaml","stdN.yaml","distortionN.yaml"]
 
 
         yamlFiles = []
