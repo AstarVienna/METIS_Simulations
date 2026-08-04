@@ -419,7 +419,7 @@ DETLIN_IFU_RAW_OFF1:
     ndit: 1
     wavelen: 3.555
     filter_name: "closed"
-    nd_filter_name: "open"
+    nd_filter_name: "closed"
     catg: "CALIB"
     tech: "IFU"
     type: "DETLIN"
@@ -444,7 +444,7 @@ DETLIN_IFU_RAW_OFF2:
     ndit: 1
     wavelen: 3.555
     filter_name: "closed"
-    nd_filter_name: "open"
+    nd_filter_name: "closed"
     catg: "CALIB"
     tech: "IFU"
     type: "DETLIN"
@@ -470,7 +470,7 @@ DETLIN_IFU_RAW_OFF3:
     ndit: 1
     wavelen: 3.555
     filter_name: "closed"
-    nd_filter_name: "open"
+    nd_filter_name: "closed"
     catg: "CALIB"
     tech: "IFU"
     type: "DETLIN"
@@ -495,7 +495,7 @@ DETLIN_IFU_RAW_OFF4:
     ndit: 1
     wavelen: 3.555
     filter_name: "closed"
-    nd_filter_name: "open"
+    nd_filter_name: "closed"
     catg: "CALIB"
     tech: "IFU"
     type: "DETLIN"
@@ -521,7 +521,7 @@ DETLIN_IFU_RAW_OFF5:
     ndit: 1
     wavelen: 3.555
     filter_name: "closed"
-    nd_filter_name: "open"
+    nd_filter_name: "closed"
     catg: "CALIB"
     tech: "IFU"
     type: "DETLIN"
@@ -546,7 +546,7 @@ DETLIN_IFU_RAW_OFF6:
     ndit: 1
     wavelen: 3.555
     filter_name: "closed"
-    nd_filter_name: "open"
+    nd_filter_name: "closed"
     catg: "CALIB"
     tech: "IFU"
     type: "DETLIN"
@@ -572,7 +572,7 @@ DETLIN_IFU_RAW_OFF7:
     ndit: 1
     wavelen: 3.555
     filter_name: "closed"
-    nd_filter_name: "open"
+    nd_filter_name: "closed"
     catg: "CALIB"
     tech: "IFU"
     type: "DETLIN"
@@ -597,7 +597,7 @@ DETLIN_IFU_RAW_OFF8:
     ndit: 1
     wavelen: 3.555
     filter_name: "closed"
-    nd_filter_name: "open"
+    nd_filter_name: "closed"
     catg: "CALIB"
     tech: "IFU"
     type: "DETLIN"
@@ -622,7 +622,7 @@ DETLIN_IFU_RAW_OFF9:
     ndit: 1
     wavelen: 3.555
     filter_name: "closed"
-    nd_filter_name: "open"
+    nd_filter_name: "closed"
     catg: "CALIB"
     tech: "IFU"
     type: "DETLIN"
@@ -647,7 +647,7 @@ DETLIN_IFU_RAW_OFF10:
     ndit: 1
     wavelen: 3.555
     filter_name: "closed"
-    nd_filter_name: "open"
+    nd_filter_name: "closed"
     catg: "CALIB"
     tech: "IFU"
     type: "DETLIN"
@@ -673,7 +673,7 @@ DETLIN_IFU_RAW_OFF11:
     ndit: 1
     wavelen: 3.555
     filter_name: "closed"
-    nd_filter_name: "open"
+    nd_filter_name: "closed"
     catg: "CALIB"
     tech: "IFU"
     type: "DETLIN"
@@ -698,7 +698,7 @@ DETLIN_IFU_RAW_OFF12:
     ndit: 1
     wavelen: 3.555
     filter_name: "closed"
-    nd_filter_name: "open"
+    nd_filter_name: "closed"
     catg: "CALIB"
     tech: "IFU"
     type: "DETLIN"
@@ -724,7 +724,7 @@ DETLIN_IFU_RAW_OFF13:
     ndit: 1
     wavelen: 3.555
     filter_name: "closed"
-    nd_filter_name: "open"
+    nd_filter_name: "closed"
     catg: "CALIB"
     tech: "IFU"
     type: "DETLIN"
@@ -749,7 +749,7 @@ DETLIN_IFU_RAW_OFF14:
     ndit: 1
     wavelen: 3.555
     filter_name: "closed"
-    nd_filter_name: "open"
+    nd_filter_name: "closed"
     catg: "CALIB"
     tech: "IFU"
     type: "DETLIN"
@@ -775,7 +775,7 @@ DETLIN_IFU_RAW_OFF15:
     ndit: 1
     wavelen: 3.555
     filter_name: "closed"
-    nd_filter_name: "open"
+    nd_filter_name: "closed"
     catg: "CALIB"
     tech: "IFU"
     type: "DETLIN"
@@ -800,7 +800,7 @@ DETLIN_IFU_RAW_OFF16:
     ndit: 1
     wavelen: 3.555
     filter_name: "closed"
-    nd_filter_name: "open"
+    nd_filter_name: "closed"
     catg: "CALIB"
     tech: "IFU"
     type: "DETLIN"

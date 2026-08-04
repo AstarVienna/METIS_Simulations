@@ -120,7 +120,14 @@ def simulate(fname, rcp, small=False):
 
     #set the WCU mode arguments
     if(rcp['wcu'] is not None):
-        
+
+        # Select the lamp. Without this the key was read from the YAML but never
+        # applied, so every template silently ran on the config default ("bb").
+        # Note the WCU lamp is additive to the source passed to observe(), which does
+        # reach the detector in WCU modes -- the wavecal lines come from there.
+        if("current_lamp" in wcu):
+            metis['wcu_source'].set_lamp(wcu['current_lamp'])
+
         # set temperatures of black body
         if(np.all(["bb_temp" in wcu,"is_temp" in wcu, "wcu_temp" in wcu])):
             metis['wcu_source'].set_temperature(bb_temp=wcu['bb_temp']*u.K, is_temp=wcu['is_temp']*u.K,wcu_temp=wcu['wcu_temp']*u.K)

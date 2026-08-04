@@ -4,11 +4,28 @@ IFU_WAVE_RAW:
   mode: "wcu_lms"
   source:
     name: "laser_spectrum_lm"
-    kwargs: {}
+    kwargs:
+      # Attenuate the 3.39 um line, the only one that reaches the detector in this
+      # setting. At the template default of 1 it saturates ~143000 px even at MINDIT
+      # behind ND-2.8; 3.0e-10 puts the peak at ~27000 ADU, about 55% of full well,
+      # with no saturated pixel. The remaining entries are the untouched defaults
+      # (20 tunable lines at 4.68-4.78 um, then 5.263 um) and are out of band here;
+      # all three of centers/fwhms/fluxes must keep the same length, so the full
+      # 22-element list has to be given.
+      fluxes: [3.0e-10,
+               7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
+               500]
   properties:
-    dit: 0.0004
+    # DIT is at the LMS MINDIT of 1.3 s; anything shorter is not a physically
+    # realisable exposure, and ScopeSim only warns rather than refusing it.
+    dit: 1.3
     ndit: 1
-    wavelen: 3.555
+    # Only the 3.39 um laser falls in an LMS setting -- the tunable comb at
+    # 4.68-4.78 um renders nothing here, and at the science setting of 3.555 the
+    # frame contains no line at all. wavelen snaps to discrete grating settings:
+    # 3.38/3.358/3.422 show nothing, 3.39 puts the line half off the right edge,
+    # 3.40 lands it fully on the array (DET1 and DET3 only; DET2/DET4 see no line).
+    wavelen: 3.40
     filter_name: "open"
     nd_filter_name: "ND-2.8"
     catg: "CALIB"
@@ -17,6 +34,8 @@ IFU_WAVE_RAW:
     tplname: "METIS_ifu_cal_InternalWave"
     nObs: 1
   wcu:
+    # The lines come from the laser_spectrum_lm source above, as in the LSS wavecal
+    # templates; the WCU lamp only supplies the continuum background.
     current_lamp: "bb"
     current_fpmask: "open"
     bb_aperture: 1.0

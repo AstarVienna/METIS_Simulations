@@ -5,8 +5,8 @@ IFU_DISTORTION_RAW:
     name: empty_sky
     kwargs: {}
   properties:
-    dit: 0.25
-    ndit: 1
+    dit: 10
+    ndit: 20
     wavelen: 3.555
     filter_name: "open"
     nd_filter_name: "open"
@@ -14,14 +14,19 @@ IFU_DISTORTION_RAW:
     tech: "IFU"
     type: "DISTORTION"
     tplname: "METIS_ifu_cal_distortion"
-    nObs: 1
+    nObs: 3
   wcu:
     current_lamp: "bb"
-    current_fpmask: "open"
-    bb_aperture: 0.0
-    bb_temp: 300
+    # grid_lm is the LMS astrometric calibration mask (~100 apertures); with the
+    # blackbody open at 800 K this is the same illumination as rsrfPinhIFU.yaml,
+    # which traces the full complement of IFU slices.
+    current_fpmask: "grid_lm"
+    bb_aperture: 0.5
+    bb_temp: 800
     is_temp: 300
     wcu_temp: 300
     xshift: 0
-    yshift: 0
+    # As in rsrfPinhIFU.yaml: without this offset the grid straddles the slices and
+    # the clusters fragment below min_cluster (82 traces instead of 119).
+    yshift: -0.1
     
