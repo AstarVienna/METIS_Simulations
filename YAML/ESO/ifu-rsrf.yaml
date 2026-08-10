@@ -10,7 +10,7 @@ IFU_RSRF_RAW1:
   properties:
     dit: 10
     ndit: 20
-    wavelen: 3.555
+    wavelen: 4.73
     filter_name: "open"
     nd_filter_name: "open"
     catg: "CALIB"
@@ -38,7 +38,7 @@ IFU_RSRF_RAW2:
   properties:
     dit: 10
     ndit: 20
-    wavelen: 3.555
+    wavelen: 4.73
     filter_name: "open"
     nd_filter_name: "open"
     catg: "CALIB"
@@ -67,7 +67,7 @@ IFU_RSRF_RAW2:
 #   properties:
 #     dit: 10
 #     ndit: 20
-#     wavelen: 3.555
+#     wavelen: 4.73
 #     filter_name: "open"
 #     nd_filter_name: "open"
 #     catg: "CALIB"
@@ -95,7 +95,7 @@ IFU_SKY_RAW1:
     ndit: 3
     filter_name: "open"
     nd_filter_name: "open"
-    wavelen: "3.555"
+    wavelen: "4.73"
     catg: "CALIB"
     tech: "IFU"
     type: "SKY"

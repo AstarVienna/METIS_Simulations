@@ -13,7 +13,7 @@ DETLIN_IFU_RAW:
   properties:
     dit: 1.
     ndit: 1
-    wavelen: 3.555
+    wavelen: 4.73
     filter_name: "open"
     nd_filter_name: "open"
     catg: "CALIB"
@@ -24,8 +24,8 @@ DETLIN_IFU_RAW:
   wcu:
     current_lamp: "bb"
     current_fpmask: "open"
-    bb_aperture: 0.0
-    bb_temp: 300
+    bb_aperture: 0.5
+    bb_temp: 800
     is_temp: 300
     wcu_temp: 300
 
@@ -40,9 +40,9 @@ IFU_DISTORTION_RAW:
     name: empty_sky
     kwargs: {}
   properties:
-    dit: 0.25
-    ndit: 1
-    wavelen: 3.555
+    dit: 10.
+    ndit: 20
+    wavelen: 4.73
     filter_name: "open"
     nd_filter_name: "open"
     catg: "CALIB"
@@ -54,7 +54,7 @@ IFU_DISTORTION_RAW:
     current_lamp: "bb"
     current_fpmask: "open"
     bb_aperture: 0.0
-    bb_temp: 300
+    bb_temp: 800
     is_temp: 300
     wcu_temp: 300
     xshift: 0
@@ -66,21 +66,28 @@ IFU_DISTORTION_RAW:
 
 IFU_WAVE_RAW:
   do.catg: IFU_WAVE_RAW
-  mode: "lms"
+  mode: "wcu_lms"
   source:
     name: "laser_spectrum_lm"
     kwargs: {}
   properties:
-    dit: 0.0004
+    dit: 1.3
     ndit: 1
-    wavelen: 3.555
+    wavelen: 4.73
     filter_name: "open"
-    nd_filter_name: "ND-2.8"
+    nd_filter_name: "open"
     catg: "CALIB"
     tech: "IFU"
     type: "WAVE"
     tplname: "METIS_ifu_cal_InternalWave"
     nObs: 1
+  wcu:
+    current_lamp: "laser"
+    current_fpmask: "open"
+    bb_aperture: 1.0
+    bb_temp: 300
+    is_temp: 300
+    wcu_temp: 300
 
 
 ######SCIENCE SOURCE ########
@@ -99,9 +106,9 @@ IFU_SCI_RAW:
     name: simple_gal
     kwargs: {}
   properties:
-    dit: 0.25
-    ndit: 1
-    wavelen: 3.555
+    dit: 20.
+    ndit: 10
+    wavelen: 4.73
     filter_name: "open"
     nd_filter_name: "open"
     catg: "SCIENCE"
@@ -117,9 +124,9 @@ IFU_SCI_SKY_RAW:
     name: empty_sky
     kwargs: {}
   properties:
-    dit: 0.25
-    ndit: 1
-    wavelen: 3.555
+    dit: 100.
+    ndit: 3
+    wavelen: 4.73
     filter_name: "open"
     nd_filter_name: "open"
     catg: "CALIB"
@@ -140,12 +147,12 @@ IFU_STD_RAW:
     kwargs:
       amplitude: 8
   properties:
-    dit: 100
+    dit: 100.
     ndit: 3
-    wavelen: 3.555
+    wavelen: 4.73
     filter_name: "open"
     nd_filter_name: "open"
-    wavelen: "3.555"
+    wavelen: "4.73"
     catg: "CALIB"
     tech: "IFU"
     type: "STD"
@@ -165,9 +172,9 @@ IFU_STD_SKY_RAW:
     name: empty_sky
     kwargs: {}
   properties:
-    dit: 100
+    dit: 100.
     ndit: 3
-    wavelen: 3.555
+    wavelen: 4.73
     filter_name: "open"
     nd_filter_name: "open"
     catg: "CALIB"
@@ -186,9 +193,9 @@ IFU_RSRF_RAW1:
     name: empty_sky
     kwargs: {}
   properties:
-    dit: 10
+    dit: 10.
     ndit: 20
-    wavelen: 3.555
+    wavelen: 4.73
     filter_name: "open"
     nd_filter_name: "open"
     catg: "CALIB"
@@ -214,9 +221,9 @@ IFU_RSRF_RAW2:
     name: empty_sky
     kwargs: {}
   properties:
-    dit: 10
+    dit: 10.
     ndit: 20
-    wavelen: 3.555
+    wavelen: 4.73
     filter_name: "open"
     nd_filter_name: "open"
     catg: "CALIB"
@@ -243,9 +250,9 @@ IFU_RSRF_RAW2:
 #     name: empty_sky
 #     kwargs: {}
 #   properties:
-#     dit: 10
+#     dit: 10.
 #     ndit: 20
-#     wavelen: 3.555
+#     wavelen: 4.73
 #     filter_name: "open"
 #     nd_filter_name: "open"
 #     catg: "CALIB"
@@ -269,9 +276,9 @@ IFU_SKY_RAW1:
     name: empty_sky
     kwargs: {}
   properties:
-    dit: 100
+    dit: 100.
     ndit: 3
-    wavelen: 3.555
+    wavelen: 4.73
     filter_name: "open"
     nd_filter_name: "open"
     catg: "CALIB"
