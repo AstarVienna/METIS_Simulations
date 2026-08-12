@@ -35,7 +35,7 @@ download and install the software with the correct dependencies.
 ```
 git clone git@github.com:AstarVienna/METIS_Simulations.git
 
-cd METIS_Simulations/metis_simulations
+cd METIS_Simulations
 pip install .
 ```
 

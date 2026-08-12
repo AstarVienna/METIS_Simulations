@@ -120,6 +120,10 @@ def simulate(fname, rcp, small=False):
 
     #set the WCU mode arguments
     if(rcp['wcu'] is not None):
+
+        # set wcu lamp
+        if("current_lamp" in wcu):
+            metis['wcu_source'].set_lamp(wcu['current_lamp'])
         
         # set temperatures of black body
         if(np.all(["bb_temp" in wcu,"is_temp" in wcu, "wcu_temp" in wcu])):

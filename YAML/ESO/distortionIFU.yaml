@@ -5,9 +5,9 @@ IFU_DISTORTION_RAW:
     name: empty_sky
     kwargs: {}
   properties:
-    dit: 0.25
-    ndit: 1
-    wavelen: 3.555
+    dit: 10.
+    ndit: 20
+    wavelen: 4.73
     filter_name: "open"
     nd_filter_name: "open"
     catg: "CALIB"
@@ -18,8 +18,8 @@ IFU_DISTORTION_RAW:
   wcu:
     current_lamp: "bb"
     current_fpmask: "open"
-    bb_aperture: 0.0
-    bb_temp: 300
+    bb_aperture: 0.5
+    bb_temp: 800
     is_temp: 300
     wcu_temp: 300
     xshift: 0

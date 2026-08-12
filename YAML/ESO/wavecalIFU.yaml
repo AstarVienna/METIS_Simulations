@@ -6,18 +6,18 @@ IFU_WAVE_RAW:
     name: "laser_spectrum_lm"
     kwargs: {}
   properties:
-    dit: 0.0004
+    dit: 1
     ndit: 1
-    wavelen: 3.555
+    wavelen: 4.73
     filter_name: "open"
-    nd_filter_name: "ND-2.8"
+    nd_filter_name: "open"
     catg: "CALIB"
     tech: "IFU"
     type: "WAVE"
     tplname: "METIS_ifu_cal_InternalWave"
     nObs: 1
   wcu:
-    current_lamp: "bb"
+    current_lamp: "laser"
     current_fpmask: "open"
     bb_aperture: 1.0
     bb_temp: 300
