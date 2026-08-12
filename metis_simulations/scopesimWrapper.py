@@ -26,7 +26,7 @@ sim.rc.__config__["!SIM.file.local_packages_path"] = DEFAULT_IRDB_LOCATION
 
 logger = get_logger(__file__)
 
-def simulate(fname, rcp, small=False):
+def simulate(fname, rcp, small=False, skip_psf=False):
 
     """
     Workhorse for an individual simulation.
@@ -153,6 +153,19 @@ def simulate(fname, rcp, small=False):
             if key in metis.effects['name']:
                 metis[key].table['x_size'] = 32
                 metis[key].table['y_size'] = 32
+
+    # Frames taken with no source flux (darks, WCU-off) still pay for a full
+    # PSF interpolation onto the oversampled FOV, which for the IFU is ~95% of
+    # the runtime and convolves a zero-flux field. Skipping it is opt-in: the
+    # caller has to assert the frame really has no source.
+    if skip_psf:
+        if "psf" in metis.effects["name"]:
+            metis["psf"].include = False
+            logger.info("PSF effect disabled for this frame (skip_psf)")
+        else:
+            logger.warning(
+                "skip_psf was requested but this optical train has no effect "
+                "named 'psf'; nothing was disabled")
 
     # and a warning for old versions of the IRDB
     

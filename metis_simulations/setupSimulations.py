@@ -96,6 +96,9 @@ class setupSimulations():
         parser.add_argument('-n', '--nCores', type=int, default=None,
                             help='number of cores for parallel processing')
 
+        parser.add_argument('-p', '--noPsf', action="store_true", default=None,
+                            help='skip the PSF convolution. Only valid for frames with no source flux (darks, WCU-off); it changes the pixel data for anything illuminated.')
+
         parser.add_argument('-w', '--writeYaml', action="store_true", default=None,
                             help='write a YAML file with the parsed recipes next to the input CSV (only meaningful with .csv input). Combine with --testRun to skip simulation entirely.')
 
@@ -276,7 +279,8 @@ class setupSimulations():
 
                 # append the arguments to the list
                 allArgs.append((self.fname,recipe,self.params["small"]))
-                simulate(self.fname, recipe, small=self.params['small'])
+                simulate(self.fname, recipe, small=self.params['small'],
+                         skip_psf=self.params.get('noPsf', False))
         # now actually run
         #if(not self.params['testRun']):
         #    nCores = max(min(self.params['nCores'], cpu_count() - 1), 1)
@@ -386,7 +390,8 @@ class setupSimulations():
 
                 # add the arguments to the list
                 allArgs.append((self.fname,recipe,self.params["small"]))
-                simulate(self.fname, recipe, small=self.params['small'])
+                simulate(self.fname, recipe, small=self.params['small'],
+                         skip_psf=self.params.get('noPsf', False))
 
                 # if the observation is WCU, add a WCU frame to the image, as WCU darks are part of the
                 # same template. TODO: set to > 1 if desired
@@ -406,7 +411,8 @@ class setupSimulations():
                         self.allmjd.append(self.tObs.mjd)
                         
                         allArgs.append((self.fname, recipeDark, self.params["small"]))
-                        simulate(self.fname, recipeDark, small=self.params['small'])
+                        simulate(self.fname, recipeDark, small=self.params['small'],
+                                 skip_psf=self.params.get('noPsf', False))
 
         # calculate the observation date for the next observation, for
         # stringing a sequence of templates together
