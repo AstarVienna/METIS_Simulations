@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+﻿#!/usr/bin/env python
 
 """
 class that acts as a wrapper to batch run a set of simulations via ScopeSim
@@ -97,7 +97,7 @@ class setupSimulations():
                             help='number of cores for parallel processing')
 
         parser.add_argument('-p', '--noPsf', action="store_true", default=None,
-                            help='skip the PSF convolution. Only valid for frames with no source flux (darks, WCU-off); it changes the pixel data for anything illuminated.')
+                            help='skip the PSF convolution for structure-free (empty_sky) frames: darks, WCU-off, lamp/twilight flats. Guarded per frame - sources with spatial structure keep their PSF regardless of this flag. Zero-flux IFU frames are bit-identical; imager frames shift by ~1e-5 relative (micro-ADU).')
 
         parser.add_argument('-w', '--writeYaml', action="store_true", default=None,
                             help='write a YAML file with the parsed recipes next to the input CSV (only meaningful with .csv input). Combine with --testRun to skip simulation entirely.')
@@ -278,7 +278,7 @@ class setupSimulations():
                 self.allmjd.append(self.tObs.mjd)
 
                 # append the arguments to the list
-                allArgs.append((self.fname,recipe,self.params["small"]))
+                allArgs.append((self.fname,recipe,self.params["small"],self.params.get('noPsf', False)))
                 simulate(self.fname, recipe, small=self.params['small'],
                          skip_psf=self.params.get('noPsf', False))
         # now actually run
@@ -319,7 +319,7 @@ class setupSimulations():
                 self.allmjd.append(self.tObs.mjd)
 
                 # append teh arguments to the 
-                allArgs.append((self.fname,recipe,self.params["small"]))
+                allArgs.append((self.fname,recipe,self.params["small"],self.params.get('noPsf', False)))
 
         self.endDate = self.tObs.tt.datetime.replace(microsecond=0)
         # now actually run
@@ -389,7 +389,7 @@ class setupSimulations():
                    recipe["wcu"] = None
 
                 # add the arguments to the list
-                allArgs.append((self.fname,recipe,self.params["small"]))
+                allArgs.append((self.fname,recipe,self.params["small"],self.params.get('noPsf', False)))
                 simulate(self.fname, recipe, small=self.params['small'],
                          skip_psf=self.params.get('noPsf', False))
 
@@ -410,7 +410,7 @@ class setupSimulations():
                         self.allFileNames.append(self.fname)
                         self.allmjd.append(self.tObs.mjd)
                         
-                        allArgs.append((self.fname, recipeDark, self.params["small"]))
+                        allArgs.append((self.fname, recipeDark, self.params["small"], self.params.get('noPsf', False)))
                         simulate(self.fname, recipeDark, small=self.params['small'],
                                  skip_psf=self.params.get('noPsf', False))
 
