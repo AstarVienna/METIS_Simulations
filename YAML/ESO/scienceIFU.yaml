@@ -5,9 +5,9 @@ IFU_SCI_RAW:
     name: simple_gal
     kwargs: {}
   properties:
-    dit: 0.25
+    dit: 1.3
     ndit: 1
-    wavelen: 3.555
+    wavelen: 4.73
     filter_name: "open"
     nd_filter_name: "open"
     catg: "SCIENCE"
@@ -23,9 +23,9 @@ IFU_SCI_SKY_RAW:
     name: empty_sky
     kwargs: {}
   properties:
-    dit: 0.25
+    dit: 1.3
     ndit: 1
-    wavelen: 3.555
+    wavelen: 4.73
     filter_name: "open"
     nd_filter_name: "open"
     catg: "CALIB"

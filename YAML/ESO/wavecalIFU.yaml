@@ -6,7 +6,7 @@ IFU_WAVE_RAW:
     name: "laser_spectrum_lm"
     kwargs: {}
   properties:
-    dit: 1
+    dit: 1.3
     ndit: 1
     wavelen: 4.73
     filter_name: "open"
