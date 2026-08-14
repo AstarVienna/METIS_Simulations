@@ -26,7 +26,7 @@ sim.rc.__config__["!SIM.file.local_packages_path"] = DEFAULT_IRDB_LOCATION
 
 logger = get_logger(__file__)
 
-def simulate(fname, rcp, small=False):
+def simulate(fname, rcp, small=False, skip_psf=False):
 
     """
     Workhorse for an individual simulation.
@@ -153,6 +153,29 @@ def simulate(fname, rcp, small=False):
             if key in metis.effects['name']:
                 metis[key].table['x_size'] = 32
                 metis[key].table['y_size'] = 32
+
+    # Frames with a spatially structure-free source (empty_sky: darks, WCU-off,
+    # lamp/twilight flats) still pay for a full PSF interpolation onto the
+    # oversampled FOV — for the IFU that is most of the runtime — convolving a
+    # spatially uniform field, which a normalised kernel leaves unchanged.
+    # Measured on the harness in METIS_Simulations_Deux: IFU zero-flux darks are
+    # bit-identical with and without the PSF; imager darks/flats shift by ~1e-5
+    # relative (micro-ADU against a 17.5 ADU read-noise sigma).
+    # The skip is opt-in AND guarded per frame: sources with spatial structure
+    # (stars, pinhole masks, galaxies) never skip, however the run was invoked,
+    # so --noPsf cannot silently change science or distortion frames.
+    if skip_psf:
+        if src_name != "empty_sky":
+            logger.warning(
+                "skip_psf requested but source %r has spatial structure; "
+                "NOT disabling the PSF for this frame", src_name)
+        elif "psf" in metis.effects["name"]:
+            metis["psf"].include = False
+            logger.info("PSF effect disabled for this frame (skip_psf)")
+        else:
+            logger.warning(
+                "skip_psf was requested but this optical train has no effect "
+                "named 'psf'; nothing was disabled")
 
     # and a warning for old versions of the IRDB
     

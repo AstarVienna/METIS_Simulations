@@ -87,7 +87,7 @@ if __name__ == "__main__":
 
     for key, default in (('small', False), ('doStatic', False),
                          ('doCalib', 0), ('testRun', False), ('nCores', 1),
-                         ('writeYaml', False)):
+                         ('writeYaml', False), ('noPsf', False)):
         if params[key] is None:
             params[key] = default
 
