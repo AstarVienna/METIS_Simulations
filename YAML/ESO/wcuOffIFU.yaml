@@ -2,22 +2,28 @@
 
 IFU_WCU_OFF_RAW:
   do.catg: IFU_WCU_OFF_RAW
-  mode: wcu_lms
+  mode: "wcu_lms"
   source:
     name: empty_sky
-    kwargs": {}
+    kwargs: {}
   properties:
-      filter_name: "open"
-      nd_filter_name: "open"
-      catg: "CALIB"
-      tech: "IFU"
-      type: "DARK,WCU_OFF"
-      tplname: "METIS_lms_det_dark"
+    dit: 10.
+    ndit: 20
+    wavelen: 4.73
+    filter_name: "open"
+    nd_filter_name: "open"
+    catg: "CALIB"
+    tech: "IFU"
+    type: "DARK,WCUOFF"
+    tplname: "METIS_ifu_cal_rsrf"
+    nObs: 1
   wcu:
-      current_lamp: "bb"
-      current_fpmask: "open"
-      bb_aperture: 0.0
-      bb_temp: 300
-      is_temp: 300
-      wcu_temp: 300
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 0.0000
+    bb_temp: 300
+    is_temp: 300
+    wcu_temp: 300
+    xshift: 0
+    yshift: 0
 

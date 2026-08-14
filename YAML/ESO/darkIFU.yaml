@@ -19,7 +19,7 @@ DARK_IFU_RAW:
     tplname: "METIS_img_lms_det_dark"
     nObs: 3
   wcu:
-    current_lamp: "bb"
+    current_lamp: "off"
     current_fpmask: "open"
     bb_aperture: 0.0
     bb_temp: 300
