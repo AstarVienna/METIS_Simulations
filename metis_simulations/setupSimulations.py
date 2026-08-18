@@ -397,7 +397,8 @@ class setupSimulations():
                 # same template. TODO: set to > 1 if desired
             
                 if(recipe["wcu"] is not None):
-                    recipeDark = self.copyRecipe("wcuOff",recipe['properties']['tech'])
+                    # recipeDark = self.copyRecipe("wcuOff",recipe['properties']['tech'])
+                    recipeDark = None
                     if(recipeDark is not None):
                         recipeDark["properties"]["tplstart"] = self.tplStart
                         recipeDark["properties"]["tplname"] = recipe["properties"]["tplname"]
