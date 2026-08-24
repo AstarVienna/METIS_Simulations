@@ -12,6 +12,6 @@ LM_FLAT_TWILIGHT_RAW:
     catg: CALIB
     tech: IMAGE,LM
     type: FLAT,TWILIGHT
-    tplname:'METIS_img_lm_det_flat
+    tplname: METIS_img_lm_det_flat
     nObs: 3
     
