@@ -22,9 +22,9 @@ This respository contains scripts and packages which can be used as a wrapper fo
 
 # Installing the Code
 
-First create a clean Python environment with a recent Python version and poetry, for example through conda:
+First create a clean Python environment with a recent Python version for example through conda:
 ```
-conda create -n metissim python==3.12 poetry
+conda create -n metissim python==3.12 
 conda activate metissim
 ```
 
@@ -95,7 +95,7 @@ provided in simulationBlocks.
 To reproduce an ESO delivery set, run the provided script 
 
 ```
-./runESO.sh
+./esoRelease10.sh
 ```
 after updating the `MSIM_YAML_DIR` to point at the `./YAML/ESO` folder, and changing the working directory to `METIS_Simulations`
 
@@ -110,10 +110,10 @@ release of the pipeline software. You can also run any of the commands
 separately, e.g.
 
 ```
-./simulationBlocks/imgLM.py
+./simulationBlocks/ESO/imgLM.py -k ESO10
 ```
 
-will run a set of data for the LM imager.
+will run a set of data for the LM imager, with PROG ID set to ESO10.
 
 # YAML templates
 
@@ -200,23 +200,33 @@ An example is the file imgLM.py, which generates all files needed to run the LM 
 
 ```
 from metis_simulations import runSimulationBlock as rs
+import os
+import sys
 
-if __name__ == '__main__':    
+yamlDir = os.environ['MSIM_YAML_DIR'] 
+nCores = os.environ['MSIM_NCORES']
+outputDir = os.environ['MSIM_OUTDIR']
 
-	params = {}
-	params['outputDir'] = "output/imgLM"
-	params['small'] = False
-	params['doStatic'] = True
-	params['doCalib'] = 2
-	params['sequence'] = True
-	params['startMJD'] =  "2027-01-25 00:00:00"
-	params['calibFile'] = None
-	params['nCores'] = 8
-	params['testRun'] = False
-	
-	yamlFiles = ["YAML/scienceLM.yaml","YAML/stdLM.yaml","YAML/distortionLM.yaml","YAML/detlinLM.yaml"]
-	
-	rs.runSimulationBlock(yamlFiles,params)
+# directory structure for this simulation block
+dirStruct = ["ESO","Inst","imgLM","starfield_01"]
+
+if __name__ == '__main__':
+
+        params = {}
+        params['outputDir'] = os.path.join(outputDir,*dirStruct)  # leave this line unchanged
+        params['subDir'] = os.path.join(*dirStruct)  # leave this line unchanged
+        params['doStatic'] = False  #generate static calibrations
+        params['doCalib'] = 0  #auto generate calibrations
+        params['startMJD'] =  "2027-01-25 00:00:00"  #starting date of sequence
+        params['nCores'] = nCores
+
+        yamls = ["scienceLM.yaml","stdLM.yaml"]  #list of YAMLs to include
+
+        yamlFiles = []
+        for y in yamls:
+            yamlFiles.append(os.path.join(yamlDir,y))
+
+        rs.runSimulationBlock(yamlFiles,params,sys.argv[1:])
 
 ```
 
@@ -229,11 +239,11 @@ Any of the parameters can be overwritten as a command line option when running, 
 ./simulationBlock/imgLM.py --outputDir="mydir" --small --doStatic --doCalib=2 --sequence--startMJD="2027-01-25 00:00:00" --nCores=6
 ```
 
+There are two additional  command line only options;  the program id, which is both the top level directory and the PROG ID keyword, and -p, which turns off PFS modelling to speed up generation (for, e.g., dark frames)
 
-
-
-
-
+```
+./simulationBlock/imgLM.py -k  ESO10 -p
+```
 
 # Simulation Block Options
 
@@ -249,23 +259,22 @@ startMJD = "2027-01-25 00:00:00"
 Starting date for the observation sequence, in the above format. 
 
 ```
-outputDir = output/
+dirStruct = ["dir1","dir2"]
 ```
 
-   set output directory. Can be nested. 
-
+   output directory in list format
 
 ```
-small = False
+small = True
 ```
 
-   generate small images with correct headers, only useful for github CI tests. 
+   optional, turn on only for CI integration tests
 
 ```
 testRun = False
 ```
 
-   do everything except the actual file generation, useful for checking input YAML templates. Default is off
+   do everything except the actual file generation, useful for checking input YAML templates. Default is off.
 
 ```
 nCores = 8
@@ -276,7 +285,7 @@ Number of cores to use. The code will check and will always use at least one cor
 ```
 doStatic = True
 ```
-Generated static calibration files. 
+Generated static calibration files. Default is none
 
 
 ## Generating a summary
