@@ -26,7 +26,7 @@ sim.rc.__config__["!SIM.file.local_packages_path"] = DEFAULT_IRDB_LOCATION
 
 logger = get_logger(__file__)
 
-def simulate(fname, rcp, small=False, skip_psf=False):
+def simulate(fname, rcp, small=False, skip_psf=False, progID = None, subDir = None):
 
     """
     Workhorse for an individual simulation.
@@ -196,7 +196,8 @@ def simulate(fname, rcp, small=False, skip_psf=False):
     # can't remember why this is here, check \TODO
     hdus[0][0].header['HIERARCH ESO DPR TECH'] = props["tech"]
 
-    hdus = updateHeaders(hdus[0], props["MJD-OBS"])
+    print("BBB",progID)
+    hdus = updateHeaders(hdus[0], props["MJD-OBS"], progID, subDir)
     import hashlib, pathlib
     
     hash = hashlib.md5(str(hdus).encode('utf-8')).hexdigest()
@@ -205,7 +206,7 @@ def simulate(fname, rcp, small=False, skip_psf=False):
     hdus.writeto(fname,overwrite=True)
     return hdus[0]
 
-def updateHeaders(hdul, mjd):
+def updateHeaders(hdul, mjd, progID, dirID):
 
     """
     add keywords to a list of files, fixing anything that isn't handled by ScopeSim. 
@@ -249,6 +250,8 @@ def updateHeaders(hdul, mjd):
                 hdul[0].header[elem] = str(hdul[0].header[elem])
         
     hdul[0].header['MJD-OBS'] = mjd
+    hdul[0].header['HIERARCH ESO PROG ID'] = progID
+    hdul[0].header['DIR ID'] = dirID.replace(os.sep," ")
     
     #if type(hdul[0].header['MJD-OBS']) == str:
     #    mjdobs = hdul[0].header['MJD-OBS']

@@ -53,26 +53,27 @@ def runSimulationBlock(yamlFiles, params, args):
             allDarks = allDarks + simulationSet.darkParms
             allFlats = allFlats + simulationSet.flatParms
 
+        
     if params.get('testRun') and params.get('writeYaml'):
         return
 
     # now do all the calibrations
 
-    allDarks = list(set(allDarks))
-    allFlats = list(set(allFlats))
+    if(yamlFiles != []):
+        
+        allDarks = list(set(allDarks))
+        allFlats = list(set(allFlats))
 
-    simulationSet.allFileNames = []
-    simulationSet.allmjd = []
+        simulationSet.allFileNames = []
+        simulationSet.allmjd = []
 
-    simulationSet.calculateDarks(allDarks)
-    simulationSet.calculateFlats(allFlats,"skyFlat")
-    simulationSet.calculateFlats(allFlats,"lampFlat")
+        simulationSet.calculateDarks(allDarks)
+        simulationSet.calculateFlats(allFlats,"skyFlat")
+        simulationSet.calculateFlats(allFlats,"lampFlat")
 
     
     if(params['doStatic'] == True):
         mcp.generateStaticCalibs(params['outputDir'])
-    #if not params['testRun']:
-    #    simulationSet.updateHeaders()
 
 if __name__ == "__main__":
     import sys

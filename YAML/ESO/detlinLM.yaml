@@ -397,7 +397,7 @@ DETLIN_2RG_RAW1_OFF:
     nd_filter_name: "ND_OD3"
     catg: "CALIB"
     tech: "IMAGE,LM"
-    type: "DETLIN"
+    type: DARK,WCUOFF
     tplname: "METIS_img_lm_cal_DetLin"
     nObs: 1
   wcu:
@@ -421,7 +421,7 @@ DETLIN_2RG_RAW2_OFF:
     nd_filter_name: "ND_OD3"
     catg: "CALIB"
     tech: "IMAGE,LM"
-    type: "DETLIN"
+    type: DARK,WCUOFF
     tplname: "METIS_img_lm_cal_DetLin"
     nObs: 1
   wcu:
@@ -445,7 +445,7 @@ DETLIN_2RG_RAW3_OFF:
     nd_filter_name: "ND_OD3"
     catg: "CALIB"
     tech: "IMAGE,LM"
-    type: "DETLIN"
+    type: DARK,WCUOFF
     tplname: "METIS_img_lm_cal_DetLin"
     nObs: 1
   wcu:
@@ -469,7 +469,7 @@ DETLIN_2RG_RAW4_OFF:
     nd_filter_name: "ND_OD3"
     catg: "CALIB"
     tech: "IMAGE,LM"
-    type: "DETLIN"
+    type: DARK,WCUOFF
     tplname: "METIS_img_lm_cal_DetLin"
     nObs: 1
   wcu:
@@ -493,7 +493,7 @@ DETLIN_2RG_RAW5_OFF:
     nd_filter_name: "ND_OD3"
     catg: "CALIB"
     tech: "IMAGE,LM"
-    type: "DETLIN"
+    type: DARK,WCUOFF
     tplname: "METIS_img_lm_cal_DetLin"
     nObs: 1
   wcu:
@@ -517,7 +517,7 @@ DETLIN_2RG_RAW6_OFF:
     nd_filter_name: "ND_OD3"
     catg: "CALIB"
     tech: "IMAGE,LM"
-    type: "DETLIN"
+    type: DARK,WCUOFF
     tplname: "METIS_img_lm_cal_DetLin"
     nObs: 1
   wcu:
@@ -541,7 +541,7 @@ DETLIN_2RG_RAW7_OFF:
     nd_filter_name: "ND_OD3"
     catg: "CALIB"
     tech: "IMAGE,LM"
-    type: "DETLIN"
+    type: DARK,WCUOFF
     tplname: "METIS_img_lm_cal_DetLin"
     nObs: 1
   wcu:
@@ -565,7 +565,7 @@ DETLIN_2RG_RAW8_OFF:
     nd_filter_name: "ND_OD3"
     catg: "CALIB"
     tech: "IMAGE,LM"
-    type: "DETLIN"
+    type: DARK,WCUOFF
     tplname: "METIS_img_lm_cal_DetLin"
     nObs: 1
   wcu:
@@ -589,7 +589,7 @@ DETLIN_2RG_RAW9_OFF:
     nd_filter_name: "ND_OD3"
     catg: "CALIB"
     tech: "IMAGE,LM"
-    type: "DETLIN"
+    type: DARK,WCUOFF
     tplname: "METIS_img_lm_cal_DetLin"
     nObs: 1
   wcu:
@@ -613,7 +613,7 @@ DETLIN_2RG_RAW10_OFF:
     nd_filter_name: "ND_OD3"
     catg: "CALIB"
     tech: "IMAGE,LM"
-    type: "DETLIN"
+    type: DARK,WCUOFF
     tplname: "METIS_img_lm_cal_DetLin"
     nObs: 1
   wcu:
@@ -637,7 +637,7 @@ DETLIN_2RG_RAW11_OFF:
     nd_filter_name: "ND_OD3"
     catg: "CALIB"
     tech: "IMAGE,LM"
-    type: "DETLIN"
+    type: DARK,WCUOFF
     tplname: "METIS_img_lm_cal_DetLin"
     nObs: 1
   wcu:
@@ -661,7 +661,7 @@ DETLIN_2RG_RAW12_OFF:
     nd_filter_name: "ND_OD3"
     catg: "CALIB"
     tech: "IMAGE,LM"
-    type: "DETLIN"
+    type: DARK,WCUOFF
     tplname: "METIS_img_lm_cal_DetLin"
     nObs: 1
   wcu:
@@ -685,7 +685,7 @@ DETLIN_2RG_RAW13_OFF:
     nd_filter_name: "ND_OD3"
     catg: "CALIB"
     tech: "IMAGE,LM"
-    type: "DETLIN"
+    type: DARK,WCUOFF
     tplname: "METIS_img_lm_cal_DetLin"
     nObs: 1
   wcu:
@@ -709,7 +709,7 @@ DETLIN_2RG_RAW14_OFF:
     nd_filter_name: "ND_OD3"
     catg: "CALIB"
     tech: "IMAGE,LM"
-    type: "DETLIN"
+    type: DARK,WCUOFF
     tplname: "METIS_img_lm_cal_DetLin"
     nObs: 1
   wcu:
@@ -733,7 +733,7 @@ DETLIN_2RG_RAW15_OFF:
     nd_filter_name: "ND_OD3"
     catg: "CALIB"
     tech: "IMAGE,LM"
-    type: "DETLIN"
+    type: DARK,WCUOFF
     tplname: "METIS_img_lm_cal_DetLin"
     nObs: 1
   wcu:
@@ -757,7 +757,7 @@ DETLIN_2RG_RAW16_OFF:
     nd_filter_name: "ND_OD3"
     catg: "CALIB"
     tech: "IMAGE,LM"
-    type: "DETLIN"
+    type: DARK,WCUOFF
     tplname: "METIS_img_lm_cal_DetLin"
     nObs: 1
   wcu:

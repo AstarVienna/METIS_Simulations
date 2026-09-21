@@ -1,3 +1,4 @@
+
 IFU_RSRF_PINH_RAW1:
   do.catg: IFU_RSRF_PINH_RAW
   mode: "wcu_lms"
@@ -25,6 +26,34 @@ IFU_RSRF_PINH_RAW1:
     xshift: 0
     yshift: -0.1
 
+
+IFU_RSRF_PINH_RAW1_OFF:
+  do.catg: IFU_WCU_OFF_RAW
+  mode: "wcu_lms"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 10.
+    ndit: 20
+    wavelen: 4.73
+    filter_name: "open"
+    nd_filter_name: "open"
+    catg: "CALIB"
+    tech: "IFU"
+    type: "DARK,WCUOFF"
+    tplname: "METIS_ifu_cal_rsrf"
+    nObs: 1
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "grid_lm"
+    bb_aperture: 0.0
+    bb_temp: 800
+    is_temp: 300
+    wcu_temp: 300
+    xshift: 0
+    yshift: -0.1
+
 IFU_RSRF_PINH_RAW2:
   do.catg: IFU_RSRF_PINH_RAW
   mode: "wcu_lms"
@@ -46,6 +75,34 @@ IFU_RSRF_PINH_RAW2:
     current_lamp: "bb"
     current_fpmask: "grid_lm"
     bb_aperture: 0.0001
+    bb_temp: 800
+    is_temp: 300
+    wcu_temp: 300
+    xshift: 0
+    yshift: 0
+
+
+IFU_RSRF_PINH_RAW2_OFF:
+  do.catg: IFU_WCU_OFF_RAW
+  mode: "wcu_lms"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 10.
+    ndit: 20
+    wavelen: 4.73
+    filter_name: "open"
+    nd_filter_name: "open"
+    catg: "CALIB"
+    tech: "IFU"
+    type: "DARK,WCUOFF"
+    tplname: "METIS_ifu_cal_rsrf"
+    nObs: 1
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "grid_lm"
+    bb_aperture: 0.0
     bb_temp: 800
     is_temp: 300
     wcu_temp: 300
