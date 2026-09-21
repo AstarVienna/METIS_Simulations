@@ -32,6 +32,7 @@ import json
 import astropy
 import copy
 import sys
+import os
 
 from . import simulationDefinitions as sd
 from .scopesimWrapper import simulate
@@ -48,7 +49,7 @@ class setupSimulations():
         self.tDelt = TimeDelta(0, format='sec') 
         self.allFileNames = []
         self.allmjd = []
-
+        
         with resources.open_text('metis_simulations', 'templates.yaml') as file:
             self.templates =  yaml.safe_load(file)
 
@@ -72,22 +73,22 @@ class setupSimulations():
         parser.add_argument('-o', '--outputDir', type=str, default=None,
                             help='output directory')
         
-        parser.add_argument('-s', '--small', action = "store_true", default=None,
+        parser.add_argument('-s', '--small', action = "store_true", default=False,
                             help=('use detectors of 32x32 pixels; ' +
                                   'for running in the continuous integration'))
         
-        parser.add_argument('-e', '--doStatic', action = "store_true", default=None,
+        parser.add_argument('-e', '--doStatic', action = "store_true", default=False,
                             help=('Generate prototypes for static/external calibration files'))
         
-        parser.add_argument('-d', '--doCalib', type=int, default=None,
+        parser.add_argument('-d', '--doCalib', type=int, default=0,
                             help='automatically generate darks and flats for the dataset. Will generate N of each type')
 
         # expects either 1 or a date stamp
-        parser.add_argument('-q', '--sequence', type=str, default=None,
+        parser.add_argument('-q', '--sequence', type=str, default=True,
                             help='options for generating timestamps. Set to a date in the form yyyy-mm-dd hh:mm:ss to start from a specific date, or 1 to use the first dateobs in the YAML file.')
 
         # if set, option to true
-        parser.add_argument('-t', '--testRun', action="store_true", default=None,
+        parser.add_argument('-t', '--testRun', action="store_true", default=False,
                             help='run the script without executing simulate to check input')
 
         parser.add_argument('-f', '--calibFile', type=str, default=None,
@@ -102,19 +103,19 @@ class setupSimulations():
         parser.add_argument('-w', '--writeYaml', action="store_true", default=None,
                             help='write a YAML file with the parsed recipes next to the input CSV (only meaningful with .csv input). Combine with --testRun to skip simulation entirely.')
 
+        parser.add_argument('-k', '--progID', type=str, default=None,
+                    help='prefix for the program ID tag')
+
+
         inArgs = parser.parse_args(args)
         params = vars(inArgs)
-
+        
         if(params['sequence'] == "1"):
             params['startMJD'] = None
             params['sequence'] = True
         elif(params['sequence'] == False):
              params['sequence'] = False
              params['startMJD'] = None
-        else:
-             params['startMJD'] = params['sequence']
-             params['sequence'] = True
-
         return params
 
     def loadInput(self):
@@ -278,18 +279,18 @@ class setupSimulations():
                 self.allmjd.append(self.tObs.mjd)
 
                 # append the arguments to the list
-                allArgs.append((self.fname,recipe,self.params["small"],self.params.get('noPsf', False)))
-                simulate(self.fname, recipe, small=self.params['small'],
-                         skip_psf=self.params.get('noPsf', False))
-        # now actually run
-        #if(not self.params['testRun']):
-        #    nCores = max(min(self.params['nCores'], cpu_count() - 1), 1)
-        #
-        #    with Pool(nCores) as pool:
-        #        pool.starmap(simulate, allArgs)
-        #        #simulate(fname, recipe, small=self.params['small'])
-        #        pool.close()
-        #        pool.join()
+                allArgs.append((self.fname,recipe,self.params["small"],self.params.get('noPsf', False),self.params['progID'], self.params['subDir']))
+                #simulate(self.fname, recipe, small=self.params['small'],
+                #         skip_psf=self.params.get('noPsf', False), progID = self.params['progID'], subDir = self.params['subDir'])
+        #now actually run
+        if(not self.params['testRun']):
+            nCores = max(min(self.params['nCores'], cpu_count() - 1), 1)
+        
+            with Pool(nCores) as pool:
+                pool.starmap(simulate, allArgs)
+                #simulate(fname, recipe, small=self.params['small'])
+                pool.close()
+                pool.join()
 
                 
     def calculateDarks(self,darkParams):
@@ -319,7 +320,7 @@ class setupSimulations():
                 self.allmjd.append(self.tObs.mjd)
 
                 # append teh arguments to the 
-                allArgs.append((self.fname,recipe,self.params["small"],self.params.get('noPsf', False)))
+                allArgs.append((self.fname,recipe,self.params["small"],self.params.get('noPsf', False),self.params['progID'], self.params['subDir']))
 
         self.endDate = self.tObs.tt.datetime.replace(microsecond=0)
         # now actually run
@@ -349,7 +350,7 @@ class setupSimulations():
         
         self.outDir = Path(self.params['outputDir'])
         self.outDir.mkdir(parents=True, exist_ok=True)
-
+                
         allArgs = []
         
         # cycle through all the recipes
@@ -389,34 +390,12 @@ class setupSimulations():
                    recipe["wcu"] = None
 
                 # add the arguments to the list
-                allArgs.append((self.fname,recipe,self.params["small"],self.params.get('noPsf', False)))
-                simulate(self.fname, recipe, small=self.params['small'],
-                         skip_psf=self.params.get('noPsf', False))
-
-                # if the observation is WCU, add a WCU frame to the image, as WCU darks are part of the
-                # same template. TODO: set to > 1 if desired
-            
-                if(recipe["wcu"] is not None):
-                    # recipeDark = self.copyRecipe("wcuOff",recipe['properties']['tech'])
-                    recipeDark = None
-                    if(recipeDark is not None):
-                        recipeDark["properties"]["tplstart"] = self.tplStart
-                        recipeDark["properties"]["tplname"] = recipe["properties"]["tplname"]
-                        recipeDark["properties"]["dit"] = recipe["properties"]["dit"] 
-                        recipeDark["properties"]["ndit"] = recipe["properties"]["ndit"] 
-                        recipeDark["properties"]["nd_filter_name"] = recipe["properties"]["nd_filter_name"] 
-                        recipeDark["properties"]["filter_name"] = recipe["properties"]["filter_name"] 
-                        recipeDark = self.increment(recipeDark)
-                        
-                        self.allFileNames.append(self.fname)
-                        self.allmjd.append(self.tObs.mjd)
-                        
-                        allArgs.append((self.fname, recipeDark, self.params["small"], self.params.get('noPsf', False)))
-                        simulate(self.fname, recipeDark, small=self.params['small'],
-                                 skip_psf=self.params.get('noPsf', False))
+                allArgs.append((self.fname,recipe,self.params["small"],self.params.get('noPsf', False),self.params['progID'], self.params['subDir']))
+                #simulate(self.fname, recipe, small=self.params['small'],
+                #         skip_psf=self.params.get('noPsf', False), progID = self.params['progID'], subDir = self.params['subDir'])
 
         # calculate the observation date for the next observation, for
-        # stringing a sequence of templates together
+        # stringing a sequence of templates togethers
         
         self.tObs = self.tObs + self.tDelt
         self.endDate = self.tObs.tt.datetime.replace(microsecond=0)
@@ -426,11 +405,11 @@ class setupSimulations():
             # Always keep one core free.
             nCores = max(min(self.params['nCores'], cpu_count() - 1), 1)
         
-            #with Pool(nCores) as pool:
-            #    pool.starmap(simulate, allArgs)
-            #    #simulate(fname, recipe, small=self.params['small'])
-            #    pool.close()
-            #    pool.join()
+            with Pool(nCores) as pool:
+                pool.starmap(simulate, allArgs)
+                #simulate(fname, recipe, small=self.params['small'])
+                pool.close()
+                pool.join()
 
     def calculateCalibs(self):
 

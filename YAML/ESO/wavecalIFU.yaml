@@ -23,3 +23,29 @@ IFU_WAVE_RAW:
     bb_temp: 300
     is_temp: 300
     wcu_temp: 300
+
+
+IFU_WAVE_RAW_OFF:
+  do.catg: IFU_WCU_OFF_RAW
+  mode: "wcu_lms"
+  source:
+    name: "laser_spectrum_lm"
+    kwargs: {}
+  properties:
+    dit: 1.3
+    ndit: 1
+    wavelen: 4.73
+    filter_name: "open"
+    nd_filter_name: "open"
+    catg: "CALIB"
+    tech: "IFU"
+    type: "DARK,WCUOFF"
+    tplname: "METIS_ifu_cal_InternalWave"
+    nObs: 1
+  wcu:
+    current_lamp: "laser"
+    current_fpmask: "open"
+    bb_aperture: 0.0
+    bb_temp: 300
+    is_temp: 300
+    wcu_temp: 300

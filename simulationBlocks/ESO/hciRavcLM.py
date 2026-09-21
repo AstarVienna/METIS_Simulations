@@ -11,20 +11,19 @@ yamlDir = os.environ['MSIM_YAML_DIR']
 nCores = os.environ['MSIM_NCORES']
 outputDir = os.environ['MSIM_OUTDIR']
 
+dirStruct = ["ESO","Inst","hciRavcLM","Set1"]
+
 if __name__ == '__main__':    
 
         params = {}
-        params['outputDir'] = os.path.join(outputDir,"hciRavcLM")
-        params['small'] = False
-        params['doStatic'] = True
-        params['doCalib'] = 2
-        params['sequence'] = True
+        params['outputDir'] = os.path.join(outputDir,*dirStruct)
+        params['subDir'] = os.path.join(*dirStruct)
+        params['doStatic'] = False
+        params['doCalib'] = 0
         params['startMJD'] =  "2027-01-31 00:00:00"
-        params['calibFile'] = None
         params['nCores'] = nCores
-        params['testRun'] = False
         
-        yamls = ["offAxisLM.yaml","hciRavcLM.yaml","distortionLM.yaml","stdLM.yaml"]
+        yamls = ["offAxisLM.yaml","hciRavcLM.yaml","stdLM.yaml"]
         
         yamlFiles = []
         for y in yamls:

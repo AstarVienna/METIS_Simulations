@@ -26,6 +26,7 @@ from glob import glob
 from astropy.table import Table
 import numpy as np
 import argparse
+import os
 
 def generateStaticCalibs(outputDir):
 
@@ -39,6 +40,8 @@ def generateStaticCalibs(outputDir):
     protoyping the format is a necessary first step.
     """
 
+    if not os.path.exists(outputDir):
+       os.makedirs(outputDir)
     #################### REF_STD_CAT ###################
 
     # Generate a FITS file for a calibration spectrum. FITS file contains
