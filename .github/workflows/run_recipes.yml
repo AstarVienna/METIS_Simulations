@@ -35,4 +35,4 @@ jobs:
           export DEFAULT_IRDB_LOCATION="irdb"
           export MSIM_OUTDIR="."
   
-          python simulationBlocks/Tests/ci.py --small
+          python simulationBlocks/Tests/ci.py --small -k Test

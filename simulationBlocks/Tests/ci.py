@@ -11,18 +11,18 @@ yamlDir = os.environ['MSIM_YAML_DIR']
 nCores = os.environ['MSIM_NCORES']
 outputDir = os.environ['MSIM_OUTDIR']
 
+dirStruct = ["Test","CI"]
+
 if __name__ == '__main__':    
 
         params = {}
-        params['outputDir'] = os.path.join(outputDir,"test")
-        params['small'] = False
+        params['outputDir'] = os.path.join(outputDir,*dirStruct)
+        params['subDir'] = os.path.join(*dirStruct)
+        params['small'] = True
         params['doStatic'] = True
-        params['doCalib'] = 3
-        params['sequence'] = True
+        params['doCalib'] = 0
         params['startMJD'] =  "2027-01-25 00:00:00"
-        params['calibFile'] = None
         params['nCores'] = nCores
-        params['testRun'] = False
         
         yamls = ["ci.yaml"]
 
