@@ -13,5 +13,5 @@ LM_FLAT_TWILIGHT_RAW:
     tech: IMAGE,LM
     type: FLAT,TWILIGHT
     tplname: METIS_img_lm_det_flat
-    nObs: 3
+    nObs: 5
     

@@ -1,3 +1,4 @@
+
 IFU_DISTORTION_RAW:
   do.catg: IFU_DISTORTION_RAW
   mode: "wcu_lms"
@@ -19,6 +20,34 @@ IFU_DISTORTION_RAW:
     current_lamp: "bb"
     current_fpmask: "open"
     bb_aperture: 0.5
+    bb_temp: 800
+    is_temp: 300
+    wcu_temp: 300
+    xshift: 0
+    yshift: 0
+
+
+IFU_DISTORTION_RAW_OFF:
+  do.catg: IFU_WCU_OFF_RAW
+  mode: "wcu_lms"
+  source:
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 10.
+    ndit: 20
+    wavelen: 4.73
+    filter_name: "open"
+    nd_filter_name: "open"
+    catg: "CALIB"
+    tech: "IFU"
+    type: "DARK,WCUOFF"
+    tplname: "METIS_ifu_cal_distortion"
+    nObs: 1
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 0.0
     bb_temp: 800
     is_temp: 300
     wcu_temp: 300

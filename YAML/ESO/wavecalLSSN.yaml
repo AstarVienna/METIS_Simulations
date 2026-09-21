@@ -1,3 +1,4 @@
+
 N_LSS_WAVE_RAW:
   do.catg: N_LSS_WAVE_RAW
   mode: "wcu_lss_n"
@@ -18,6 +19,31 @@ N_LSS_WAVE_RAW:
     current_lamp: "bb"
     current_fpmask: "open"
     bb_aperture: 1.0
+    bb_temp: 300
+    is_temp: 300
+    wcu_temp: 300
+
+
+N_LSS_WAVE_RAW_OFF:
+  do.catg: N_WCU_OFF_RAW
+  mode: "wcu_lss_n"
+  source:
+    name: "laser_spectrum_lm"
+    kwargs: {}
+  properties:
+    dit: 0.0004
+    ndit: 1
+    filter_name: "open"
+    nd_filter_name: "ND_OD4"
+    catg: "CALIB"
+    tech: "LSS,N"
+    type: "DARK,WCUOFF"
+    tplname: "METIS_spec_n_cal_InternalWave"
+    nObs: 1
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 0.0
     bb_temp: 300
     is_temp: 300
     wcu_temp: 300

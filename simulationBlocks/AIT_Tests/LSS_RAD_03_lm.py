@@ -11,18 +11,17 @@ yamlDir = os.environ['MSIM_YAML_DIR']
 nCores = os.environ['MSIM_NCORES']
 outputDir = os.environ['MSIM_OUTDIR']
 
+subDir = ["AIT_Tests","IFU","LMS_RAD_03_lm"]
+
 if __name__ == '__main__':    
 
         params = {}
-        params['outputDir'] = os.path.join(outputDir,"LSS_RAD_03_lm")
-        params['small'] = False
+        params['outputDir'] = os.path.join(outputDir,*subDir)
+        params['subDir'] = os.path.join(*subDir)
         params['doStatic'] = False
         params['doCalib'] = 0
-        params['sequence'] = True
         params['startMJD'] =  "2028-01-25 12:00:00"
-        params['calibFile'] = None
         params['nCores'] = nCores
-        params['testRun'] = False
         
         yamls = ["LSS_RAD_03/LSS_RAD_03_lm_lspec.yaml","LSS_RAD_03/LSS_RAD_03_lm_mspec.yaml"]
         
