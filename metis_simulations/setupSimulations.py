@@ -2,20 +2,20 @@
 
 """
 class that acts as a wrapper to batch run a set of simulations via ScopeSim
-for developing the METIS pipeline. 
+for developing the METIS pipeline.
 
 Input is in the form of a YAML file containing instrumental and source
-information for a single METIS observations template. 
+information for a single METIS observations template.
 
 If the template uses the WCU, WCU dark exposures will automatically
-be calculated and executed as part of the template. 
+be calculated and executed as part of the template.
 
-Necessary darks, lamp flats and twilight flats can be determined and 
+Necessary darks, lamp flats and twilight flats can be determined and
 executed after the template, with each unique set of parameters a
-separate template. 
+separate template.
 
-This class is generally executed via the command line wrapper 
-runTemplates.py 
+This class is generally executed via the command line wrapper
+runTemplates.py
 """
 
 from pathlib import Path
@@ -41,11 +41,11 @@ import importlib.resources as resources
 class setupSimulations():
 
     def __init__(self):
-        
+
         self.calibSet = None
         self.tObs = None
         self.firstIt = True
-        self.tDelt = TimeDelta(0, format='sec') 
+        self.tDelt = TimeDelta(0, format='sec')
         self.allFileNames = []
         self.allmjd = []
 
@@ -58,27 +58,27 @@ class setupSimulations():
         """
         parse the command line
 
-        Input YAML file is required; other arguments are optional. 
+        Input YAML file is required; other arguments are optional.
 
         Returns a dictionary of command line options
         """
 
-        
+
         parser = argparse.ArgumentParser()
 
         parser.add_argument('-i', '--inputFile', type=str, default=None,
                             help='input file (YAML or CSV)')
-        
+
         parser.add_argument('-o', '--outputDir', type=str, default=None,
                             help='output directory')
-        
+
         parser.add_argument('-s', '--small', action = "store_true", default=None,
                             help=('use detectors of 32x32 pixels; ' +
                                   'for running in the continuous integration'))
-        
+
         parser.add_argument('-e', '--doStatic', action = "store_true", default=None,
                             help=('Generate prototypes for static/external calibration files'))
-        
+
         parser.add_argument('-d', '--doCalib', type=int, default=None,
                             help='automatically generate darks and flats for the dataset. Will generate N of each type')
 
@@ -92,7 +92,7 @@ class setupSimulations():
 
         parser.add_argument('-f', '--calibFile', type=str, default=None,
                             help='File to dump calibration file YAML to')
-        
+
         parser.add_argument('-n', '--nCores', type=int, default=None,
                             help='number of cores for parallel processing')
 
@@ -141,23 +141,23 @@ class setupSimulations():
         """Backward-compatible alias for loadInput"""
 
         self.loadInput()
-        
+
     def loadRecipe(self,fname):
 
         """
         read in a YAML file of recipe templates for darks/flats
         """
-        
+
         with Path(fName).open(encoding="utf-8") as file:
             recipe =  yaml.safe_load(file)
 
         return recipe
-        
+
     def generateFilename(self,dateobs,doCatg,dit,prefix):
-    
+
         """
         Generate a METIS like filename based on the dateobs, DO.CATG and dit
-    
+
          The filenames from the ICS software will probably look like
              METIS.2024-02-29T01:23:45.678.fits
          However, this has two drawbacks:
@@ -168,21 +168,21 @@ class setupSimulations():
              METIS.2024-01-02T03_45_00.DETLIN_LM_RAW-dit1.0.fits
          Replace colon so the date can be in Windows filenames.
         """
-        
+
         sdate = dateobs.isoformat(":", 'seconds')
         sdate = sdate.replace(":", "_")
-        
+
         fname = f'METIS.{prefix}.{sdate.replace(":","_")}.fits'
-                
+
         return fname
-    
+
     def getStartDate(self):
 
-        """ 
-        get the start date for a template. Either given explicitly, 
+        """
+        get the start date for a template. Either given explicitly,
         in the first entry in the YAML file, or set to default
         """
-        
+
         recipe =  self.allrcps[list(self.allrcps.keys())[0]]
 
         if(self.params['startMJD'] is not None):
@@ -197,11 +197,11 @@ class setupSimulations():
             self.tObs = Time(datetime.strptime(self.startMJD, '%Y-%m-%d %H:%M:%S'))
         self.tplStart = self.startMJD
         self.tempNExp = 0 # exposure number
-        
+
     def runSimulations(self):
 
         """Calls _run for main recipes"""
-        
+
         self._run(self.allrcps)
 
 
@@ -209,7 +209,7 @@ class setupSimulations():
 
         """
         increment time/nobs related variables for a recipe
-        
+
         update dateobs, mjd-obs, teplexpno in the recipe
         update tDelt, tplExpno for the next recipe
         set the filename
@@ -245,7 +245,7 @@ class setupSimulations():
         return recipe
 
     def calculateFlats(self,flatParams,tpe):
-        
+
         allArgs = []
         for elem in flatParams:
             # do a separate template for each set of parameters
@@ -291,11 +291,11 @@ class setupSimulations():
         #        pool.close()
         #        pool.join()
 
-                
+
     def calculateDarks(self,darkParams):
 
         # do a separate template for each set of parameters
-        
+
         allArgs = []
         for elem in darkParams:
             tplStart = self.tObs.tt.datetime
@@ -312,13 +312,13 @@ class setupSimulations():
                 recipe["properties"]["tplstart"] = tplStart
                 recipe["properties"]["dit"] = elem[0]
                 recipe["properties"]["ndit"] = elem[1]
- 
+
                 recipe = self.increment(recipe)
 
                 self.allFileNames.append(self.fname)
                 self.allmjd.append(self.tObs.mjd)
 
-                # append teh arguments to the 
+                # append teh arguments to the
                 allArgs.append((self.fname,recipe,self.params["small"],self.params.get('noPsf', False)))
 
         self.endDate = self.tObs.tt.datetime.replace(microsecond=0)
@@ -326,55 +326,55 @@ class setupSimulations():
         if(not self.params['testRun']):
             # Always keep one core free.
             nCores = max(min(self.params['nCores'], cpu_count() - 1), 1)
-        
+
             with Pool(nCores) as pool:
                 pool.starmap(simulate, allArgs)
                 #simulate(fname, recipe, small=self.params['small'])
                 pool.close()
                 pool.join()
 
-            
+
     def _run(self,allrcps):
-        
+
         """
         Run the set of recipes contained for a single template
-        
-        If testRun is set, everything except the simulation will be done. 
+
+        If testRun is set, everything except the simulation will be done.
 
         Most of the routines handles some bookkeeping/formatting with the dictionaries,
-        and handling the various options for the observation date/time. 
+        and handling the various options for the observation date/time.
         """
-        
+
         # if the output directory doesn't exist, create it
-        
+
         self.outDir = Path(self.params['outputDir'])
         self.outDir.mkdir(parents=True, exist_ok=True)
 
         allArgs = []
-        
+
         # cycle through all the recipes
         for name, recipe in allrcps.items():
 
             # force dit to be a float
             recipe["properties"]["dit"] = float(recipe["properties"]["dit"])
-            
+
             # get the mode and the prefix for the title
             print(recipe)
             mode = recipe["mode"]
             prefix = recipe["do.catg"]
             nObs = recipe["properties"]["nObs"]
             self.tplExpno = 0
-            
+
             props = recipe["properties"]
-            
+
             recipe["properties"]["tplstart"] = self.tplStart
 
             # for nObs exposures of each set of parameters
             # this loop mostly calculates the time variables for each
             # observation, and saves the arguments for the simulation in
             # a list. The actually calling occurs afterwards, for parallelization
-            
-            for _ in range(nObs):        
+
+            for _ in range(nObs):
 
                 # set the time related keywords and increment the observing time.
                 # note that tDelt = 0 on the first iteration
@@ -395,29 +395,29 @@ class setupSimulations():
 
                 # if the observation is WCU, add a WCU frame to the image, as WCU darks are part of the
                 # same template. TODO: set to > 1 if desired
-            
+
                 if(recipe["wcu"] is not None):
                     # recipeDark = self.copyRecipe("wcuOff",recipe['properties']['tech'])
                     recipeDark = None
                     if(recipeDark is not None):
                         recipeDark["properties"]["tplstart"] = self.tplStart
                         recipeDark["properties"]["tplname"] = recipe["properties"]["tplname"]
-                        recipeDark["properties"]["dit"] = recipe["properties"]["dit"] 
-                        recipeDark["properties"]["ndit"] = recipe["properties"]["ndit"] 
-                        recipeDark["properties"]["nd_filter_name"] = recipe["properties"]["nd_filter_name"] 
-                        recipeDark["properties"]["filter_name"] = recipe["properties"]["filter_name"] 
+                        recipeDark["properties"]["dit"] = recipe["properties"]["dit"]
+                        recipeDark["properties"]["ndit"] = recipe["properties"]["ndit"]
+                        recipeDark["properties"]["nd_filter_name"] = recipe["properties"]["nd_filter_name"]
+                        recipeDark["properties"]["filter_name"] = recipe["properties"]["filter_name"]
                         recipeDark = self.increment(recipeDark)
-                        
+
                         self.allFileNames.append(self.fname)
                         self.allmjd.append(self.tObs.mjd)
-                        
+
                         allArgs.append((self.fname, recipeDark, self.params["small"], self.params.get('noPsf', False)))
                         simulate(self.fname, recipeDark, small=self.params['small'],
                                  skip_psf=self.params.get('noPsf', False))
 
         # calculate the observation date for the next observation, for
         # stringing a sequence of templates together
-        
+
         self.tObs = self.tObs + self.tDelt
         self.endDate = self.tObs.tt.datetime.replace(microsecond=0)
 
@@ -425,7 +425,7 @@ class setupSimulations():
         if(not self.params['testRun']):
             # Always keep one core free.
             nCores = max(min(self.params['nCores'], cpu_count() - 1), 1)
-        
+
             #with Pool(nCores) as pool:
             #    pool.starmap(simulate, allArgs)
             #    #simulate(fname, recipe, small=self.params['small'])
@@ -439,9 +439,9 @@ class setupSimulations():
         create a dictionary containing the results, in the same form as that for recipes
         read from the YAML file.
 
-        The results are stored in self.calibSet. The labels for each entry are set to 
-        dNNN for darks, lNNN for map flats and sNNN for sky flats, with NNN being an 
-        increasing number. 
+        The results are stored in self.calibSet. The labels for each entry are set to
+        dNNN for darks, lNNN for map flats and sNNN for sky flats, with NNN being an
+        increasing number.
         """
 
         darkParms = []
@@ -454,17 +454,17 @@ class setupSimulations():
 
         for name, recipe in self.allrcps.items():
             props = recipe["properties"]
-                
+
             if(props["type"] in wcuModes):
                 pass
-             
+
             else:
                 darkParms.append((props['dit'],props['ndit'],props['tech']))
             flatParms.append((props['filter_name'],props['nd_filter_name'],props['tech']))
 
-            
-                             
+
+
         self.darkParms = darkParms
         self.flatParms = flatParms
-        
-        
+
+
