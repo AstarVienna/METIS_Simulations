@@ -142,17 +142,6 @@ class setupSimulations():
 
         self.loadInput()
 
-    def loadRecipe(self,fname):
-
-        """
-        read in a YAML file of recipe templates for darks/flats
-        """
-
-        with Path(fName).open(encoding="utf-8") as file:
-            recipe =  yaml.safe_load(file)
-
-        return recipe
-
     def generateFilename(self,dateobs,doCatg,dit,prefix):
 
         """
