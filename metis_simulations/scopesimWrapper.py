@@ -30,17 +30,17 @@ def simulate(fname, rcp, small=False, skip_psf=False):
 
     """
     Workhorse for an individual simulation.
-    
+
     """
 
     props = rcp["properties"]
     wcu = rcp["wcu"]
     source = rcp["source"]
 
-    
+
     # some massaging of the source object, to get into the right
     # format and units
-    
+
     if isinstance(source, Mapping):
         src_name = source["name"]
     else:
@@ -62,12 +62,12 @@ def simulate(fname, rcp, small=False, skip_psf=False):
     #logger.info("ScopeSim mode: %s", mode)
 
     # set up the cmd structure to pass to ScopeSim. This is a bit clunky, but it works, so I'm not
-    # going to mess with it for now. 
-    
+    # going to mess with it for now.
+
     #set up the simulation
 
     mode = rcp['mode']
-    
+
     if("wavelen" in rcp['properties']):
         cmd = sim.UserCommands(use_instrument="METIS", set_modes=[mode],properties={"!OBS.wavelen": rcp['properties']['wavelen']})
     else:
@@ -82,13 +82,13 @@ def simulate(fname, rcp, small=False, skip_psf=False):
     keyDefaults = {}
     keyDefaults["nd_filter_name"] = "open"
     keyDefaults["filter_name"] = "open"
-    
+
     # set required keys
     shutter = False
     for elem in reqKeys:
         cmd[f"!OBS.{elem}"] = props[elem]
 
-    # set keys that aren't required in YAML, but have defaults 
+    # set keys that aren't required in YAML, but have defaults
     for elem in keyDefaults:
         cmd[f"!OBS.{elem}"] = props.get(elem,keyDefaults[elem])
 
@@ -124,7 +124,7 @@ def simulate(fname, rcp, small=False, skip_psf=False):
         # set wcu lamp
         if("current_lamp" in wcu):
             metis['wcu_source'].set_lamp(wcu['current_lamp'])
-        
+
         # set temperatures of black body
         if(np.all(["bb_temp" in wcu,"is_temp" in wcu, "wcu_temp" in wcu])):
             metis['wcu_source'].set_temperature(bb_temp=wcu['bb_temp']*u.K, is_temp=wcu['is_temp']*u.K,wcu_temp=wcu['wcu_temp']*u.K)
@@ -147,8 +147,8 @@ def simulate(fname, rcp, small=False, skip_psf=False):
         # don't care about the output.
 
         # this is rapidly becoming obsolete with functional recipes, but
-        # we'll leave in. 
-        
+        # we'll leave in.
+
         for key in ['detector_array', 'detector_array_list']:
             if key in metis.effects['name']:
                 metis[key].table['x_size'] = 32
@@ -178,7 +178,7 @@ def simulate(fname, rcp, small=False, skip_psf=False):
                 "named 'psf'; nothing was disabled")
 
     # and a warning for old versions of the IRDB
-    
+
     if "common_fits_keywords" not in metis.effects["name"]:
         logger.error(
             "The 'common_fits_keywords' effect was not found in the optical "
@@ -198,7 +198,7 @@ def simulate(fname, rcp, small=False, skip_psf=False):
 
     hdus = updateHeaders(hdus[0], props["MJD-OBS"])
     import hashlib, pathlib
-    
+
     hash = hashlib.md5(str(hdus).encode('utf-8')).hexdigest()
     fname = pathlib.Path(str(fname).replace(".fits",f"_{hash[0:6]}.fits"))
 
@@ -208,20 +208,20 @@ def simulate(fname, rcp, small=False, skip_psf=False):
 def updateHeaders(hdul, mjd):
 
     """
-    add keywords to a list of files, fixing anything that isn't handled by ScopeSim. 
-    
-    DPR .TECH, .FILTER and .TYPE are set by ScopeSim, DRS.FILTER .ND_FILTER, 
+    add keywords to a list of files, fixing anything that isn't handled by ScopeSim.
+
+    DPR .TECH, .FILTER and .TYPE are set by ScopeSim, DRS.FILTER .ND_FILTER,
     and DET.DIT and .NDIT are set in ScopeSim
 
     We use the TECH to get INS.MODE
     Sets the DRS.SLIT to the default value for now (will fix later). TODO.
     Sets INS.OPTI*.NAME to the filter, slit as indicated by the TECH, FILTER and SLIT keyword
 
-    For HCI / Coronagraph modes, we set the TECH keyword to a non valid value in Scopesim, 
+    For HCI / Coronagraph modes, we set the TECH keyword to a non valid value in Scopesim,
     and use that to set the DRS.MASK, correct DPR.TECH, and INS.OPTI*.NAME values. This is kludgy,
     and will be fixed later. TODO.
 
-    We check the TYPE keyword for LASER Sources. 
+    We check the TYPE keyword for LASER Sources.
 
     The correct MJD date is written
 
@@ -229,7 +229,7 @@ def updateHeaders(hdul, mjd):
 
     The list of files is compiled during the previous running of the simulations
     """
-    
+
 
     for hdu in hdul:
         # Remove lower case keywords, in particular "pixel_size"
@@ -247,18 +247,18 @@ def updateHeaders(hdul, mjd):
         if("CUBE MODE" in elem):
             if isinstance(hdul[0].header[elem], bool):
                 hdul[0].header[elem] = str(hdul[0].header[elem])
-        
+
     hdul[0].header['MJD-OBS'] = mjd
-    
+
     #if type(hdul[0].header['MJD-OBS']) == str:
     #    mjdobs = hdul[0].header['MJD-OBS']
     #    hdul[0].header['MJD-OBS'] = astropy.time.Time(mjdobs,format="isot").mjd
     # get the tech and filter keywords
-    
+
     tech = hdul[0].header['HIERARCH ESO DPR TECH']
     filt = hdul[0].header['HIERARCH ESO DRS FILTER']
 
-    
+
     if(tech == "LSS,LM"):
         hdul[0].header['HIERARCH ESO INS MODE'] = "SPEC_LM"
         #hdul[0].header['HIERARCH ESO INS OPTI9 NAME'] = filt
@@ -267,7 +267,7 @@ def updateHeaders(hdul, mjd):
         hdul[0].header['HIERARCH ESO INS MODE'] = "SPEC_N_LOW"
         #hdul[0].header['HIERARCH ESO INS OPTI12 NAME'] = filt
         hdul[0].header['HIERARCH ESO INS DRS SLIT'] = "C-38_1"
-    
+
     #IMAGING
     if(tech == "IMAGE,LM"):
         hdul[0].header['HIERARCH ESO INS MODE'] = "IMG_LM"
@@ -275,14 +275,14 @@ def updateHeaders(hdul, mjd):
     if(tech == "IMAGE,N"):
         hdul[0].header['HIERARCH ESO INS MODE'] = "IMG_N"
         #hdul[0].header['HIERARCH ESO INS OPTI13 NAME'] = filt
-    
+
     #IFU
     if(tech == "IFU"):
         hdul[0].header['HIERARCH ESO INS MODE'] = "IFU_nominal"
         #hdul[0].header['HIERARCH ESO INS OPTI6 NAME'] = filt
         hdul[0].header['HIERARCH ESO DRS IFU'] = filt
         hdul[0].header['HIERARCH ESO DPR TECH'] = "IFU"
-        
+
     #HCI
     if(tech == "RAVC,LM"):
         #hdul[0].header['HIERARCH ESO INS OPTI10 NAME'] = filt
@@ -292,7 +292,7 @@ def updateHeaders(hdul, mjd):
         hdul[0].header['HIERARCH ESO INS OPTI3 NAME'] = "VPM-L"
         hdul[0].header['HIERARCH ESO INS OPTI5 NAME'] = "RLS-LMS"
         hdul[0].header['HIERARCH ESO DPR TECH'] = "IMAGE,LM"
-    
+
     if(tech == "APP,LM"):
         #hdul[0].header['HIERARCH ESO INS OPTI10 NAME'] = filt
         hdul[0].header['HIERARCH ESO INS MODE'] = "IMG_LM_APP"
@@ -301,7 +301,7 @@ def updateHeaders(hdul, mjd):
         hdul[0].header['HIERARCH ESO INS OPTI3 NAME'] = "VPM-L"
         hdul[0].header['HIERARCH ESO INS OPTI5 NAME'] = "APP-LMS"
         hdul[0].header['HIERARCH ESO DRS MASK'] = "VPM-L,RAP-LM,APP-LMS"
-    
+
     if(tech == "RAVC,IFU"):
         hdul[0].header['HIERARCH ESO INS OPTI6 NAME'] = filt
         hdul[0].header['HIERARCH ESO INS MODE'] = "IFU_nominal_RAVC"
@@ -313,7 +313,7 @@ def updateHeaders(hdul, mjd):
         hdul[0].header['HIERARCH ESO DRS MASK'] = "VPM-L,RAP-LM,RLS-LMS"
 
     #OTHER
-    if(hdul[0].header['HIERARCH ESO DPR TYPE'] == "WAVE"):   
+    if(hdul[0].header['HIERARCH ESO DPR TYPE'] == "WAVE"):
         hdul[0].header['HIERARCH ESO SEQ WCU LASER1 NAME'] = "LASER1"
 
     #OTHER
