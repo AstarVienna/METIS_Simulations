@@ -142,26 +142,35 @@ class setupSimulations():
 
         self.loadInput()
 
-    def generateFilename(self,dateobs,doCatg,dit,prefix):
+    def generateFilename(self, dateobs, doCatg, dit, prefix):
 
         """
         Generate a METIS like filename based on the dateobs, DO.CATG and dit
 
-         The filenames from the ICS software will probably look like
-             METIS.2024-02-29T01:23:45.678.fits
-         However, this has two drawbacks:
-         - There are colons that cannot be used in Windows filenames.
-         - They don't contain any information about the type of file.
-         Therefor the colons are replaced and extra information is added.
-         The resulting filenames look like
-             METIS.2024-01-02T03_45_00.DETLIN_LM_RAW-dit1.0.fits
-         Replace colon so the date can be in Windows filenames.
+        The filenames from the ICS software will probably look like
+            METIS.2024-02-29T01:23:45.678.fits
+        However, this has two drawbacks:
+        - There are colons that cannot be used in Windows filenames.
+        - They don't contain any information about the type of file.
+        - The filenames are not unique when simulating.
+        Therefor the colons are replaced and extra information is added.
+
+        A placeholder for the file hash is added, to be replaced when the file
+        is saved.  The filenames should be unique in their first 44 characters
+        because the file names are used in the headers of processed data.  E.g.
+        HIERARCH ESO PRO REC1 RAW30 NAME= 'METIS.2027-01-25_00_10_16.123.511f31hh.DETLIN'
+
+        The hash therefore needs to be early on in the filename.  Furthermore,
+        it is good to stay as close to the official filenames as is reasonable.
+        The filenames are therefore constructed as
+        "{official}.{hash}.{extra}.fits", e.g.
+        "METIS.2027-01-25_00_10_16.123.511f31hh.DETLIN_2RG_RAW.fits"
         """
 
-        sdate = dateobs.isoformat(":", 'seconds')
+        sdate = dateobs.isoformat(timespec='milliseconds')
         sdate = sdate.replace(":", "_")
 
-        fname = f'METIS.{prefix}.{sdate.replace(":","_")}.fits'
+        fname = f'METIS.{sdate}.hashhash.{prefix}.fits'
 
         return fname
 

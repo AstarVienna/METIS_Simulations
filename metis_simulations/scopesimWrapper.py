@@ -7,9 +7,11 @@ import logging
 import argparse
 import datetime
 from pathlib import Path
+import shutil
 from itertools import product, cycle, chain
 from collections.abc import Mapping
 import os
+import hashlib
 
 import numpy as np
 from more_itertools import value_chain
@@ -197,12 +199,13 @@ def simulate(fname, rcp, small=False, skip_psf=False):
     hdus[0][0].header['HIERARCH ESO DPR TECH'] = props["tech"]
 
     hdus = updateHeaders(hdus[0], props["MJD-OBS"])
-    import hashlib, pathlib
 
-    hash = hashlib.md5(str(hdus).encode('utf-8')).hexdigest()
-    fname = pathlib.Path(str(fname).replace(".fits",f"_{hash[0:6]}.fits"))
+    # Write the file with the original name with the hash placeholder.
+    hdus.writeto(fname, overwrite=True)
+    thehash = hashlib.file_digest(open(fname, "rb"), "md5").hexdigest()
+    fname_full = Path(str(fname).replace("hashhash", thehash[:8]))
+    shutil.move(fname, fname_full)
 
-    hdus.writeto(fname,overwrite=True)
     return hdus[0]
 
 def updateHeaders(hdul, mjd):
