@@ -153,24 +153,30 @@ class setupSimulations():
         - There are colons that cannot be used in Windows filenames.
         - They don't contain any information about the type of file.
         - The filenames are not unique when simulating.
-        Therefor the colons are replaced and extra information is added.
 
-        A placeholder for the file hash is added, to be replaced when the file
-        is saved.  The filenames should be unique in their first 44 characters
-        because the file names are used in the headers of processed data.  E.g.
-        HIERARCH ESO PRO REC1 RAW30 NAME= 'METIS.2027-01-25_00_10_16.123.511f31hh.DETLIN'
+        Therefor:
+        - the colons are replaced with underscores,
+        - a hash is included for uniqueness, and
+        - extra information is added to describe the type of file.
 
-        The hash therefore needs to be early on in the filename.  Furthermore,
-        it is good to stay as close to the official filenames as is reasonable.
+        Only a placeholder for the file hash is added here, to be replaced when
+        the file is saved.  The filenames should be unique in their first 44
+        characters because the file names are used in the headers of processed
+        data.  E.g.
+        HIERARCH ESO PRO REC1 RAW30 NAME= 'METIS.DETLIN_2RG_RAW.511f31hh.2027-01-25T00_1'
+        The hash therefore needs to be early on in the filename.
+
+        Furthermore, the timestamp is not actually very informative, so we
+        prefer to start the filename with the type of product the file is.
         The filenames are therefore constructed as
-        "{official}.{hash}.{extra}.fits", e.g.
-        "METIS.2027-01-25_00_10_16.123.511f31hh.DETLIN_2RG_RAW.fits"
+        "METIS.{prefix}.{hash}.{date}.{extra}.fits", e.g.
+        "METIS.DETLIN_2RG_RAW.511f31hh.2027-01-25T00_10_16.123.fits"
         """
 
         sdate = dateobs.isoformat(timespec='milliseconds')
         sdate = sdate.replace(":", "_")
 
-        fname = f'METIS.{sdate}.hashhash.{prefix}.fits'
+        fname = f'METIS.{prefix}.hashhash.{sdate}.fits'
 
         return fname
 
