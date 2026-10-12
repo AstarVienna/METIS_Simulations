@@ -11,7 +11,7 @@ yamlDir = os.environ['MSIM_YAML_DIR']
 nCores = os.environ['MSIM_NCORES']
 outputDir = os.environ['MSIM_OUTDIR']
 
-subDir = ["AIT_Tests","IFU","LMS_RAD_03_n"]
+subDir = ["AIT_Tests","LSS","LSS_RAD_03_n"]
 
 if __name__ == '__main__':    
 

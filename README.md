@@ -239,7 +239,7 @@ Any of the parameters can be overwritten as a command line option when running, 
 ./simulationBlock/imgLM.py --outputDir="mydir" --small --doStatic --doCalib=2 --sequence--startMJD="2027-01-25 00:00:00" --nCores=6
 ```
 
-There are two additional  command line only options;  the program id, which is both the top level directory and the PROG ID keyword, and -p, which turns off PFS modelling to speed up generation (for, e.g., dark frames)
+There are two additional  command line only options;  the program id, which is both the top level directory and the PROG ID keyword, and -p, which turns off PSF modelling to speed up generation (for, e.g., dark frames)
 
 ```
 ./simulationBlock/imgLM.py -k  ESO10 -p

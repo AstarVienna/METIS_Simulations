@@ -399,7 +399,7 @@ class setupSimulations():
                 #         skip_psf=self.params.get('noPsf', False), progID = self.params['progID'], subDir = self.params['subDir'])
 
         # calculate the observation date for the next observation, for
-        # stringing a sequence of templates togethers
+        # stringing a sequence of templates together
         
         self.tObs = self.tObs + self.tDelt
         self.endDate = self.tObs.tt.datetime.replace(microsecond=0)
