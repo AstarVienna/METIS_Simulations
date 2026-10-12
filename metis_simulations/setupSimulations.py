@@ -292,7 +292,6 @@ class setupSimulations():
         
             with Pool(nCores) as pool:
                 pool.starmap(simulate, allArgs)
-                #simulate(fname, recipe, small=self.params['small'])
                 pool.close()
                 pool.join()
 
@@ -334,7 +333,6 @@ class setupSimulations():
 
             with Pool(nCores) as pool:
                 pool.starmap(simulate, allArgs)
-                #simulate(fname, recipe, small=self.params['small'])
                 pool.close()
                 pool.join()
 
@@ -411,7 +409,6 @@ class setupSimulations():
         
             with Pool(nCores) as pool:
                 pool.starmap(simulate, allArgs)
-                #simulate(fname, recipe, small=self.params['small'])
                 pool.close()
                 pool.join()
 
