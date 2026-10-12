@@ -1,0 +1,146 @@
+
+###############  STANDALONE DARK OBSERVATION ################
+
+DARK_N_RAW1:
+  do.catg: DARK_N_RAW
+  mode: "img_n"
+  source: 
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 10
+    ndit: 1
+    filter_name: "closed"
+    nd_filter_name: "open"
+    catg: "CALIB"
+    tech: "IMAGE,N"
+    type: "DARK"
+    tplname: "METIS_img_n_det_dark"
+    nObs: 5
+
+
+DARK_N_RAW2:
+  do.catg: DARK_N_RAW
+  mode: "img_n"
+  source: 
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 4
+    filter_name: "closed"
+    nd_filter_name: "open"
+    catg: "CALIB"
+    tech: "IMAGE,N"
+    type: "DARK"
+    tplname: "METIS_img_n_det_dark"
+    nObs: 5
+
+
+DARK_N_RAW3:
+  do.catg: DARK_N_RAW
+  mode: "img_n"
+  source: 
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    filter_name: "closed"
+    nd_filter_name: "open"
+    catg: "CALIB"
+    tech: "IMAGE,N"
+    type: "DARK"
+    tplname: "METIS_img_n_det_dark"
+    nObs: 5
+
+
+DARK_N_RAW4:
+  do.catg: DARK_N_RAW
+  mode: "img_n"
+  source: 
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.05
+    ndit: 1
+    filter_name: "closed"
+    nd_filter_name: "open"
+    catg: "CALIB"
+    tech: "IMAGE,N"
+    type: "DARK"
+    tplname: "METIS_img_n_det_dark"
+    nObs: 5
+
+
+DARK_N_RAW4:
+  do.catg: DARK_N_RAW
+  mode: "img_n"
+  source: 
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.04
+    ndit: 1
+    filter_name: "closed"
+    nd_filter_name: "open"
+    catg: "CALIB"
+    tech: "IMAGE,N"
+    type: "DARK"
+    tplname: "METIS_img_n_det_dark"
+    nObs: 5
+
+
+DARK_N_RAW5:
+  do.catg: DARK_N_RAW
+  mode: "img_n"
+  source: 
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.5
+    ndit: 1
+    filter_name: "closed"
+    nd_filter_name: "open"
+    catg: "CALIB"
+    tech: "IMAGE,N"
+    type: "DARK"
+    tplname: "METIS_img_n_det_dark"
+    nObs: 5
+
+
+DARK_N_RAW6:
+  do.catg: DARK_N_RAW
+  mode: "img_n"
+  source: 
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.1
+    ndit: 1
+    filter_name: "closed"
+    nd_filter_name: "open"
+    catg: "CALIB"
+    tech: "IMAGE,N"
+    type: "DARK"
+    tplname: "METIS_img_n_det_dark"
+    nObs: 5
+
+
+DARK_N_RAW7:
+  do.catg: DARK_N_RAW
+  mode: "img_n"
+  source: 
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 1.
+    ndit: 1
+    filter_name: "closed"
+    nd_filter_name: "open"
+    catg: "CALIB"
+    tech: "IMAGE,N"
+    type: "DARK"
+    tplname: "METIS_img_n_det_dark"
+    nObs: 5
+
