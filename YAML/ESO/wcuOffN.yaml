@@ -5,13 +5,16 @@ N_WCU_OFF_RAW:
   mode: wcu_img_n
   source:
     name: empty_sky
-    kwargs": {}
+    kwargs: {}
   properties:
       filter_name: "open"
       nd_filter_name: "open"
       catg: "CALIB"
       tech: "IMAGE,N"
       type: "DARK,WCU_OFF"
+      dit: 0.25
+      ndit: 1
+      nObs: 1
       tplname: "METIS_n_det_dark"
   wcu:
       current_lamp: "bb"

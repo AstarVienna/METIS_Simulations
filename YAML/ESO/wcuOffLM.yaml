@@ -5,13 +5,16 @@ LM_WCU_OFF_RAW:
   mode: wcu_img_lm
   source:
     name: empty_sky
-    kwargs": {}
+    kwargs: {}
   properties:
       filter_name: "open"
       nd_filter_name: "open"
       catg: "CALIB"
       tech: "IMAGE,LM"
       type: "DARK,WCU_OFF"
+      dit: 0.25
+      ndit: 1
+      nObs: 1
       tplname: "METIS_lm_det_dark"
   wcu:
       current_lamp: "bb"
@@ -20,4 +23,3 @@ LM_WCU_OFF_RAW:
       bb_temp: 300
       is_temp: 300
       wcu_temp: 300
-
