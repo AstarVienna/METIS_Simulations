@@ -472,6 +472,36 @@ def generateStaticCalibs(outputDir):
     hdul = fits.HDUList([primaryhdu,hdu,hdu,hdu,hdu])
     hdul.writeto(f"{outputDir}/PERSISTENCE_MAP_IFU.fits",overwrite=True)
 
+    #################### LM_ADC_SLITLOSS_TABLE ###################
+    primaryhdu = fits.PrimaryHDU()
+    primaryhdu.header['HIERARCH ESO PRO CATG'] = "LM_ADC_SLITLOSS"
+    primaryhdu.header['INSTRUME'] = "METIS"
+    primaryhdu.header['HIERARCH ESO PRO TECH'] = "LSS,LM"
+    primaryhdu.header['HIERARCH ESO PRO TYPE'] = "REDUCED"
+    primaryhdu.header['HIERARCH ESO INS MODE'] = "SPEC_LM"
+
+    c1 = fits.Column(name='data', array=np.zeros(3), format='1k')
+    hdu = fits.BinTableHDU.from_columns([c1])
+
+    hdul = fits.HDUList([primaryhdu,hdu])
+    hdul.writeto(f"{outputDir}/_LM_ADC_SLITLOSS.fits",overwrite=True)
+
+    #################### N_ADC_SLITLOSS_TABLE ###################
+
+    print("here")
+    primaryhdu = fits.PrimaryHDU()
+    primaryhdu.header['HIERARCH ESO PRO CATG'] = "N_ADC_SLITLOSS"
+    primaryhdu.header['INSTRUME'] = "METIS"
+    primaryhdu.header['HIERARCH ESO PRO TECH'] = "LSS,N"
+    primaryhdu.header['HIERARCH ESO PRO TYPE'] = "REDUCED"
+    primaryhdu.header['HIERARCH ESO INS MODE'] = "SPEC_N_LOW"
+
+    c1 = fits.Column(name='data', array=np.zeros(3), format='1k')
+    hdu = fits.BinTableHDU.from_columns([c1])
+
+    hdul = fits.HDUList([primaryhdu,hdu])
+    hdul.writeto(f"{outputDir}/_N_ADC_SLITLOSS.fits",overwrite=True)
+
     
 if __name__ == "__main__":
 
