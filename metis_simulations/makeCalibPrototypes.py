@@ -438,6 +438,7 @@ def generateStaticCalibs(outputDir):
     primaryhdu.header['HIERARCH ESO INS MODE'] = "img_lm"
     primaryhdu.header['HIERARCH ESO DRS FILTER'] = "OPEN"
     primaryhdu.header['HIERARCH ESO DRS NDFILTER'] = "OPEN"
+    primaryhdu.header['HIERARCH ESO DPR CATG'] = "CALIB"
 
     data = np.zeros((2048,2048))
     hdu = fits.ImageHDU(data, name="PERSISTENCE_MAP")
@@ -450,6 +451,9 @@ def generateStaticCalibs(outputDir):
     primaryhdu.header['HIERARCH ESO PRO TECH'] = "IMAGE,N"
     primaryhdu.header['HIERARCH ESO PRO TYPE'] = "PERSISTENCE"
     primaryhdu.header['HIERARCH ESO INS MODE'] = "img_n"
+    primaryhdu.header['HIERARCH ESO DPR CATG'] = "CALIB"
+    primaryhdu.header['HIERARCH ESO DRS FILTER'] = "OPEN"
+    primaryhdu.header['HIERARCH ESO DRS NDFILTER'] = "OPEN"
     hdu = fits.ImageHDU(data, name="PERSISTENCE_MAP")
     hdul = fits.HDUList([primaryhdu,hdu])
 
@@ -459,8 +463,11 @@ def generateStaticCalibs(outputDir):
     primaryhdu.header['HIERARCH ESO PRO CATG'] = "PERSISTENCE_MAP"
     primaryhdu.header['INSTRUME'] = "METIS"
     primaryhdu.header['HIERARCH ESO PRO TECH'] = "IFU"
-    primaryhdu.header['HIERARCH ESO PRO TYPE'] = "REDUCED"
-    primaryhdu.header['HIERARCH ESO INS MODE'] = "Nominal"
+    primaryhdu.header['HIERARCH ESO PRO TYPE'] = "PERSISTENCE"
+    primaryhdu.header['HIERARCH ESO INS MODE'] = "LMS"
+    primaryhdu.header['HIERARCH ESO DPR CATG'] = "CALIB"
+    primaryhdu.header['HIERARCH ESO DRS FILTER'] = "OPEN"
+    primaryhdu.header['HIERARCH ESO DRS NDFILTER'] = "OPEN"
 
     data = np.zeros((2048,2048))
     data = np.zeros((2048,2048))
