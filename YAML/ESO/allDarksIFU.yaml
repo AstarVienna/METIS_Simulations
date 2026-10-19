@@ -1,0 +1,59 @@
+
+###############  STANDALONE DARK OBSERVATION ################
+
+DARK_IFU_RAW1:
+  do.catg: DARK_IFU_RAW
+  mode: "lms"
+  source: 
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 0.25
+    ndit: 1
+    wavelen: 4.73
+    filter_name: "closed"
+    nd_filter_name: "closed"
+    tech: "IFU"
+    type: "DARK"
+    catg: "CALIB"
+    tplname: "METIS_img_lms_det_dark"
+    nObs: 5
+
+
+DARK_IFU_RAW2:
+  do.catg: DARK_IFU_RAW
+  mode: "lms"
+  source: 
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 1.3
+    ndit: 1
+    wavelen: 4.73
+    filter_name: "closed"
+    nd_filter_name: "closed"
+    tech: "IFU"
+    type: "DARK"
+    catg: "CALIB"
+    tplname: "METIS_img_lms_det_dark"
+    nObs: 5
+
+
+DARK_IFU_RAW3:
+  do.catg: DARK_IFU_RAW
+  mode: "lms"
+  source: 
+    name: empty_sky
+    kwargs: {}
+  properties:
+    dit: 100
+    ndit: 3
+    wavelen: 4.73
+    filter_name: "closed"
+    nd_filter_name: "closed"
+    tech: "IFU"
+    type: "DARK"
+    catg: "CALIB"
+    tplname: "METIS_img_lms_det_dark"
+    nObs: 5
+

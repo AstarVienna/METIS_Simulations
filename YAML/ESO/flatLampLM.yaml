@@ -1,4 +1,5 @@
-WCU_FLAT_LM_RAW:
+
+WCU_FLAT_LM_RAW1:
   do.catg: LM_FLAT_LAMP_RAW
   mode: "wcu_img_lm"
   source: 
@@ -13,11 +14,236 @@ WCU_FLAT_LM_RAW:
     tplname: "METIS_img_lm_det_flat"
     dit: 1
     ndit: 1
-    nObs: 3
+    nObs: 1
   wcu:
     current_lamp: "bb"
     current_fpmask: "open"
     bb_aperture: 1.0
+    bb_temp: 300
+    is_temp: 300
+    wcu_temp: 300
+
+
+WCU_FLAT_LM_RAW_OFF1:
+  do.catg: LM_WCU_OFF_RAW
+  mode: "wcu_img_lm"
+  source: 
+    name: empty_sky
+    kwargs: {}
+  properties:
+    filter_name: "open"
+    nd_filter_name: "ND_OD4"
+    catg: "CALIB"
+    tech: "IMAGE,LM"
+    type: "DARK,WCUOFF"
+    tplname: "METIS_img_lm_det_flat"
+    dit: 1
+    ndit: 1
+    nObs: 1
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 0.0
+    bb_temp: 300
+    is_temp: 300
+    wcu_temp: 300
+
+
+WCU_FLAT_LM_RAW2:
+  do.catg: LM_FLAT_LAMP_RAW
+  mode: "wcu_img_lm"
+  source: 
+    name: empty_sky
+    kwargs: {}
+  properties:
+    filter_name: "open"
+    nd_filter_name: "ND_OD4"
+    catg: "CALIB"
+    tech: "IMAGE,LM"
+    type: "FLAT,LAMP"
+    tplname: "METIS_img_lm_det_flat"
+    dit: 1
+    ndit: 1
+    nObs: 1
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 1.0
+    bb_temp: 300
+    is_temp: 300
+    wcu_temp: 300
+
+
+WCU_FLAT_LM_RAW_OFF2:
+  do.catg: LM_WCU_OFF_RAW
+  mode: "wcu_img_lm"
+  source: 
+    name: empty_sky
+    kwargs: {}
+  properties:
+    filter_name: "open"
+    nd_filter_name: "ND_OD4"
+    catg: "CALIB"
+    tech: "IMAGE,LM"
+    type: "DARK,WCUOFF"
+    tplname: "METIS_img_lm_det_flat"
+    dit: 1
+    ndit: 1
+    nObs: 1
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 0.0
+    bb_temp: 300
+    is_temp: 300
+    wcu_temp: 300
+
+
+WCU_FLAT_LM_RAW3:
+  do.catg: LM_FLAT_LAMP_RAW
+  mode: "wcu_img_lm"
+  source: 
+    name: empty_sky
+    kwargs: {}
+  properties:
+    filter_name: "open"
+    nd_filter_name: "ND_OD4"
+    catg: "CALIB"
+    tech: "IMAGE,LM"
+    type: "FLAT,LAMP"
+    tplname: "METIS_img_lm_det_flat"
+    dit: 1
+    ndit: 1
+    nObs: 1
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 1.0
+    bb_temp: 300
+    is_temp: 300
+    wcu_temp: 300
+
+
+WCU_FLAT_LM_RAW_OFF3:
+  do.catg: LM_WCU_OFF_RAW
+  mode: "wcu_img_lm"
+  source: 
+    name: empty_sky
+    kwargs: {}
+  properties:
+    filter_name: "open"
+    nd_filter_name: "ND_OD4"
+    catg: "CALIB"
+    tech: "IMAGE,LM"
+    type: "DARK,WCUOFF"
+    tplname: "METIS_img_lm_det_flat"
+    dit: 1
+    ndit: 1
+    nObs: 1
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 0.0
+    bb_temp: 300
+    is_temp: 300
+    wcu_temp: 300
+
+
+WCU_FLAT_LM_RAW4:
+  do.catg: LM_FLAT_LAMP_RAW
+  mode: "wcu_img_lm"
+  source: 
+    name: empty_sky
+    kwargs: {}
+  properties:
+    filter_name: "open"
+    nd_filter_name: "ND_OD4"
+    catg: "CALIB"
+    tech: "IMAGE,LM"
+    type: "FLAT,LAMP"
+    tplname: "METIS_img_lm_det_flat"
+    dit: 1
+    ndit: 1
+    nObs: 1
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 1.0
+    bb_temp: 300
+    is_temp: 300
+    wcu_temp: 300
+
+
+WCU_FLAT_LM_RAW_OFF4:
+  do.catg: LM_WCU_OFF_RAW
+  mode: "wcu_img_lm"
+  source: 
+    name: empty_sky
+    kwargs: {}
+  properties:
+    filter_name: "open"
+    nd_filter_name: "ND_OD4"
+    catg: "CALIB"
+    tech: "IMAGE,LM"
+    type: "DARK,WCUOFF"
+    tplname: "METIS_img_lm_det_flat"
+    dit: 1
+    ndit: 1
+    nObs: 1
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 0.0
+    bb_temp: 300
+    is_temp: 300
+    wcu_temp: 300
+
+
+WCU_FLAT_LM_RAW5:
+  do.catg: LM_FLAT_LAMP_RAW
+  mode: "wcu_img_lm"
+  source: 
+    name: empty_sky
+    kwargs: {}
+  properties:
+    filter_name: "open"
+    nd_filter_name: "ND_OD4"
+    catg: "CALIB"
+    tech: "IMAGE,LM"
+    type: "FLAT,LAMP"
+    tplname: "METIS_img_lm_det_flat"
+    dit: 1
+    ndit: 1
+    nObs: 1
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 1.0
+    bb_temp: 300
+    is_temp: 300
+    wcu_temp: 300
+
+
+WCU_FLAT_LM_RAW_OFF5:
+  do.catg: LM_WCU_OFF_RAW
+  mode: "wcu_img_lm"
+  source: 
+    name: empty_sky
+    kwargs: {}
+  properties:
+    filter_name: "open"
+    nd_filter_name: "ND_OD4"
+    catg: "CALIB"
+    tech: "IMAGE,LM"
+    type: "DARK,WCUOFF"
+    tplname: "METIS_img_lm_det_flat"
+    dit: 1
+    ndit: 1
+    nObs: 1
+  wcu:
+    current_lamp: "bb"
+    current_fpmask: "open"
+    bb_aperture: 0.0
     bb_temp: 300
     is_temp: 300
     wcu_temp: 300
