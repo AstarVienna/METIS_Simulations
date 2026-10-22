@@ -283,9 +283,9 @@ class setupSimulations():
 
                 self.allFileNames.append(self.fname)
                 self.allmjd.append(self.tObs.mjd)
-                jitter = (0,0,0,0)
+                offsets = (0,0,0,0)
                 # append the arguments to the list
-                allArgs.append((self.fname,recipe,self.params["small"],self.params.get('noPsf', False),self.params['progID'], self.params['subDir'],jitter))
+                allArgs.append((self.fname,recipe,self.params["small"],self.params.get('noPsf', False),self.params['progID'], self.params['subDir'],offsets))
                 #simulate(self.fname, recipe, small=self.params['small'],
                 #         skip_psf=self.params.get('noPsf', False), progID = self.params['progID'], subDir = self.params['subDir'])
         #now actually run
@@ -315,7 +315,7 @@ class setupSimulations():
                     continue
 
                 recipe["wcu"] = None
-                recipe["jitter"] = None
+                recipe["offsets"] = None
                 recipe["properties"]["tplstart"] = tplStart
                 recipe["properties"]["dit"] = elem[0]
                 recipe["properties"]["ndit"] = elem[1]
@@ -326,8 +326,8 @@ class setupSimulations():
                 self.allmjd.append(self.tObs.mjd)
 
                 # append teh arguments to the 
-                jitter = (0,0,0,0)
-                allArgs.append((self.fname,recipe,self.params["small"],self.params.get('noPsf', False),self.params['progID'], self.params['subDir'],jitter))
+                offsets = (0,0,0,0)
+                allArgs.append((self.fname,recipe,self.params["small"],self.params.get('noPsf', False),self.params['progID'], self.params['subDir'],offsets))
 
         self.endDate = self.tObs.tt.datetime.replace(microsecond=0)
         # now actually run
@@ -383,18 +383,18 @@ class setupSimulations():
             # a list. The actually calling occurs afterwards, for parallelization
             if("wcu" not in recipe.keys()):
                 recipe["wcu"] = None
-            if("jitter" not in recipe.keys()):
-                recipe["jitter"] = None
+            if("offsets" not in recipe.keys()):
+                recipe["offsets"] = None
             else:
-                jitterVals = PATTERNDICT[recipe["jitter"]["name"]]
+                offsetsVals = PATTERNDICT[recipe["offsets"]["name"]]
                 
-                for key in jitterVals:
-                    jitterVals[key] = jitterVals[key] * recipe["jitter"]["nRep"]
+                for key in offsetsVals:
+                    offsetsVals[key] = offsetsVals[key] * recipe["offsets"]["nRep"]
 
-                print("AA",jitterVals)
-            # jitter logic
-            if(recipe["jitter"] is not None):
-                for k in range(len(jitterVals["throw"])):   
+                print("AA",offsetsVals)
+            # offsets logic
+            if(recipe["offsets"] is not None):
+                for k in range(len(offsetsVals["throw"])):   
             
                     for _ in range(nObs):
 
@@ -405,10 +405,10 @@ class setupSimulations():
                         
                         self.allFileNames.append(self.fname)
                         self.allmjd.append(self.tObs.mjd)
-                        jitter = (jitterVals["throw"][k],jitterVals["posang"][k],jitterVals["offset1"][k], jitterVals["offset2"][k])
+                        offsets = (offsetsVals["throw"][k],offsetsVals["posang"][k],offsetsVals["offset1"][k], offsetsVals["offset2"][k])
                         # set WCU to None if this isn't WCU data
                         # add the arguments to the list
-                        allArgs.append((self.fname,recipe,self.params["small"],self.params.get('noPsf', False),self.params['progID'], self.params['subDir'],jitter))
+                        allArgs.append((self.fname,recipe,self.params["small"],self.params.get('noPsf', False),self.params['progID'], self.params['subDir'],offsets))
                         #simulate(self.fname, recipe, small=self.params['small'],
                         #         skip_psf=self.params.get('noPsf', False), progID = self.params['progID'], subDir = self.params['subDir'])
 
@@ -421,10 +421,10 @@ class setupSimulations():
                         
                     self.allFileNames.append(self.fname)
                     self.allmjd.append(self.tObs.mjd)
-                    jitter = (0,0,0,0)
+                    offsets = (0,0,0,0)
                     # set WCU to None if this isn't WCU data
                     # add the arguments to the list
-                    allArgs.append((self.fname,recipe,self.params["small"],self.params.get('noPsf', False),self.params['progID'], self.params['subDir'],jitter))
+                    allArgs.append((self.fname,recipe,self.params["small"],self.params.get('noPsf', False),self.params['progID'], self.params['subDir'],offsets))
                     #simulate(self.fname, recipe, small=self.params['small'],
                     #         skip_psf=self.params.get('noPsf', False), progID = self.params['progID'], subDir = self.params['subDir'])
        

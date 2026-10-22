@@ -14,7 +14,7 @@ LM_IMAGE_SCI_RAW:
     type: "OBJECT"
     tplname: "METIS_img_lm_obs_GenericOffset"
     nObs: 1
-  jitter:
+  offsets:
     name: test1
     nRep: 3
     

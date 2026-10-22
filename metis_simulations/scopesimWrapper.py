@@ -28,7 +28,7 @@ sim.rc.__config__["!SIM.file.local_packages_path"] = DEFAULT_IRDB_LOCATION
 
 logger = get_logger(__file__)
 
-def simulate(fname, rcp, small=False, skip_psf=False, progID = None, subDir = None, jitter = None):
+def simulate(fname, rcp, small=False, skip_psf=False, progID = None, subDir = None, offsets = None):
 
     """
     Workhorse for an individual simulation.
@@ -193,11 +193,11 @@ def simulate(fname, rcp, small=False, skip_psf=False, progID = None, subDir = No
 
     # now observe and readout
 
-    if(jitter is not None):
-        xshift = np.cos(jitter[1] * np.pi / 180) * jitter[0] + jitter[2]
-        yshift = np.sin(jitter[1] * np.pi / 180) * jitter[0] + jitter[3]
+    if(offsets is not None):
+        xshift = np.cos(offsets[1] * np.pi / 180) * offsets[0] + offsets[2]
+        yshift = np.sin(offsets[1] * np.pi / 180) * offsets[0] + offsets[3]
         
-    print(xshift,yshift)
+
     src.shift(xshift,yshift)
     metis.observe(src)
     hdus = metis.readout(dit=props['dit'],ndit=props['ndit'])
@@ -205,7 +205,7 @@ def simulate(fname, rcp, small=False, skip_psf=False, progID = None, subDir = No
     # can't remember why this is here, check \TODO
     hdus[0][0].header['HIERARCH ESO DPR TECH'] = props["tech"]
 
-    hdus = updateHeaders(hdus[0], props["MJD-OBS"], progID, subDir, jitter)
+    hdus = updateHeaders(hdus[0], props["MJD-OBS"], progID, subDir, offsets)
     import hashlib, pathlib
     
     hash = hashlib.md5(str(hdus).encode('utf-8')).hexdigest()
@@ -219,7 +219,7 @@ def simulate(fname, rcp, small=False, skip_psf=False, progID = None, subDir = No
 
     return hdus[0]
 
-def updateHeaders(hdul, mjd, progID, dirID, jitter):
+def updateHeaders(hdul, mjd, progID, dirID, offsets):
 
     """
     add keywords to a list of files, fixing anything that isn't handled by ScopeSim.
@@ -255,10 +255,10 @@ def updateHeaders(hdul, mjd, progID, dirID, jitter):
 
     # chop/jitter and nod
 
-    hdul[0].header['HIERARCH ESO SEQ CFO CHOP POSANG'] = jitter[1]
-    hdul[0].header['HIERARCH ESO SEQ CFO CHOP THROW'] = jitter[0]
-    hdul[0].header['HIERARCH ESO SEQ OFFSET1'] = jitter[2]
-    hdul[0].header['HIERARCH ESO SEQ OFFSET2'] = jitter[3]
+    hdul[0].header['HIERARCH ESO SEQ CFO CHOP THROW'] = offsets[0]
+    hdul[0].header['HIERARCH ESO SEQ CFO CHOP POSANG'] = offsets[1]
+    hdul[0].header['HIERARCH ESO SEQ OFFSET1'] = offsets[2]
+    hdul[0].header['HIERARCH ESO SEQ OFFSET2'] = offsets[3]
     
     
     
