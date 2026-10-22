@@ -28,7 +28,7 @@ sim.rc.__config__["!SIM.file.local_packages_path"] = DEFAULT_IRDB_LOCATION
 
 logger = get_logger(__file__)
 
-def simulate(fname, rcp, small=False, skip_psf=False, progID = None, subDir = None):
+def simulate(fname, rcp, small=False, skip_psf=False, progID = None, subDir = None, offsets = None):
 
     """
     Workhorse for an individual simulation.
@@ -192,13 +192,20 @@ def simulate(fname, rcp, small=False, skip_psf=False, progID = None, subDir = No
         metis.optics_manager["METIS"].add_effect(sim.effects.Shutter())
 
     # now observe and readout
+
+    if(offsets is not None):
+        xshift = np.cos(offsets[1] * np.pi / 180) * offsets[0] + offsets[2]
+        yshift = np.sin(offsets[1] * np.pi / 180) * offsets[0] + offsets[3]
+        
+
+    src.shift(xshift,yshift)
     metis.observe(src)
     hdus = metis.readout(dit=props['dit'],ndit=props['ndit'])
 
     # can't remember why this is here, check \TODO
     hdus[0][0].header['HIERARCH ESO DPR TECH'] = props["tech"]
 
-    hdus = updateHeaders(hdus[0], props["MJD-OBS"], progID, subDir)
+    hdus = updateHeaders(hdus[0], props["MJD-OBS"], progID, subDir, offsets)
     import hashlib, pathlib
     
     hash = hashlib.md5(str(hdus).encode('utf-8')).hexdigest()
@@ -212,7 +219,7 @@ def simulate(fname, rcp, small=False, skip_psf=False, progID = None, subDir = No
 
     return hdus[0]
 
-def updateHeaders(hdul, mjd, progID, dirID):
+def updateHeaders(hdul, mjd, progID, dirID, offsets):
 
     """
     add keywords to a list of files, fixing anything that isn't handled by ScopeSim.
@@ -236,8 +243,7 @@ def updateHeaders(hdul, mjd, progID, dirID):
 
     The list of files is compiled during the previous running of the simulations
     """
-
-
+    
     for hdu in hdul:
         # Remove lower case keywords, in particular "pixel_size"
         for k in hdu.header:
@@ -246,6 +252,16 @@ def updateHeaders(hdul, mjd, progID, dirID):
                 hdu.header.pop(k)
 
 
+
+    # chop/jitter and nod
+
+    hdul[0].header['HIERARCH ESO SEQ CFO CHOP THROW'] = offsets[0]
+    hdul[0].header['HIERARCH ESO SEQ CFO CHOP POSANG'] = offsets[1]
+    hdul[0].header['HIERARCH ESO SEQ OFFSET1'] = offsets[2]
+    hdul[0].header['HIERARCH ESO SEQ OFFSET2'] = offsets[3]
+    
+    
+    
     # fix for the occasional keyword that gets written as boolean not string
     for elem in hdul[0].header:
         if("OPTI" in elem and "NAME" in elem):
