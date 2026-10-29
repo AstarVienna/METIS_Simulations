@@ -1,4 +1,4 @@
-LM_IMAGE_SCI_RAW:
+ LM_IMAGE_SCI_RAW:
   do.catg: LM_IMAGE_SCI_RAW
   mode: "img_lm"
   source:
@@ -15,8 +15,8 @@ LM_IMAGE_SCI_RAW:
     tplname: "METIS_img_lm_obs_GenericOffset"
     nObs: 1
   offsets:
-    name: test1
-    nRep: 3
+    name: simpleJitter1
+    nRep: 1
     
 LM_IMAGE_SCI_SKY_RAW:
   do.catg: LM_IMAGE_SKY_RAW

@@ -194,8 +194,8 @@ def simulate(fname, rcp, small=False, skip_psf=False, progID = None, subDir = No
     # now observe and readout
 
     if(offsets is not None):
-        xshift = np.cos(offsets[1] * np.pi / 180) * offsets[0] + offsets[2]
-        yshift = np.sin(offsets[1] * np.pi / 180) * offsets[0] + offsets[3]
+        xshift = np.cos(offsets["posang"] * np.pi / 180) * offsets["throw"] + offsets["offset1"]
+        yshift = np.sin(offsets["posang"] * np.pi / 180) * offsets["throw"] + offsets["offset2"]
         
 
     src.shift(xshift,yshift)
@@ -255,13 +255,12 @@ def updateHeaders(hdul, mjd, progID, dirID, offsets):
 
     # chop/jitter and nod
 
-    hdul[0].header['HIERARCH ESO SEQ CFO CHOP THROW'] = offsets[0]
-    hdul[0].header['HIERARCH ESO SEQ CFO CHOP POSANG'] = offsets[1]
-    hdul[0].header['HIERARCH ESO SEQ OFFSET1'] = offsets[2]
-    hdul[0].header['HIERARCH ESO SEQ OFFSET2'] = offsets[3]
+    hdul[0].header['HIERARCH ESO SEQ CFO CHOP THROW'] = offsets["throw"]
+    hdul[0].header['HIERARCH ESO SEQ CFO CHOP POSANG'] = offsets["posang"]
+    hdul[0].header['HIERARCH ESO SEQ OFFSET1'] = offsets["offset1"]
+    hdul[0].header['HIERARCH ESO SEQ OFFSET2'] = offsets["offset2"]
     
-    
-    
+
     # fix for the occasional keyword that gets written as boolean not string
     for elem in hdul[0].header:
         if("OPTI" in elem and "NAME" in elem):
