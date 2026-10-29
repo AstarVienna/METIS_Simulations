@@ -38,6 +38,8 @@ from . import simulationDefinitions as sd
 from .scopesimWrapper import simulate
 from .csvParser import loadCSV
 import importlib.resources as resources
+from  .patterns import PATTERNDICT
+
 
 class setupSimulations():
 
@@ -281,9 +283,10 @@ class setupSimulations():
 
                 self.allFileNames.append(self.fname)
                 self.allmjd.append(self.tObs.mjd)
-
+                offsetVals = PATTERNDICT["none"]
+                offsets = self.extractOffset(offsetVals,0)
                 # append the arguments to the list
-                allArgs.append((self.fname,recipe,self.params["small"],self.params.get('noPsf', False),self.params['progID'], self.params['subDir']))
+                allArgs.append((self.fname,recipe,self.params["small"],self.params.get('noPsf', False),self.params['progID'], self.params['subDir'],offsets))
                 #simulate(self.fname, recipe, small=self.params['small'],
                 #         skip_psf=self.params.get('noPsf', False), progID = self.params['progID'], subDir = self.params['subDir'])
         #now actually run
@@ -313,6 +316,7 @@ class setupSimulations():
                     continue
 
                 recipe["wcu"] = None
+                recipe["offsets"] = None
                 recipe["properties"]["tplstart"] = tplStart
                 recipe["properties"]["dit"] = elem[0]
                 recipe["properties"]["ndit"] = elem[1]
@@ -322,8 +326,10 @@ class setupSimulations():
                 self.allFileNames.append(self.fname)
                 self.allmjd.append(self.tObs.mjd)
 
-                # append teh arguments to the 
-                allArgs.append((self.fname,recipe,self.params["small"],self.params.get('noPsf', False),self.params['progID'], self.params['subDir']))
+                # append the arguments to the 
+                offsetVals = PATTERNDICT["none"]
+                offsets = self.extractOffset(offsetVals,0)
+                allArgs.append((self.fname,recipe,self.params["small"],self.params.get('noPsf', False),self.params['progID'], self.params['subDir'],offsets))
 
         self.endDate = self.tObs.tt.datetime.replace(microsecond=0)
         # now actually run
@@ -366,6 +372,7 @@ class setupSimulations():
             mode = recipe["mode"]
             prefix = recipe["do.catg"]
             nObs = recipe["properties"]["nObs"]
+            
             self.tplExpno = 0
 
             props = recipe["properties"]
@@ -376,26 +383,40 @@ class setupSimulations():
             # this loop mostly calculates the time variables for each
             # observation, and saves the arguments for the simulation in
             # a list. The actually calling occurs afterwards, for parallelization
+            if("wcu" not in recipe.keys()):
+                recipe["wcu"] = None
+            if("offsets" not in recipe.keys()):
+                offsetVals = PATTERNDICT["none"]
+                
+            else:
+                offsetVals = PATTERNDICT[recipe["offsets"]["name"]]
+                
+                for key in offsetVals:
+                    offsetVals[key] = offsetVals[key] * recipe["offsets"]["nRep"]
 
+            # offsets logic
+            
             for _ in range(nObs):
+                for k in range(len(offsetVals["throw"])):   
 
-                # set the time related keywords and increment the observing time.
-                # note that tDelt = 0 on the first iteration
+                    # set the time related keywords and increment the observing time.
+                    # note that tDelt = 0 on the first iteration
 
-                recipe = self.increment(recipe)
+                    recipe = self.increment(recipe)
+                    
+                    self.allFileNames.append(self.fname)
+                    self.allmjd.append(self.tObs.mjd)
+                                         
+                    offsets = self.extractOffset(offsetVals,k)
 
-                self.allFileNames.append(self.fname)
-                self.allmjd.append(self.tObs.mjd)
+                    # set WCU to None if this isn't WCU data
+                    # add the arguments to the list
+                    allArgs.append((self.fname,recipe,self.params["small"],self.params.get('noPsf', False),self.params['progID'], self.params['subDir'],offsets))
+                    #simulate(self.fname, recipe, small=self.params['small'],
+                    #         skip_psf=self.params.get('noPsf', False), progID = self.params['progID'], subDir = self.params['subDir'])
 
-                # set WCU to None if this isn't WCU data
-                if("wcu" not in recipe.keys()):
-                   recipe["wcu"] = None
 
-                # add the arguments to the list
-                allArgs.append((self.fname,recipe,self.params["small"],self.params.get('noPsf', False),self.params['progID'], self.params['subDir']))
-                #simulate(self.fname, recipe, small=self.params['small'],
-                #         skip_psf=self.params.get('noPsf', False), progID = self.params['progID'], subDir = self.params['subDir'])
-
+       
         # calculate the observation date for the next observation, for
         # stringing a sequence of templates together
         
@@ -448,3 +469,14 @@ class setupSimulations():
         self.flatParms = flatParms
 
 
+    def extractOffset(self,offsetVals,k):
+
+        """extract a single offset from the offset dictionary, and return a sub-dictionary"""
+
+        offsets = {}
+
+        for key in offsetVals:
+            offsets[key] = offsetVals[key][k]
+            
+        return offsets
+    
