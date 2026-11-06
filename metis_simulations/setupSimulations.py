@@ -413,7 +413,7 @@ class setupSimulations():
 
                     # set WCU to None if this isn't WCU data
                     # add the arguments to the list
-                    allArgs.append((self.fname,recipe,self.params["small"],self.params.get('noPsf', False),self.params['progID'], self.params['subDir'],offsets))
+                    allArgs.append((self.fname,copy.deepcopy(recipe),self.params["small"],self.params.get('noPsf', False),self.params['progID'], self.params['subDir'],offsets))
                     #simulate(self.fname, recipe, small=self.params['small'],
                     #         skip_psf=self.params.get('noPsf', False), progID = self.params['progID'], subDir = self.params['subDir'])
 
