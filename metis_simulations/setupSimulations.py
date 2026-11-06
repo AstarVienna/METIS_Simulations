@@ -316,7 +316,6 @@ class setupSimulations():
                     continue
 
                 recipe["wcu"] = None
-                recipe["offsets"] = None
                 recipe["properties"]["tplstart"] = tplStart
                 recipe["properties"]["dit"] = elem[0]
                 recipe["properties"]["ndit"] = elem[1]
