@@ -389,10 +389,12 @@ class setupSimulations():
                 offsetVals = PATTERNDICT["none"]
                 
             else:
-                offsetVals = PATTERNDICT[recipe["offsets"]["name"]]
-                
-                for key in offsetVals:
-                    offsetVals[key] = offsetVals[key] * recipe["offsets"]["nRep"]
+                pattern = PATTERNDICT[recipe["offsets"]["name"]]
+                nRep = recipe["offsets"]["nRep"]
+
+                offsetVals = {}
+                for key, vals in pattern.items():
+                    offsetVals[key] = vals * nRep
 
             # offsets logic
             
