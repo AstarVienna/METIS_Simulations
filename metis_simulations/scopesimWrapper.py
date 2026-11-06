@@ -193,12 +193,14 @@ def simulate(fname, rcp, small=False, skip_psf=False, progID = None, subDir = No
 
     # now observe and readout
 
-    if(offsets is not None):
+    if (offsets is None):
+        offsets = {"throw": 0, "posang": 0, "offset1": 0, "offset2": 0}
+
+    else:
         xshift = np.cos(offsets["posang"] * np.pi / 180) * offsets["throw"] + offsets["offset1"]
         yshift = np.sin(offsets["posang"] * np.pi / 180) * offsets["throw"] + offsets["offset2"]
-        
+        src.shift(xshift,yshift)
 
-    src.shift(xshift,yshift)
     metis.observe(src)
     hdus = metis.readout(dit=props['dit'],ndit=props['ndit'])
 
