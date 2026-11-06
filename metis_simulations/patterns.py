@@ -25,7 +25,7 @@ PATTERNDICT['none']['offset2'] = [0]
 
 # a simple jitter pattern
 PATTERNDICT['simpleJitter1'] = {}
-PATTERNDICT['simpleJitter1']['throw'] = [0, 0.2, -0.5, 0.2, 0.5]
+PATTERNDICT['simpleJitter1']['throw'] = [0, 0.2, 0.5, 0.2, 0.5]
 PATTERNDICT['simpleJitter1']['posang'] = [0, 30, 20, -20, 0]
 PATTERNDICT['simpleJitter1']['offset1'] = [0, 0, 0, 0, 0]
 PATTERNDICT['simpleJitter1']['offset2'] = [0, 0, 0, 0, 0]
