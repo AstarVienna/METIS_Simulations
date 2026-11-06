@@ -1,4 +1,4 @@
- LM_IMAGE_SCI_RAW:
+LM_IMAGE_SCI_RAW:
   do.catg: LM_IMAGE_SCI_RAW
   mode: "img_lm"
   source:
