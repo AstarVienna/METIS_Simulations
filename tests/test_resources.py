@@ -64,3 +64,26 @@ def test_runner_rejects_unknown_block():
     with pytest.raises(SystemExit) as error:
         main(["ESO/not-a-block"])
     assert error.value.code == 2
+
+
+def test_block_keeps_optional_defaults_and_explicit_parameters(monkeypatch):
+    import metis_simulations
+
+    setup = Mock()
+    simulation = setup.setupSimulations.return_value
+    simulation.parseCommandLine.return_value = {
+        "progID": None, "nCores": None, "testRun": True, "writeYaml": True,
+    }
+    monkeypatch.setattr(metis_simulations, "setupSimulations", setup, raising=False)
+    monkeypatch.setattr(metis_simulations, "makeCalibPrototypes", Mock(), raising=False)
+    # Load the real wrapper without importing ScopeSim's network-dependent setup.
+    with as_file(files("metis_simulations").joinpath("runSimulationBlock.py")) as path:
+        spec = spec_from_file_location("metis_simulations._block_defaults_test", path)
+        module = module_from_spec(spec)
+        spec.loader.exec_module(module)
+        params = {"nCores": "2"}
+        module.runSimulationBlock(["science.yaml"], params, [])
+
+    assert simulation.params["progID"] is None
+    assert simulation.params["nCores"] == 2
+    simulation.runSimulations.assert_not_called()
