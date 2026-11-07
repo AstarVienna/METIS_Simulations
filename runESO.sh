@@ -7,11 +7,11 @@ set -Eeuo pipefail # Exit on error, undefined vars, and pipe failures
 # Get the absolute path to the directory containing this script
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 # Define the directory where all simulation block Python scripts are located
-BLOCK_DIR="${SCRIPT_DIR}/simulationBlocks"
+BLOCK_DIR="${SCRIPT_DIR}/metis_simulations/simulationBlocks/ESO"
 
 # Set default environment variables for simulation configuration
 # Users can override these by exporting them before running this script
-export MSIM_YAML_DIR="${MSIM_YAML_DIR:-YAML/ESO}" # YAML configuration directory
+export MSIM_YAML_DIR="${MSIM_YAML_DIR:-${SCRIPT_DIR}/metis_simulations/YAML/ESO}" # YAML configuration directory
 export MSIM_NCORES="${MSIM_NCORES:-4}" # Number of CPU cores to use
 export DEFAULT_IRDB_LOCATION="${DEFAULT_IRDB_LOCATION:-inst_pkgs}" # IRDB instrument data location
 export MSIM_OUTDIR="${MSIM_OUTDIR:-output}" # Output directory for simulation results
