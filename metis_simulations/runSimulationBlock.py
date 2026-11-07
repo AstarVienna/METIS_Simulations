@@ -22,7 +22,8 @@ def runSimulationBlock(yamlFiles, params, args):
 
         # override parameters with input
         for elem in extraParams:
-            if(extraParams[elem] is not None):
+            # Keep optional defaults even when the block did not define them.
+            if extraParams[elem] is not None or elem not in simulationSet.params:
                 simulationSet.params[elem] = extraParams[elem]
 
         simulationSet.params['nCores'] = int(simulationSet.params['nCores'])
