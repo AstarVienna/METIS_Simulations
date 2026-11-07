@@ -28,13 +28,19 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install .
+          pip install . pytest
           git clone https://github.com/AstarVienna/irdb.git
+      - name: Test installed package outside the checkout
+        run: |
+          package_test_dir=$(mktemp -d "${RUNNER_TEMP}/metis-simulations-tests.XXXXXX")
+          cp tests/test_resources.py "$package_test_dir/"
+          cd "$package_test_dir"
+          python -m pytest -q test_resources.py
       - name: Run recipes
         run: |
-          export MSIM_YAML_DIR="YAML/Tests"
+          export MSIM_YAML_DIR="metis_simulations/YAML/Tests"
           export MSIM_NCORES=1
           export DEFAULT_IRDB_LOCATION="irdb"
           export MSIM_OUTDIR="."
   
-          python simulationBlocks/Tests/ci.py --small -k Test
+          python metis_simulations/simulationBlocks/Tests/ci.py --small -k Test

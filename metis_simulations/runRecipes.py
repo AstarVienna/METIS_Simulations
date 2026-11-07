@@ -79,7 +79,7 @@ class runRecipes():
         if args.inputYAML:
             params['inputYAML'] = args.inputYAML
         else:
-            params['inputYAML'] = Path(__file__).parents[1] / "YAML/allRecipes.yaml/"
+            params['inputYAML'] = Path(__file__).parent / "YAML/allRecipes.yaml"
 
         if args.outputDir:
             params['outputDir'] = args.outputDir

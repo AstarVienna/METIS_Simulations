@@ -45,16 +45,45 @@ a post-release number and commit hash. Builds from a Git checkout require the
 release tags and history; for a shallow clone, run `git fetch --unshallow --tags`
 before installing. Source distributions retain the version for builds without Git.
 
+The wheel and source distribution include the YAML inputs and simulation blocks
+inside `metis_simulations/YAML` and `metis_simulations/simulationBlocks`. An
+installed package can run a block from any working directory, without a clone:
+
+```bash
+export DEFAULT_IRDB_LOCATION="/path/to/inst_pkgs"
+metis-simulate ESO/imgLM --small
+# Equivalent invocation:
+python -m metis_simulations ESO/imgLM --small
+```
+
+`metis-simulate --help` lists the bundled blocks. Options after the block name
+are passed to that block. By default, the runner uses the bundled YAML files for
+the selected block's group, one worker, and an `output` directory in the current
+working directory. `MSIM_YAML_DIR`, `MSIM_NCORES`, and `MSIM_OUTDIR` override these
+defaults. For example, `metis-simulate ESO/imgLM --small --nCores 2` requests two
+workers. IRDB instrument packages and externally downloaded spectra/PSFs are
+still required; they are not included in the Python distribution.
+
+Python callers can locate the bundled inputs with `importlib.resources`:
+
+```python
+from importlib.resources import files
+
+science_yaml = files("metis_simulations").joinpath("YAML/ESO/scienceLM.yaml")
+```
+
 Next, you need to define a couple of system variables, and make sure
 that you have the METIS related data from the IRDB.  The system variables
 can be set in e.g. your .bash_profile
 
-There are four system variables used by the code.  MSIM_YAML_DIR
+The following variables configure the simulations. With the packaged runner,
+only `DEFAULT_IRDB_LOCATION` needs to be set; the others have defaults as described
+above. When invoking block files directly, set all four variables. MSIM_YAML_DIR
 points to the location of the YAML template files. To use the default provided
 files, set (e.g. in bash, if you have METIS_Simulations in the home directory
 
 ```
-export MSIM_YAML_DIR="/home/me/METIS_Simulations/YAML/AIT_Tests"
+export MSIM_YAML_DIR="/home/me/METIS_Simulations/metis_simulations/YAML/AIT_Tests"
 ```
 
 MSIM_NCORES set the default number of cores to be used to run the code; set it to at least one less than your maximum number, e.g.
@@ -94,19 +123,19 @@ Input templates can be provided in two formats:
 - **YAML files** — one or more observing blocks per file (see [YAML templates](#yaml-templates))
 - **CSV files** — AIT Performance Test Sequence format, where each row defines an observing block step (see [CSV input](#csv-input))
 
-A set of YAML files (at least one per recipe) are provided in the directory YAML,
+A set of YAML files (at least one per recipe) are provided in `metis_simulations/YAML`,
 a set of simulation blocks (at least one for each instrument workflow) are
-provided in simulationBlocks. 
+provided in `metis_simulations/simulationBlocks`.
 
 To reproduce an ESO delivery set, run the provided script 
 
 ```
 ./esoRelease10.sh
 ```
-after updating the `MSIM_YAML_DIR` to point at the `./YAML/ESO` folder, and changing the working directory to `METIS_Simulations`
+after updating the `MSIM_YAML_DIR` to point at the `./metis_simulations/YAML/ESO` folder, and changing the working directory to `METIS_Simulations`
 
 ```
-export MSIM_YAML_DIR="/home/me/METIS_Simulations/YAML/ESO"
+export MSIM_YAML_DIR="/home/me/METIS_Simulations/metis_simulations/YAML/ESO"
 
 ```
 
@@ -116,10 +145,20 @@ release of the pipeline software. You can also run any of the commands
 separately, e.g.
 
 ```
-./simulationBlocks/ESO/imgLM.py -k ESO10
+./metis_simulations/simulationBlocks/ESO/imgLM.py -k ESO10
 ```
 
 will run a set of data for the LM imager, with PROG ID set to ESO10.
+
+## Package checks
+
+The resource and runner tests do not require IRDB data or network access:
+
+```bash
+python -m pip install pytest build
+python -m pytest tests
+python -m build
+```
 
 # YAML templates
 
