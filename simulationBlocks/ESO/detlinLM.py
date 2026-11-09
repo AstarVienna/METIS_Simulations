@@ -11,6 +11,8 @@ yamlDir = os.environ['MSIM_YAML_DIR']
 nCores = os.environ['MSIM_NCORES']
 outputDir = os.environ['MSIM_OUTDIR']
 
+dirStruct = ["ESO","Calib","detlinLM","Set1"]
+
 if __name__ == '__main__':    
 
         params = {}
