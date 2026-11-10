@@ -39,6 +39,12 @@ cd METIS_Simulations
 pip install .
 ```
 
+Package versions are derived from Git release tags (`vYYYY.MM.DD` or
+`vYYYYMMDD`). A tagged commit uses the tag's version; subsequent commits add
+a post-release number and commit hash. Builds from a Git checkout require the
+release tags and history; for a shallow clone, run `git fetch --unshallow --tags`
+before installing. Source distributions retain the version for builds without Git.
+
 Next, you need to define a couple of system variables, and make sure
 that you have the METIS related data from the IRDB.  The system variables
 can be set in e.g. your .bash_profile

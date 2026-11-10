@@ -1,6 +1,6 @@
 [project]
 name = "metis_simulations"
-version = "0.1.0a"
+dynamic = ["version"]
 description = "METIS Simulations for ESO"
 license = "GPL-3.0-or-later"
 authors = [
@@ -20,6 +20,8 @@ dependencies = [
     "scopesim_templates",
 ]
 [tool.poetry]
+# Placeholder required by Poetry; replaced from Git tags during builds.
+version = "0.0.0"
 packages = [{include = "metis_simulations"}]
 classifiers = [
     "Intended Audience :: Science/Research",
@@ -27,7 +29,18 @@ classifiers = [
     "Topic :: Scientific/Engineering :: Astronomy",
 ]
 
+[tool.poetry.requires-plugins]
+poetry-dynamic-versioning = {version = ">=1.0.0,<2.0.0", extras = ["plugin"]}
+
+[tool.poetry-dynamic-versioning]
+enable = true
+vcs = "git"
+style = "pep440"
+# Support both vYYYY.MM.DD and vYYYYMMDD release tags.
+pattern = '^v(?P<base>\d+(?:\.\d+)*)$'
+strict = true
+
 
 [build-system]
-requires = ["poetry-core>=2.0.0,<3.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core>=2.0.0,<3.0.0", "poetry-dynamic-versioning>=1.0.0,<2.0.0"]
+build-backend = "poetry_dynamic_versioning.backend"
