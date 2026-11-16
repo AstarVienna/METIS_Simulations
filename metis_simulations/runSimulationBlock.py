@@ -25,6 +25,9 @@ def runSimulationBlock(yamlFiles, params, args):
             if(extraParams[elem] is not None):
                 simulationSet.params[elem] = extraParams[elem]
 
+        if simulationSet.params.get('progID') is None:
+            simulationSet.params['progID'] = 'SIMULATION'
+
         simulationSet.params['nCores'] = int(simulationSet.params['nCores'])
 
         # load the YAML file
