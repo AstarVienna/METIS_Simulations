@@ -150,27 +150,37 @@ jobs:
       - name: Consolidate simulation results
         run: |
           echo "Consolidating simulation blocks..."
-          mkdir -p output
-          for dir in artifacts/output-*/; do
-            if [ -d "$dir" ]; then
-              echo "Merging $dir"
-              cp -r "$dir"* output/ 2>/dev/null || true
+          # Flatten the published paths; FITS DIR ID headers retain their original values.
+          for mapping in \
+            "calib ESO/Calib/Various/Set1 Calib" \
+            "hciAppLm ESO/Inst/hciAppLM/Set1 hciAppLM" \
+            "hciRavcIfu ESO/Inst/hciRavcIfu/Set1 hciRavcIfu" \
+            "hciRavcLM ESO/Inst/hciRavcLM/Set1 hciRavcLM" \
+            "ifu ESO/Inst/IFU/galaxy_01 ifu" \
+            "imgLM ESO/Inst/imgLM/starfield_01 imgLM" \
+            "imgN ESO/Inst/imgN/starfield_01 imgN" \
+            "lssLM ESO/Inst/lssLM/galaxy_01 lssLM" \
+            "lssN ESO/Inst/lssN/galaxy_01 lssN"; do
+            read -r block source destination <<< "$mapping"
+            source="artifacts/output-$block/$source"
+            if [ ! -d "$source" ] || [ -z "$(ls -A "$source")" ]; then
+              echo "Missing or empty simulation output: $source" >&2
+              exit 1
             fi
+            mkdir -p "output/$destination"
+            cp -a "$source/." "output/$destination/"
           done
-          echo "Checking for output data..."
-          if [ -d output ] && [ "$(ls -A output)" ]; then
-            echo "Output directory populated with $(find output -type d | wc -l) directories"
-            ls -la output/ | head -20
-          else
-            echo "Warning: output directory is empty"
-            exit 1
-          fi
+          ls -la output/
 
       - name: Move data to /data
         run: |
           cd "$GITHUB_WORKSPACE/"
           TODAY=$(date +%Y-%m-%d)
           echo "Today's date: $TODAY"
+          if [ -e "/data/$TODAY/ESO" ] || [ -L "/data/$TODAY/ESO" ]; then
+            echo "Existing /data/$TODAY/ESO would leave a mixed layout; move it before retrying." >&2
+            exit 1
+          fi
           mkdir -p /data/$TODAY
           cp -a output/. /data/$TODAY/
           cd /data
