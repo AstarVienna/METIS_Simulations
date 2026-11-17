@@ -7,7 +7,7 @@ set -Eeuo pipefail # Exit on error, undefined vars, and pipe failures
 # Get the absolute path to the directory containing this script
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 # Define the directory where all simulation block Python scripts are located
-BLOCK_DIR="${SCRIPT_DIR}/simulationBlocks"
+BLOCK_DIR="${SCRIPT_DIR}/simulationBlocks/ESO"
 
 # Set default environment variables for simulation configuration
 # Users can override these by exporting them before running this script
@@ -28,6 +28,10 @@ DEFAULT_BLOCKS=(
 	hciAppLm    # High-contrast imaging with app - L band
 	hciRavcIfu  # High-contrast imaging with RAVC - IFU
 	detlin  # High-contrast imaging with RAVC - IFU
+	external # external calibrations
+	darks # external calibrations
+	flatsLamp # lamp flats
+	flatsTwilight # twilight flats
 )
 
 # Initialize variables for command-line options
