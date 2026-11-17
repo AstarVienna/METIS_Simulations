@@ -28,6 +28,10 @@ DEFAULT_BLOCKS=(
 	hciAppLm    # High-contrast imaging with app - L band
 	hciRavcIfu  # High-contrast imaging with RAVC - IFU
 	detlin  # High-contrast imaging with RAVC - IFU
+	external # external calibrations
+	darks # external calibrations
+	flatsLamp # lamp flats
+	flatsTwilight # twilight flats
 )
 
 # Initialize variables for command-line options
