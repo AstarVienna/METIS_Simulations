@@ -31,8 +31,7 @@ jobs:
           SHOULD_BUILD=1
           BUILD_REASON="No previous build found"
           TARGET=""
-          REQUIRED_DIRS="Calib hciAppLM hciRavcIfu hciRavcLM ifu imgLM imgN lssLM lssN"
-          REQUIRED_BLOCKS="imgLM imgN lssLM lssN ifu calib hciRavcLM hciAppLm hciRavcIfu detlin external darks flatsLamp flatsTwilight"
+          REQUIRED_DIRS="Calib hciAppLM hciRavcIfu hciRavcLM ifu imgLM imgN lssLM lssN detlin External Darks flatsLamp flatsTwilight"
 
           if [ -L /data/LatestBuild ] || [ -d /data/LatestBuild ]; then
             TARGET=$(readlink -f /data/LatestBuild || true)
@@ -43,14 +42,8 @@ jobs:
             if [ -d "$TARGET" ]; then
               MISSING=0
               for d in $REQUIRED_DIRS; do
-                if [ ! -d "$TARGET/$d" ]; then
-                  echo "Missing required directory: $TARGET/$d"
-                  MISSING=1
-                fi
-              done
-              for block in $REQUIRED_BLOCKS; do
-                if [ ! -f "$TARGET/.completed-blocks/$block" ]; then
-                  echo "Missing completion marker: $TARGET/.completed-blocks/$block"
+                if [ ! -d "$TARGET/$d" ] || [ -z "$(find "$TARGET/$d" -mindepth 1 -print -quit 2>/dev/null)" ]; then
+                  echo "Missing or empty required output directory: $TARGET/$d"
                   MISSING=1
                 fi
               done
@@ -194,8 +187,6 @@ jobs:
               fi
             done
             cp -a "$source/." "output/$destination/"
-            mkdir -p output/.completed-blocks
-            touch "output/.completed-blocks/$block"
           done
           ls -la output/
 
