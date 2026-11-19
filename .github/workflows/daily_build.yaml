@@ -2,6 +2,11 @@ name: Run daily build recipes automatically or manually
 
 on:
   workflow_dispatch:  # Manual trigger
+    inputs:
+      force:
+        description: Force rebuild
+        type: boolean
+        default: false
   schedule:
     - cron: '0 0 * * *'  # Run on 0:00 UTC 
 
@@ -17,6 +22,8 @@ jobs:
 
       - name: Check LatestBuild freshness and completeness
         id: build_check
+        env:
+          FORCE_BUILD: ${{ inputs.force }}
         run: |
           SHOULD_BUILD=1
           BUILD_REASON="No previous build found"
@@ -56,6 +63,11 @@ jobs:
             else
               BUILD_REASON="LatestBuild link target is missing"
             fi
+          fi
+
+          if [ "$FORCE_BUILD" = "true" ]; then
+            SHOULD_BUILD=1
+            BUILD_REASON="Manual force rebuild"
           fi
 
           echo "should_build=$SHOULD_BUILD" >> $GITHUB_OUTPUT
