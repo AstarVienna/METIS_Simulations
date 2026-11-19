@@ -70,7 +70,9 @@ jobs:
     strategy:
       matrix:
         # Define all simulation blocks to run in parallel
-        block: [imgLM, imgN, lssLM, lssN, ifu, calib, hciRavcLM, hciAppLm, hciRavcIfu]
+        block: [imgLM, imgN, lssLM, lssN, ifu, calib, 
+                hciRavcLM, hciAppLm, hciRavcIfu, detlin, 
+                external, darks, flatsLamp, flatsTwilight]
       # Continue running other blocks even if one fails, for better debugging
       fail-fast: false
     steps:
@@ -127,7 +129,7 @@ jobs:
 
       - name: Upload simulation output
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: output-${{ matrix.block }}
           path: output/
@@ -142,7 +144,7 @@ jobs:
       - uses: actions/checkout@v6
 
       - name: Download all simulation outputs
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v6
         with:
           path: artifacts/
           pattern: output-*
