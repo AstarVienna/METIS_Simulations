@@ -172,11 +172,11 @@ jobs:
             "imgN ESO/Inst/imgN/starfield_01 imgN" \
             "lssLM ESO/Inst/lssLM/galaxy_01 lssLM" \
             "lssN ESO/Inst/lssN/galaxy_01 lssN" \
-            "detlin ESO/Calib/detlin/Set1 Calib" \
-            "external ESO/Calib/External Calib" \
-            "darks ESO/Calib/Darks/Set1 Calib" \
-            "flatsLamp ESO/Calib/Flats/Lamp/Set1 Calib" \
-            "flatsTwilight ESO/Calib/Flats/Twilight/Set1 Calib"; do
+            "detlin ESO/Calib/detlin/Set1 detlin" \
+            "external ESO/Calib/External External" \
+            "darks ESO/Calib/Darks/Set1 Darks" \
+            "flatsLamp ESO/Calib/Flats/Lamp/Set1 flatsLamp" \
+            "flatsTwilight ESO/Calib/Flats/Twilight/Set1 flatsTwilight"; do
             read -r block source destination <<< "$mapping"
             source="$STAGING_ROOT/$block/$source"
             if [ ! -d "$source" ] || [ -z "$(ls -A "$source")" ]; then
