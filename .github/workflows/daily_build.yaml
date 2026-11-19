@@ -156,7 +156,7 @@ jobs:
       - uses: actions/checkout@v6
 
       - name: Download all simulation outputs
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v7
         with:
           path: artifacts/
           pattern: output-*
