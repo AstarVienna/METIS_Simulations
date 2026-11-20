@@ -31,7 +31,7 @@ jobs:
           SHOULD_BUILD=1
           BUILD_REASON="No previous build found"
           TARGET=""
-          REQUIRED_DIRS="Calib hciAppLM hciRavcIfu hciRavcLM ifu imgLM imgN lssLM lssN detlin External Darks flatsLamp flatsTwilight"
+          REQUIRED_DIRS="imgLM imgN lssLM lssN ifu calib hciRavcLM hciAppLm hciRavcIfu detlin external darks flatsLamp flatsTwilight"
 
           if [ -L /data/LatestBuild ] || [ -d /data/LatestBuild ]; then
             TARGET=$(readlink -f /data/LatestBuild || true)
@@ -143,56 +143,24 @@ jobs:
           # Run only the specific block assigned to this matrix job
           ./runESO.sh --only ${{ matrix.block }}
 
-  # Finalize job: aggregate results and move data after all blocks complete
+  # Finalize job: publish the staged outputs under today's date and update LatestBuild
   finalize:
     needs: [setup, simulate]
     if: needs.setup.outputs.should_build == '1' && !failure()
     runs-on: [self-hosted, Linux, simulation, zeus]
     steps:
-      - uses: actions/checkout@v6
-
-      - name: Consolidate simulation results
+      - name: Publish dated build and update LatestBuild
         run: |
-          echo "Consolidating simulation blocks..."
-          # Flatten the published paths; FITS DIR ID headers retain their original values.
-          for mapping in \
-            "calib ESO/Calib/Various/Set1 Calib" \
-            "hciAppLm ESO/Inst/hciAppLM/Set1 hciAppLM" \
-            "hciRavcIfu ESO/Inst/hciRavcIfu/Set1 hciRavcIfu" \
-            "hciRavcLM ESO/Inst/hciRavcLM/Set1 hciRavcLM" \
-            "ifu ESO/Inst/IFU/galaxy_01 ifu" \
-            "imgLM ESO/Inst/imgLM/starfield_01 imgLM" \
-            "imgN ESO/Inst/imgN/starfield_01 imgN" \
-            "lssLM ESO/Inst/lssLM/galaxy_01 lssLM" \
-            "lssN ESO/Inst/lssN/galaxy_01 lssN" \
-            "detlin ESO/Calib/detlin/Set1 detlin" \
-            "external ESO/Calib/External External" \
-            "darks ESO/Calib/Darks/Set1 Darks" \
-            "flatsLamp ESO/Calib/Flats/Lamp/Set1 flatsLamp" \
-            "flatsTwilight ESO/Calib/Flats/Twilight/Set1 flatsTwilight"; do
-            read -r block source destination <<< "$mapping"
-            source="$STAGING_ROOT/$block/$source"
-            if [ ! -d "$source" ] || [ -z "$(ls -A "$source")" ]; then
-              echo "Missing or empty simulation output: $source" >&2
-              exit 1
-            fi
-            mkdir -p "output/$destination"
-            find "$source" -mindepth 1 -print0 | while IFS= read -r -d '' entry; do
-              relative="${entry#"$source"/}"
-              target="output/$destination/$relative"
-              if { [ -e "$target" ] || [ -L "$target" ]; } &&
-                 { [ ! -d "$entry" ] || [ -L "$entry" ] || [ ! -d "$target" ] || [ -L "$target" ]; }; then
-                echo "Conflicting simulation output: $target" >&2
-                exit 1
-              fi
-            done
-            cp -a "$source/." "output/$destination/"
-          done
-          ls -la output/
+          if [[ ! "$GITHUB_RUN_ID" =~ ^[0-9]+$ || ! "$GITHUB_RUN_ATTEMPT" =~ ^[0-9]+$ ]] ||
+             [ "$STAGING_ROOT" != "/data/.daily-build-staging/$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT" ]; then
+            echo "Invalid staging directory: $STAGING_ROOT" >&2
+            exit 1
+          fi
+          if [ ! -d "$STAGING_ROOT" ] || [ -z "$(ls -A "$STAGING_ROOT")" ]; then
+            echo "Missing or empty simulation staging directory: $STAGING_ROOT" >&2
+            exit 1
+          fi
 
-      - name: Move data to /data
-        run: |
-          cd "$GITHUB_WORKSPACE/"
           TODAY=$(date +%Y-%m-%d)
           echo "Today's date: $TODAY"
           if [ -e "/data/$TODAY" ] || [ -L "/data/$TODAY" ]; then
@@ -200,19 +168,11 @@ jobs:
             exit 1
           fi
           mkdir "/data/$TODAY"
-          cp -a output/. /data/$TODAY/
+          cp -a "$STAGING_ROOT/." "/data/$TODAY/"
           cd /data
           chcon -R -t container_file_t -l s0 $TODAY
           ln -sfn $TODAY LatestBuild
           ls -la /data/$TODAY
-
-      - name: Remove successful build staging data
-        run: |
-          if [[ ! "$GITHUB_RUN_ID" =~ ^[0-9]+$ || ! "$GITHUB_RUN_ATTEMPT" =~ ^[0-9]+$ ]] ||
-             [ "$STAGING_ROOT" != "/data/.daily-build-staging/$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT" ]; then
-            echo "Invalid staging directory: $STAGING_ROOT" >&2
-            exit 1
-          fi
           rm -r -- "$STAGING_ROOT"
 
   # Fallback job: skip message when build is not needed
