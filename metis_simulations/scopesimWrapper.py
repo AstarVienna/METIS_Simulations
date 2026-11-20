@@ -257,7 +257,7 @@ def updateHeaders(hdul, mjd, progID, dirID, offsets):
 
     # chop/jitter and nod
 
-    hdul[0].header['HIERARCH ESO SEQ CFO CHOP THROW'] = offsets["throw"]
+    hdul[0].header['HIERARCH ESO SEQ CFO CHOP THROW'] = float(offsets["throw"])
     hdul[0].header['HIERARCH ESO SEQ CFO CHOP POSANG'] = offsets["posang"]
     hdul[0].header['HIERARCH ESO SEQ OFFSET1'] = offsets["offset1"]
     hdul[0].header['HIERARCH ESO SEQ OFFSET2'] = offsets["offset2"]
