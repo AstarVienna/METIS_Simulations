@@ -2,8 +2,16 @@ name: Run daily build recipes automatically or manually
 
 on:
   workflow_dispatch:  # Manual trigger
+    inputs:
+      force:
+        description: Force rebuild
+        type: boolean
+        default: false
   schedule:
     - cron: '0 0 * * *'  # Run on 0:00 UTC 
+
+env:
+  STAGING_ROOT: /data/.daily-build-staging/${{ github.run_id }}-${{ github.run_attempt }}
 
 jobs:
   # Setup job: check if build is needed and prepare environment
@@ -17,11 +25,13 @@ jobs:
 
       - name: Check LatestBuild freshness and completeness
         id: build_check
+        env:
+          FORCE_BUILD: ${{ inputs.force }}
         run: |
           SHOULD_BUILD=1
           BUILD_REASON="No previous build found"
           TARGET=""
-          REQUIRED_DIRS="Calib hciAppLM hciRavcIfu hciRavcLM ifu imgLM imgN lssLM lssN"
+          REQUIRED_DIRS="imgLM imgN lssLM lssN ifu calib hciRavcLM hciAppLm hciRavcIfu detlin external darks flatsLamp flatsTwilight"
 
           if [ -L /data/LatestBuild ] || [ -d /data/LatestBuild ]; then
             TARGET=$(readlink -f /data/LatestBuild || true)
@@ -32,8 +42,8 @@ jobs:
             if [ -d "$TARGET" ]; then
               MISSING=0
               for d in $REQUIRED_DIRS; do
-                if [ ! -d "$TARGET/$d" ]; then
-                  echo "Missing required directory: $TARGET/$d"
+                if [ ! -d "$TARGET/$d" ] || [ -z "$(find "$TARGET/$d" -mindepth 1 -print -quit 2>/dev/null)" ]; then
+                  echo "Missing or empty required output directory: $TARGET/$d"
                   MISSING=1
                 fi
               done
@@ -58,6 +68,11 @@ jobs:
             fi
           fi
 
+          if [ "$FORCE_BUILD" = "true" ]; then
+            SHOULD_BUILD=1
+            BUILD_REASON="Manual force rebuild"
+          fi
+
           echo "should_build=$SHOULD_BUILD" >> $GITHUB_OUTPUT
           echo "build_reason=$BUILD_REASON" >> $GITHUB_OUTPUT
           echo "Decision: SHOULD_BUILD=$SHOULD_BUILD ($BUILD_REASON)"
@@ -70,7 +85,9 @@ jobs:
     strategy:
       matrix:
         # Define all simulation blocks to run in parallel
-        block: [imgLM, imgN, lssLM, lssN, ifu, calib, hciRavcLM, hciAppLm, hciRavcIfu]
+        block: [imgLM, imgN, lssLM, lssN, ifu, calib, 
+                hciRavcLM, hciAppLm, hciRavcIfu, detlin, 
+                external, darks, flatsLamp, flatsTwilight]
       # Continue running other blocks even if one fails, for better debugging
       fail-fast: false
     steps:
@@ -120,73 +137,43 @@ jobs:
           export MSIM_YAML_DIR="YAML/ESO"
           export MSIM_NCORES=4
           export DEFAULT_IRDB_LOCATION="inst_pkgs"
-          export MSIM_OUTDIR="output"
+          export MSIM_OUTDIR="$STAGING_ROOT/${{ matrix.block }}"
+          mkdir -p "$MSIM_OUTDIR"
 
           # Run only the specific block assigned to this matrix job
           ./runESO.sh --only ${{ matrix.block }}
 
-      - name: Upload simulation output
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: output-${{ matrix.block }}
-          path: output/
-          retention-days: 1
-
-  # Finalize job: aggregate results and move data after all blocks complete
+  # Finalize job: publish the staged outputs under today's date and update LatestBuild
   finalize:
     needs: [setup, simulate]
     if: needs.setup.outputs.should_build == '1' && !failure()
     runs-on: [self-hosted, Linux, simulation, zeus]
     steps:
-      - uses: actions/checkout@v6
-
-      - name: Download all simulation outputs
-        uses: actions/download-artifact@v4
-        with:
-          path: artifacts/
-          pattern: output-*
-
-      - name: Consolidate simulation results
+      - name: Publish dated build and update LatestBuild
         run: |
-          echo "Consolidating simulation blocks..."
-          # Flatten the published paths; FITS DIR ID headers retain their original values.
-          for mapping in \
-            "calib ESO/Calib/Various/Set1 Calib" \
-            "hciAppLm ESO/Inst/hciAppLM/Set1 hciAppLM" \
-            "hciRavcIfu ESO/Inst/hciRavcIfu/Set1 hciRavcIfu" \
-            "hciRavcLM ESO/Inst/hciRavcLM/Set1 hciRavcLM" \
-            "ifu ESO/Inst/IFU/galaxy_01 ifu" \
-            "imgLM ESO/Inst/imgLM/starfield_01 imgLM" \
-            "imgN ESO/Inst/imgN/starfield_01 imgN" \
-            "lssLM ESO/Inst/lssLM/galaxy_01 lssLM" \
-            "lssN ESO/Inst/lssN/galaxy_01 lssN"; do
-            read -r block source destination <<< "$mapping"
-            source="artifacts/output-$block/$source"
-            if [ ! -d "$source" ] || [ -z "$(ls -A "$source")" ]; then
-              echo "Missing or empty simulation output: $source" >&2
-              exit 1
-            fi
-            mkdir -p "output/$destination"
-            cp -a "$source/." "output/$destination/"
-          done
-          ls -la output/
-
-      - name: Move data to /data
-        run: |
-          cd "$GITHUB_WORKSPACE/"
-          TODAY=$(date +%Y-%m-%d)
-          echo "Today's date: $TODAY"
-          if [ -e "/data/$TODAY/ESO" ] || [ -L "/data/$TODAY/ESO" ]; then
-            echo "Existing /data/$TODAY/ESO would leave a mixed layout; move it before retrying." >&2
+          if [[ ! "$GITHUB_RUN_ID" =~ ^[0-9]+$ || ! "$GITHUB_RUN_ATTEMPT" =~ ^[0-9]+$ ]] ||
+             [ "$STAGING_ROOT" != "/data/.daily-build-staging/$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT" ]; then
+            echo "Invalid staging directory: $STAGING_ROOT" >&2
             exit 1
           fi
-          mkdir -p /data/$TODAY
-          cp -a output/. /data/$TODAY/
+          if [ ! -d "$STAGING_ROOT" ] || [ -z "$(ls -A "$STAGING_ROOT")" ]; then
+            echo "Missing or empty simulation staging directory: $STAGING_ROOT" >&2
+            exit 1
+          fi
+
+          TODAY=$(date +%Y-%m-%d)
+          echo "Today's date: $TODAY"
+          if [ -e "/data/$TODAY" ] || [ -L "/data/$TODAY" ]; then
+            echo "Existing /data/$TODAY would risk overwriting data; move it before retrying." >&2
+            exit 1
+          fi
+          mkdir "/data/$TODAY"
+          cp -a "$STAGING_ROOT/." "/data/$TODAY/"
           cd /data
           chcon -R -t container_file_t -l s0 $TODAY
           ln -sfn $TODAY LatestBuild
           ls -la /data/$TODAY
+          rm -r -- "$STAGING_ROOT"
 
   # Fallback job: skip message when build is not needed
   skip-build:
