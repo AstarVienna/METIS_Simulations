@@ -54,6 +54,8 @@ class setupSimulations():
         
         with resources.open_text('metis_simulations', 'templates.yaml') as file:
             self.templates =  yaml.safe_load(file)
+        with resources.open_text('metis_simulations', 'checks.yaml') as file:
+            self.checks =  yaml.safe_load(file)
 
 
     def parseCommandLine(self,args):
@@ -138,6 +140,146 @@ class setupSimulations():
             self.allrcps = loadCSV(input_path, write_yaml=bool(self.params.get('writeYaml')))
         else:
             raise ValueError(f"Unsupported input format: {ext}. Use .yaml, .yml, or .csv")
+
+        isGood = self.checkInput("input_path")
+        if not isGood:
+            sys.exit("Error in YAML files, aborting")
+        
+    def checkInput(self,input_path):
+
+        """
+        Validate incoming yaml files.
+
+        Checks that required subsections and fields are present.
+        Checks for numerical values when necessary
+        Checks for valid input, either from a list or range of values.
+        Checks for floats/int for relevant parameters, casts to correct type if needed. 
+
+        Input: 
+            allrcps: dictionary of recipes loaded from YAML file
+            checks: dictionary of values for verification, loaded from YAML file
+            input_path: input YAML file path
+
+        Output:
+            dianostics messages
+            returns updated recipe dictionary and success flag
+
+        If new parameters need to be added, update the YAML file
+        """
+    
+        # is the input valid
+        isGood = True
+
+        # first check mode's existence and values
+        for key in self.allrcps:
+            if("mode" not in self.allrcps[key].keys()):
+                print(f"mode is missing in file {input_path}")
+                isGood = False
+            else:
+                if(self.allrcps[key]['mode'] not in self.checks['top']['mode']):
+                    print(f"{self.allrcps[key]['mode']} is invalid in file {input_path}")
+                    isGood = False
+            
+        if(not isGood):
+            print("Fix modes before continuing")
+            return isGood
+
+        # check for required top level sections
+        for key in self.allrcps:
+            for val in self.checks["top"]["vals"]:
+                if(val not in self.allrcps[key].keys()):
+                    print(f"{val} is missing in file {input_path}")
+                    isGood = False
+        if(not isGood):
+            print("Make sure all required sections are present")
+            return isGood
+           
+        # check for required parameters in each section
+        for key in self.allrcps:
+            for elem in self.checks['req']:
+                if(elem in self.allrcps[key].keys()):
+                    for val in self.checks['req'][elem]:
+                        if(val not in self.allrcps[key][elem].keys()):
+                            print(f"Missing key {elem} in {val} in file {input_path}")
+                            isGood = False
+                               
+        if(not isGood):
+            print("There are missing fields in one or more YAML files (see above), exiting")
+            return isGood
+
+        # check for numerical values when required
+
+        for key in self.allrcps:
+            for val in self.allrcps[key]:
+                for elem in self.allrcps[key][val]:
+                    if elem in self.checks["type"]["num"]:
+                        if(isinstance(self.allrcps[key][val][elem], (int, float, complex)) and not isinstance(self.allrcps[key][val][elem], bool)):
+                            pass
+                        else:
+                            print(f"Field {elem} is not numerical in {val} in {input_path}")
+                            isGood = False
+        if(not isGood):
+            print("There is non numerical input in one or more YAML files (see above), exiting")
+            return isGood
+
+        # cast int/float types as needed; the wrong type causes problems in FITS headers
+        # there are four cases; int, float, integer list and float list
+                     
+        for key in self.allrcps:
+            for elem in self.allrcps[key]:  
+                if(elem in ["mode","do.catg","source"] ):
+                    continue
+                for val in self.allrcps[key][elem]:
+                    if(val in self.checks["type"]['int']):
+                        if(not isinstance(self.allrcps[key][elem][val],int)):
+                            print(f"Casting {val} to int in {key} from {input_path}")
+                            self.allrcps[key][elem][val] = int(self.allrcps[key][elem][val])
+                    if(val in self.checks["type"]["float"]):
+                        if(not isinstance(self.allrcps[key][elem][val],float)):
+                            print(f"Casting {val} to float in {key} from {input_path}")
+                            self.allrcps[key][elem][val] = float(self.allrcps[key][elem][val])
+                    if(val in self.checks["type"]["floatList"]):
+                        for i in range(len(self.allrcps[key][elem][val])):
+                            if(not isinstance(self.allrcps[key][elem][val][i],float)):
+                                print(f"Casting {val} to float in {key} from {input_path}")
+                                self.allrcps[key][elem][val] = float(self.allrcps[key][elem][val])
+                    if(val in self.checks["type"]["intList"]):
+                        for i in range(len(self.allrcps[key][elem][val])):
+                            if(not isinstance(self.allrcps[key][elem][val][i],int)):
+                                print(f"Casting {val} to int in {key} from {input_path}")
+                                self.allrcps[key][elem][val][i] = float(self.allrcps[key][elem][val][i])
+
+        # now check for valid values, for discrete values from list
+        for key in self.allrcps:
+            for elem in self.allrcps[key]:  
+                if(elem in ["mode","do.catg","source"] ):
+                    continue
+                for val in self.allrcps[key][elem]:
+                    if(val in self.checks["vall"][elem]):
+                        if(self.allrcps[key][elem][val] not in self.checks["vall"][elem][val]):
+                            print(f"Invalid value of {self.allrcps[key][elem][val]} for {val} in {key} in {input_path}")
+                            isGood = False
+
+        # now check for valid values, for ranges
+        for key in self.allrcps:
+            for elem in self.allrcps[key]:  
+                if(elem in ["mode","do.catg","source"]):
+                    continue
+                for val in self.allrcps[key][elem]:
+                    if(val in self.checks["valr"][elem]):
+                        if(self.allrcps[key][elem][val] < self.checks["valr"][elem][val][0]):
+                            print(f"Invalid value of {self.allrcps[key][elem][val]} for {val} in {key} in {input_path}")
+                            isGood = False
+                        elif(self.allrcps[key][elem][val] > self.checks["valr"][elem][val][1]):
+                            print(f"Invalid value of {self.allrcps[key][elem][val]} for {val} in {key} in {input_path}")
+                            isGood = False
+
+        if(not isGood):
+            print("Invalid valid values in some YAMLs (see above)")
+            return isGood
+
+        return isGood
+    
 
     def loadYAML(self):
 

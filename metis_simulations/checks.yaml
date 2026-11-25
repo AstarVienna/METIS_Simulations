@@ -1,0 +1,228 @@
+acc:
+  properties:
+    img:
+    - dit
+    - ndit
+    - filter_name
+    - nd_filter_name
+    - catg
+    - tech
+    - type
+    - nObs
+    lms:
+    - dit
+    - ndit
+    - filter_name
+    - nd_filter_name
+    - catg
+    - tech
+    - type
+    - nObs
+    - wavelen
+    lss:
+    - dit
+    - ndit
+    - filter_name
+    - nd_filter_name
+    - catg
+    - tech
+    - type
+    - nObs
+    - detector_readout_mode
+    - adc
+    - slit
+  wcu:
+    all:
+    - current_lamp
+    - current_fpmask
+    - bb_aperture
+    - is_temp
+    - bb_temp
+    - wcu_temp
+    - xshift
+    - yshift
+req:
+  mode: []
+  offsets:
+  - name
+  - nRep
+  properties:
+  - dit
+  - ndit
+  - catg
+  - tech
+  - type
+  - nObs
+  source:
+  - name
+  - kwargs
+  wcu:
+  - current_lamp
+  - current_fpmask
+  - bb_aperture
+  - is_temp
+  - bb_temp
+  - wcu_temp
+  - xshift
+  - yshift
+top:
+  mode:
+  - img_lm
+  - img_n
+  - lss_l
+  - lss_m
+  - lss_n
+  - lms
+  - wcu_img_lm
+  - wcu_img_n
+  - wcu_lss_l
+  - wcu_lss_m
+  - wcu_lss_n
+  - wcu_lms
+  vals:
+  - source
+  - properties
+type:
+  float:
+  - bb_aperture
+  - pupil_transmision
+  - dit
+  floatList: []
+  int:
+  - nObs
+  - nRep
+  - ndit
+  intList: []
+  num:
+  - bb_temp
+  - bb_aperture
+  - is_temp
+  - wcu_temp
+  - xshift
+  - yshift
+  - dit
+  - ndit
+  - nObs
+  - nRep
+  - wavelen
+  - pupil_transmission
+vall:
+  properties:
+    adc:
+    - const_90
+    catg:
+    - CALIB
+    - SCIENCE
+    - TECHNICAL
+    detector_readout_mode:
+    - fast
+    - slow
+    filter_name:
+    - HCI_L_long
+    - HCI_L_short
+    - HCI_M
+    - IB_4.05
+    - L
+    - L_spec
+    - Lp
+    - M_spec
+    - Mp
+    - N1
+    - N2
+    - N3
+    - ND-1.4
+    - ND-2.8
+    - ND_OD1
+    - ND_OD2
+    - ND_OD3
+    - ND_OD4
+    - ND_OD5
+    - N_spec
+    - Ne_II
+    - Ne_II_ref
+    - PAH_11.25
+    - PAH_11.25_ref
+    - PAH_3.3
+    - PAH_3.3_ref
+    - PAH_8.6
+    - PAH_8.6_ref
+    - Q1
+    - S_IV
+    - S_IV_ref
+    - closed
+    - open
+    - short-L
+    nd_filter_name:
+    - open
+    - ND_OD1
+    - ND_OD2
+    - ND_OD3
+    - ND_OD4
+    slit:
+    - A-19_0
+    - B-28_6
+    - C-38_1
+    - D-57_1
+    - E-114_2
+    tech:
+    - IMAGE,LM
+    - IMAGE,N
+    - LSS,LM
+    - LSS,N
+    - IFU
+    - APP,LM
+    - RAVC,IFU
+    - RAVC_LM
+    - PSF,OFFAXIS
+    - PUP,LM
+    - PUP,N
+    type:
+    - FLAT,LAMP
+    - FLAT,TWILIGHT
+    - DARK
+    - DARK,WCUOFF
+    - OBJECT
+    - SKY
+    - PUPIL
+    - RSRF
+    - FLAT,LAMP,PINH
+    - SLITLOSS
+    - STD
+    - WAVE
+    - CHOPHOME
+    - DETLIN
+    - DISTORTION
+  wcu:
+    current_fpmask:
+    - open
+    - grid_lm
+    current_lamp:
+    - laser
+    - bb
+valr:
+  properties:
+    dit:
+    - 0.001
+    - 1000000.0
+    nDit:
+    - 0.001
+    - 1000000.0
+    nObs:
+    - 0
+    - 1000000.0
+    pupil_transmision:
+    - 0
+    - 1
+  wcu:
+    bb_aperture:
+    - 0
+    - 1
+    bb_temp:
+    - 0.001
+    - 1000000.0
+    is_temp:
+    - 0.001
+    - 1000000.0
+    wcu_temp:
+    - 0.001
+    - 1000000.0
